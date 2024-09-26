@@ -1,0 +1,644 @@
+@import url('https://webfontworld.github.io/sunn/SUIT.css');
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    position: relative;
+    height: 100vh;
+    font-family: 'SUIT';
+    overflow: hidden;
+}
+:root {
+    --fn-suit: 'SUIT';
+    --blue-50: #e6eef8;
+    --blue-100: #b0c9eb;
+    --blue-200: #8aafe1;
+    --blue-300: #558bd3;
+    --blue-400: #3475ca;
+    --blue-500: #0152bd;
+    --blue-600: #014bac;
+    --blue-700: #013a86;
+    --blue-800: #012d68;
+    --blue-900: #00224f;
+    --grey-50: #f3f5f6;
+    --grey-100: #dbdee2;
+    --grey-200: #cacfd4;
+    --grey-300: #b1b9c1;
+    --grey-400: #a2abb5;
+    --grey-500: #8b96a2;
+    --grey-600: #7e8993;
+    --grey-700: #636b73;
+    --grey-800: #4c5359;
+    --grey-900: #3a3f44;
+    --text-color: #242A30;
+}
+
+.blind {
+    width: 0;
+    height: 0;
+    text-indent: -9999px;
+    padding: 0;
+    margin: 0;
+    visibility: hidden;
+}
+
+/* margin, padding, border */
+.mt20{
+    margin-top: 20px;
+}
+.ml20{
+    margin-left: 20px;
+}
+.pb16{
+    padding-bottom: 16px;
+}
+.inputsPd{
+    padding: 16px 24px;
+}
+.inputsPd_{
+    padding: 4px 24px 16px 24px;
+}
+.bottomBd{
+    border-bottom: 1px solid var(--grey-100);
+}
+.topBd{
+    border-top: 1px solid var(--grey-100);
+}
+
+.inputCaption{
+    margin-bottom: 8px;
+    color: var(--text-color);
+    font-family: SUIT;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%; /* 12px */
+    letter-spacing: -0.6px;
+}
+
+/* inputs */
+.lgInput{
+    width: 208px;
+    height: 48px;
+}
+.lgThinInput{
+    width: 208px;
+    height: 34px;
+}
+.smInput{
+    width: 112px;
+    height: 48px;
+}
+.smThinInput{
+    width: 112px;
+    height: 34px;
+}
+input:focus{
+    outline: 1px solid var(--blue-500);
+}
+input[type="text"], input[type="password"]{
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: 1px solid var(--grey-50);
+    background: #FFF;
+    color: var(--text-color);
+    font-family: SUIT;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%; /* 14px */
+    letter-spacing: -0.7px;
+    transition: all .3s;
+}
+input::placeholder{
+    color: var(--grey-500);
+    font-family: SUIT;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%; /* 14px */
+    letter-spacing: -0.7px;
+    /* width: 50%; */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: break-all;
+}
+input[disabled] {
+    color: var(--grey-500);
+    border-radius: 4px;
+    border: 1px solid var(--grey-200);
+    background: var(--grey-200);
+}
+
+/* date */
+input[type="date"]{
+    position: relative;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: 1px solid var(--grey-50);
+    background: #FFF;
+    color: var(--text-color);
+    font-family: SUIT;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%; /* 14px */
+    letter-spacing: -0.7px;
+}
+
+input[type="date"]::-webkit-clear-button,
+input[type="date"]::-webkit-inner-spin-button { 
+    display: none;
+} 
+input[type="date"]::-webkit-calendar-picker-indicator { 
+    background: transparent;
+    z-index: 1;
+} 
+input[type="date"]::after{
+  position: absolute;
+  top:50%;
+  right:16px;
+  content: '';
+  width: 20px;
+  height: 22px;
+  background: url(/img/admin/date.png) center center / 100%;
+  transform: translateY(-50%);
+  z-index: 0;
+}
+input[type="date"]:disabled{
+  color: var(--grey-500) !important; 
+  border-radius: 4px !important;
+  border: 1px solid var(--grey-200) !important;
+  background: var(--grey-200) !important;
+}
+
+/* selects */
+.lgSelect{
+    width: 164px;
+    height: 48px;
+    padding: 8px;
+}
+.lgThinSelect{
+    width: 164px;
+    height: 34px;
+    padding: 8px;
+}
+.smSelect{
+    width: 104px;
+    height: 48px;
+    padding: 8px;
+}
+.smThinSelect{
+    width: 104px;
+    height: 34px;
+    padding: 8px;
+}
+
+/* radio */
+label{
+    cursor: pointer;
+}
+[type="radio"] {
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border: 1px solid #8B96A2;
+    border-radius: 50%;
+}
+[type="radio"]:checked {
+    box-shadow: 0 0 0 1px var(--blue-500);
+    border: 2px solid #fff;
+    background-color: var(--blue-500);
+}
+[type="radio"] span{
+    margin-top: 3px;
+    color: var(--text-color);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%; /* 14px */
+    letter-spacing: -0.7px;
+}
+
+/* checkbox */
+input[type=checkbox] {
+    display:none;
+}
+input[type=checkbox] + label { 
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    color: var(--text-color);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%; /* 14px */
+    letter-spacing: -0.7px;
+    background-repeat: no-repeat;
+    background-image: url('/img/admin/uncheck.png');
+    background-size: 10px;
+    background-position: 0 2px;
+}
+input[type=checkbox]:checked + label {
+    background-image: url('/img/admin/checked.png');
+}
+input.circleCheck[type=checkbox] + label { 
+    background-image: url('/img/admin/uncheck2.png');
+    background-size: 12px;
+    background-position: 0 1px;
+    margin-left: 10px;
+}
+input.circleCheck[type=checkbox]:checked + label {
+    background-image: url('/img/admin/checked2.png');
+}
+.lableOnly{
+    width: 12px;
+    height: 13px;
+}
+/* switch */
+.switchInput{
+    display:inline-block;
+    width: 34px;
+    height: 20px;
+    position:relative;
+}
+.switchInput input[type="checkbox"]{
+    position: absolute;
+    display: none;
+}
+/* switch button */
+.switchInput label::after{  
+    position:absolute;
+    top:0;
+    left:0;
+    content:'';
+    width: 18px;
+    height: 18px;
+    background: var(--grey-200);
+    border-radius: 100%;
+    border: 1px solid var(--grey-200);
+    background: #fff;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.16);
+    transition: all 0.3s
+}
+/* switch back */
+.switchInput label::before{
+    position:absolute;
+    top:0;
+    left:0;
+    content:'';
+    width: 100%;
+    height: 100%;
+    border-radius: 999px;
+    background: var(--grey-200);
+    box-sizing: border-box;
+}
+.switchInput input[type="checkbox"]:checked + label::after {
+    transform: translateX(14px);
+    border: 1px solid #044D37;
+}
+.switchInput input[type="checkbox"]:checked + label::before {
+    background: #fff;
+    background: #137055;
+}
+
+/* textarea */
+textarea{
+    max-width: 900px;
+    width: 100%;
+    height: 120px;
+    padding: 16px;
+    border-radius: 4px;
+    border: 1px solid var(--grey-50);
+    background: #FFF;
+    color: var(--text-color);
+    font-family: SUIT;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%; /* 14px */
+    letter-spacing: -0.7px;
+    resize: none;
+}
+textarea:focus{
+    outline: 1px solid var(--grey-500);
+}
+
+/* buttons */
+.buttons{
+    display: flex;
+    justify-content: flex-end;
+    column-gap: 8px;
+    padding-bottom: 4px;
+}
+.basicButton{
+    display: flex;
+    width: fit-content;
+    padding: 8px 16px 8px 8px;
+    align-items: center;
+    gap: 4px;
+    border-radius: 4px;
+}
+.basicButton img{
+    width: 16px;
+}
+.normalButton{
+    display: flex;
+    padding: 8px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: 4px;
+}
+.white{
+    color: var(--text-color);
+    text-align: center;
+    font-family: SUIT;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%; /* 14px */
+    letter-spacing: -0.7px;
+    border: 1px solid var(--grey-100);
+    background: #fff;
+}
+.blue{
+    color: #fff;
+    text-align: center;
+    font-family: SUIT;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%; /* 14px */
+    letter-spacing: -0.7px;
+    border: 1px solid var(--blue-600);
+    background: var(--blue-500);
+}
+.white:hover{
+    background: var(--grey-50);
+}
+.blue:hover{
+    background: var(--blue-600);
+}
+.smButton{
+    display: flex;
+    width: fit-content;
+    height: 20px;
+    padding: 0 8px 0 4px;
+    align-items: center;
+    gap: 4px;
+    border-radius: 4px;
+    border: 1px solid var(--grey-100);
+    background: #FFF;
+    color: var(--text-color);
+    text-align: center;
+    font-family: SUIT;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%; /* 12px */
+    letter-spacing: -0.6px;
+}
+.smButton img{
+    width: 12px;
+}
+.smButton:hover{
+    background: var(--grey-50);
+}
+.smButton.searches{
+    height: 32px;
+    padding: 0 16px 0 4px;
+    font-size: 14px;
+    letter-spacing: -0.7px;
+}
+.smButton.searches img{
+    width: 16px;
+}
+.smButton.bigBtn{
+    height: 32px;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 4px;
+	border: 1px solid var(--blue-600);
+	background: var(--blue-500);
+	color: #fff;
+} 
+.smButton.bigWhiteBtn{
+    height: 32px;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid var(--grey-100);
+    background: #fff;
+} 
+.smButton.bigWhiteBtn:hover{
+    background: var(--grey-50);
+
+}
+.marrige{
+    display: flex;
+    column-gap: 4px;
+}
+
+/* modal */
+.modalContainer{
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 99;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(177, 185, 193, 0.7);
+}
+.modalInner.lg{
+    position: relative;
+    width: 80%;
+    height: 70%;
+    max-width: 1280px;
+    height: 100%;
+    background-color: #fff;
+}
+.modalInner.lg form{
+    width: 100%;
+    height: calc(100% - 158px);
+    overflow-y: scroll;
+}
+.modalInner.lg form::-webkit-scrollbar{
+    display: none;
+}
+.modalInner.lg button{
+    position: absolute;
+    right: -40px;
+    top: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 0px 4px 4px 0px;
+    background-color: #fff;
+    cursor: pointer;
+}
+.modalInner.lg button img{
+    width: 15px;
+}
+.modalTit{
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+    height: 158px;
+    padding: 20px 24px;
+    background-color: var(--blue-50);
+}
+.modalTit p{
+    color: var(--text-color);
+    font-family: SUIT;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%; /* 24px */
+    letter-spacing: -1.2px;
+}
+
+
+.pwModalInner{
+    position: relative;
+    width: 564px;
+    height: 292px;
+    padding: 20px 32px;
+    border-radius: 20px;
+    background-color: #fff;
+}
+.pwModalInner button{
+    position: absolute;
+    top: 20px;
+    right: 32px;
+    width: 40px;
+    padding: 8px;
+    cursor: pointer;
+}
+.pwModalInner button img{
+    width: 100%;
+}
+.pwModalInner > p{
+    color: var(--text-color);
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 100%; /* 24px */
+    letter-spacing: -1.2px;
+}
+.pwInputs{
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+    padding-top: 28px;
+}
+.pwInput{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    width: 208px;
+}
+.pwTit{
+    color: var(--text-color);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 100%; /* 12px */
+    letter-spacing: -0.6px;
+}
+.wrongT{
+    display: none;
+    color: var(--Semantic-red, #BB1219);
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 100%; /* 10px */
+    letter-spacing: -0.5px;
+}
+.pwInput input{
+    width: 100%;
+    height: 34px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: 1px solid var(--grey-100);
+    background: #fff;
+}
+.pwInput input:focus{
+    border: 1px solid var(--blue-500);
+}
+.pwInput.wrong .wrongT{
+    display: block;
+}
+.pwInput.wrong input{
+    border: 1px solid #BB1219;
+}
+.pwInput.wrong input:focus{
+    outline: none;
+}
+.clear{
+    position: absolute;
+    right: 16px;
+    top: 26px;
+    display: none;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+.clear img{
+    width: 100%;
+}
+
+select:disabled{
+  color: var(--grey-500) !important; 
+  border-radius: 4px !important;
+  border: 1px solid var(--grey-200) !important;
+  background: var(--grey-200) !important;
+}
+
+.bindingText{
+    width: 208px;
+    height: 34px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: 1px solid var(--grey-50);
+    background: #FFF;
+    color: var(--text-color);
+    font-family: SUIT;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%; /* 14px */
+    letter-spacing: -0.7px;
+	
+}
+
+.loginInput{
+    width: 287px;
+    height: 60px;
+}
+.loginContents > button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 288px;
+    height: 40px;
+    padding: 8px 16px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 100%; /* 14px */
+    letter-spacing: -0.7px;
+    border-radius: 4px;
+    border: 1px solid var(--blue-600);
+    background: var(--blue-500);
+    cursor: pointer;
+}
+.loginContents > button:hover{
+    background-color: var(--blue-600);
+}

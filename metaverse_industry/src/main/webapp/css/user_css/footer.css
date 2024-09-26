@@ -1,0 +1,170 @@
+footer{
+    width: 100%;
+    border-top: 1px solid #DBDEE2;
+}
+.footerInner{
+    width: 100%;
+    max-width: 1640px;
+    margin: 0 auto;
+    padding: 0 20px 80px 20px;
+}
+.footerTop{
+    width: 100%;
+    padding: 40px 0;
+}
+.snsFam{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 40px;
+}
+.sns{
+    display: flex;
+    column-gap: 28px;
+}
+.famDrop{
+    position: relative;
+    width: 211px;
+    /* box-shadow: 0px 4px 44px 0px rgba(0, 0, 0, 0.12); */
+    transition: all .3s;
+}
+.famDrop button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+    width: 100%;
+    padding: 12px 32px;
+    border: 1px solid #DBDEE2;
+    font-family: var(--fn-suit);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 100%; /* 16px */
+    letter-spacing: -0.8px;
+    cursor: pointer;
+}
+.famDrop button::after{
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-image: url(/img/user_img/arrow-up1.png);
+}
+.famLists{
+    position: absolute;
+    bottom: 48px;
+    z-index: 11;
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 20px 20px 0 0;
+    background-color: #fff;
+    transition: all .3s;
+    opacity: 0;
+}
+.famLists li a{
+    display: block;
+    padding: 12px 32px;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 100%; /* 16px */
+    letter-spacing: -0.8px;
+    text-align: center;
+    width: 100%;
+    transition: all .2s;
+}
+.famLists li a span{
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;   
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: break-all;
+}
+.famLists li a:hover{
+    font-weight: 700;
+}
+
+.famDrop.active{
+    box-shadow: 0px 4px 44px 0px rgba(0, 0, 0, 0.12);
+    border-radius: 0 0 20px 20px;
+}
+.famDrop.active button{
+    background-color: #171C61;
+    border-radius: 0 0 20px 20px;
+    color: #FFF;
+}
+.famDrop.active button::after{
+    background-image: url(/img/user_img/arrow-up.png);
+}
+.famDrop.active .famLists{
+    height: fit-content;
+    padding: 20px 0;
+    border: 1px solid var(--grey-100);
+    opacity: 1;
+    box-shadow: 0px 4px 44px 0px rgba(0, 0, 0, 0.12);
+}
+
+.footerTexts{
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+    color: #8B96A2;
+}
+.footerTexts p{
+    display: flex;
+    column-gap: 4px;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%; /* 16px */
+}
+.footerTexts p span{
+    font-weight: 400;
+}
+.footerInfo{
+    display: flex;
+    column-gap: 16px;
+}
+.footerInfo li{
+    position: relative;
+}
+.footerInfo li:not(:last-of-type):after{
+    position: absolute;
+    right: -9px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-block;
+    content: "|";
+    color: var(--grey-100);
+}
+.footerInfo li a{
+    display: block;
+    padding: 8px 12px;
+    color: #8B96A2;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 100%; /* 16px */
+    letter-spacing: -0.8px;
+}
+
+@media all and (max-width : 768px){
+    .snsFam{
+        flex-direction: column;
+        row-gap: 40px;
+    }
+    .footerTexts p{
+        line-height: 140%; /* 16px */
+    }
+    .footerInfo{
+        flex-wrap: wrap;
+        justify-content: center;
+        column-gap: 16px;
+    }
+    .famDrop.active .famLists{
+        height: 200px;
+        overflow-y: auto;
+    }
+}

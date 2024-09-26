@@ -1,0 +1,49 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+
+li {
+  list-style:none;
+}
+
+@font-face {
+    font-family: '210OmniGothic020-Regular';
+    src: url("/fonts/210-옴니고딕-020.woff");
+  }
+  
+  @font-face {
+    font-family: '210OmniGothic025-Regular';
+    src: url("/fonts/210-옴니고딕-025.woff");
+  }
+  
+  @font-face {
+    font-family: '210OmniGothic030-Regular';
+    src: url("/fonts/210-옴니고딕-030.woff");
+  }
+  
+  @font-face {
+    font-family: '210OmniGothic035-Regular';
+    src: url("/fonts/210-옴니고딕-035.woff");
+  }
+  
+  @font-face {
+    font-family: '210OmniGothic040-Regular';
+    src: url("/fonts/210-옴니고딕-040.woff");
+  }
+  
+  @font-face {
+    font-family: '210OmniGothic045-Regular';
+    src: url("/fonts/210-옴니고딕-045.woff");
+  }
+  
+  @font-face {
+    font-family: '210OmniGothic050-Regular';
+    src: url("/fonts/210-옴니고딕-050.woff");
+  }
+
+:root {
+  --fn-sans : 'Noto Sans KR', sans-serif;
+}

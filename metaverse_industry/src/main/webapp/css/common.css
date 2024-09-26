@@ -1,0 +1,115 @@
+@font-face {
+    font-family: 'GmarketSans';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    position: relative;
+    /* z-index: 3; */
+    font-family: 'GmarketSans';
+    overflow-x: hidden;
+}
+.ani{
+    position: absolute;
+    z-index: 1;
+}
+.ani.cir1{
+    top:0;
+    left: 10%;
+    animation: side 1s ease-in-out both infinite alternate;
+}
+.ani.cir2{
+    top: 135px;
+    right: 10%;
+    animation: up-down 1s ease-in-out both infinite alternate;
+}
+.ani.cir3{
+    top: 538px;
+    right: 0;
+    animation: up-down 1s ease-in-out both infinite alternate;
+}
+.ani.cir4{
+    top: 495px;
+    left: 0;
+    animation: up-down 1s ease-in-out both infinite alternate;
+}
+.ani.cir5{
+    top: 1500px;
+    right: 0;
+    z-index: 2;
+    animation: up-down 1s ease-in-out both infinite alternate;
+}
+.ani.cir6{
+    top: 1620px;
+    left: 0;
+    z-index: 2;
+    animation: up-down 1s ease-in-out both infinite alternate;
+}
+.ani.cir7{
+    top: 1978px;
+    right: 0;
+    z-index: 2;
+    animation: up-down 1s ease-in-out both infinite alternate;
+}
+@keyframes up-down{
+    0%{
+        transform: translateY(10px);
+    }
+    100%{
+        transform: translateY(-10px);
+    }
+}
+@keyframes side{
+    0%{
+        transform: translateX(10px);
+    }
+    100%{
+        transform: translateX(-10px);
+    }
+}
+@media all and (max-width : 1669px){
+    .ani.cir5{
+        display: none;
+    }
+    .ani.cir6{
+        display: none;
+    }
+    .ani.cir7{
+        display: none;
+    }
+}
+@media all and (max-width : 1024px){
+    .ani{
+        display: none;
+    }
+}
+
+:root {
+	--fn-market: 'GmarketSans';
+	--fn-suit: 'SUIT-Regular';
+    --color-white: #fff;
+    --color-blue: #00cbff;
+    --color-darkblue: rgba(0, 42, 100, 0.9);
+    --btn-color: rgba(255, 255, 255, 0.17);
+}
+
+.blind {
+    width: 0;
+    height: 0;
+    text-indent: -9999px;
+    padding: 0;
+    margin: 0;
+    visibility: hidden;
+}

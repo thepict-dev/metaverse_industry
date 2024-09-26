@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pict_admin.service.impl.PictMapper">
+	<select id="board_list" resultType="pictVO">
+		select idx, title, img_url, text, date_format(reg_date, '%Y-%m-%d') as reg_date, from_date, to_date, link_url, reg_date as rr_d from board_master
+		<if test="search_text != null and search_text != '' ">
+			where (
+				title LIKE CONCAT('%', #{search_text}, '%')
+			) 
+		</if>
+		order by rr_d desc
+	</select>
+	
+	<select id="board_list_one" resultType="pictVO">
+		select * from board_master
+		where idx = #{idx}
+	</select>
+	
+	<insert id="board_insert" parameterType="pictVO">
+		INSERT INTO board_master
+			(
+			 title, reg_date, use_at, img_url, text, link_url, from_date, to_date
+			)
+		VALUES (
+			 #{title}, now(), 'Y', #{img_url}, #{text}, #{link_url}, #{from_date}, #{to_date}
+			  ) 
+	</insert>
+	
+	<update id="board_update" parameterType="pictVO">
+		update board_master
+		set title =#{title}, 
+		reg_date = now(), 
+		<if test="img_url != null and img_url != '' ">
+			img_url = #{img_url}, 
+		</if>
+		text =#{text},
+		link_url = #{link_url},
+		from_date = #{from_date},
+		to_date = #{to_date} 
+		where idx = #{idx}
+	</update>
+	
+
+	<delete id="board_delete" parameterType="pictVO">
+		delete from board_master where idx = #{idx}
+	</delete>
+	
+	<update id="board_file_delete" parameterType="pictVO">
+		update board_master
+		set img_url=NULL
+		where idx = #{idx}
+	</update>
+	
+	
+	<select id="pemtour_select" resultType="pictVO">
+		select * from pemtour_table
+	</select>
+	
+	<update id="pemtour_update" parameterType="pictVO">
+		update pemtour_table
+		set pemtour_url = #{pemtour_url},
+		maintitle = #{maintitle}, title = #{title}, subtitle = #{subtitle}
+	</update>
+	
+	
+	<select id="event_list" resultType="pictVO">
+		select idx, title, img_url, text, date_format(reg_date, '%Y-%m-%d') as reg_date, from_date, to_date, link_url, reg_date as rr_d from event_table
+		<if test="search_text != null and search_text != '' ">
+			where (
+				title LIKE CONCAT('%', #{search_text}, '%')
+			) 
+		</if>
+		order by rr_d desc
+	</select>
+	
+	<select id="event_list_one" resultType="pictVO">
+		select * from event_table
+		where idx = #{idx}
+	</select>
+	
+	<insert id="event_insert" parameterType="pictVO">
+		INSERT INTO event_table
+			(
+			 title, reg_date, use_at, img_url, text, link_url, from_date, to_date
+			)
+		VALUES (
+			 #{title}, now(), 'Y', #{img_url}, #{text}, #{link_url}, #{from_date}, #{to_date}
+			  ) 
+	</insert>
+	
+	<update id="event_update" parameterType="pictVO">
+		update event_table
+		set title =#{title}, 
+		reg_date = now(), 
+		<if test="img_url != null and img_url != '' ">
+			img_url = #{img_url}, 
+		</if>
+		text =#{text},
+		link_url = #{link_url},
+		from_date = #{from_date},
+		to_date = #{to_date} 
+		where idx = #{idx}
+	</update>
+	
+
+	<delete id="event_delete" parameterType="pictVO">
+		delete from event_table where idx = #{idx}
+	</delete>
+	
+	<update id="event_file_delete" parameterType="pictVO">
+		update event_table
+		set img_url=NULL
+		where idx = #{idx}
+	</update>
+	
+	
+	
+	
+	
+	<!-- 영상로케이션 -->
+	<select id="video_location_list" resultType="pictVO">
+		select * from location_table 
+		where 1=1
+		<if test="search_text != null and search_text != '' ">
+			and (
+				title LIKE CONCAT('%', #{search_text}, '%') 
+			) 
+		</if>
+		<if test="location_category != null and location_category != '' ">
+			and location_category = #{location_category}
+		</if>
+		<if test="flag == null or flag == '' ">
+			order by reg_date desc
+			LIMIT #{limit_cnt} OFFSET #{startNumber}
+		</if>
+		
+	</select>
+	
+	<select id="video_location_list_cnt" resultType="int">
+		select count(idx) from location_table 
+		where 1=1
+		<if test="location_category != null and location_category != '' ">
+			and location_category = #{location_category}
+		</if>
+		<if test="search_text != null and search_text != '' ">
+			and (
+				title LIKE CONCAT('%', #{search_text}, '%') 
+			) 
+		</if>
+	</select>
+	
+	<select id="video_location_list_one" resultType="pictVO">
+		select * from location_table 
+		where 1=1
+		and idx = #{idx}
+		
+	</select>
+	
+	<insert id="location_apply_save" parameterType="pictVO">
+		INSERT INTO location_apply_table
+			(
+			 location_id, start_date, end_date, name, tel, email, company, depart, category, title, file_url, reg_date
+			)
+		VALUES (
+			 #{idx}, #{start_date}, #{end_date}, #{name}, #{tel}, #{email}, #{company}, #{depart}, #{category}, #{title}, #{file_url}, now()
+			  ) 
+	</insert>
+	
+	
+	
+	<!-- 산업체리스트 -->
+	<select id="industry_list" resultType="pictVO">
+		select * from industry_table 
+		where 1=1
+		<if test="search_text != null and search_text != '' ">
+			and (
+				title LIKE CONCAT('%', #{search_text}, '%') 
+			) 
+		</if>
+		
+		<if test="
+			(scale1 != null and scale1 != '') or (scale2 != null and scale2 != '' ) or (scale3 != null and scale3 != '')
+			or (main_subject1 != null and main_subject1 != '') or (main_subject2 != null and main_subject2 != '' ) or (main_subject3 != null and main_subject3 != '')
+			or (main_subject4 != null and main_subject4 != '') or (main_subject5 != null and main_subject5 != '' ) or (main_subject6 != null and main_subject6 != '')
+			or (certificate_category1 != null and certificate_category1 != '') or (certificate_category2 != null and certificate_category2 != '' ) or (certificate_category3 != null and certificate_category3 != '')
+			or (certificate_category4 != null and certificate_category4 != '') or (certificate_category5 != null and certificate_category5 != '' ) or (certificate_category6 != null and certificate_category6 != '')
+		
+		">
+			and (
+				0=1
+			<if test="scale1 != null and scale1 != '' ">
+				or scale LIKE CONCAT('%', #{scale1}, '%')
+			</if>
+			<if test="scale2 != null and scale2 != '' ">
+				or scale LIKE CONCAT('%', #{scale2}, '%')
+			</if>
+			<if test="scale3 != null and scale3 != '' ">
+				or scale LIKE CONCAT('%', #{scale3}, '%')
+			</if>
+			
+			<if test="main_subject1 != null and main_subject1 != '' ">
+				or main_subject LIKE CONCAT('%', #{main_subject1}, '%')
+			</if>
+			<if test="main_subject2 != null and main_subject2 != '' ">
+				or main_subject LIKE CONCAT('%', #{main_subject2}, '%')
+			</if>
+			<if test="main_subject3 != null and main_subject3 != '' ">
+				or main_subject LIKE CONCAT('%', #{main_subject3}, '%')
+			</if>
+			<if test="main_subject4 != null and main_subject4 != '' ">
+				or main_subject LIKE CONCAT('%', #{main_subject4}, '%')
+			</if>
+			<if test="main_subject5 != null and main_subject5 != '' ">
+				or main_subject LIKE CONCAT('%', #{main_subject5}, '%')
+			</if>
+			<if test="main_subject6 != null and main_subject6 != '' ">
+				or main_subject LIKE CONCAT('%', #{main_subject6}, '%')
+			</if>
+			
+			<if test="certificate_category1 != null and certificate_category1 != '' ">
+				or certificate_category LIKE CONCAT('%', #{certificate_category1}, '%')
+			</if>
+			<if test="certificate_category2 != null and certificate_category2 != '' ">
+				or certificate_category LIKE CONCAT('%', #{certificate_category2}, '%')
+			</if>
+			<if test="certificate_category3 != null and certificate_category3 != '' ">
+				or certificate_category LIKE CONCAT('%', #{certificate_category3}, '%')
+			</if>
+			<if test="certificate_category4 != null and certificate_category4 != '' ">
+				or certificate_category LIKE CONCAT('%', #{certificate_category4}, '%')
+			</if>
+			<if test="certificate_category5 != null and certificate_category5 != '' ">
+				or certificate_category LIKE CONCAT('%', #{certificate_category5}, '%')
+			</if>
+			<if test="certificate_category6 != null and certificate_category6 != '' ">
+				or certificate_category LIKE CONCAT('%', #{certificate_category6}, '%')
+			</if>
+			
+		)
+		</if>
+		order by reg_date desc
+		LIMIT #{limit_cnt} OFFSET #{startNumber}
+	</select>
+	
+	<select id="industry_list_cnt" resultType="int">
+		select count(idx) from industry_table 
+		where 1=1
+
+		<if test="search_text != null and search_text != '' ">
+			and (
+				title LIKE CONCAT('%', #{search_text}, '%') 
+			) 
+		</if>
+		<if test="
+			(scale1 != null and scale1 != '') or (scale2 != null and scale2 != '' ) or (scale3 != null and scale3 != '')
+			or (main_subject1 != null and main_subject1 != '') or (main_subject2 != null and main_subject2 != '' ) or (main_subject3 != null and main_subject3 != '')
+			or (main_subject4 != null and main_subject4 != '') or (main_subject5 != null and main_subject5 != '' ) or (main_subject6 != null and main_subject6 != '')
+			or (certificate_category1 != null and certificate_category1 != '') or (certificate_category2 != null and certificate_category2 != '' ) or (certificate_category3 != null and certificate_category3 != '')
+			or (certificate_category4 != null and certificate_category4 != '') or (certificate_category5 != null and certificate_category5 != '' ) or (certificate_category6 != null and certificate_category6 != '')
+		
+		">
+			and (
+				0=1
+			<if test="scale1 != null and scale1 != '' ">
+				or scale LIKE CONCAT('%', #{scale1}, '%')
+			</if>
+			<if test="scale2 != null and scale2 != '' ">
+				or scale LIKE CONCAT('%', #{scale2}, '%')
+			</if>
+			<if test="scale3 != null and scale3 != '' ">
+				or scale LIKE CONCAT('%', #{scale3}, '%')
+			</if>
+			
+			<if test="main_subject1 != null and main_subject1 != '' ">
+				or main_subject LIKE CONCAT('%', #{main_subject1}, '%')
+			</if>
+			<if test="main_subject2 != null and main_subject2 != '' ">
+				or main_subject LIKE CONCAT('%', #{main_subject2}, '%')
+			</if>
+			<if test="main_subject3 != null and main_subject3 != '' ">
+				or main_subject LIKE CONCAT('%', #{main_subject3}, '%')
+			</if>
+			<if test="main_subject4 != null and main_subject4 != '' ">
+				or main_subject LIKE CONCAT('%', #{main_subject4}, '%')
+			</if>
+			<if test="main_subject5 != null and main_subject5 != '' ">
+				or main_subject LIKE CONCAT('%', #{main_subject5}, '%')
+			</if>
+			<if test="main_subject6 != null and main_subject6 != '' ">
+				or main_subject LIKE CONCAT('%', #{main_subject6}, '%')
+			</if>
+			
+			<if test="certificate_category1 != null and certificate_category1 != '' ">
+				or certificate_category LIKE CONCAT('%', #{certificate_category1}, '%')
+			</if>
+			<if test="certificate_category2 != null and certificate_category2 != '' ">
+				or certificate_category LIKE CONCAT('%', #{certificate_category2}, '%')
+			</if>
+			<if test="certificate_category3 != null and certificate_category3 != '' ">
+				or certificate_category LIKE CONCAT('%', #{certificate_category3}, '%')
+			</if>
+			<if test="certificate_category4 != null and certificate_category4 != '' ">
+				or certificate_category LIKE CONCAT('%', #{certificate_category4}, '%')
+			</if>
+			<if test="certificate_category5 != null and certificate_category5 != '' ">
+				or certificate_category LIKE CONCAT('%', #{certificate_category5}, '%')
+			</if>
+			<if test="certificate_category6 != null and certificate_category6 != '' ">
+				or certificate_category LIKE CONCAT('%', #{certificate_category6}, '%')
+			</if>
+			
+		)
+		</if>
+	</select>
+	
+	<select id="industry_list_one" resultType="pictVO">
+		select * from industry_table where idx = #{idx}
+	
+	</select>
+	<select id="portfolio_list" resultType="pictVO">
+		select * from portfolio_table where industry_id = #{idx}
+	</select>
+	
+	<select id="movie_list" resultType="pictVO">
+		select * from movie_table where location_id = #{idx}
+	</select>
+</mapper>
