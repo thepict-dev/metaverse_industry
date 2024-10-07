@@ -9,15 +9,14 @@
         <div class="footerTop">
             <div class="snsFam">
                 <ul class="sns">
-                    <li><a href="#lnk" target="_blank" title="새창이동"><img src="/img/user_img/blog.png" alt=""></a></li>
+                    <li><a href="#lnk" target="_blank" title="새창이동"><img src="/img/user_img/youtube.png" alt=""></a></li>
                     <li><a href="#lnk" target="_blank" title="새창이동"><img src="/img/user_img/instagram.png" alt=""></a></li>
                     <li><a href="#lnk" target="_blank" title="새창이동"><img src="/img/user_img/facebook.png" alt=""></a></li>
                 </ul>
                 <div class="famDrop">
                     <button type="button">강원디지털인프라</button>
                     <ul class="famLists">
-                        <li><a href="" target="_blank" title="새창이동"><span>춘천시영상산업지원센터</span></a></li>
-                        <li><a href="" target="_blank" title="새창이동"><span>강원 메타버스 지원센터</span></a></li>
+                        <li><a href="#lnk" target="_blank" title="새창이동"><span>강원 메타버스 지원센터</span></a></li>
                         <li><a href="" target="_blank" title="새창이동"><span>스마트토이비즈센터</span></a></li>
                         <li><a href="" target="_blank" title="새창이동"><span>강원 CKL</span></a></li>
                         <li><a href="" target="_blank" title="새창이동"><span>강원음악창작소</span></a></li>
@@ -27,14 +26,20 @@
                         <li><a href="" target="_blank" title="새창이동"><span>Fab Lab강원</span></a></li>
                         <li><a href="" target="_blank" title="새창이동"><span>커먼즈필드 춘천</span></a></li>
                         <li><a href="" target="_blank" title="새창이동"><span>강원대학교 버추얼 프로덕션 LED 스튜디오</span></a></li>
+                        <li><a href="" target="_blank" title="새창이동"><span>춘천시영상산업지원센터</span></a></li>
                     </ul>
                 </div>
             </div>
             <div class="footerTexts">
-                <p>(24461) 강원특별자치도 춘천시 서면 박사로 854 (재)강원정보문화산업진흥원 문화사업진흥센터 건물 2층 204호</p>
-                <p>TEL<span>033-245-6333</span></p>
-                <p>Copyright 2020. 춘천시영상산업지원센터 all rights reserved.</p>
+                <p>강원도 춘천시 서면 박사로 854 강원정보문화산업진흥원 문화지원센터</p>
+                <p>TEL<span>033-245-6313</span></p>
+                <p>COPYRIGHT(C) 2020 Gangwon VRㆍAR Production Center. ALL RIGHTS RESERVED.</p>
             </div>
         </div>
+        <ul class="footerInfo">
+            <li><a href="#lnk" target="_blank" title="새창이동">개인정보 처리 방침</a></li>
+            <li><a href="#lnk" target="_blank" title="새창이동">이용약관</a></li>
+            <li><a href="#lnk" target="_blank" title="새창이동">이메일 무단 수집거부</a></li>
+        </ul>
     </div>
 </footer>

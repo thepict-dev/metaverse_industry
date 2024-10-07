@@ -1,0 +1,350 @@
+.modalContainer, .stateModal{
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 15;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.60);
+}
+
+.stateModalInner{
+    position: relative;
+    width: 320px;
+    max-height: 614px;
+    height: 80%;
+    padding: 20px;
+    background-color: var(--grey-50);
+    border-radius: 20px;
+    overflow-y: auto;
+}
+.stateModalInner > button{
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    cursor: pointer;
+}
+.stateLists{
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    width: 100%;
+}
+.stateLists li{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px 20px;
+    column-gap: 8px;
+    background-color: #fff;
+    border-radius: 10px;
+}
+.stateLists li span{
+    display: block;
+    min-width: 57px;
+    color: var(--grey-500);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 140%; /* 22.4px */
+    letter-spacing: -0.8px;
+}
+.stateLists li p{
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 140%; /* 22.4px */
+    letter-spacing: -0.8px;
+}
+
+/* 예약모달 */
+.modalInner{
+    position: relative;
+    width: 400px;
+    max-height: 687px;
+    height: 80%;
+    padding-top: 64px;
+    background-color: #fff;
+}
+.modalInner > button{
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    cursor: pointer;
+}
+.modalContents{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: calc(100% - 56px);
+    padding: 0 40px;
+    overflow-y: auto;
+}
+.modalTitles{
+    margin-bottom: 36px;
+    text-align: center;
+}
+.modalTitles p{
+    padding-bottom: 8px;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 140%; /* 39.2px */
+    letter-spacing: -1.4px;
+}
+.modalTitles span{
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 140%; /* 22.4px */
+    letter-spacing: -0.8px;
+}
+.modalTitles span span{
+    color: var(--gold-color);
+}
+
+@media all and (max-width: 1024px){
+    .modalInner{
+        width: 90%;
+        height: 70%;
+    }
+    .modalContents{
+        padding: 0 20px;
+    }
+}
+
+.infoSlides{
+    width: 100%;
+    height: fit-content;
+    border-top: 1px solid var(--grey-100);
+    border-bottom: 1px solid var(--grey-100);
+}
+.infoSlides .swiper{
+    width: 100%;
+}
+.infoSlides .swiper-slide{
+    width: 100%;
+}
+.infoSlides .swiper-horizontal>.swiper-pagination-bullets, .infoSlides .swiper-pagination-bullets.swiper-pagination-horizontal, .infoSlides .swiper-pagination-custom, .infoSlides .swiper-pagination-fraction{
+    position: unset;
+    margin-bottom: 36px;
+}
+.infoSlides .swiper-pagination-bullet{
+	width: 5px;
+	height: 5px;
+	margin: 0 10px !important;
+	border-radius: 10px;
+	background-color: var(--grey-300);
+	opacity: 1;
+	transition: all .3s;
+}
+.infoSlides .swiper-pagination-bullet-active{
+	background-color: #171C61;
+}
+
+.bookingInfolists{
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+    padding: 20px 0;
+    margin-bottom: 36px;
+
+}
+.bookingInfolists li{
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+    letter-spacing: -0.8px;
+    font-weight: 500;
+    line-height: 140%; /* 22.4px */
+    font-size: 16px;
+    width: 100%;
+}
+.bookingInfolists li p{
+    width: 100px;
+    color: var(--grey-500);
+}
+.bookingInfolists li span{
+    display: inline-block;
+    width: calc(100% - 100px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.modalDesc{
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    padding: 20px 0;
+}
+.modalDesc li{
+    display: flex;
+    column-gap: 5px;
+    color: var(--grey-500);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 140%; /* 19.6px */
+    letter-spacing: -0.7px;
+}
+.modalDesc li:last-of-type{
+    color: var(--gold-color);
+}
+.modalDesc li span{
+    display: inline-block;
+    margin-left: 3px;
+}
+
+.checkConfirm{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 8px;
+    margin: 36px 0;
+}
+.checkConfirm label{
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 100%; /* 14px */
+    letter-spacing: -0.7px;
+    text-decoration-line: underline;
+    cursor: pointer;
+}
+.conirmBtn{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+/* 마이페이지 모달 */
+.myModalInner{
+    max-width: 1059px;
+    width: 90%;
+    max-height: 702px;
+    height: 70%;
+    border-radius: 20px;
+    overflow: hidden;
+}
+.modalTop{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 60px;
+    padding: 0 40px;
+    background-color: var(--navy-color);
+    color: var(--wh, #FFF);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 100%; /* 20px */
+    letter-spacing: -1px;
+}
+.modalTop button{
+    cursor: pointer;
+}
+
+.modalBottom{
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    width: 100%;
+    height: calc(100% - 60px);
+    padding: 16px 40px;
+    background-color: #fff;
+    overflow-y: auto;
+}
+.modalBottom .joinFormWrapper{
+    padding: 40px 0;
+}
+
+@media all and (max-width : 768px){
+    .modalBottom{
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+        width: 100%;
+        height: calc(100% - 60px);
+        padding: 28px 20px 0 20px;
+        background-color: #fff;
+        overflow-y: auto;
+    }
+    .modalBottom .joinFormWrapper{
+        padding: 0;
+    }
+    .modalBottom .fullButtonContainer{
+        margin: 28px 0 40px 0;
+    }
+}
+
+
+.stateModal{
+    display: none;
+}
+.stateModal.active{
+    display: flex;
+}
+
+/* 모달 id */
+#confirmModal{
+    display: none;
+}
+#confirmModal.active{
+    display: flex;
+}
+#checkModal{
+    display: none;
+}
+#checkModal.active{
+    display: flex;
+}
+#modifyBasic{
+    display: none;
+}
+#modifyBasic.active{
+    display: flex;
+}
+#modefyAdd{
+    display: none;
+}
+#modefyAdd.active{
+    display: flex;
+}
+#bookingInfoModal{
+    display: none;
+}
+#bookingInfoModal.active{
+    display: flex;
+}
+#docAddModal{
+    display: none;
+}
+#docAddModal.active{
+    display: flex;
+}
+#rejectModal{
+    display: none;
+}
+#rejectModal.active{
+    display: flex;
+}
+#infoCheckModal{
+    display: none;
+}
+#infoCheckModal.active{
+    display: flex;
+}
+
+#bookingInfoModal .modalInner{
+    max-height: 610px;
+}
+#docAddModal .myModalInner{
+    max-height: 539px;
+}
+#rejectModal .myModalInner{
+    max-height: 421px;
+}
+#infoCheckModal .modalInner{
+    max-height: 567px;
+}
+.stateModalInner.facil{
+    max-height: 547px;
+}

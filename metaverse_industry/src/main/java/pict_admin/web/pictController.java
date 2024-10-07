@@ -57,6 +57,92 @@ public class pictController {
 	public String lending(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model, HttpSession session, RedirectAttributes rttr) throws Exception {
 		return "pict/user/user_main";
 	}
+
+	@RequestMapping(value = "/user_login.do")
+	public String user_login(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model, HttpSession session, RedirectAttributes rttr) throws Exception {
+		
+		return "pict/user/user_login";
+	}
+	@RequestMapping(value = "/join.do")
+	public String join(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model, HttpSession session, RedirectAttributes rttr) throws Exception {
+		
+		return "pict/user/join";
+	}
+	@RequestMapping(value = "/login_done.do")
+	public String login_done(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model, HttpSession session, RedirectAttributes rttr) throws Exception {
+		
+		return "pict/user/login_done";
+	}
+	
+	//센터소개equipment_rental
+	@RequestMapping(value = "/intro.do")
+	public String intro(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model, HttpSession session, RedirectAttributes rttr) throws Exception {
+		
+		return "pict/user/intro";
+	}
+	//지원사업
+	@RequestMapping(value = "/support.do")
+	public String support(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model, HttpSession session, RedirectAttributes rttr) throws Exception {
+		
+		return "pict/user/support";
+	}
+	//장비대여
+	@RequestMapping(value = "/equipment.do")
+	public String equipment(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model, HttpSession session, RedirectAttributes rttr) throws Exception {
+		
+		return "pict/user/equipment";
+	}
+	//장비대여 정보입력
+	@RequestMapping(value = "/equipment_rental.do")
+	public String equipment_rental(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model, HttpSession session, RedirectAttributes rttr) throws Exception {
+		
+		return "pict/user/equipment_rental";
+	}
+	//시설예약
+	@RequestMapping(value = "/facility.do")
+	public String facility(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model, HttpSession session, RedirectAttributes rttr) throws Exception {
+		
+		return "pict/user/facility";
+	}
+	//시설예약 정보입력
+	@RequestMapping(value = "/facility_rental.do")
+	public String facility_rental(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model, HttpSession session, RedirectAttributes rttr) throws Exception {
+		
+		return "pict/user/facility_rental";
+	}
+	
+	//현장체험교육
+	@RequestMapping(value = "/education.do")
+	public String education(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model, HttpSession session, RedirectAttributes rttr) throws Exception {
+		
+		return "pict/user/education";
+	}
+
+	//공지사항
+	@RequestMapping(value = "/notice.do")
+	public String notice(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model, HttpSession session, RedirectAttributes rttr) throws Exception {
+		
+		return "pict/user/notice";
+	}
+	//공지사항 뷰
+	@RequestMapping(value = "/notice_view.do")
+	public String notice_view(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model, HttpSession session, RedirectAttributes rttr) throws Exception {
+		
+		return "pict/user/notice_view";
+	}
+	
+	//공지사항
+	@RequestMapping(value = "/biz_post.do")
+	public String biz_post(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model, HttpSession session, RedirectAttributes rttr) throws Exception {
+		
+		return "pict/user/biz_post";
+	}
+	//공지사항 뷰
+	@RequestMapping(value = "/biz_post_view.do")
+	public String biz_post_view(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model, HttpSession session, RedirectAttributes rttr) throws Exception {
+		
+		return "pict/user/biz_post_view";
+	}
 	
 	//로케이션
 	@RequestMapping(value = "/location_db_list.do")
