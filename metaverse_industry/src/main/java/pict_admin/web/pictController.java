@@ -143,6 +143,32 @@ public class pictController {
 		
 		return "pict/user/biz_post_view";
 	}
+
+	//마이페이지
+	//계정관리
+	@RequestMapping(value = "/mypage_account.do")
+	public String mypage_account(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model, HttpSession session, RedirectAttributes rttr) throws Exception {
+		
+		return "pict/user/mypage_account";
+	}
+	//장비 예약정보
+	@RequestMapping(value = "/mypage_equip.do")
+	public String mypage_equip(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model, HttpSession session, RedirectAttributes rttr) throws Exception {
+		
+		return "pict/user/mypage_equip";
+	}
+	//시설 예약정보
+	@RequestMapping(value = "/mypage_facil.do")
+	public String mypage_facil(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model, HttpSession session, RedirectAttributes rttr) throws Exception {
+		
+		return "pict/user/mypage_facil";
+	}
+	//장바구니
+	@RequestMapping(value = "/mypage_bag.do")
+	public String mypage_bag(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model, HttpSession session, RedirectAttributes rttr) throws Exception {
+		
+		return "pict/user/mypage_bag";
+	}
 	
 	//로케이션
 	@RequestMapping(value = "/location_db_list.do")

@@ -10,7 +10,7 @@
 <meta charset="ko">
 <%@ include file="./include/head.jsp" %>
 <body>
-	<%@ include file="./include/header.jsp" %>
+	<%@ include file="./include/header_sub.jsp" %>
 	    <div class="subTop rental">
         <div class="subColor">
             <h2>장비대여</h2>

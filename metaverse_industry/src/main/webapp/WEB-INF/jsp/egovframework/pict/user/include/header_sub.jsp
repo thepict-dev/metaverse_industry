@@ -18,10 +18,15 @@
 <c:set var="notice" value="${fn:indexOf(url, 'notice')}"/>
 <c:set var="biz_post" value="${fn:indexOf(url, 'biz_post')}"/>
 
-<header>
+<header class="subHeader">
     <div class="headerInner">
         <div class="gnb">
-            <h1><a href="/"><img src="/img/user_img/logo.png" alt=""></a></h1>
+            <h1>
+            	<a href="/">
+            		<img src="/img/user_img/logo-sub.png" alt="">
+            		<img src="/img/user_img/logo.png" alt="" class="subLogo">
+            	</a>
+           	</h1>
             <ul class="nav">
                 <li <c:if test="${intro ne -1}">class="active"</c:if>>
                     <a href="/intro.do">센터소개</a>

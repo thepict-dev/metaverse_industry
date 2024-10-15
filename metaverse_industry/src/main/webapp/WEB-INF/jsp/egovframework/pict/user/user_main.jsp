@@ -45,7 +45,7 @@
                             <span>매주 금요일 15시</span>
                         </li>
                     </ul>
-                    <a href="#lnk" class="blueButton dot">신청하기</a>
+                    <a href="/education.do" class="blueButton dot">신청하기</a>
                 </div>
             </div>
             <div class="swiperSection">
@@ -91,12 +91,12 @@
                         <h2 class="mainSubTitle">Book now</h2>
                         <ul class="bookingLinks">
                             <li>
-                                <a href="#lnk">
+                                <a href="/facility.do">
                                     <p><span>시설예약</span>바로가기</p>
                                 </a>
                             </li>
                             <li>
-                                <a href="#lnk">
+                                <a href="/equipment.do">
                                     <p><span>장비대여</span>바로가기</p>
                                 </a>
                             </li>
@@ -106,7 +106,7 @@
                         <h2 class="mainSubTitle">Notice</h2>
                         <ul class="notice main">
                             <li>
-                                <a href="#lnk">
+                                <a href="/notice_view.do">
                                     <p class="ntInfos">
                                         <span class="category">센터소식</span>
                                         <span class="ntIndex">1</span>
@@ -116,7 +116,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#lnk">
+                                <a href="/notice_view.do">
                                     <p class="ntInfos">
                                         <span class="category">행사안내</span>
                                         <span class="ntIndex">1</span>
@@ -126,7 +126,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#lnk">
+                                <a href="/notice_view.do">
                                     <p class="ntInfos">
                                         <span class="category">보도자료</span>
                                         <span class="ntIndex">1</span>
