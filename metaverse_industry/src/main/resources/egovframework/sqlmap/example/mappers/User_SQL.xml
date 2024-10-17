@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pict_admin.service.impl.UserMapper">
+    <select id="isUserIdAvailable" resultType="userVO">
+        select * from user_table where user_id = #{user_id}
+    </select>
+    
+    <insert id="signUp" parameterType="userVO">
+    	INSERT INTO user_table
+    	(
+    		user_id, password, name, mobile, email, birthday, address1, address2, company_nm, company_address1, company_address2, sa_eob_no, position, document_url 
+    	) VALUES (
+    		#{user_id}, #{password}, #{name}, #{mobile}, #{email}, #{birthday}, #{user_address1}, #{user_address2}, #{company_nm}, #{company_address1}, #{company_address2},
+    		#{sa_eob_no}, #{position}, #{document_url}
+    	)
+    </insert>
+</mapper>

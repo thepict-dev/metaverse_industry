@@ -75,6 +75,11 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 	public PictVO board_list_one(PictVO pictVO) throws Exception {
 		return pictMapper.board_list_one(pictVO);
 	}
+	
+	@Override
+	public PictVO equipment_list_one(PictVO pictVO) throws Exception {
+		return pictMapper.equipment_list_one(pictVO);
+	}
 
 	@Override
 	public void board_update(PictVO pictVO) throws Exception {
@@ -87,7 +92,33 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 		pictMapper.board_insert(pictVO);
 		
 	}
-
+	
+	
+	@Override
+	public void equipment_insert(PictVO pictVO) throws Exception {
+		pictMapper.equipment_insert(pictVO);
+		
+	}
+	
+	@Override
+	public void equipment_update(PictVO pictVO) throws Exception {
+		pictMapper.equipment_update(pictVO);
+		
+	}
+	
+	@Override
+	public void equipment_cnt_insert(PictVO pictVO) throws Exception {
+		pictMapper.equipment_cnt_insert(pictVO);
+		
+	}
+	
+	@Override
+	public void equipment_cnt_update(PictVO pictVO) throws Exception {
+		pictMapper.equipment_cnt_update(pictVO);
+		
+	}
+	
+	
 	@Override
 	public void board_delete(PictVO pictVO) throws Exception {
 		pictMapper.board_delete(pictVO);
@@ -98,6 +129,10 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 	public void board_file_delete(PictVO pictVO) throws Exception {
 		pictMapper.board_file_delete(pictVO);
 		
+	}
+	@Override
+	public List<?> equipment_list(PictVO pictVO) throws Exception {
+		return pictMapper.equipment_list(pictVO);
 	}
 
 	@Override

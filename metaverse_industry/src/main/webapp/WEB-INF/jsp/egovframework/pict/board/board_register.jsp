@@ -7,189 +7,128 @@
 
 <!DOCTYPE html>
 <html lang="ko">
-<c:import url="../main/header.jsp">
-	<c:param name="pageTitle" value="게시물 등록" />
-</c:import>
-<body class="sb-nav-fixed">
-	<form action="" id="register" name="register" method="post" enctype="multipart/form-data">
-		<%@include file="../main/navigation.jsp"%>
-		<div id="layoutSidenav">
-			<div id="layoutSidenav_nav">
-				<%@include file="../main/gnb.jsp"%>
-			</div>
-			<div id="layoutSidenav_content">
-				<main class="contents">
-					<h2 class="contents-title">게시물 등록</h2>
-					<div class="contents-box">
-						<div class="card">
-							<div class="card-body">
-								<div class="write-box">
-									<div class="write-item">
-										<label for="title" class="title">제목*</label>
-										<div class="input-box">
-											<input type="text" id="title" name="title" value="${pictVO.title}" maxlength="18" class="input opt-max-width-600">
-											<span id="text_cnt">0</span>/ 18
-										</div>
-									</div>
-						
-									<div class="write-item">
-										<label for="title" class="title">내용*</label>
-										<div class="input-box">
-											<textarea name="text" id="text" cols="30" rows="5" class="txt" style="width:50%;" maxlength="85">${pictVO.text}</textarea>
-											<span id="text_cnt2">0</span>/ 85
-										</div>
-									</div>
-									
-									<div class="write-item">
-										<label for="title" class="title">링크*</label>
-										<div class="input-box">
-											<input type="text" id="link_url" name="link_url" value="${pictVO.link_url}" class="input opt-max-width-600">
-										</div>
-									</div>
-									
-									<div class="write-item">
-										<label for="title" class="title">일정*</label>
-										<div class="input-box">
-											<input type="text" id="from_date" name="from_date" value="${pictVO.from_date}" class="input opt-max-width-200"> &nbsp;~&nbsp; 
-											<input type="text" id="to_date" name="to_date" value="${pictVO.to_date}" class="input opt-max-width-200">
-										</div>
-									</div>
-									
-									<div class="write-item" id="file_div">
-										<label for="title" class="title">썸네일</label>
-										<div class="input-box">
-											<input style="margin-bottom:15px" type="file" id="attach_file" name="attach_file" value="${pictVO.img_url}" class="input opt-max-width-600">
-											<br>
-											<span id="upload_file_span">${pictVO.file}</span>
+	<c:import url="../main/head.jsp">
+    	<c:param name="pageTitle" value="게시물 등록"/>
+    </c:import>
+    <body>
+	    
+		<%@include file="../main/lnb.jsp" %>
+		<c:import url="../main/header.jsp">
+	    	<c:param name="title" value="게시물 관리"/>
+	    	<c:param name="subtitle" value="게시물 등록"/>
+	    </c:import>
+	    <div class="contentsContainer">
+	        <div class="listContainer">
+	            <div class="listInner">
+	            	<form action="" id="register" name="register" method="post" enctype="multipart/form-data" class="boardForm">
+		            	<div class="inputsContainer">
+	                        <div class="inputBox">
+	                            <p class="inputCaption">카테고리*</p>
+	                            <select name="category" id="category" class="lgThinInput">
+	                                <option value="1" <c:if test="${pictVO.category eq '1'}">selected</c:if>>센터소식</option>
+	                                <option value="2" <c:if test="${pictVO.category eq '2'}">selected</c:if>>행사안내</option>
+	                                <option value="3" <c:if test="${pictVO.category eq '3'}">selected</c:if>>보도자료</option>
+	                                <option value="4" <c:if test="${pictVO.category eq '4'}">selected</c:if>>기타공고</option>
+	                            </select>
+	                        </div>
+	                    </div>
+	                    
+	                    <div class="inputsContainer">
+	                        <div class="inputBox">
+	                            <p class="inputCaption">제목*</p>
+	                            <input type="text" name="title" id="title" placeholder="내용을 입력하세요…" value="${pictVO.title}">
+	                        </div>
+	                    </div>
+	                    
+	                    <div class="inputsContainer">
+	                        <div class="inputBox" style="width:100%">
+	                            <p class="inputCaption">내용*</p>
+	                            <textarea name="text" id="text" cols="50" rows="10" class="txt" style="width:100%;">${pictVO.text}</textarea>
+                            	<!-- 에디터 설정 -->
+								<script type="text/javascript">
+									var oEditors = [];
+									nhn.husky.EZCreator.createInIFrame({
+										oAppRef: oEditors,
+										elPlaceHolder: "text", //textarea에서 지정한 id와 일치해야 합니다.
+										sSkinURI: "/js/SmartEditor2Skin.html",
+										fCreator: "createSEditor2"
+									});
+								</script>
+	                        </div>
+	                    </div>
+	 
+	                    
+	                    <div class="inputsContainer">
+	                        <div class="inputBox">
+	                            <p class="inputCaption">첨부파일
+	                                <label for="attach_file">파일추가</label>
+	                                <input type="file" id="attach_file" name="attach_file" multiple style="display: none;">
+	                            </p>
+	                            <ul class="fileList">
+	                                
+	                            </ul>
+	                            <p class="fileCaption">첨부 파일은 각 10MB 이하의 파일만 가능합니다.</p>
+	                        </div>
+	                    </div>
+	                    
+	                    <div class="inputsContainer">
+	                        <div class="inputBox">
+	                            <p class="inputCaption">첨부파일
+	                                <label for="attach_file1">파일추가</label>
+	                                <input type="file" id="attach_file1" name="attach_file1" multiple style="display: none;">
+	                            </p>
+	                            <ul class="fileList">
+	                                
+	                            </ul>
+	                            <p class="fileCaption">첨부 파일은 각 10MB 이하의 파일만 가능합니다.</p>
+	                        </div>
+	                    </div>
+	                    
+	                    <div class="inputsContainer">
+	                        <div class="inputBox">
+	                            <p class="inputCaption">첨부파일
+	                                <label for="attach_file2">파일추가</label>
+	                                <input type="file" id="attach_file2" name="attach_file2" multiple style="display: none;">
+	                            </p>
+	                            <ul class="fileList">
+	                                
+	                            </ul>
+	                            <p class="fileCaption">첨부 파일은 각 10MB 이하의 파일만 가능합니다.</p>
+	                        </div>
+	                    </div>
+	                    
+	                    <div class="btnContainer">
+	                        <a href="/board/board_list.do" class="normalButton white">목록으로</a>
+	                        <a href="#lnk" onclick="button1_click()" class="basicButton blue"><img src="/img/admin/add2.png" alt="완료">완료</a>
+	                    </div>
+	                    
+	                    <input type='hidden' name="saveType" id="saveType" value='${pictVO.saveType}' /> 
+						<input type='hidden' name="idx" id="idx" value='${pictVO.idx}' /> 
+	                </form>
+	            </div>
+	        </div>
+	    </div>
+	    <script>
+			function button1_click() {
+				var title = $('#title').val();
+				
+				if (title == "" || title == undefined) {
+					window.alert("제목을 입력해주세요.");
+					$('#title').focus();
+					return false;
+				}
 
-											<c:if test="${pictVO.img_url ne '' && pictVO.img_url ne null}">
-												첨부된 파일 : ${pictVO.img_url}
-												<button type="button" onclick="javascript:file_del()" class="btn-basic btn-fill btn-sm">파일삭제</button>
-											</c:if>
-												
-										</div>
-									</div>
-									
-								</div>
-								<div class="btn-box">
-									<c:if test="${pictVO.saveType eq 'update'}">
-										<button type="button" onclick="javascript:board_delete()" class="btn-basic btn-fill btn-sm">삭제</button>
-									</c:if>
-									<c:if test="${pictVO.saveType eq 'insert'}">
-										<button type="button" onclick="button1_click();" class="btn-basic btn-primary btn-sm">등록</button>
-									</c:if>
-									<c:if test="${pictVO.saveType ne 'insert'}">
-										<button type="button" onclick="button1_click();" class="btn-basic btn-primary btn-sm">수정</button>
-									</c:if>
-						        	<button type="button" onclick="javascript:board_list();" class="btn-basic btn-common btn-sm">목록보기</button>    
-					            </div>
-							</div>
-						</div>
-		            </div>
-				</main>
-			</div>
-		</div>
-		<input type='hidden' name="saveType" id="saveType" value='${pictVO.saveType}' /> 
-		<input type='hidden' name="idx" id="idx" value='${pictVO.idx}' /> 
-		<input type='hidden' name="use_at" id="use_at" value='${pictVO.use_at}' />
-		<input type='hidden' name="type" id="type" value='' />
-	</form>
+				var text = "등록하시겠습니까?";
+				if (saveType == 'update') {
+					text = "수정하시겠습니까?"
+				}
+				oEditors[0].exec("UPDATE_CONTENTS_FIELD", []);
+				if (confirm(text)) {
+					$("#register").attr("action", "/board/board_save.do");
+					$("#register").submit();
+				}
+			}
+		</script>
+	</body>
 	
-	<script>
-		$("#title").on('propertychange change keyup paste input', function() {
-			newValue = $(this).val();
-			$("#text_cnt").text(newValue.length)
-		})
-		$("#text").on('propertychange change keyup paste input', function() {
-			newValue = $(this).val();
-			$("#text_cnt2").text(newValue.length)
-		})
-		
-		function board_delete() {
-			if (confirm("삭제 하시겠습니까?")) {
-				$("#register").attr("action", "/board/board_delete.do");
-				$("#register").submit();
-			}
-			
-		}
-		function board_list() {
-			location.href = "/board/board_list.do";
-		}
-		function button1_click() {
-			var title = $('#title').val();
-			
-			var saveType = $('#saveType').val();
-
-			if (title == "" || title == undefined) {
-				window.alert("제목을 입력해주세요.");
-				$('#title').focus();
-				return false;
-			}
-			
-			//oEditors[0].exec("UPDATE_CONTENTS_FIELD", []);
-			
-			var text = "등록하시겠습니까?";
-			if (saveType == 'update') {
-				text = "수정하시겠습니까?"
-			}
-
-			if (confirm(text)) {
-				$("#register").attr("action", "/board/board_save.do");
-				$("#register").submit();
-			}
-		}
-		function cng_use_at(idx, use_at){
-			$('#idx').val(idx)
-			if(use_at == 'Y'){
-				$('#use_at').val('N') 
-			}
-			else{
-				$('#use_at').val('Y')
-			}
-			
-			$('#type').val('1');
-			var text = "활성화 상태로 변경하시겠습니까?";
-			if(use_at == "Y"){
-				$('#type').val('2');
-				text = "비활성화 상태로 변경하시겠습니까?";
-			}
-			
-			if(confirm (text)){
-				$("#register").attr("action", "/board/cng_use_at.do");
-				$("#register").submit();
-			}
-		}
-		
-		function file_del(){
-			$('#attach_file').val('')
-			$("#upload_file_span").text("");
-			if (confirm("첨부파일을 삭제 하시겠습니까?")) {
-				$("#register").attr("action", "/board/board_file_delete.do");
-				$("#register").submit();
-			}
-		}
-		$( function() {
-		    $( "#from_date" ).datepicker();
-		    $( "#to_date" ).datepicker();
-		  } );
-		
-		$.datepicker.setDefaults({
-	        dateFormat: 'yy-mm-dd',
-	        prevText: '이전 달',
-	        nextText: '다음 달',
-	        monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-	        monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-	        dayNames: ['일', '월', '화', '수', '목', '금', '토'],
-	        dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
-	        dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-	        showMonthAfterYear: true,
-	        yearSuffix: '년'
-	    });
-	</script>
-	<script src="../../../../../js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-	<script src="../../../../../js/scripts.js"></script>
-	<script src="../../../../../js/Chart.min.js" crossorigin="anonymous"></script>
-	<script src="../../../../../js/simple-datatables@latest.js" crossorigin="anonymous"></script>
-
-</body>
 </html>

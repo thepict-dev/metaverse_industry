@@ -203,8 +203,59 @@ public class PictVO extends PictDefaultVO {
 	private String establishment_date;
 	private String certificate;
 	private String open_date;
+	private String file_url1;
+	private String file_url2;
+	private String file_url3;
+	
+	private String description;
+	private String image_url;
+	private String bujajae;
+	private String serial_number;
+	private String status;
+	private String equipment_id;
 	
 	
+	
+	
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public String getImage_url() {
+		return image_url;
+	}
+	public void setImage_url(String image_url) {
+		this.image_url = image_url;
+	}
+	public String getBujajae() {
+		return bujajae;
+	}
+	public void setBujajae(String bujajae) {
+		this.bujajae = bujajae;
+	}
+	
+	
+	public String getFile_url1() {
+		return file_url1;
+	}
+	public void setFile_url1(String file_url1) {
+		this.file_url1 = file_url1;
+	}
+	public String getFile_url2() {
+		return file_url2;
+	}
+	public void setFile_url2(String file_url2) {
+		this.file_url2 = file_url2;
+	}
+	public String getFile_url3() {
+		return file_url3;
+	}
+	public void setFile_url3(String file_url3) {
+		this.file_url3 = file_url3;
+	}
+
 	public String getOpen_date() {
 		return open_date;
 	}
@@ -1150,6 +1201,24 @@ public class PictVO extends PictDefaultVO {
 	}
 	public void setIdx(int idx) {
 		this.idx = idx;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getSerial_number() {
+		return serial_number;
+	}
+	public void setSerial_number(String serial_number) {
+		this.serial_number = serial_number;
+	}
+	public String getEquipment_id() {
+		return equipment_id;
+	}
+	public void setEquipment_id(String equipment_id) {
+		this.equipment_id = equipment_id;
 	}
 	
 	

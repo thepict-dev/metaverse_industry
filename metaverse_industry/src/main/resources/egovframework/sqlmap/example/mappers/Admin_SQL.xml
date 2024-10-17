@@ -36,16 +36,14 @@
 	<select id="user_list" resultType="adminVO">
 		SELECT 
 			*
-		FROM user_info
+		FROM user_table
 		where 1=1
-		and use_at = "Y"
 
 		<if test="search_text != null and search_text != '' ">
 			and (
 				id LIKE CONCAT('%', #{search_text}, '%') or
 				name LIKE CONCAT('%', #{search_text}, '%') or
-				mobile LIKE CONCAT('%', #{search_text}, '%') or
-				depart LIKE CONCAT('%', #{search_text}, '%')
+				mobile LIKE CONCAT('%', #{search_text}, '%')
 			) 
 		</if>
 		

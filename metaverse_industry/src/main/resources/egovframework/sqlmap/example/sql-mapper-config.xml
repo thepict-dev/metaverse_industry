@@ -9,5 +9,6 @@
 		<typeAlias alias="pictVO" type="pict_admin.service.PictVO"/>
 		<typeAlias alias="pictsearchVO" type="pict_admin.service.PictDefaultVO"/>
 		<typeAlias alias="adminVO" type="pict_admin.service.AdminVO"/>
+		<typeAlias alias="userVO" type="pict_admin.service.UserVO"/>
     </typeAliases>
 </configuration>

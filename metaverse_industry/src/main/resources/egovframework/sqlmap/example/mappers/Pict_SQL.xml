@@ -2,47 +2,53 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pict_admin.service.impl.PictMapper">
 	<select id="board_list" resultType="pictVO">
-		select idx, title, img_url, text, date_format(reg_date, '%Y-%m-%d') as reg_date, from_date, to_date, link_url, reg_date as rr_d from board_master
+		select idx, title, category, text, date_format(reg_date, '%Y-%m-%d') as reg_date, file_url1, file_url2, file_url3 from board_table
 		<if test="search_text != null and search_text != '' ">
 			where (
 				title LIKE CONCAT('%', #{search_text}, '%')
 			) 
 		</if>
-		order by rr_d desc
+		order by reg_date desc
 	</select>
 	
 	<select id="board_list_one" resultType="pictVO">
-		select * from board_master
+		select * from board_table
 		where idx = #{idx}
 	</select>
+
 	
 	<insert id="board_insert" parameterType="pictVO">
-		INSERT INTO board_master
+		INSERT INTO board_table
 			(
-			 title, reg_date, use_at, img_url, text, link_url, from_date, to_date
+			 title, category,reg_date, use_at, text, file_url1, file_url2, file_url3
 			)
 		VALUES (
-			 #{title}, now(), 'Y', #{img_url}, #{text}, #{link_url}, #{from_date}, #{to_date}
+			 #{title}, #{category} ,now(), 'Y', #{text}, #{file_url1}, #{file_url2}, #{file_url3}
 			  ) 
 	</insert>
 	
 	<update id="board_update" parameterType="pictVO">
-		update board_master
-		set title =#{title}, 
-		reg_date = now(), 
-		<if test="img_url != null and img_url != '' ">
-			img_url = #{img_url}, 
-		</if>
-		text =#{text},
-		link_url = #{link_url},
-		from_date = #{from_date},
-		to_date = #{to_date} 
-		where idx = #{idx}
+	  UPDATE board_table
+	  SET 
+	  	category = #{category},
+	    title = #{title},
+	    text = #{text}, 
+	    reg_date = NOW()
+	    <if test="file_url1 != null and file_url1 != ''">
+	      , file_url1 = #{file_url1}
+	    </if>
+	    <if test="file_url2 != null and file_url2 != ''">
+	      , file_url2 = #{file_url2}
+	    </if>
+	    <if test="file_url3 != null and file_url3 != ''">
+	      , file_url3 = #{file_url3}
+	    </if>
+	  WHERE idx = #{idx}
 	</update>
 	
 
 	<delete id="board_delete" parameterType="pictVO">
-		delete from board_master where idx = #{idx}
+		delete from board_table where idx = #{idx}
 	</delete>
 	
 	<update id="board_file_delete" parameterType="pictVO">
@@ -50,6 +56,64 @@
 		set img_url=NULL
 		where idx = #{idx}
 	</update>
+	
+	
+	<select id="equipment_list" resultType="pictVO">
+		select idx, id, type, name, description, date_format(reg_date, '%Y-%m-%d') as reg_date, image_url, bujajae from equipment_type_table
+		<if test="search_text != null and search_text != '' ">
+			where (
+				title LIKE CONCAT('%', #{search_text}, '%')
+			) 
+		</if>
+		order by reg_date desc
+	</select>
+	
+	
+	<select id="equipment_list_one" resultType="pictVO">
+		select * from equipment_type_table
+		where idx = #{idx}
+	</select>
+	
+	<insert id="equipment_insert" parameterType="pictVO">
+		INSERT INTO equipment_type_table
+			(id, type, name, description, image_url, bujajae)
+		VALUES (
+			 UUID(), #{category} ,#{name}, #{description}, #{image_url}, #{bujajae}
+			  )
+	</insert>
+	
+	<update id="equipment_update" parameterType="pictVO">
+	  UPDATE equipment_type_table
+	  SET 
+	  	type = #{category},
+	    name = #{name},
+	    description = #{description},
+	    bujajae = #{bujajae},
+	    reg_date = NOW()
+	    <if test="image_url != null and image_url != ''">
+	      , image_url = #{image_url}
+	    </if>
+	  WHERE idx = #{idx}
+	</update>
+	
+	
+	<insert id="equipment_cnt_insert" parameterType="pictVO">
+		INSERT INTO equipment_item_table
+			(equipment_type_id, id, serial_number)
+		VALUES (
+			 #{equipment_id} , UUID(), #{serial_number}
+			  )
+	</insert>
+	
+	<update id="equipment_cnt_update" parameterType="pictVO">
+	  UPDATE equipment_item_table
+	  SET 
+	  	serial_number = #{serial_number},
+	  WHERE idx = #{idx}
+	</update>
+	
+	
+	
 	
 	
 	<select id="pemtour_select" resultType="pictVO">

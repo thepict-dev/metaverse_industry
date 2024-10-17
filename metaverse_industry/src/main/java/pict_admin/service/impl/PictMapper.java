@@ -51,7 +51,20 @@ public interface PictMapper {
 	void board_delete(PictVO pictVO) throws Exception;
 	
 	void board_file_delete(PictVO pictVO) throws Exception;
+	
+	List<?> equipment_list(PictVO pictVO) throws Exception;
+	
+	PictVO equipment_list_one(PictVO pictVO) throws Exception;
+	
+	void equipment_update(PictVO pictVO) throws Exception;
 
+	void equipment_insert(PictVO pictVO) throws Exception;
+	
+	void equipment_cnt_update(PictVO pictVO) throws Exception;
+
+	void equipment_cnt_insert(PictVO pictVO) throws Exception;
+	
+	
 	PictVO pemtour_select(PictVO pictVO) throws Exception;
 
 	void pemtour_update(PictVO pictVO) throws Exception;

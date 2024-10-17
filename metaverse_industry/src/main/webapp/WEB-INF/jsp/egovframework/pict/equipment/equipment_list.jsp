@@ -9,19 +9,19 @@
 <!DOCTYPE html>
 <html lang="ko">
 	<c:import url="../main/head.jsp">
-    	<c:param name="pageTitle" value="게시물 리스트"/>
+    	<c:param name="pageTitle" value="장비 리스트"/>
     </c:import>
     
     <%@include file="../main/lnb.jsp" %>
 		<c:import url="../main/header.jsp">
-	    	<c:param name="title" value="게시물 관리"/>
-	    	<c:param name="subtitle" value="게시물 리스트"/>
+	    	<c:param name="title" value="장비 관리"/>
+	    	<c:param name="subtitle" value="장비 리스트"/>
 	    </c:import>
 	    <div class="contentsContainer">
 	        <div class="listContainer">
 	            <div class="listInner">
 	                <form action="" class="countList" id="search_fm" name="search_fm" method="get">
-	                    <p>총 <span>${totalCnt}</span>개</p>
+	                    <p>총 <span>${size}</span>개</p>
 	                    <div class="inputsContainer">
 	                        <div class="inputBox listSearch">
 	                            <input type="text" name="search_text" id="search_text" placeholder="내용을 입력하세요…" value="${pictVO.search_text}">
@@ -33,7 +33,10 @@
 	                <div class="ListWrpper">
 	                    <ul class="listHead boardlist">
 	                        <li>순서</li>
-	                        <li>제목</li>
+	                        <li>이름</li>
+	                        <li>설명</li>
+	                        <li>썸네일</li>
+	                        <li>비고</li>
 	                        <li>작성일</li>
 	                        <li>삭제</li>
 	                    </ul>
@@ -46,7 +49,10 @@
 									<c:if test="${pictVO.pageNumber ne 1}">
 										<p>${board_cnt - (status.index +  ((pictVO.pageNumber - 1) * 20))}</p>
 									</c:if>
-		                            <a href="/board/board_register.do?idx=${resultList.idx}"><p>${resultList.title}</p></a>
+		                            <a href="/equipment/equipment_register.do?idx=${resultList.idx}"><p>${resultList.name}</p></a>
+		                            <p>${resultList.description}</p>
+		                            <p>${resultList.image_url}</p>
+		                            <p>${resultList.bujajae}</p>
 		                            <p>${resultList.reg_date}</p>
 		                            <p class="delete"><a href="#lnk" onclick="board_delete('${resultList.idx}')"></a></p>
 		                        </li>
@@ -54,12 +60,12 @@
 	                    </ul>
 	                    
 	                    <div class="listButton">
-	                        <a href="/board/board_register.do"><img src="/img/admin/add.png" alt="등록버튼">등록</a>
+	                        <a href="/equipment/equipment_register.do"><img src="/img/admin/add.png" alt="등록버튼">장비등록</a>
 	                    </div>
 	                    
 	                    <div class="pagination">
 	                    	<c:if test="${pictVO.pageNumber ne 1}">
-								<li><a href="/board/board_list.do?search_text=${param.search_text}&pageNumber=${pictVO.pageNumber - 10 < 1 ? 1 : pictVO.pageNumber - 10}"><img src="/img/admin/prev.png" alt=""></a></li>
+								<li><a href="/equipment/equipment_list.do?search_text=${param.search_text}&pageNumber=${pictVO.pageNumber - 10 < 1 ? 1 : pictVO.pageNumber - 10}"><img src="/img/admin/prev.png" alt=""></a></li>
 							</c:if>	
 							
 							<c:forEach var="i" begin="${pictVO.startPage}" end="${pictVO.endPage}">
@@ -67,12 +73,12 @@
 									<li class="active"><a href="/board/board_list.do?search_text=${param.search_text}&pageNumber=${i}" >${i}</a></li>
 								</c:if>
 								<c:if test="${i ne pictVO.pageNumber}">
-									<li><a href="/board/board_list.do?search_text=${param.search_text}&pageNumber=${i}" >${i}</a></li>
+									<li><a href="/equipment/equipment_list.do?search_text=${param.search_text}&pageNumber=${i}" >${i}</a></li>
 								</c:if>
 							</c:forEach>	
 	                    
 		                    <c:if test="${pictVO.lastPage ne pictVO.pageNumber}">
-								<li><a href="/board/board_list.do?search_text=${param.search_text}&pageNumber=${pictVO.pageNumber + 10 > pictVO.lastPage ?  pictVO.lastPage : pictVO.pageNumber + 10}"><img src="/img/admin/next.png" alt=""></a></li>
+								<li><a href="/equipment/equipment.do?search_text=${param.search_text}&pageNumber=${pictVO.pageNumber + 10 > pictVO.lastPage ?  pictVO.lastPage : pictVO.pageNumber + 10}"><img src="/img/admin/next.png" alt=""></a></li>
 							</c:if>
 	                    </div>
 	                </div>
