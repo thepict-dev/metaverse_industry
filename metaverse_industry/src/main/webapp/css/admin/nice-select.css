@@ -38,7 +38,7 @@
   .nice-select:hover {
     border-color: var(--grey-50); }
   .nice-select:active, .nice-select.open, .nice-select:focus {
-    border-color: var(--blue-500); }
+    border-color: #999; }
   .nice-select:after {
     content: '';
     display: inline-block;

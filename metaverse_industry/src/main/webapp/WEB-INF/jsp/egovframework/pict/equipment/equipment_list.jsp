@@ -38,26 +38,44 @@
 	                        <li>썸네일</li>
 	                        <li>비고</li>
 	                        <li>작성일</li>
-	                        <li>삭제</li>
+	                        <li>상세보기</li>
 	                    </ul>
 	                    <ul class="listBody boardlist">
-	                    	<c:forEach var="resultList" items="${resultList}" varStatus="status">
-		                        <li>
-		                            <c:if test="${pictVO.pageNumber eq 1}">
-										<p>${board_cnt - status.index}</p>					
-									</c:if>
-									<c:if test="${pictVO.pageNumber ne 1}">
-										<p>${board_cnt - (status.index +  ((pictVO.pageNumber - 1) * 20))}</p>
-									</c:if>
-		                            <a href="/equipment/equipment_register.do?idx=${resultList.idx}"><p>${resultList.name}</p></a>
-		                            <p>${resultList.description}</p>
-		                            <p>${resultList.image_url}</p>
-		                            <p>${resultList.bujajae}</p>
-		                            <p>${resultList.reg_date}</p>
-		                            <p class="delete"><a href="#lnk" onclick="board_delete('${resultList.idx}')"></a></p>
-		                        </li>
-	                        </c:forEach>
-	                    </ul>
+						    <c:forEach var="resultList" items="${resultList}" varStatus="status">
+						        <li>
+						            <div class="list-item">
+						                <!-- 기존 내용 -->
+						                <c:if test="${pictVO.pageNumber eq 1}">
+						                    <p>${board_cnt - status.index}</p>					
+						                </c:if>
+						                <c:if test="${pictVO.pageNumber ne 1}">
+						                    <p>${board_cnt - (status.index +  ((pictVO.pageNumber - 1) * 20))}</p>
+						                </c:if>
+						                <p>${resultList.name}</p>
+						                <p>${resultList.description}</p>
+						                <p>${resultList.image_url}</p>
+						                <p>${resultList.bujajae}</p>
+						                <p>${resultList.reg_date}</p>
+						                <!-- 
+						                <p class="delete"><a href="#lnk" onclick="board_delete('${resultList.idx}')"></a></p>
+						                 -->
+						                <p class="details">상세보기</p>
+						            </div>
+						            <div class="detail-view" style="display: none;">
+					                    <ul class="detailHead">
+					                        <li>순서</li>
+					                        <li>시리얼넘버</li>
+					                        <li>상태</li>
+					                    </ul>
+	                    				<ul class="detailBody">
+	                    					<li>1</li>
+	                    					<li>2938fFADJ1234FAJVIOB</li>
+	                    					<li>대여중</li>
+	                    				</ul>
+						            </div>
+						        </li>
+						    </c:forEach>
+						</ul>
 	                    
 	                    <div class="listButton">
 	                        <a href="/equipment/equipment_register.do"><img src="/img/admin/add.png" alt="등록버튼">장비등록</a>
@@ -116,6 +134,6 @@
 		<script src="../../../../../js/scripts.js"></script>
 		<script src="../../../../../js/Chart.min.js" crossorigin="anonymous"></script>
 		<script src="../../../../../js/simple-datatables@latest.js" crossorigin="anonymous"></script>
-		
+		<script src="/js/list_js.js"></script>
     </body>
 </html>

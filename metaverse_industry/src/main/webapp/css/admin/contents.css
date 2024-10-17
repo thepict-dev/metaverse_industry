@@ -93,7 +93,7 @@
     letter-spacing: -0.7px;
 }
 
-.listBody li{
+.listBody > li{
     display: grid;
     grid-template-columns: 5% 15% 30% 15% 15% 5% 10% 5%;
     text-align: center;
@@ -101,6 +101,101 @@
     background-color: #fff;
 }
 
+.listHead.boardlist{
+    grid-template-columns: 5% 15% 30% 15% 15% 10% 10%;
+}
+
+.listBody.boardlist > li{
+    grid-template-columns: 5% 15% 30% 15% 15% 10% 10%;
+}
+/* 드롭다운 상세 보기를 위한 추가 CSS */
+.listBody.boardlist > li {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.listBody.boardlist > li:hover {
+    background-color: var(--grey-50);
+}
+
+.listBody.boardlist > li .list-item {
+    display: contents; /* grid 구조를 유지하기 위해 */
+}
+
+.listBody.boardlist > li .detail-view {
+    grid-column: 1 / -1;
+    width: 100%;
+    background-color: #f8f9fa;
+    padding: 0 20px;
+    margin-top: 10px;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: all 0.3s ease-out;
+    max-height: 0;
+    opacity: 0;
+}
+
+.listBody.boardlist li.active .detail-view {
+    padding: 20px;
+    max-height: 1000px; /* 충분히 큰 값으로 설정 */
+    opacity: 1;
+}
+
+.detail-view .detailHead,
+.detail-view .detailBody {
+    display: grid;
+    grid-template-columns: 10% 70% 20%;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.detail-view .detailHead {
+    background-color: var(--blue-50);
+    font-weight: bold;
+}
+
+.detail-view .detailBody {
+    background-color: #ffffff;
+    border-bottom: 1px solid var(--grey-100);
+}
+
+.detail-view .detailHead li,
+.detail-view .detailBody li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    font-size: 14px;
+}
+
+/* 상세보기 버튼 스타일 */
+.listBody.boardlist li .details {
+    cursor: pointer;
+    color: var(--blue-500);
+    text-decoration: underline;
+}
+
+.listBody.boardlist li .details:hover {
+    color: var(--blue-700);
+}
+
+/* 기존 스타일 수정 */
+.listBody.boardlist > li {
+    display: grid;
+    grid-template-columns: 5% 15% 30% 15% 15% 10% 10%;
+    text-align: center;
+    border-bottom: 1px solid var(--grey-100);
+    background-color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+.listBody.boardlist > li:hover {
+    background-color: var(--grey-50);
+}
+
+.listBody.boardlist > li .list-item {
+    display: contents;
+}
 
 /* 피드리스트용 */
 .listHead.feed{
@@ -172,7 +267,7 @@
     background-color: #fff;
 }
 
-.listBody li p, .listBody li > a{
+.listBody > li p, .listBody > li > a{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -307,21 +402,17 @@
 }
 
 .fileList{
-    display: flex;
-    column-gap: 9px;
-    padding-bottom: 16px;
-}
-.fileList li{
     position: relative;
-    display: flex;
+    display: none;
     align-items: center;
     column-gap: 10px;
     width: 190px;
     height: 40px;
     border: 1px solid var(--grey-100);
     background: var(--grey-50);
+    margin-bottom: 10px;
 }
-.fileList li p{
+.fileList p{
     width: 120px;
     padding-left: 20px;
     color: var(--text-color);
@@ -333,7 +424,10 @@
     text-overflow: ellipsis;
     word-break: break-all;
 }
-.fileList li img{
+.fileList button{
+	cursor: pointer;
+}
+.fileList img{
     position: absolute;
     right: 20px;
     top: 50%;
@@ -355,3 +449,4 @@
     width: 100%;
     padding-top: 28px;
 }
+
