@@ -95,37 +95,37 @@
             	
                 <li class="<c:if test="${empty queryString}">active</c:if>">
                 	<a href="/equipment.do">
-	                	<span>모두보기</span>
+	                	모두보기
                 	</a>
                	</li>
                 <li  class="<c:if test="${isHmd}">active</c:if>">
                 	<a href="/equipment.do?type=hmd">
-	                	<span>HMD</span>
+	                	HMD
                 	</a>
                 </li>
                 <li class="<c:if test="${isAr}">active</c:if>">
                 	<a href="/equipment.do?type=ar">
-                		<span>AR글래스</span>
+                		AR글래스
                 	</a>
                	</li>
                 <li class="<c:if test="${isMotion}">active</c:if>">
                 	<a href="/equipment.do?type=motion">
-                		<span>모션캡처</span>
+                		모션캡처
                 	</a>
                	</li>
                 <li class="<c:if test="${isCamera}">active</c:if>">
                 	<a href="/equipment.do?type=camera">
-	                	<span>360카메라</span>
+	                	360카메라
                 	</a>
                	</li>
                 <li class="<c:if test="${isScanner}">active</c:if>">
                 	<a href="/equipment.do?type=scanner">
-                		<span>3D스캐너</span>
+                		3D스캐너
                 	</a>
                 </li>
                 <li class="<c:if test="${isElse}">active</c:if>">
                 	<a href="/equipment.do?type=else">
-                		<span>기타</span>
+                		기타
                 	</a>
                 </li>
             </ul>
