@@ -62,7 +62,12 @@
 		select idx, id, type, name, description, date_format(reg_date, '%Y-%m-%d') as reg_date, image_url, bujajae from equipment_type_table
 		<if test="search_text != null and search_text != '' ">
 			where (
-				title LIKE CONCAT('%', #{search_text}, '%')
+				name LIKE CONCAT('%', #{search_text}, '%')
+			) 
+		</if>
+		<if test="type != null and type != '' ">
+			where (
+				type LIKE CONCAT('%', #{type}, '%')
 			) 
 		</if>
 		order by reg_date desc

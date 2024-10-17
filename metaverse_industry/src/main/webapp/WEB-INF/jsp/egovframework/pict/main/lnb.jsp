@@ -35,18 +35,10 @@
 <div class="lnb">
     <nav>
         <div class="nav">
-        	<div class="depth1 <c:if test="${equipment_list ne -1 || equipment_register ne -1 || equipment_cnt_register ne -1}">active</c:if>">
-               <span><img src="/img/admin/lnb_icons/user.png" alt=""></span>
-               <a href="#lnk">장비 관리<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
-           </div>
-           <ul class="depth2">
-               <li class="<c:if test="${equipment_list ne -1}">active</c:if>"><a href="/equipment/equipment_list.do">장비 리스트</a></li>
-               <li class="<c:if test="${equipment_register ne -1}">active</c:if>"><a href="/equipment/equipment_register.do">장비 등록</a></li>
-               <li class="<c:if test="${equipment_cnt_register ne -1}">active</c:if>"><a href="/equipment/equipment_cnt_register.do">제고 등록</a></li>
-           </ul>
+
         
         	<div class="depth1 <c:if test="${board_list ne -1 || board_register ne -1}">active</c:if>">
-               <span><img src="/img/admin/lnb_icons/user.png" alt=""></span>
+               <span><img src="/img/admin/lnb_icons/board.png" alt=""></span>
                <a href="#lnk">공지사항 관리<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
            </div>
            <ul class="depth2">
@@ -60,24 +52,25 @@
             <ul class="depth2">
                 <li class="<c:if test="${user_list ne -1}">active</c:if>"><a href="/user/user_list.do">사용자 리스트</a></li>
             </ul>
-            
-            <div class="depth1 <c:if test="${feed_list ne -1}">active</c:if>">
-                <span><img src="/img/admin/lnb_icons/lnb-feed.png" alt=""></span>
-                <a href="#lnk">피드 관리<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
-            </div>
-            <ul class="depth2">
-                <li class="<c:if test="${feed_list ne -1}">active</c:if>"><a href="/feed/feed_list.do">피드 리스트</a></li>
-            </ul>
-            
+            <div class="depth1 <c:if test="${equipment_list ne -1 || equipment_register ne -1 || equipment_cnt_register ne -1}">active</c:if>">
+               <span><img src="/img/admin/lnb_icons/lnb-feed.png" alt=""></span>
+               <a href="#lnk">장비 관리<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
+           </div>
+           <ul class="depth2">
+               <li class="<c:if test="${equipment_list ne -1}">active</c:if>"><a href="/equipment/equipment_list.do">장비 리스트</a></li>
+               <li class="<c:if test="${equipment_register ne -1}">active</c:if>"><a href="/equipment/equipment_register.do">장비 등록</a></li>
+               <li class="<c:if test="${equipment_cnt_register ne -1}">active</c:if>"><a href="/equipment/equipment_cnt_register.do">재고 등록</a></li>
+           </ul>
             <div class="depth1 <c:if test="${history_list ne -1}">active</c:if>">
                 <span><img src="/img/admin/lnb_icons/lnb-history.png" alt=""></span>
-                <a href="#lnk">코스이력 관리<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
+                <a href="#lnk">대여 관리<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
             </div>
             <ul class="depth2">
-                <li class="<c:if test="${history_list ne -1}">active</c:if>"><a href="/history/history_list.do">코스이력 리스트</a></li>
+                <li class="<c:if test="${history_list ne -1}">active</c:if>"><a href="/history/history_list.do">대여신청 관리</a></li>
+                <li class="<c:if test="${history_list ne -1}">active</c:if>"><a href="/history/history_list.do">반입∙반출 관리</a></li>
             </ul>
             
-            <div class="depth1 <c:if test="${event_list ne -1 || event_register ne -1}">active</c:if>">
+            <%-- <div class="depth1 <c:if test="${event_list ne -1 || event_register ne -1}">active</c:if>">
                 <span><img src="/img/admin/lnb_icons/lnb-event.png" alt=""></span>
                 <a href="#lnk">행사 관리<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
             </div>
@@ -93,7 +86,7 @@
             <ul class="depth2">
                 <li class="<c:if test="${course_list ne -1}">active</c:if>"><a href="/course/course_list.do">코스 리스트</a></li>
                 <li class="<c:if test="${course_register ne -1}">active</c:if>"><a href="/course/course_register.do">코스 등록</a></li>
-            </ul>
+            </ul> --%>
         </div>
     </nav>
 </div>

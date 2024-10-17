@@ -189,7 +189,25 @@ public class pictController {
 	//장비대여
 	@RequestMapping(value = "/equipment.do")
 	public String equipment(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model, HttpSession session, RedirectAttributes rttr) throws Exception {
-		
+		List<?> equipment_list = pictService.equipment_list(pictVO);
+		if (pictVO.getType() != null) {
+			if (pictVO.getType() == "hmd") {
+				pictVO.setType("HMD");
+			} else if (pictVO.getType() == "ar") {
+				pictVO.setType("AR글래스");
+			} else if (pictVO.getType() == "motion") {
+				pictVO.setType("모션캡처");
+			} else if (pictVO.getType() == "camera") {
+				pictVO.setType("360카메라");
+			} else if (pictVO.getType() == "scanner") {
+				pictVO.setType("3D스캐너");
+			} else if (pictVO.getType() == "else") {
+				pictVO.setType("기타");
+			}
+		}
+		model.addAttribute("resultList", equipment_list);
+		model.addAttribute("size", equipment_list.size());
+		model.addAttribute("pictVO", pictVO);
 		return "pict/user/equipment";
 	}
 	//장비대여 정보입력
