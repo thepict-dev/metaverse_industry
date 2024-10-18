@@ -213,8 +213,8 @@ public class PictVO extends PictDefaultVO {
 	private String serial_number;
 	private String status;
 	private String equipment_id;
-	
-	
+	private int avaliable_equipment_cnt;
+	private boolean isOnlyAvailable;
 	
 	
 	public String getDescription() {
@@ -1219,6 +1219,18 @@ public class PictVO extends PictDefaultVO {
 	}
 	public void setEquipment_id(String equipment_id) {
 		this.equipment_id = equipment_id;
+	}
+	public int getAvaliable_equipment_cnt() {
+		return avaliable_equipment_cnt;
+	}
+	public void setAvaliable_equipment_cnt(int avaliable_equipment_cnt) {
+		this.avaliable_equipment_cnt = avaliable_equipment_cnt;
+	}
+	public boolean isOnlyAvailable() {
+		return isOnlyAvailable;
+	}
+	public void setOnlyAvailable(boolean isOnlyAvailable) {
+		this.isOnlyAvailable = isOnlyAvailable;
 	}
 	
 	

@@ -57,7 +57,7 @@
             <p class="rentalListTitle"><button type="button" class="mb"><img src="/img/user_img/list-back.png" alt=""></button>예약 목록</p>
             <div class="rentalSum">
                 <p>
-                    <span>총<span>4</span>개 기기가 선택되었습니다</span>
+                    <span>총<span class="selectedCnt">4</span>개 기기가 선택되었습니다</span>
                     <span>/최대 4개 기기 선택 가능</span>
                 </p>
                 <div class="rentalSumButtons">
@@ -66,19 +66,6 @@
                 </div>
             </div>
             <ul class="rentalItemsContainer">
-                <li class="rentalCountItem">
-                    <span><img src="/img/user_img/pro-eye.png" alt=""></span>
-                    <div class="itemTexts">
-                        <span>HMD</span>
-                        <p>HTC Vive pro eye</p>
-                        <div class="numInput">
-                            <button type="button" class="pr" disabled><span></span></button>
-                            <input type="number" name="count_equip" id="count_equip" value="1" min="1" max="4">
-                            <button type="button" class="ne"><span></span></button>
-                        </div>
-                    </div>
-                    <button type="button"><img src="/img/user_img/delete.png" alt=""></button>
-                </li>
             </ul>
             <div class="rentalDesc">
                 <p><span>•</span>기본 하루 대여</p>
@@ -95,44 +82,44 @@
             	
                 <li class="<c:if test="${empty queryString}">active</c:if>">
                 	<a href="/equipment.do">
-	                	모두보기
+	                		모두보기
                 	</a>
                	</li>
                 <li  class="<c:if test="${isHmd}">active</c:if>">
                 	<a href="/equipment.do?type=hmd">
-	                	HMD
+	                		HMD
                 	</a>
                 </li>
                 <li class="<c:if test="${isAr}">active</c:if>">
                 	<a href="/equipment.do?type=ar">
-                		AR글래스
+                			AR글래스
                 	</a>
                	</li>
                 <li class="<c:if test="${isMotion}">active</c:if>">
                 	<a href="/equipment.do?type=motion">
-                		모션캡처
+                			모션캡처
                 	</a>
                	</li>
                 <li class="<c:if test="${isCamera}">active</c:if>">
                 	<a href="/equipment.do?type=camera">
-	                	360카메라
+	                		360카메라
                 	</a>
                	</li>
                 <li class="<c:if test="${isScanner}">active</c:if>">
                 	<a href="/equipment.do?type=scanner">
-                		3D스캐너
+                			3D스캐너
                 	</a>
                 </li>
                 <li class="<c:if test="${isElse}">active</c:if>">
                 	<a href="/equipment.do?type=else">
-                		기타
+                			기타
                 	</a>
                 </li>
             </ul>
             <div class="tabInner active">
                 <ul class="rentalItemList">
 			    <c:forEach var="item" items="${resultList}" varStatus="status">
-			        <li>
+			        <li data-id="${item.id}" data-cnt="${item.avaliable_equipment_cnt}">
 			            <input type="checkbox" name="equip" id="equip_${item.idx}">
 			            <label for="equip_${item.idx}"></label>
 			            <div class="checkItem">
@@ -160,61 +147,7 @@
         </div>
     </div>
 	<%@ include file="./include/footer.jsp" %>
-    <script>
-        const rentalCountContainer = document.querySelector('.rentalCountContainer');
-        const rentalListContainer = document.querySelector('.rentalListContainer');
-        const checkboxes = document.querySelectorAll('.rentalItemList input[type="checkbox"]');
-        const decreaseBtn = document.querySelector('.numInput .pr');
-        const increaseBtn = document.querySelector('.numInput .ne');
-        const input = document.querySelector('.numInput input');
-
-        // 체크박스 선택 active
-        const updateContainerClasses = () => {
-            const isAnyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
-            [rentalCountContainer, rentalListContainer].forEach(container => {
-                container.classList.toggle('active', isAnyChecked);
-            });
-        };
-
-        // 수량 업뎃
-        const updateButtonStates = () => {
-            const value = parseInt(input.value);
-            decreaseBtn.disabled = value <= parseInt(input.min);
-            increaseBtn.disabled = value >= parseInt(input.max);
-        };
-
-        // 수량 변경
-        const changeQuantity = (delta) => {
-            const newValue = parseInt(input.value) + delta;
-            if (newValue >= parseInt(input.min) && newValue <= parseInt(input.max)) {
-                input.value = newValue;
-                updateButtonStates();
-            }
-        };
-
-        // 이벤트 리스너
-        checkboxes.forEach(checkbox => checkbox.addEventListener('change', updateContainerClasses));
-        decreaseBtn.addEventListener('click', () => changeQuantity(-1));
-        increaseBtn.addEventListener('click', () => changeQuantity(1));
-        input.addEventListener('input', updateButtonStates);
-
-        // 초기화
-        updateContainerClasses();
-        updateButtonStates();
-
-        // 상세 보기 버튼 클릭 이벤트
-        const detailViewBtn = document.querySelector('.rentalSumButtons .mb');
-        detailViewBtn.addEventListener('click', () => {
-            rentalCountContainer.classList.add('show');
-        });
-
-        // 뒤로 가기 버튼 클릭 이벤트
-        const backBtn = document.querySelector('.rentalListTitle .mb');
-        backBtn.addEventListener('click', () => {
-            rentalCountContainer.classList.remove('show');
-        });
-
-    </script>
+	<script src="/js/equipment.js"></script>
     <script src="/js/sub.js"></script>
 </body>
 </html>

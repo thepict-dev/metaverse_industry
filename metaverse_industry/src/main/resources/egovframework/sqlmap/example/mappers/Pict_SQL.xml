@@ -59,7 +59,28 @@
 	
 	
 	<select id="equipment_list" resultType="pictVO">
-		select idx, id, type, name, description, date_format(reg_date, '%Y-%m-%d') as reg_date, image_url, bujajae from equipment_type_table
+		SELECT 
+		    et.*,
+		    COALESCE(avail_count.cnt, 0) AS avaliable_equipment_cnt
+		FROM 
+		    equipment_type_table et
+		
+		LEFT JOIN (
+		    SELECT 
+		        equipment_type_id,
+		        COUNT(*) AS cnt
+		    FROM 
+		        equipment_item_table
+		    WHERE 
+		        status = 'available'
+			GROUP BY 
+		        equipment_type_id
+		) avail_count ON et.id = avail_count.equipment_type_id
+		<if test="isOnlyAvailable != null and isOnlyAvailable = true ">
+			where (
+				COALESCE(avail_count.cnt, 0) > 0
+			) 
+		</if>
 		<if test="search_text != null and search_text != '' ">
 			where (
 				name LIKE CONCAT('%', #{search_text}, '%')

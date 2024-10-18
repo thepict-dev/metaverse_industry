@@ -190,6 +190,7 @@ public class pictController {
 	@RequestMapping(value = "/equipment.do")
 	public String equipment(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model, HttpSession session, RedirectAttributes rttr) throws Exception {
 		List<?> equipment_list = pictService.equipment_list(pictVO);
+		pictVO.setOnlyAvailable(true);
 		if (pictVO.getType() != null) {
 			if (pictVO.getType() == "hmd") {
 				pictVO.setType("HMD");
