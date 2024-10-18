@@ -145,13 +145,13 @@ public class pictController {
 			if(attach_file.getSize() != 0) {
 				UUID uuid = UUID.randomUUID();
 				String uploadPath = fileUpload_board(request, attach_file, (String)request.getSession().getAttribute("id"), uuid);
-				String filepath = "~/Desktop/upload_file/";
-				//String filepath = "D:\\user1\\upload_file\\billconcert\\";
+				//String filepath = "~/Desktop/upload_file/";
+				String filepath = "/user1/upload_file/metaverse_industry/";
 				String filename = uuid+uploadPath.split("#####")[1];
 				userVO.setDocument_url(filename);
 			}
 			userService.signUp(userVO);
-			model.addAttribute("message", "회원가입이 롼료되었습니다. 로그인해주세요.");
+			model.addAttribute("message", "회원가입이 완료되었습니다. 로그인해주세요.");
 			model.addAttribute("retType", ":location");
 			model.addAttribute("retUrl", "/user_login.do");
 			return "pict/main/message";	
@@ -397,7 +397,7 @@ public class pictController {
 		if(attach_file.getSize() != 0) {
 			UUID uuid = UUID.randomUUID();
 			String uploadPath = fileUpload_board(request, attach_file, (String)request.getSession().getAttribute("id"), uuid);
-			String filepath = "/user1/upload_file/video_industry/";
+			String filepath = "/user1/upload_file/metaverse_industry/";
 			//String filepath = "D:\\user1\\upload_file\\billconcert\\";
 			String filename = uuid+uploadPath.split("#####")[1];
 			
@@ -745,7 +745,7 @@ public class pictController {
 		if(attach_file.getSize() != 0) {
 			UUID uuid = UUID.randomUUID();
 			String uploadPath = fileUpload_board(request, attach_file, (String)request.getSession().getAttribute("id"), uuid);
-			String filepath = "/user1/upload_file/billconcert_chuncheon/";
+			String filepath = "/user1/upload_file/metaverse_industry/";
 			//String filepath = "D:\\user1\\upload_file\\billconcert\\";
 			String filename = uuid+uploadPath.split("#####")[1];
 			
@@ -855,11 +855,11 @@ public class pictController {
 		if(attach_file.getSize() != 0) {
 			UUID uuid = UUID.randomUUID();
 			String uploadPath = fileUpload_board(request, attach_file, (String)request.getSession().getAttribute("id"), uuid);
-			String filepath = "/user1/upload_file/billconcert_chuncheon/";
+			String filepath = "/user1/upload_file/metaverse_industry/";
 			//String filepath = "D:\\user1\\upload_file\\billconcert\\";
 			String filename = uuid+uploadPath.split("#####")[1];
 			
-			pictVO.setImage_url(uploadPath);
+			pictVO.setImage_url(filepath+filename);
 		}
 
 		pictVO.setDepart(depart);
@@ -981,7 +981,7 @@ public class pictController {
 		if(attach_file.getSize() != 0) {
 			UUID uuid = UUID.randomUUID();
 			String uploadPath = fileUpload_board(request, attach_file, (String)request.getSession().getAttribute("id"), uuid);
-			String filepath = "/user1/upload_file/video_industry/";
+			String filepath = "/user1/upload_file/metaverse_industry/";
 			//String filepath = "D:\\user1\\upload_file\\billconcert\\";
 			String filename = uuid+uploadPath.split("#####")[1];
 			pictVO.setImg_url(filepath+filename);
@@ -1110,13 +1110,10 @@ public class pictController {
     
     public String fileUpload_board(MultipartHttpServletRequest request, MultipartFile uploadFile, String target, UUID uuid) {
     	String path = "";
-        Path uploadPath = null;
-
     	String fileName = "";
     	OutputStream out = null;
     	PrintWriter printWriter = null;
     	long fileSize = uploadFile.getSize();
-    	/*
     	try {
     		fileName = uploadFile.getOriginalFilename();
     		byte[] bytes = uploadFile.getBytes();
@@ -1138,8 +1135,9 @@ public class pictController {
     	catch(Exception e) {
     		e.printStackTrace();
     	}
-    	*/
     	
+    	return path + "#####" + fileName;
+    	/*
         try {
             fileName = uploadFile.getOriginalFilename();
             byte[] bytes = uploadFile.getBytes();
@@ -1167,14 +1165,15 @@ public class pictController {
             e.printStackTrace();
             return "Error: " + e.getMessage();
         }
+        */
     }
     
     private String getSaveLocation(MultipartHttpServletRequest request, MultipartFile uploadFile) {
 		//서버
-//    	String uploadPath = "/user1/upload_file/video_industry/";
+    	String uploadPath = "/user1/upload_file/video_industry/";
     	
     	//로컬
-    	String uploadPath = "~/Desktop/upload_file/";
+    	//String uploadPath = "~/Desktop/upload_file/";
     	return uploadPath;
     }
 
