@@ -60,6 +60,8 @@
 
   }
   .nice-select.open .list {
+  	max-height: 300px;
+    overflow-y: auto;
     opacity: 1;
     pointer-events: auto;
     -webkit-transform: scale(1) translateY(0);

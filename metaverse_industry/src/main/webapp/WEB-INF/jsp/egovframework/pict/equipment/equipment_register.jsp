@@ -104,13 +104,6 @@
 														class="txt" style="width:100%;">${pictVO.description}</textarea>
 												</div>
 											</div>
-											<div class="inputsContainer">
-												<div class="inputBox" style="width:100%">
-													<p class="inputCaption">비고</p>
-													<textarea name="bujajae" id="bujajae" cols="50" rows="10"
-														class="txt" style="width:100%;">${pictVO.bujajae}</textarea>
-												</div>
-											</div>
 											<div class="btnContainer">
 												<a href="/equipment/equipment_list.do" class="normalButton white">목록으로</a>
 												<a href="#lnk" onclick="button1_click()" class="basicButton blue"><img

@@ -35,14 +35,14 @@
 <div class="lnb">
     <nav>
         <div class="nav">
-      		<div class="depth1  <c:if test="${equipment_list ne -1 || equipment_register ne -1 || equipment_cnt_register ne -1}">active</c:if>">
+      		<div class="depth1  <c:if test="${equipment_list ne -1 || equipment_register ne -1 || equipment_cnt_register ne -1 || history_list ne -1}">active</c:if>">
                <span><img src="/img/admin/lnb_icons/lnb-category.png" alt=""></span>
                <a href="#lnk">자산 관리<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
            </div>
            <ul class="depth2">
           	   <li><span>장비 관리</span></li>
-               <li class="<c:if test="${equipment_list ne -1}">active</c:if>"><a href="">장비 목록</a></li>
-               <li class="<c:if test="${board_register ne -1}">active</c:if>"><a href="">장비대여 관리대장</a></li>
+               <li class="<c:if test="${equipment_list ne -1}">active</c:if>"><a href="/equipment/equipment_list.do">장비 목록</a></li>
+               <li class="<c:if test="${history_list ne -1}">active</c:if>"><a href="/history/history_list.do">장비대여 관리대장</a></li>
                <li class="<c:if test="${board_register ne -1}">active</c:if>"><a href="">대여/반납처리</a></li>
           	   <li><span>시설 관리</span></li>
                <li class="<c:if test="${board_list ne -1}">active</c:if>"><a href="">시설 목록</a></li>

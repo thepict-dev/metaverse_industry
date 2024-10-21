@@ -77,6 +77,9 @@ body{
     line-height: 100%; /* 12px */
     letter-spacing: -0.6px;
 }
+.lg{
+    width: 632px !important;
+}
 
 /* inputs */
 .lgInput{
@@ -630,7 +633,22 @@ select:disabled{
     font-weight: 400;
     line-height: 100%; /* 14px */
     letter-spacing: -0.7px;
-	
+}
+.bindingText.plan{
+	width: 632px;
+	height: 216px;
+	padding: 8px 16px;
+	color: var(--TEXT, #242A30);
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 160%; /* 22.4px */
+	letter-spacing: -0.7px;
+}
+.bindingText.disable{
+  color: var(--grey-500); 
+  border-radius: 4px;
+  border: 1px solid var(--grey-200);
+  background: var(--grey-200);	
 }
 
 .loginInput{
