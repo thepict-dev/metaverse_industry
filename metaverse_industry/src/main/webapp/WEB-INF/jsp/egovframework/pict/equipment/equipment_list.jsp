@@ -31,53 +31,42 @@
 	                </form>
 	               
 	                <div class="ListWrpper">
-	                    <ul class="listHead boardlist">
+	                    <ul class="listHead equipList">
+	                        <li>선택</li>
 	                        <li>순서</li>
-	                        <li>이름</li>
-	                        <li>설명</li>
-	                        <li>썸네일</li>
-	                        <li>비고</li>
-	                        <li>작성일</li>
-	                        <li>상세보기</li>
+	                        <li>구분</li>
+	                        <li>이미지</li>
+	                        <li>장비명</li>
+	                        <li>장비수량</li>
+	                        <li>등록일</li>
+	                        <li>수정</li>
+	                        <li>삭제</li>
 	                    </ul>
-	                    <ul class="listBody boardlist">
+	                    <ul class="listBody equipList">
 						    <c:forEach var="resultList" items="${resultList}" varStatus="status">
 						        <li>
-						            <div class="list-item">
-						                <!-- 기존 내용 -->
-					                    <p>${resultList.idx}</p>
-						                <p>
-						                	<a href="javascript:void(0);" onclick="board_mod('${resultList.idx}');" class="link">
-						                		${resultList.name}
-						                	</a>
-					                	</p>
-						                <p>${resultList.description}</p>
-						                <p>${resultList.image_url}</p>
-						                <p>${resultList.bujajae}</p>
-						                <p>${resultList.reg_date}</p>
-						                <!-- 
-						                <p class="delete"><a href="#lnk" onclick="board_delete('${resultList.idx}')"></a></p>
-						                 -->
-						                <p class="details">상세보기</p>
-						            </div>
-						            <div class="detail-view" style="display: none;">
-					                    <ul class="detailHead">
-					                        <li>순서</li>
-					                        <li>시리얼넘버</li>
-					                        <li>상태</li>
-					                    </ul>
-	                    				<ul class="detailBody">
-	                    					<li>1</li>
-	                    					<li>2938fFADJ1234FAJVIOB</li>
-	                    					<li>대여중</li>
-	                    				</ul>
-						            </div>
+		                            <div class="checkBox">
+		                                <input type="checkbox" id="selection"><label for="selection" class="lableOnly"></label>
+		                            </div>
+					                <!-- 기존 내용 -->
+				                    <p>${resultList.idx}</p>
+					                <p>HMD</p>
+				                    <!-- 
+					                <p>${resultList.description}</p>
+					                 -->
+					                <div class="listImg"><img src="${resultList.image_url}" alt="장비 이미자"></div>
+				                	<p class="title">${resultList.name}</p>
+					                <p>1</p>
+					                <p>${resultList.reg_date}</p>
+					                <p class="modify"><a href="#lnk" onclick="board_mod('${resultList.idx}');">수정</a></p>
+					                <p class="delete"><a href="#lnk" onclick="board_delete('${resultList.idx}')"></a></p>
 						        </li>
 						    </c:forEach>
 						</ul>
 	                    
 	                    <div class="listButton">
-	                        <a href="/equipment/equipment_register.do"><img src="/img/admin/add.png" alt="등록버튼">장비등록</a>
+	                        <a href="/equipment/equipment_register.do"><img src="/img/admin/add.png" alt="등록버튼">등록</a>
+	                        <a href="/equipment/equipment_register.do"><img src="/img/admin/delete.png" alt="삭제버튼">삭제</a>
 	                    </div>
 	                    
 	                    <div class="pagination">
@@ -101,6 +90,55 @@
 	                </div>
 	            </div>
 	        </div>
+            <div class="equipDetails">
+               	<div class="detailsTop">
+					<p>장비 세부사항</p>
+					<button><img src="/img/admin/close-bk.png" alt=""></button>
+				</div>
+				<div class="detailInfoContainer">
+					<div class="detailCard">
+						<div class="detailCardInner">
+							<div class="detailCardText">
+								<span class="detailCate">HMD</span>
+								<p>무슨장비다</p>
+								<span class="detailDate">2024-10-31</span>
+							</div>
+							<div class="detailCardImg">
+								<img src="" alt="장비이미지">
+							</div>
+						</div>
+					</div>
+					<div class="detailList">
+						<ul class="listHead detailHead">
+							<li>선택</li>
+							<li>시리얼 넘버</li>
+							<li>등록일</li>
+							<li>장비상태</li>
+							<li>라벨</li>
+							<li>삭제</li>
+						</ul>
+						<ul class="listBody detailBody">
+							<li>
+	                            <div class="checkBox">
+	                                <input type="checkbox" id="selection2"><label for="selection2" class="lableOnly"></label>
+	                            </div>
+								<p>2431564265234</p>
+								<p>2024-04-15</p>
+	                            <div class="switchInput">
+	                                <input type="checkbox" name="onoff-switch" id="onoff-switch1" />
+	                                <label for="onoff-switch1"></label>
+	                            </div>
+		                		<p class="label"><a href="#lnk"></a></p>
+		                		<p class="delete"><a href="#lnk"></a></p>
+							</li>
+						</ul>
+					</div>
+                    <div class="listButton detail">
+                        <a href="/equipment/equipment_cnt_register.do"><img src="/img/admin/add.png" alt="등록버튼">등록</a>
+                        <a href="#lnk"><img src="/img/admin/delete.png" alt="삭제버튼">삭제</a>
+                    </div>
+				</div>
+             </div>	
 	    </div>
 		<form action="" id="register" name="register" method="post" enctype="multipart/form-data">
 			<input type='hidden' name="idx" id="idx" value='' />
@@ -108,7 +146,14 @@
 			<input type='hidden' name="type" id="type" value='' />
 		</form>
 		<script>
-
+			
+			$('.listBody.equipList > li').click(function(){
+				$('.equipDetails').addClass('active');
+			});
+			$('.detailsTop button').click(function(){
+				$('.equipDetails').removeClass('active');
+			});
+			
 			function board_mod(idx){
 				location.href= "/equipment/equipment_register.do?idx="+ idx;
 			}
@@ -133,6 +178,5 @@
 		<script src="../../../../../js/scripts.js"></script>
 		<script src="../../../../../js/Chart.min.js" crossorigin="anonymous"></script>
 		<script src="../../../../../js/simple-datatables@latest.js" crossorigin="anonymous"></script>
-		<script src="/js/list_js.js"></script>
     </body>
 </html>

@@ -52,7 +52,7 @@
 											enctype="multipart/form-data" class="boardForm">
 											<div class="inputsContainer">
 												<div class="inputBox">
-													<p class="inputCaption">카테고리*</p>
+													<p class="inputCaption">장비구분*</p>
 													<select name="category" id="category" class="lgThinInput">
 														<option value="HMD" <c:if test="${pictVO.category eq 'HMD'}">
 															selected</c:if>>HMD</option>
@@ -71,32 +71,12 @@
 															selected</c:if>>기타</option>
 													</select>
 												</div>
-											</div>
-
-											<div class="inputsContainer">
 												<div class="inputBox">
-													<p class="inputCaption">장비이름*</p>
+													<p class="inputCaption">장비명*</p>
 													<input type="text" name="name" id="name" placeholder="장비 이름을 입력하세요…"
 														value="${pictVO.name}">
 												</div>
 											</div>
-
-											<div class="inputsContainer">
-												<div class="inputBox" style="width:100%">
-													<p class="inputCaption">장비설명*</p>
-													<textarea name="description" id="description" cols="50" rows="10"
-														class="txt" style="width:100%;">${pictVO.description}</textarea>
-												</div>
-											</div>
-											<div class="inputsContainer">
-												<div class="inputBox" style="width:100%">
-													<p class="inputCaption">비고</p>
-													<textarea name="bujajae" id="bujajae" cols="50" rows="10"
-														class="txt" style="width:100%;">${pictVO.bujajae}</textarea>
-												</div>
-											</div>
-
-
 											<div class="inputsContainer">
 												<div class="inputBox">
 													<p class="inputCaption">썸네일
@@ -111,10 +91,26 @@
 													<p class="fileCaption">첨부 파일은 각 10MB 이하의 파일만 가능합니다.</p>
 												</div>
 											</div>
-
-
-
-
+											<div class="inputsContainer">
+												<div class="inputBox">
+													<p class="inputCaption">등록일</p>
+													<input type="date" id="reg_date" name="reg_date" class="lgThinInput">
+												</div>
+											</div>
+											<div class="inputsContainer">
+												<div class="inputBox" style="width:100%">
+													<p class="inputCaption">설명</p>
+													<textarea name="description" id="description" cols="50" rows="10"
+														class="txt" style="width:100%;">${pictVO.description}</textarea>
+												</div>
+											</div>
+											<div class="inputsContainer">
+												<div class="inputBox" style="width:100%">
+													<p class="inputCaption">비고</p>
+													<textarea name="bujajae" id="bujajae" cols="50" rows="10"
+														class="txt" style="width:100%;">${pictVO.bujajae}</textarea>
+												</div>
+											</div>
 											<div class="btnContainer">
 												<a href="/equipment/equipment_list.do" class="normalButton white">목록으로</a>
 												<a href="#lnk" onclick="button1_click()" class="basicButton blue"><img
@@ -126,6 +122,25 @@
 											<input type='hidden' name="idx" id="idx" value='${pictVO.idx}' />
 										</form>
 									</div>
+						            <ul class="rentalItemList">
+								        <li>
+											<p class="inputCaption">카드 미리보기</p>
+								            <input type="checkbox" name="equip" id="equip_${item.idx}">
+								            <label for="equip_${item.idx}"></label>
+								            <div class="checkItem">
+								                <div class="itemImg">
+								                    <img src="${item.image_url}" alt="">
+								                    <span></span>
+								                    <a href="#lnk"><img src="/img/user_img/bag.png" alt=""></a>
+								                </div>
+								                <div class="itemTitles">
+								                    <span>${item.type}</span>
+								                    <p>${item.name}</p>
+								                </div>
+								                <p>${item.description}</p>
+								            </div>
+								        </li>
+									</ul>
 								</div>
 							</div>
 							<script>

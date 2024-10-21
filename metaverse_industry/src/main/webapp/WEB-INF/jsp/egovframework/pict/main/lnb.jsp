@@ -35,41 +35,54 @@
 <div class="lnb">
     <nav>
         <div class="nav">
-
-        
+      		<div class="depth1  <c:if test="${equipment_list ne -1 || equipment_register ne -1 || equipment_cnt_register ne -1}">active</c:if>">
+               <span><img src="/img/admin/lnb_icons/lnb-category.png" alt=""></span>
+               <a href="#lnk">자산 관리<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
+           </div>
+           <ul class="depth2">
+          	   <li><span>장비 관리</span></li>
+               <li class="<c:if test="${equipment_list ne -1}">active</c:if>"><a href="">장비 목록</a></li>
+               <li class="<c:if test="${board_register ne -1}">active</c:if>"><a href="">장비대여 관리대장</a></li>
+               <li class="<c:if test="${board_register ne -1}">active</c:if>"><a href="">대여/반납처리</a></li>
+          	   <li><span>시설 관리</span></li>
+               <li class="<c:if test="${board_list ne -1}">active</c:if>"><a href="">시설 목록</a></li>
+               <li class="<c:if test="${board_register ne -1}">active</c:if>"><a href="">시설대여 관리대장</a></li>
+          	   <li><span>교육 관리</span></li>
+               <li class="<c:if test="${board_list ne -1}">active</c:if>"><a href="">신청 목록</a></li>
+           </ul>
+        	<div class="depth1 <c:if test="${board_list ne -1 || board_register ne -1}">active</c:if>">
+               <span><img src="/img/admin/lnb_icons/user.png" alt=""></span>
+               <a href="#lnk">사용자<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
+           </div>
+           <ul class="depth2">
+          	   <li><span>사용자 관리</span></li>
+               <li class="<c:if test="${board_list ne -1}">active</c:if>"><a href="">사용자 목록</a></li>
+           </ul>
+        	<div class="depth1 <c:if test="${board_list ne -1 || board_register ne -1}">active</c:if>">
+               <span><img src="/img/admin/lnb_icons/lnb-popup.png" alt=""></span>
+               <a href="#lnk">팝업존<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
+           </div>
+           <ul class="depth2">
+          	   <li><span>팝업 관리</span></li>
+               <li class="<c:if test="${board_list ne -1}">active</c:if>"><a href="">팝업 등록</a></li>
+           </ul>
+        	<div class="depth1 <c:if test="${board_list ne -1 || board_register ne -1}">active</c:if>">
+               <span><img src="/img/admin/lnb_icons/lnb-filter.png" alt=""></span>
+               <a href="#lnk">데이터<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
+           </div>
+           <ul class="depth2">
+          	   <li><span>홈페이지</span></li>
+               <li class="<c:if test="${board_list ne -1}">active</c:if>"><a href="">방문자 현황</a></li>
+           </ul>
         	<div class="depth1 <c:if test="${board_list ne -1 || board_register ne -1}">active</c:if>">
                <span><img src="/img/admin/lnb_icons/board.png" alt=""></span>
-               <a href="#lnk">공지사항 관리<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
+               <a href="#lnk">게시물<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
            </div>
            <ul class="depth2">
-               <li class="<c:if test="${board_list ne -1}">active</c:if>"><a href="/board/board_list.do">공지사항 리스트</a></li>
-               <li class="<c:if test="${board_register ne -1}">active</c:if>"><a href="/board/board_register.do">공지사항 등록</a></li>
+          	   <li><span>알림마당</span></li>
+               <li class="<c:if test="${board_list ne -1}">active</c:if>"><a href="">공지사항</a></li>
+               <li class="<c:if test="${board_list ne -1}">active</c:if>"><a href="">사업공고</a></li>
            </ul>
-            <div class="depth1 <c:if test="${user_list ne -1}">active</c:if>">
-                <span><img src="/img/admin/lnb_icons/user.png" alt=""></span>
-                <a href="#lnk">사용자 관리<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
-            </div>
-            <ul class="depth2">
-                <li class="<c:if test="${user_list ne -1}">active</c:if>"><a href="/user/user_list.do">사용자 리스트</a></li>
-            </ul>
-            <div class="depth1 <c:if test="${equipment_list ne -1 || equipment_register ne -1 || equipment_cnt_register ne -1}">active</c:if>">
-               <span><img src="/img/admin/lnb_icons/lnb-feed.png" alt=""></span>
-               <a href="#lnk">장비 관리<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
-           </div>
-           <ul class="depth2">
-               <li class="<c:if test="${equipment_list ne -1}">active</c:if>"><a href="/equipment/equipment_list.do">장비 리스트</a></li>
-               <li class="<c:if test="${equipment_register ne -1}">active</c:if>"><a href="/equipment/equipment_register.do">장비 등록</a></li>
-               <li class="<c:if test="${equipment_cnt_register ne -1}">active</c:if>"><a href="/equipment/equipment_cnt_register.do">재고 등록</a></li>
-           </ul>
-            <div class="depth1 <c:if test="${history_list ne -1}">active</c:if>">
-                <span><img src="/img/admin/lnb_icons/lnb-history.png" alt=""></span>
-                <a href="#lnk">대여 관리<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
-            </div>
-            <ul class="depth2">
-                <li class="<c:if test="${history_list ne -1}">active</c:if>"><a href="/history/history_list.do">대여신청 관리</a></li>
-                <li class="<c:if test="${history_list ne -1}">active</c:if>"><a href="/history/history_list.do">반입∙반출 관리</a></li>
-            </ul>
-            
             <%-- <div class="depth1 <c:if test="${event_list ne -1 || event_register ne -1}">active</c:if>">
                 <span><img src="/img/admin/lnb_icons/lnb-event.png" alt=""></span>
                 <a href="#lnk">행사 관리<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>

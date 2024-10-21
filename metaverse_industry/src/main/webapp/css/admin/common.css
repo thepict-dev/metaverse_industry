@@ -80,20 +80,28 @@ body{
 
 /* inputs */
 .lgInput{
-    width: 208px;
+    width: 208px !important;
     height: 48px;
 }
 .lgThinInput{
-    width: 208px;
+    width: 208px !important;
     height: 34px;
 }
 .smInput{
-    width: 112px;
+    width: 112px !important;
     height: 48px;
 }
 .smThinInput{
-    width: 112px;
+    width: 112px !important;
     height: 34px;
+}
+.checkBox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	width: 100%;
+	height: 100%;
+	
 }
 input:focus{
     outline: 1px solid var(--blue-500);
@@ -264,6 +272,13 @@ input.circleCheck[type=checkbox]:checked + label {
     width: 34px;
     height: 20px;
     position:relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.switchInput.nonTop{
+    top: 8px;
+    transform: translateX(-50%);
 }
 .switchInput input[type="checkbox"]{
     position: absolute;
@@ -642,3 +657,5 @@ select:disabled{
 .loginContents > button:hover{
     background-color: var(--blue-600);
 }
+
+

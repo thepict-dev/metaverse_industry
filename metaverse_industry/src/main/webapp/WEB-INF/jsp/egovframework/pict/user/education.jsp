@@ -62,9 +62,150 @@
                 </div>
             </div>
         </div>
-        <a href="#lnk">사업 공고 바로가기 <img src="/img/user_img/arrow-right.png" alt=""></a>
+        <a href="#lnk" class="openModalBtn">신청하러가기 <img src="/img/user_img/arrow-right.png" alt=""></a>
+    </div>
+    <div class="modalContainer" id="eduModal">
+        <div class="myModalInner">
+            <div class="modalTop">
+                <p>강원 메타버스 지원센터 현장체험교육 참가신청서</p>
+                <button type="button" class="closeModalBtn"><img src="/img/user_img/close-modal2.png" alt=""></button>
+            </div>
+            <div class="modalBottom">
+                <div class="joinFormWrapper">
+                    <div class="inputContainer">
+                        <p class="inputCaption">단체명</p>
+                        <input type="text" name="" id="" placeholder="단체명을 입력하세요">
+                    </div>
+                    <div class="inputContainer">
+                        <p class="inputCaption">주소</p>
+                        <div class="flexInputs">
+                            <input type="text" name="user_address1" id="user_address1" readonly placeholder="주소를 입력하세요">
+                            <a href="#lnk" id="search_add1">주소검색</a>
+                        </div>
+                        <input type="text" name="user_address2" id="user_address2">
+                    </div>
+                    <div class="flexInputs deoble">
+	                    <div class="inputContainer">
+	                        <p class="inputCaption">연락처</p>
+	                        <input type="text" name="" id="" placeholder="연락처를 입력하세요">
+	                    </div>
+	                    <div class="inputContainer">
+	                        <p class="inputCaption">직책</p>
+	                        <input type="text" name="" id="" placeholder="직책을 입력하세요">
+	                    </div>
+                    </div>
+                    <div class="flexInputs deoble">
+	                    <div class="inputContainer">
+	                        <p class="inputCaption">전화번호</p>
+	                        <input type="text" name="" id="" placeholder="전화번호를 입력하세요">
+	                    </div>
+	                    <div class="inputContainer">
+	                        <p class="inputCaption">이메일</p>
+	                        <input type="text" name="" id="" placeholder="이메일을 입력하세요">
+	                    </div>
+                    </div>
+                    <div class="flexInputs deoble">
+	                    <div class="inputContainer">
+	                        <p class="inputCaption">신청교육</p>
+							
+                            <div class="radio-container">
+                                <label class="custom" for="type_1">
+                                    <input type="radio" id="type_1" name="type">
+                                    <div class="custom-radio"></div>
+                                    <span>견학형</span>
+                                </label>
+                                <label class="custom" for="type_2">
+                                    <input type="radio" id="type_2" name="type">
+                                    <div class="custom-radio"></div>
+                                    <span>실습형-버츄얼 유튜버</span>
+                                </label>
+                                <label class="custom" for="type_3">
+                                    <input type="radio" id="type_3" name="type">
+                                    <div class="custom-radio"></div>
+                                    <span>실습형-모션캡처</span>
+                                </label>
+                            </div>
+	                    </div>
+	                    <div class="inputContainer">
+	                        <p class="inputCaption">참여인원</p>
+                    		<div class="flexInputs sm">
+	                        	<input type="text" name="" id="" placeholder="회당 12명 기준">
+								<span>명</span>
+							</div>
+	                    </div>
+                    </div>
+                    <div class="flexInputs deoble">
+	                    <div class="inputContainer">
+	                        <p class="inputCaption">희망일시</p>
+                    		<div class="flexInputs">
+	                        	<input type="date" name="" id="">
+	                        	<input type="time" name="" id="">
+							</div>
+                        </div>
+	                    <div class="inputContainer">
+	                        <p class="inputCaption">교육생</p>
+                    		<div class="flexInputs">
+	                    		<div class="flexInputs xsm">
+		                        	<input type="text" name="" id="" placeholder="학교명을 입력하세요.">
+									<span>학교</span>
+								</div>
+	                    		<div class="flexInputs xsm">
+		                        	<input type="text" name="" id="" placeholder="학년을 입력하세요.">
+									<span>학년</span>
+								</div>
+							</div>
+	                    </div>
+                    </div>
+                </div>
+                <div class="checkConfirm edu1">
+                    <input type="checkbox" name="agree1" id="agree1" class="checkOnly" />
+                    <label for="agree1">고유식별정보, 개인식별정보 등 수집 동의</label>
+                </div>
+                <div class="checkConfirm edu2">
+                    <input type="checkbox" name="agree2" id="agree2" class="checkOnly" />
+                    <label for="agree2">제3자 정보제공 동의</label>
+                </div>
+                <div class="fullButtonContainer edu">
+                    <a href="#lnk" class="wt normal closeModalBtn">신청취소</a>
+                    <a href="#lnk" class="gd normal">신청하기</a>
+                </div>
+            </div>
+        </div>
     </div>
 	<%@ include file="./include/footer.jsp" %>
 	<script src="/js/sub.js"></script>
+	<script>
+	    const eduModal = document.querySelector('#eduModal');  // 모달 요소
+	    const openModalBtn = document.querySelector('.openModalBtn');  // 모달을 여는 버튼
+	    const closeModalBtns = document.querySelectorAll('.closeModalBtn');  // 모달을 닫는 버튼들
+	
+	    // 모달 열기
+	    openModalBtn.addEventListener('click', () => {
+	        eduModal.classList.add('active');
+	        document.body.classList.add('no-scroll');  // body에 no-scroll 클래스 추가
+	        lenis.stop();  // Lenis 비활성화
+	    });
+	
+	    // 모달 닫기
+	    closeModalBtns.forEach(btn => {
+	        btn.addEventListener('click', () => {
+	            eduModal.classList.remove('active');
+	            document.body.classList.remove('no-scroll');  // body에서 no-scroll 클래스 제거
+	            lenis.start();  // Lenis 활성화
+	        });
+	    });
+	
+	    // 모달 내부 스크롤 처리
+	    eduModal.addEventListener('wheel', (e) => {
+	        e.stopPropagation();
+	    }, { passive: false });
+	
+	    // 모달이 열려있을 때 body 스크롤 방지
+	    document.body.addEventListener('wheel', (e) => {
+	        if (eduModal.classList.contains('active')) {
+	            e.preventDefault();
+	        }
+	    }, { passive: false });
+	</script>
 </body>
 </html>

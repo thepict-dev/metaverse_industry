@@ -29,7 +29,7 @@
     align-items: center;
     width: 100%;
     height: 100%;
-    background-image: url(/img/admin/logos/platform-icon.png);
+    background-image: url(/img/admin/logos/icon.png);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
@@ -167,7 +167,7 @@
     width: 192px;
 }
 .headerTop h1.active a{
-    background-image: url(/img/admin/logos/platform-logo.png);
+    background-image: url(/img/admin/logos/admin-logo.png);
 }
 .headerTop h1.active a span{
     display: none;

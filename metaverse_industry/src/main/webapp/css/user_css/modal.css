@@ -201,6 +201,12 @@
     column-gap: 8px;
     margin: 36px 0;
 }
+.checkConfirm.edu1{
+    margin: 36px 0 0 0;
+}
+.checkConfirm.edu2{
+    margin: 0 0 36px 0;
+}
 .checkConfirm label{
     font-size: 14px;
     font-weight: 500;
@@ -333,6 +339,13 @@
     display: flex;
 }
 
+#eduModal{
+    display: none;
+}
+#eduModal.active{
+    display: flex;
+}
+
 #bookingInfoModal .modalInner{
     max-height: 610px;
 }
@@ -347,4 +360,7 @@
 }
 .stateModalInner.facil{
     max-height: 547px;
+}
+#eduModal .myModalInner{
+    max-height: 800px;
 }

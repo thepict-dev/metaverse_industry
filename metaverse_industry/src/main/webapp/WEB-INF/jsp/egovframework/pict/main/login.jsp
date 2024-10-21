@@ -14,7 +14,7 @@
 	        <div class="loginInner">
 	            <form class="loginContents" action="#" id="entryForm" name="entryForm" method="post">
 	                <div class="loginTitle">
-	                    <h1>강원영상산업지원센터</h1>
+	                    <h1>강원메타버스지원센터</h1>
 	                    <h2>로그인</h2>
 	                </div>
 	                <div class="loginInputs">

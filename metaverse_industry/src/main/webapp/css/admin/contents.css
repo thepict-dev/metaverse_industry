@@ -24,6 +24,9 @@
     width: 100%;
     padding-bottom: 30px;
 }
+.listInner{
+	position: relative;
+}
 .listInner .countList .inputsContainer{
     width: fit-content;
 }
@@ -57,6 +60,7 @@
     width: 14px;
 }
 .listContainer{
+	position: relative;
     width: 100%;
     height: 100%;
     padding: 24px 24px 150px 24px;
@@ -80,7 +84,6 @@
 /* 사용자리스트용 */
 .listHead{
     display: grid;
-    grid-template-columns: 5% 15% 30% 15% 15% 5% 10% 5%;
     text-align: center;
 }
 .listHead li{
@@ -95,77 +98,18 @@
 
 .listBody > li{
     display: grid;
-    grid-template-columns: 5% 15% 30% 15% 15% 5% 10% 5%;
     text-align: center;
     border-bottom: 1px solid var(--grey-100);
     background-color: #fff;
 }
 
-.listHead.boardlist{
-    grid-template-columns: 5% 15% 30% 15% 15% 10% 10%;
+.listHead.equipList{
+    grid-template-columns: 5% 5% 5% 10% 35% 10% 10% 10% 10%;
 }
 
-.listBody.boardlist > li{
-    grid-template-columns: 5% 15% 30% 15% 15% 10% 10%;
-}
-/* 드롭다운 상세 보기를 위한 추가 CSS */
-.listBody.boardlist > li {
+.listBody.equipList > li{
+    grid-template-columns: 5% 5% 5% 10% 35% 10% 10% 10% 10%;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.listBody.boardlist > li:hover {
-    background-color: var(--grey-50);
-}
-
-.listBody.boardlist > li .list-item {
-    display: contents; /* grid 구조를 유지하기 위해 */
-}
-
-.listBody.boardlist > li .detail-view {
-    grid-column: 1 / -1;
-    width: 100%;
-    background-color: #f8f9fa;
-    padding: 0 20px;
-    margin-top: 10px;
-    border-radius: 4px;
-    overflow: hidden;
-    transition: all 0.3s ease-out;
-    max-height: 0;
-    opacity: 0;
-}
-
-.listBody.boardlist li.active .detail-view {
-    padding: 20px;
-    max-height: 1000px; /* 충분히 큰 값으로 설정 */
-    opacity: 1;
-}
-
-.detail-view .detailHead,
-.detail-view .detailBody {
-    display: grid;
-    grid-template-columns: 10% 70% 20%;
-    text-align: center;
-    padding: 10px 0;
-}
-
-.detail-view .detailHead {
-    background-color: var(--blue-50);
-    font-weight: bold;
-}
-
-.detail-view .detailBody {
-    background-color: #ffffff;
-    border-bottom: 1px solid var(--grey-100);
-}
-
-.detail-view .detailHead li,
-.detail-view .detailBody li {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    font-size: 14px;
 }
 
 /* 상세보기 버튼 스타일 */
@@ -178,23 +122,16 @@
 .listBody.boardlist li .details:hover {
     color: var(--blue-700);
 }
-
-/* 기존 스타일 수정 */
-.listBody.boardlist > li {
-    display: grid;
-    grid-template-columns: 5% 15% 30% 15% 15% 10% 10%;
-    text-align: center;
-    border-bottom: 1px solid var(--grey-100);
-    background-color: #fff;
-    transition: background-color 0.3s ease;
+.modify{
+	text-decoration-line: underline;
 }
-
-.listBody.boardlist > li:hover {
-    background-color: var(--grey-50);
+.listImg{
+	width: 134px;
+	height: 80px;
+	padding: 4px;
 }
-
-.listBody.boardlist > li .list-item {
-    display: contents;
+.listImg img{
+	width: 100%;
 }
 
 /* 게시판리스트용 */
@@ -221,8 +158,9 @@
     line-height: 100%; /* 14px */
     letter-spacing: -0.7px;
 }
-.listBody li a.title{
-    text-align: left;
+.listBody li p.title{
+    justify-content: flex-start;
+	text-decoration-line: underline;
 }
 .listBody li p.delete{
     display: flex;
@@ -233,6 +171,14 @@
     width: 32px;
     height: 100%;
     background-image: url(/img/admin/delete.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.listBody li p.label a{
+    display: block;
+    width: 32px;
+    height: 100%;
+    background-image: url(/img/admin/download2.png);
     background-repeat: no-repeat;
     background-position: center center;
 }
@@ -286,6 +232,7 @@
 .listButton{
     display: flex;
     justify-content: flex-end;
+    column-gap: 12px;
     width: 100%;
     padding-top: 22px;
 }
@@ -394,3 +341,282 @@
     padding-top: 28px;
 }
 
+
+
+
+
+
+.rentalItemList {
+    position: absolute;
+    top: 49px;
+    right: 100px;
+    width: 324px;
+    padding: 0 20px;
+}
+
+.rentalItemList.fa {
+    padding: 40px 20px 0 20px;
+}
+
+.rentalItemList li {
+    position: relative;
+    width: 324px;
+    height: 411px;
+}
+
+.rentalItemList li input {
+    display: none;
+}
+.rentalItemList li input[type=checkbox] + label {
+    display: none;
+}
+
+
+.rentalItemList li label {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.rentalListContainer.active .rentalItemList {
+    padding: 0 80px 0 20px;
+}
+
+.rentalListContainer.active .rentalItemList.fa {
+    padding: 40px 80px 0 20px;
+}
+
+.itemImg {
+    position: relative;
+    width: 100%;
+    height: 189px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.itemImg>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.itemImg span {
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url(/img/user_img/item-uncheck.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.itemImg a {
+    position: absolute;
+    right: 4px;
+    bottom: 4px;
+    z-index: 7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    background-color: #fff;
+    border: 1px solid var(--grey-100);
+}
+
+.itemImg a:hover {
+    background-color: var(--grey-50);
+}
+
+.itemTitles {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+}
+
+.itemTitles span {
+    color: var(--grey-500);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 100%;
+    /* 14px */
+}
+
+.itemTitles p {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 100%;
+    /* 18px */
+}
+
+.checkItem {
+    width: 100%;
+    height: 100%;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid var(--grey-100);
+    /* background: var(--grey-50); */
+    background-color: #fff;
+    overflow: hidden;
+    transition: background .2s;
+}
+
+.checkItem>p {
+    width: 100%;
+    margin-top: 17px;
+    overflow: hidden;
+    white-space: normal;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 140%;
+    /* 19.6px */
+    letter-spacing: -0.7px;
+}
+
+.rentalItemList li:hover .checkItem {
+    background: rgba(3, 182, 53, 0.10);
+}
+
+.rentalItemList li input:checked+label+.checkItem {
+    border: 2px solid #03B635;
+    background: rgba(3, 182, 53, 0.10);
+}
+
+.rentalItemList li input:checked+label+.checkItem .itemImg span {
+    background-image: url(/img/user_img/item-checked.png);
+}
+
+.rentalItemList li input:disabled+label+.checkItem {
+    border: 1px solid var(--grey-grey-100, #DBDEE2);
+    background: var(--grey-grey-50, #F3F5F6);
+}
+
+.rentalItemList li input:disabled+label+.checkItem .itemImg span {
+    background-image: url(/img/user_img/item-dis.png);
+}
+
+.detailHead{
+    grid-template-columns: 10% 25% 20% 15% 15% 15%;
+}
+.detailBody li{
+    grid-template-columns: 10% 25% 20% 15% 15% 15%;
+}
+
+.equipDetails{
+	position: absolute;
+    right:-100%;
+    top:0;
+    width: 600px;
+    background: #fff;
+    height: 100%;
+    transition: all .8s;
+}
+.equipDetails.active{
+    right:0;
+}
+.detailsTop{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 60px;
+    padding: 0 40px;
+}
+.detailsTop p{
+	color: var(--TEXT, #242A30);
+	font-family: SUIT;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: 100%; /* 20px */
+}
+.detailsTop button{
+	cursor: pointer;
+}
+.detailInfoContainer{
+	width: 100%;
+	height: calc(100% - 60px);
+	overflow-y: auto;
+}
+.detailCard{
+	width: 100%;
+	padding: 20px 40px;
+}
+.detailCardInner{
+	display: flex;
+	width: 100%;
+	padding: 20px 23px;
+	justify-content: space-between;
+	border-radius: 8px;
+	border: 1px solid #F3F5F6;
+}
+.detailCardText .detailCate{
+	color: var(--grey-500);
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 100%; /* 14px */
+}
+.detailCardText p{
+	max-width: 228px;
+	margin: 8px 0 17px 0;
+	font-size: 18px;
+	font-weight: 700;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+	line-height: 100%; /* 18px */
+}
+.detailCardText .detailDate{
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 140%; /* 19.6px */
+	letter-spacing: -0.7px;
+}
+.detailCardImg{
+	width: 159px;
+	height: 95px;
+}
+.detailCardImg img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+.listButton.detail{
+	padding: 12px 20px;
+}
+
+
+.detailCard.detailSub{
+	position: absolute;
+    top: 48px;
+    right: 56px;
+    width: 574px;
+	padding: 0;
+}
+.detailCardInner.detailSub{
+    background: #fff;
+}
+.detailCardInner.detailSub .detailCardImg{
+	width: 292px;
+	height: 189px;
+}
+.detailCardInner.detailSub .detailCardImg img{
+	object-fit: contain;
+}

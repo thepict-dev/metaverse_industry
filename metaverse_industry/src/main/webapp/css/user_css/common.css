@@ -236,6 +236,12 @@ textarea {
     width: 206px;
     font-weight: 500;
 }
+.fullButtonContainer a.gd.normal {
+    width: 206px;
+    font-weight: 500;
+    background-color: var(--gold-color);
+    color: #fff;
+}
 
 .fullButtonContainer a.wt.view {
     max-width: 363px;
@@ -257,6 +263,13 @@ textarea {
 
 }
 
+.fullButtonContainer.edu {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    column-gap: 20px;
+
+}
 @media all and (max-width : 768px) {
     .fullButtonContainer a.wt.booking {
         width: 100%;
@@ -426,8 +439,8 @@ input.checkOnly[type="checkbox"]:checked {
 
 .checkInputBox label {
     font-size: 14px;
-    font-weight: 500;
     line-height: 100%;
+    font-weight: 500;
     /* 14px */
     letter-spacing: -0.7px;
     text-decoration-line: underline;
@@ -450,4 +463,49 @@ input.checkOnly[type="checkbox"]:checked {
     ::-webkit-scrollbar {
         display: none;
     }
+}
+
+
+/* date */
+input[type="date"], input[type="time"]{
+    position: relative;
+    width: 100%;
+    padding: 24px 12px;
+    color: #000;
+    font-family: var(--fn-suit);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 100%;
+    /* 18px */
+    border: 0;
+    border-bottom: 1px solid var(--grey-100);
+    box-sizing: border-box;
+    background: #FFF;
+    width: calc(100% - 4px) !important;
+    height: 71px;
+}
+
+input[type="date"]::-webkit-clear-button,
+input[type="date"]::-webkit-inner-spin-button { 
+    display: none;
+} 
+input[type="date"]::-webkit-calendar-picker-indicator { 
+    background: transparent;
+    z-index: 1;
+} 
+input[type="date"]::after{
+  position: absolute;
+  top:50%;
+  right:16px;
+  content: '';
+  width: 24px;
+  height: 24px;
+  background: url(/img/user_img/date.png) center center / 100%;
+  background-repeat: no-repeat;
+  transform: translateY(-50%);
+  z-index: 0;
+}
+input[type="date"]:focus, input[type="time"]:focus{
+	outline: none;
+    border-bottom: 1px solid var(--grey-500);
 }

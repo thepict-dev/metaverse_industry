@@ -122,8 +122,33 @@
     column-gap: 8px;
     width: 100%;
 }
-.flexInputs input{
+.flexInputs.deoble{
+    column-gap: 20px;
+    width: 100%;
+}
+.flexInputs.deoble .inputContainer{
+    width: calc(50% - 10px);
+}
+.flexInputs.deoble > input{
+    width: 100%;
+}
+.flexInputs.sm > input{
+    width: 233px;
+}
+.flexInputs.xsm > input{
+    width: 190px;
+}
+.flexInputs > input{
     width: calc(100% - 97px);
+}
+.flexInputs > span{
+	color: #000;
+	font-family: SUIT;
+	font-size: 18px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 100%; /* 18px */
+	white-space: nowrap;
 }
 .flexInputs a{
     display: flex;
@@ -131,11 +156,11 @@
     justify-content: center;
     width: 89px;
     height: 34px;
-    color: var(--600, #475569);
+    color: #475569;
     font-size: 14px;
     font-weight: 500;
-    line-height: 100%; /* 14px */
-    border: 1px solid var(--200, #E2E8F0);
+    line-height: 100%; /* 14px */ 
+    border: 1px solid #E2E8F0;
 }
 #user_address2, #company_address2{
     display: none;
@@ -152,6 +177,22 @@
     .flexInputs input{
         width: calc(100% - 97px);
     }
+	.flexInputs.deoble{
+		row-gap: 18px;
+		flex-wrap: wrap;
+	}
+	.flexInputs.deoble .inputContainer{
+	    width: 100%;
+	}
+	.flexInputs.deoble > input{
+	    width: 100%;
+	}
+	.flexInputs.sm > input{
+	    width: 100%;
+	}
+	.flexInputs.xsm > input{
+	    width: 100%;
+	}
 }
 
 
@@ -341,4 +382,74 @@
     line-height: 100%; /* 14px */
     letter-spacing: -0.7px;
     color: #137055;
+}
+
+
+.radio-container {
+    display: flex;
+    column-gap: 12px;
+    flex-wrap: wrap;
+}
+
+label.custom {
+    display: flex;
+    align-items: center;
+    column-gap: 2px;
+    cursor: pointer;
+    padding: 13px 0;
+}
+
+label.custom>input {
+    display: none;
+}
+
+.custom-radio {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    /* align-items: center; */
+    /* justify-content: center; */
+    position: relative;
+}
+
+.custom-radio::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    border: 1.5px solid #583D94;
+    border-radius: 50%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+label.custom>input:checked~.custom-radio::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 9px;
+    height: 9px;
+    background-color: #583D94;
+    border-radius: 50%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.custom>span {
+    color: var(--TEXT, #242A30);
+    font-family: SUIT;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 100%;
+    /* 18px */
+    letter-spacing: -0.9px;
 }
