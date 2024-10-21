@@ -64,10 +64,12 @@
 	                                <label for="attach_file">파일추가</label>
 	                                <input type="file" id="attach_file" name="attach_file" multiple style="display: none;">
 	                            </p>
-	                            <ul class="fileList">
-	                                
-	                            </ul>
-	                            <p class="fileCaption">첨부 파일은 각 10MB 이하의 파일만 가능합니다.</p>
+	                            <div class="fileList">
+	                                <p></p>
+	                                <button><img src="/img/admin/close2.png" alt=""></button>
+	                            </div>
+	                            <p class="fileCaption">첨부 파일은 10MB 아래의 확장자 파일만 가능합니다.<br>
+	                                (jpeg, png, gif, bmp, tif)</p>
 	                        </div>
 	                    </div>
 	                    
@@ -77,10 +79,12 @@
 	                                <label for="attach_file1">파일추가</label>
 	                                <input type="file" id="attach_file1" name="attach_file1" multiple style="display: none;">
 	                            </p>
-	                            <ul class="fileList">
-	                                
-	                            </ul>
-	                            <p class="fileCaption">첨부 파일은 각 10MB 이하의 파일만 가능합니다.</p>
+	                            <div class="fileList">
+	                                <p></p>
+	                                <button><img src="/img/admin/close2.png" alt=""></button>
+	                            </div>
+	                            <p class="fileCaption">첨부 파일은 10MB 아래의 확장자 파일만 가능합니다.<br>
+	                                (jpeg, png, gif, bmp, tif)</p>
 	                        </div>
 	                    </div>
 	                    
@@ -90,10 +94,12 @@
 	                                <label for="attach_file2">파일추가</label>
 	                                <input type="file" id="attach_file2" name="attach_file2" multiple style="display: none;">
 	                            </p>
-	                            <ul class="fileList">
-	                                
-	                            </ul>
-	                            <p class="fileCaption">첨부 파일은 각 10MB 이하의 파일만 가능합니다.</p>
+	                            <div class="fileList">
+	                                <p></p>
+	                                <button><img src="/img/admin/close2.png" alt=""></button>
+	                            </div>
+	                            <p class="fileCaption">첨부 파일은 10MB 아래의 확장자 파일만 가능합니다.<br>
+	                                (jpeg, png, gif, bmp, tif)</p>
 	                        </div>
 	                    </div>
 	                    
@@ -109,6 +115,37 @@
 	        </div>
 	    </div>
 	    <script>
+
+		    $(document).ready(function() {
+		        // 첨부파일 관련 코드
+		        var fileInputs = ['attach_file', 'attach_file1', 'attach_file2', 'attach_file3'];
+	
+		        $.each(fileInputs, function(index, inputId) {
+		            var $fileInput = $('#' + inputId);
+		            var $fileList = $fileInput.closest('.inputBox').find('.fileList');
+		            var $fileName = $fileList.find('p');
+		            var $deleteButton = $fileList.find('button');
+	
+		            $fileInput.on('change', function() {
+		                if (this.files.length > 0) {
+		                    var fileName = this.files[0].name;
+		                    $fileName.text(fileName);
+		                    $fileList.css('display', 'flex');
+		                }
+		            });
+	
+		            $deleteButton.on('click', function(e) {
+		                e.preventDefault();
+		                $fileName.text('');
+		                $fileInput.val('');
+		                $fileList.hide();
+		            });
+	
+		            // 초기 상태에서 fileList 숨김
+		            $fileList.hide();
+		        });
+		    });
+		    
 			function button1_click() {
 				var title = $('#title').val();
 				

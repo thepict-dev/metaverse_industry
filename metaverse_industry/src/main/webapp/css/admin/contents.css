@@ -197,71 +197,15 @@
     display: contents;
 }
 
-/* 피드리스트용 */
-.listHead.feed{
+/* 게시판리스트용 */
+.listHead.noticelist{
     display: grid;
-    grid-template-columns: 5% 15% 15% 15% 10% 10% 10% 10% 10%;
+    grid-template-columns: 10% 40% 30% 20%;
     text-align: center;
 }
-.listBody.feed li{
+.listBody.noticelist li{
     display: grid;
-    grid-template-columns: 5% 15% 15% 15% 10% 10% 10% 10% 10%;
-    text-align: center;
-    border-bottom: 1px solid var(--grey-100);
-    background-color: #fff;
-}
-
-/* 피드 댓글 리스트용 */
-.listHead.feedreply{
-    display: grid;
-    grid-template-columns: 15% 20% 20% 25% 20%;
-    text-align: center;
-}
-.listBody.feedreply li{
-    display: grid;
-    grid-template-columns: 15% 20% 20% 25% 20%;
-    text-align: center;
-    border-bottom: 1px solid var(--grey-100);
-    background-color: #fff;
-}
-
-/* 코스이력 리스트용 */
-.listHead.history{
-    display: grid;
-    grid-template-columns: 5% 10% 15% 15% 10% 15% 15% 15%;
-    text-align: center;
-}
-.listBody.history li{
-    display: grid;
-    grid-template-columns: 5% 10% 15% 15% 10% 15% 15% 15%;
-    text-align: center;
-    border-bottom: 1px solid var(--grey-100);
-    background-color: #fff;
-}
-
-/* 행사관리 리스트용 */
-.listHead.event{
-    display: grid;
-    grid-template-columns: 5% 15% 10% 20% 10% 10% 10% 10% 10%;
-    text-align: center;
-}
-.listBody.event li{
-    display: grid;
-    grid-template-columns: 5% 15% 10% 20% 10% 10% 10% 10% 10%;
-    text-align: center;
-    border-bottom: 1px solid var(--grey-100);
-    background-color: #fff;
-}
-
-/* 코스관리 리스트용 */
-.listHead.course{
-    display: grid;
-    grid-template-columns: 5% 5% 15% 5% 5% 10% 25% 10% 10% 10%;
-    text-align: center;
-}
-.listBody.course li{
-    display: grid;
-    grid-template-columns: 5% 5% 15% 5% 5% 10% 25% 10% 10% 10%;
+    grid-template-columns: 10% 40% 30% 20%;
     text-align: center;
     border-bottom: 1px solid var(--grey-100);
     background-color: #fff;

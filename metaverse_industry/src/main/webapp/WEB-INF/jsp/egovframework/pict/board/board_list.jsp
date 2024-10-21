@@ -31,13 +31,13 @@
 	                </form>
 	               
 	                <div class="ListWrpper">
-	                    <ul class="listHead boardlist">
+	                    <ul class="listHead noticelist">
 	                        <li>순서</li>
 	                        <li>제목</li>
 	                        <li>작성일</li>
 	                        <li>삭제</li>
 	                    </ul>
-	                    <ul class="listBody boardlist">
+	                    <ul class="listBody noticelist">
 	                    	<c:forEach var="resultList" items="${resultList}" varStatus="status">
 		                        <li>
 		                            <c:if test="${pictVO.pageNumber eq 1}">
@@ -85,7 +85,7 @@
 			<input type='hidden' name="type" id="type" value='' />
 		</form>
 		<script>
-
+	
 			function board_mod(idx){
 				location.href= "/board/board_register.do?idx="+ idx;
 			}
