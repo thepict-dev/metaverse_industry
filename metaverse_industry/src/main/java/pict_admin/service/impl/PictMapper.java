@@ -16,7 +16,7 @@
 package pict_admin.service.impl;
 
 import java.util.List;
-
+import java.util.Map;
 
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
 import pict_admin.service.AdminVO;
@@ -54,6 +54,10 @@ public interface PictMapper {
 	
 	List<?> equipment_list(PictVO pictVO) throws Exception;
 	
+	List<Map<String, Object>> equipment_item_list(PictVO pictVO) throws Exception;
+	
+	List<Map<String, Object>> equipment_unavailable_date_list(PictVO pictVO) throws Exception;
+	
 	PictVO equipment_list_one(PictVO pictVO) throws Exception;
 	
 	void equipment_update(PictVO pictVO) throws Exception;
@@ -63,6 +67,14 @@ public interface PictMapper {
 	void equipment_cnt_update(PictVO pictVO) throws Exception;
 
 	void equipment_cnt_insert(PictVO pictVO) throws Exception;
+	
+	void submit_rental_request(PictVO pictVO) throws Exception;
+	
+	void update_equipment_item(PictVO pictVO) throws Exception;
+	
+	List<?> get_request_list(PictVO pictVO) throws Exception;
+	
+	PictVO get_request_detail(PictVO pictVO) throws Exception;
 	
 	
 	PictVO pemtour_select(PictVO pictVO) throws Exception;

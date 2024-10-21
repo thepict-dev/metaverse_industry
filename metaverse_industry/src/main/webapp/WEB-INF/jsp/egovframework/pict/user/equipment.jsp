@@ -62,7 +62,7 @@
                 </p>
                 <div class="rentalSumButtons">
                     <button type="button" class="mb">상세 보기</button>
-                    <button type="button">전체 삭제</button>
+                    <button class="removeAll" type="button">전체 삭제</button>
                 </div>
             </div>
             <ul class="rentalItemsContainer">
@@ -74,7 +74,7 @@
                 <p><span>•</span>점심시간 12:00~13:00 이용불가</p>
             </div>
             <div class="fullButtonContainer rental">
-                <a href="/equipment_rental.do" class="bl">예약하기</a>
+                <button class="bl rentalSubmit">예약하기</button>
             </div>
         </div>
         <div class="rentalListContainer">

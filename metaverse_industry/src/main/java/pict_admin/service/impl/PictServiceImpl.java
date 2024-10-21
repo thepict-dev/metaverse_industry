@@ -16,6 +16,7 @@
 package pict_admin.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import egovframework.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import egovframework.rte.fdl.idgnr.EgovIdGnrService;
@@ -80,7 +81,13 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 	public PictVO equipment_list_one(PictVO pictVO) throws Exception {
 		return pictMapper.equipment_list_one(pictVO);
 	}
-
+	
+	@Override
+    public List<Map<String, Object>> equipment_unavailable_date_list(PictVO pictVO) throws Exception {
+        System.out.println("임플리먼트 id 조회 @@@@@@@@@@@@@@" + pictVO.getId());
+        return pictMapper.equipment_unavailable_date_list(pictVO);
+    }
+	
 	@Override
 	public void board_update(PictVO pictVO) throws Exception {
 		pictMapper.board_update(pictVO);
@@ -90,9 +97,12 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 	@Override
 	public void board_insert(PictVO pictVO) throws Exception {
 		pictMapper.board_insert(pictVO);
-		
 	}
 	
+	
+	public List<Map<String, Object>> equipment_item_list(PictVO pictVO) throws Exception {
+		return pictMapper.equipment_item_list(pictVO);
+	}
 	
 	@Override
 	public void equipment_insert(PictVO pictVO) throws Exception {
@@ -103,8 +113,9 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 	@Override
 	public void equipment_update(PictVO pictVO) throws Exception {
 		pictMapper.equipment_update(pictVO);
-		
 	}
+	
+	
 	
 	@Override
 	public void equipment_cnt_insert(PictVO pictVO) throws Exception {
@@ -118,6 +129,24 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 		
 	}
 	
+	@Override
+	public void submit_rental_request(PictVO pictVO) throws Exception {
+		pictMapper.submit_rental_request(pictVO);
+		// pictMapper.update_equipment_item(pictVO);	
+	}
+	
+	@Override
+	public List<?> get_request_list(PictVO pictVO) throws Exception {
+		return pictMapper.get_request_list(pictVO);
+	}
+	
+	@Override
+	public PictVO get_request_detail(PictVO pictVO) throws Exception {
+		return pictMapper.get_request_detail(pictVO);
+	}
+	
+	
+
 	
 	@Override
 	public void board_delete(PictVO pictVO) throws Exception {

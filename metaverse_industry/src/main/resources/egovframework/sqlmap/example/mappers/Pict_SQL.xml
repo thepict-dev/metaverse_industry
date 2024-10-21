@@ -59,44 +59,91 @@
 	
 	
 	<select id="equipment_list" resultType="pictVO">
-		SELECT 
-		    et.*,
-		    COALESCE(avail_count.cnt, 0) AS avaliable_equipment_cnt
-		FROM 
-		    equipment_type_table et
-		
-		LEFT JOIN (
+	    SELECT * FROM (
+	        SELECT 
+	            et.*,
+	            COALESCE(avail_count.cnt, 0) AS avaliable_equipment_cnt
+	        FROM 
+	            equipment_type_table et
+	        LEFT JOIN (
+	            SELECT 
+	                equipment_type_id,
+	                COUNT(*) AS cnt
+	            FROM 
+	                equipment_item_table
+	            WHERE 
+	                status = 'available'
+	            GROUP BY 
+	                equipment_type_id
+	        ) avail_count ON et.id = avail_count.equipment_type_id
+	    ) AS subquery
+	    <where>
+	        <if test="isOnlyAvailable != null and isOnlyAvailable">
+	            AND avaliable_equipment_cnt > 0
+	        </if>
+	        <if test="search_text != null and search_text != ''">
+	            AND name LIKE CONCAT('%', #{search_text}, '%')
+	        </if>
+	        <if test="type != null and type != ''">
+	            AND type LIKE CONCAT('%', #{type}, '%')
+	        </if>
+	    </where>
+	    ORDER BY reg_date DESC
+	</select>
+	
+	<select id="equipment_item_list" resultType="map">
+	    SELECT * FROM equipment_item_table
+        <where>
+	        <if test="equipment_id != null and equipment_id != ''">
+	            equipment_type_id = #{equipment_id}
+	        </if>
+	        <if test="true">
+	            AND status = 'available'
+	        </if>
+	    </where>
+	</select>
+	
+	
+	
+	
+	<select id="equipment_unavailable_date_list" resultType="map">
+		<![CDATA[
+		WITH RECURSIVE
+		date_range AS (
+		    SELECT DATE_ADD(CURDATE(), INTERVAL 1 DAY) AS date
+		    UNION ALL
+		    SELECT date + INTERVAL 1 DAY
+		    FROM date_range
+		    WHERE date < LAST_DAY(DATE_ADD(CURDATE(), INTERVAL 1 MONTH))
+		),
+		equipment_availability AS (
 		    SELECT 
-		        equipment_type_id,
-		        COUNT(*) AS cnt
-		    FROM 
-		        equipment_item_table
-		    WHERE 
-		        status = 'available'
-			GROUP BY 
-		        equipment_type_id
-		) avail_count ON et.id = avail_count.equipment_type_id
-		<if test="isOnlyAvailable != null and isOnlyAvailable = true ">
-			where (
-				COALESCE(avail_count.cnt, 0) > 0
-			) 
-		</if>
-		<if test="search_text != null and search_text != '' ">
-			where (
-				name LIKE CONCAT('%', #{search_text}, '%')
-			) 
-		</if>
-		<if test="type != null and type != '' ">
-			where (
-				type LIKE CONCAT('%', #{type}, '%')
-			) 
-		</if>
-		order by reg_date desc
+		        dr.date,
+		        et.id AS equipment_type_id,
+		        COUNT(ei.id) AS total_count,
+		        SUM(CASE WHEN ei.status = 'available' THEN 1 ELSE 0 END) -
+		        COALESCE(SUM(CASE 
+		            WHEN r.request_status IN ('approved', 'pendding') 
+		            AND dr.date BETWEEN r.rental_start_date AND r.rental_end_date 
+		            THEN 1 ELSE 0 END), 0) AS available_count
+		    FROM date_range dr
+		    CROSS JOIN equipment_type_table et
+		    JOIN equipment_item_table ei ON et.id = ei.equipment_type_id
+		    LEFT JOIN equipment_rental_request r ON ei.id = r.equipment_id
+		    WHERE et.id = #{id}
+		    GROUP BY dr.date, et.id
+		)
+		SELECT 
+		    DATE_FORMAT(date, '%Y-%m-%d') AS unavailable_date
+		FROM equipment_availability
+		WHERE available_count = 0
+		ORDER BY date
+		]]>
 	</select>
 	
 	
 	<select id="equipment_list_one" resultType="pictVO">
-		select * from equipment_type_table
+		select idx, id, type as category, name, description, image_url, bujajae from equipment_type_table
 		where idx = #{idx}
 	</select>
 	
@@ -138,6 +185,100 @@
 	  WHERE idx = #{idx}
 	</update>
 	
+	<insert id="submit_rental_request" parameterType="pictVO">
+		INSERT INTO equipment_rental_request
+			(id, equipment_id, user_id, rental_start_date, rental_end_date, type, equipment_plan, sa_eob_no, company_nm, position, company_address1, company_address2, file_path)
+		VALUES (
+			 UUID(), #{id}, #{user_id} , #{rental_start_date}, #{rental_end_date}, #{type}, #{equipment_plan}, #{sa_eob_no}, #{company_nm}, #{position}, #{company_address1}, #{company_address2}, #{file_url1} 
+			  )
+	</insert>
+	
+	<update id="update_equipment_item" parameterType="pictVO">
+		update equipment_item_table
+		set status = 'applied'
+		where id = '${id}'
+	</update>
+	
+	<select id="get_request_list" resultType="map">
+		SELECT 
+		    err.idx,
+		    err.id,
+		    err.equipment_id,
+		    err.user_id,
+		    err.rental_start_date,
+		    err.rental_end_date,
+		    err.request_status,
+		    date_format(err.request_date, '%Y-%m-%d') as request_date,
+		    err.type,
+		    err.equipment_plan,
+		    err.sa_eob_no,
+		    err.company_nm,
+		    err.position,
+		    err.company_address1,
+		    err.company_address2,
+		    err.file_path,
+		    et.name,
+		    et.type AS equipment_type,
+		    ut.name AS user_name
+		FROM 
+		    equipment_rental_request err
+		JOIN 
+		    equipment_item_table eit ON err.equipment_id = eit.id
+		JOIN 
+		    equipment_type_table et ON eit.equipment_type_id = et.id
+		JOIN 
+		    user_table ut ON ut.user_id = err.user_id
+		<where>
+			<if test="idx != null and idx != 0">
+				and err.idx = #{idx}
+				
+			</if> 
+			<if test="request_status != null and request_status != ''">
+				and err.request_status = #{request_status}
+			</if>
+			<if test="search_text != null and search_text != '' ">
+				and ut.name LIKE CONCAT('%', #{search_text}, '%')
+			</if>
+		</where>
+		
+	</select>
+	
+	<select id="get_request_detail" resultType="pictVO">
+		SELECT 
+		    err.idx,
+		    err.id,
+		    err.equipment_id,
+		    err.user_id,
+		    err.rental_start_date,
+		    err.rental_end_date,
+		    err.request_status,
+		    date_format(err.request_date, '%Y-%m-%d') as request_date,
+		    err.type,
+		    err.equipment_plan,
+		    err.sa_eob_no,
+		    err.company_nm,
+		    err.position,
+		    err.company_address1,
+		    err.company_address2,
+		    err.file_path,
+		    et.name,
+		    et.type AS equipment_type,
+		    ut.name AS user_name
+		FROM 
+		    equipment_rental_request err
+		JOIN 
+		    equipment_item_table eit ON err.equipment_id = eit.id
+		JOIN 
+		    equipment_type_table et ON eit.equipment_type_id = et.id
+		JOIN 
+		    user_table ut ON ut.user_id = err.user_id
+		<where>
+			<if test="idx != null and idx != 0">
+				and err.idx = #{idx}
+			</if> 
+		</where>
+		
+	</select>
 	
 	
 	

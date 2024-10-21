@@ -45,13 +45,12 @@
 						        <li>
 						            <div class="list-item">
 						                <!-- 기존 내용 -->
-						                <c:if test="${pictVO.pageNumber eq 1}">
-						                    <p>${board_cnt - status.index}</p>					
-						                </c:if>
-						                <c:if test="${pictVO.pageNumber ne 1}">
-						                    <p>${board_cnt - (status.index +  ((pictVO.pageNumber - 1) * 20))}</p>
-						                </c:if>
-						                <p>${resultList.name}</p>
+					                    <p>${resultList.idx}</p>
+						                <p>
+						                	<a href="javascript:void(0);" onclick="board_mod('${resultList.idx}');" class="link">
+						                		${resultList.name}
+						                	</a>
+					                	</p>
 						                <p>${resultList.description}</p>
 						                <p>${resultList.image_url}</p>
 						                <p>${resultList.bujajae}</p>
@@ -111,10 +110,10 @@
 		<script>
 
 			function board_mod(idx){
-				location.href= "/board/board_register.do?idx="+ idx;
+				location.href= "/equipment/equipment_register.do?idx="+ idx;
 			}
 			function board_list(){
-				location.href= "/board/board_list.do";
+				location.href= "/equipment/equipment_list.do";
 			}
 
 			function board_delete(idx) {

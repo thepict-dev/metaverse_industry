@@ -16,21 +16,37 @@
     --grey-900: #3a3f44;
     --navy-color: #171C61;
     --gold-color: #A48B78;
-    --validation-green : rgb(19,112,85);
-    --validation-red : rgb(187,16,25);
+    --validation-green: rgb(19, 112, 85);
+    --validation-red: rgb(187, 16, 25);
 }
 
-body{
+body {
     position: relative;
     font-family: var(--fn-suit);
     color: #000;
 }
+
 body.no-scroll {
     overflow: hidden;
 }
 
-button{
+button {
     font-family: var(--fn-suit);
+}
+
+textarea {
+    font-family: var(--fn-suit);
+    width: 100%;
+    padding: 24px 12px;
+    color: #000;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 100%;
+    border: 0;
+    border-bottom: 1px solid var(--grey-100);
+    box-sizing: border-box;
+    height : 138px;
+    resize : none;
 }
 
 .blind {
@@ -43,47 +59,50 @@ button{
 }
 
 .none {
-	display : none;
+    display: none;
 }
 
 
 .validation-msg {
-	padding-top : 7px;
-	padding-left : 10px;
-	font-family: SUIT;
-	letter-spacing: -0.5px;
-	font-weight : 500;
+    padding-top: 7px;
+    padding-left: 10px;
+    font-family: SUIT;
+    letter-spacing: -0.5px;
+    font-weight: 500;
 }
 
 .text-green {
-	color : var(--validation-green);
+    color: var(--validation-green);
 }
 
 .text-red {
-	color : var(--validation-red);
+    color: var(--validation-red);
 }
 
-.mt80{
+.mt80 {
     margin-top: 80px;
 }
-.mt40{
+
+.mt40 {
     margin-top: 40px;
 }
 
-.mb{
+.mb {
     display: none;
 }
-@media all and (max-width : 1024px){
-    .pc{
+
+@media all and (max-width : 1024px) {
+    .pc {
         display: none;
     }
-    .mb{
+
+    .mb {
         display: block;
     }
 }
 
 /* button */
-.blueButton{
+.blueButton {
     position: relative;
     display: flex;
     justify-content: center;
@@ -94,13 +113,16 @@ button{
     color: #fff;
     font-size: 14px;
     font-weight: 700;
-    line-height: 170%; /* 23.8px */
+    line-height: 170%;
+    /* 23.8px */
     letter-spacing: -0.7px;
 }
-.blueButton:hover{
+
+.blueButton:hover {
     background: #10144c;
 }
-.blueButton.dot::before{
+
+.blueButton.dot::before {
     content: "";
     display: inline-block;
     position: absolute;
@@ -112,7 +134,8 @@ button{
     border-radius: 50%;
     background-color: #fff;
 }
-.blueButton.dot::after{
+
+.blueButton.dot::after {
     content: "";
     display: inline-block;
     position: absolute;
@@ -125,50 +148,58 @@ button{
     background-color: #fff;
 }
 
-.linkButton{
+.linkButton {
     display: flex;
     align-items: center;
     column-gap: 10px;
     padding: 16px 0 16px 32px;
     font-size: 18px;
     font-weight: 500;
-    line-height: 130%; /* 23.4px */
+    line-height: 130%;
+    /* 23.4px */
     letter-spacing: -0.9px;
 }
-.linkButton.blk{
+
+.linkButton.blk {
     border: 1px solid #000;
     width: 143px;
 }
-.linkButton.wt{
+
+.linkButton.wt {
     width: 176px;
     border: 1px solid #fff;
     background: rgba(0, 0, 0, 0.70);
     color: #fff;
 }
-@media all and (max-width : 1024px){
-    .linkButton{
+
+@media all and (max-width : 1024px) {
+    .linkButton {
         font-size: 14px;
         padding: 14px 0 14px 32px;
     }
-    .linkButton.blk{
+
+    .linkButton.blk {
         width: 125px;
     }
-    .linkButton.wt{
+
+    .linkButton.wt {
         width: 151px;
     }
-    .linkButton img{
+
+    .linkButton img {
         width: 20px;
     }
 }
 
-.fullButtonContainer{
+.fullButtonContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
     row-gap: 20px;
     width: 100%;
 }
-.fullButtonContainer a{
+
+.fullButtonContainer a {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -177,56 +208,68 @@ button{
     /* color: #FFF; */
     font-size: 14px;
     font-weight: 700;
-    line-height: 170%; /* 23.8px */
+    line-height: 170%;
+    /* 23.8px */
     letter-spacing: -0.7px;
     /* background-color: var(--navy-color); */
 }
-.fullButtonContainer a.bl{
+
+.fullButtonContainer a.bl {
     color: #FFF;
     background-color: var(--navy-color);
 }
-.fullButtonContainer a.wt{
+
+.fullButtonContainer a.wt {
     border: 1px solid var(--grey-100);
     background: #FFF;
 }
-.fullButtonContainer a.bl:hover{
+
+.fullButtonContainer a.bl:hover {
     background-color: #0f1240;
 }
-.fullButtonContainer a.wt:hover{
+
+.fullButtonContainer a.wt:hover {
     background-color: var(--grey-50);
 }
-.fullButtonContainer a.wt.normal{
+
+.fullButtonContainer a.wt.normal {
     width: 206px;
     font-weight: 500;
 }
-.fullButtonContainer a.wt.view{
+
+.fullButtonContainer a.wt.view {
     max-width: 363px;
     font-weight: 500;
 }
-.fullButtonContainer a.wt.booking{
+
+.fullButtonContainer a.wt.booking {
     width: 425px;
     font-weight: 500;
 }
-.fullButtonContainer.my{
+
+.fullButtonContainer.my {
     margin-bottom: 80px;
-    
+
 }
-.fullButtonContainer.bag{
+
+.fullButtonContainer.bag {
     padding-bottom: 20px;
-    
+
 }
-@media all and (max-width : 768px){
-    .fullButtonContainer a.wt.booking{
+
+@media all and (max-width : 768px) {
+    .fullButtonContainer a.wt.booking {
         width: 100%;
     }
 }
 
 
 /* container */
-.inputContainer{
+.inputContainer {
     width: 100%;
 }
-.inputContainer.login{
+
+.inputContainer.login {
     display: flex;
     flex-direction: column;
     row-gap: 16px;
@@ -234,68 +277,85 @@ button{
 }
 
 /* inputs */
-input{
+input {
     box-sizing: border-box;
     font-family: var(--fn-suit);
 }
-.inputCaption{
+
+.inputCaption {
     margin-bottom: 8px;
     color: #000;
     font-size: 18px;
     font-weight: 700;
-    line-height: 100%; /* 18px */
+    line-height: 100%;
+    /* 18px */
     letter-spacing: -0.9px;
 }
-input[type=text], input[type=password]{
+
+input[type=text],
+input[type=password] {
     width: 100%;
     padding: 24px 12px;
     color: #000;
-    font-family:  var(--fn-suit);
+    font-family: var(--fn-suit);
     font-size: 18px;
     font-weight: 500;
-    line-height: 100%; /* 18px */
+    line-height: 100%;
+    /* 18px */
     border: 0;
     border-bottom: 1px solid var(--grey-100);
     box-sizing: border-box;
 }
-input[type=text]::placeholder, input[type=password]::placeholder{
+
+input[type=text]::placeholder,
+input[type=password]::placeholder {
     color: var(--grey-500);
     font-family: var(--fn-suit);
     font-size: 18px;
     font-weight: 500;
-    line-height: 100%; /* 18px */
+    line-height: 100%;
+    /* 18px */
 }
-input[type=text]:focus, input[type=password]:focus{
+
+input[type=text]:focus,
+input[type=password]:focus {
     outline: 0;
     border-bottom: 1px solid var(--grey-500);
 }
 
-@media all and (max-width : 1024px){
-    input[type=text], input[type=password]{
+@media all and (max-width : 1024px) {
+
+    input[type=text],
+    input[type=password] {
         font-size: 14px;
     }
-    input[type=text]::placeholder, input[type=password]::placeholder{
+
+    input[type=text]::placeholder,
+    input[type=password]::placeholder {
         font-size: 14px;
     }
-    .inputCaption{
+
+    .inputCaption {
         font-size: 16px;
     }
 }
 
-.bindingText{
+.bindingText {
     display: block;
     width: 100%;
     padding: 24px 12px;
     color: #000;
-    font-family:  var(--fn-suit);
+    font-family: var(--fn-suit);
     font-size: 18px;
     font-weight: 500;
-    line-height: 100%; /* 18px */
+    line-height: 100%;
+    /* 18px */
     border: 0;
     border-bottom: 1px solid var(--grey-100);
     box-sizing: border-box;
 }
-.fileText{
+
+.fileText {
     display: flex;
     align-items: center;
     width: 100%;
@@ -306,18 +366,21 @@ input[type=text]:focus, input[type=password]:focus{
     font-size: 14px;
     margin: 20px 0 16px 0;
     font-weight: 500;
-    line-height: 100%; /* 18px */
+    line-height: 100%;
+    /* 18px */
 }
-@media all and (max-width : 1024px){
-    .bindingText{
+
+@media all and (max-width : 1024px) {
+    .bindingText {
         display: block;
         width: 100%;
         padding: 24px 12px;
         color: #000;
-        font-family:  var(--fn-suit);
+        font-family: var(--fn-suit);
         font-size: 14px;
         font-weight: 500;
-        line-height: 100%; /* 18px */
+        line-height: 100%;
+        /* 18px */
         border: 0;
         border-bottom: 1px solid var(--grey-100);
         box-sizing: border-box;
@@ -326,7 +389,7 @@ input[type=text]:focus, input[type=password]:focus{
 }
 
 /* checkbox */
-.checkInputBox{
+.checkInputBox {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -334,10 +397,12 @@ input[type=text]:focus, input[type=password]:focus{
     width: 100%;
     padding: 10px 0;
 }
+
 input[type=checkbox] {
     /* display:none; */
 }
-input.checkOnly[type="checkbox"]{
+
+input.checkOnly[type="checkbox"] {
     width: 20px;
     height: 20px;
     margin: 0;
@@ -349,6 +414,7 @@ input.checkOnly[type="checkbox"]{
     background-size: 100%;
     background-position: center center;
 }
+
 input.checkOnly[type="checkbox"]:checked {
     width: 20px;
     height: 20px;
@@ -357,10 +423,12 @@ input.checkOnly[type="checkbox"]:checked {
     background-size: 100%;
     background-position: center center;
 }
-.checkInputBox label{
+
+.checkInputBox label {
     font-size: 14px;
     font-weight: 500;
-    line-height: 100%; /* 14px */
+    line-height: 100%;
+    /* 14px */
     letter-spacing: -0.7px;
     text-decoration-line: underline;
     cursor: pointer;
@@ -369,13 +437,16 @@ input.checkOnly[type="checkbox"]:checked {
 ::-webkit-scrollbar {
     width: 5px;
 }
+
 ::-webkit-scrollbar-thumb {
-    background: #666; 
+    background: #666;
 }
+
 ::-webkit-scrollbar {
     width: 5px;
 }
-@media all and (max-width : 1024px){
+
+@media all and (max-width : 1024px) {
     ::-webkit-scrollbar {
         display: none;
     }

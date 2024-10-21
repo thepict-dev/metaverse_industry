@@ -16,6 +16,7 @@ import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
@@ -174,7 +175,7 @@ public class pictController {
 		return "pict/user/login_done";
 	}
 	
-	//센터소개equipment_rental
+	//센터소개
 	@RequestMapping(value = "/intro.do")
 	public String intro(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model, HttpSession session, RedirectAttributes rttr) throws Exception {
 		
@@ -189,8 +190,10 @@ public class pictController {
 	//장비대여
 	@RequestMapping(value = "/equipment.do")
 	public String equipment(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model, HttpSession session, RedirectAttributes rttr) throws Exception {
-		List<?> equipment_list = pictService.equipment_list(pictVO);
 		pictVO.setOnlyAvailable(true);
+		List<?> equipment_list = pictService.equipment_list(pictVO);
+		System.out.println("isA@@@"+pictVO.isOnlyAvailable());
+		
 		if (pictVO.getType() != null) {
 			if (pictVO.getType() == "hmd") {
 				pictVO.setType("HMD");
@@ -213,9 +216,39 @@ public class pictController {
 	}
 	//장비대여 정보입력
 	@RequestMapping(value = "/equipment_rental.do")
-	public String equipment_rental(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model, HttpSession session, RedirectAttributes rttr) throws Exception {
-		
-		return "pict/user/equipment_rental";
+	public String equipment_rental(@ModelAttribute("searchVO") PictVO pictVO,@RequestParam Map<String, String> allParams, HttpServletRequest request, ModelMap model, HttpSession session, RedirectAttributes rttr) throws Exception {
+		String sessions = (String)request.getSession().getAttribute("id");
+		if (sessions == null || sessions == "") {			
+			return "redirect:/user_login.do";
+		}
+
+		List<Map<String, Object>> equipmentList = new ArrayList<>();
+
+	    for (int i = 0; ; i++) {
+	        String id = allParams.get("equipment[" + i + "][id]");
+	        String count = allParams.get("equipment[" + i + "][count]");
+	        String type = allParams.get("equipment[" + i + "][type]");
+	        String name = allParams.get("equipment[" + i + "][name]");
+	        if (id == null || count == null || type == null || name == null) {
+	            break;
+	        }
+
+	        Map<String, Object> equipment = new HashMap<>();
+	        equipment.put("id", id);
+	        equipment.put("count", count);
+	        equipment.put("type", type);
+	        equipment.put("name", name);
+
+	        // 여기서 장비 정보를 데이터베이스에서 조회할 수 있습니다.
+	        // 예: EquipmentVO equipmentInfo = equipmentService.getEquipmentById(id);
+	        // equipment.put("name", equipmentInfo.getName());
+	        // equipment.put("type", equipmentInfo.getType());
+
+	        equipmentList.add(equipment);
+	    }
+
+	    model.addAttribute("resultList", equipmentList);
+	    return "pict/user/equipment_rental";
 	}
 	//시설예약
 	@RequestMapping(value = "/facility.do")
@@ -809,7 +842,7 @@ public class pictController {
 		if(session == null || session == "null") {
 			return "redirect:/pict_login.do";
 		}
-	
+		pictVO.setOnlyAvailable(false);
 		List<?> equipment_list = pictService.equipment_list(pictVO);
 		model.addAttribute("resultList", equipment_list);
 		model.addAttribute("size", equipment_list.size());
@@ -879,7 +912,7 @@ public class pictController {
 			return "pict/main/message";	
 		}
 	}
-	// 장비 제고 등록
+	// 장비 재고 등록
 	@RequestMapping(value = "/equipment/equipment_cnt_register.do")
 	public String equipment_cnt_register(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request) throws Exception {
 		String session = (String)request.getSession().getAttribute("id");
@@ -928,6 +961,51 @@ public class pictController {
 			model.addAttribute("retUrl", "/equipment/equipment_list.do");
 			return "pict/main/message";	
 		}
+	}
+	
+	
+    //대여관리 리스트
+    @RequestMapping(value = "/history/history_list.do")
+	public String history_list(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request) throws Exception {
+		String session = (String)request.getSession().getAttribute("id");
+		if(session == null || session == "null") {
+			return "redirect:/pict_login.do";
+		}
+		System.out.println("get Idx @@@@@@" + pictVO.getIdx());
+		
+		
+		
+		List<?> history_list = pictService.get_request_list(pictVO);
+		System.out.println("get history_list @@@@@@@@@@@@" + history_list);
+		System.out.println("get status@@@@@@@@@" + pictVO.getStatus());
+		model.addAttribute("resultList", history_list);
+		model.addAttribute("size", history_list.size());
+		model.addAttribute("pictVO", pictVO);
+		model.addAttribute("search_text",pictVO.getSearch_text());
+		return "pict/history/history_list";
+	}
+	
+    //대여신청 상세보기
+    @RequestMapping(value = "/history/history_detail.do")
+	public String history_detail(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request) throws Exception {
+		String session = (String)request.getSession().getAttribute("id");
+		if(session == null || session == "null") {
+			return "redirect:/pict_login.do";
+		}
+		if (pictVO.getIdx() == 0) {
+			return "redirect:/history/history_list.do";
+		}
+		
+		
+		
+		
+		PictVO history_detail = pictService.get_request_detail(pictVO);
+		
+		System.out.println("get history_detail @@@@@@@@@@@@" + history_detail);
+		System.out.println("get status@@@@@@@@@" + pictVO.getStatus());
+		model.addAttribute("history_detail", history_detail);
+		model.addAttribute("pictVO", pictVO);
+		return "pict/history/history_detail";
 	}
 	
 	

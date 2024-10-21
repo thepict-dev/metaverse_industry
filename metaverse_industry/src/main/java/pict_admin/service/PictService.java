@@ -17,6 +17,7 @@ package pict_admin.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Class Name : EgovSampleService.java
@@ -50,6 +51,11 @@ public interface PictService {
 	
 	List<?> equipment_list(PictVO pictVO) throws Exception;
 	
+    List<Map<String, Object>> equipment_unavailable_date_list(PictVO pictVO) throws Exception;
+
+    
+    List<Map<String, Object>> equipment_item_list(PictVO pictVO) throws Exception;
+	
 	PictVO equipment_list_one(PictVO pictVO) throws Exception;
 	
 	void equipment_insert(PictVO pictVO) throws Exception;
@@ -61,8 +67,13 @@ public interface PictService {
 	
 	void equipment_cnt_update(PictVO pictVO) throws Exception;
 	
+	void submit_rental_request(PictVO pictVO) throws Exception;
 	
-
+	List<?> get_request_list(PictVO pictVO) throws Exception;
+	
+	PictVO get_request_detail(PictVO pictVO) throws Exception;
+	
+	
 	PictVO pemtour_select(PictVO pictVO) throws Exception;
 
 	void pemtour_update(PictVO pictVO) throws Exception;
