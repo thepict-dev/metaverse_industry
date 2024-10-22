@@ -83,7 +83,6 @@
 }
 .modalTitles{
     margin-bottom: 36px;
-    text-align: center;
 }
 .modalTitles p{
     padding-bottom: 8px;
@@ -346,6 +345,31 @@
     display: flex;
 }
 
+#findIdModal1{
+    display: none;
+}
+#findIdModal1.active{
+    display: flex;
+}
+#findIdModal2{
+    display: none;
+}
+#findIdModal2.active{
+    display: flex;
+}
+
+#findPwModal1{
+    display: none;
+}
+#findPwModal1.active{
+    display: flex;
+}
+#findPwModal2{
+    display: none;
+}
+#findPwModal2.active{
+    display: flex;
+}
 
 #bookingInfoModal .modalInner{
     max-height: 610px;
@@ -364,4 +388,26 @@
 }
 #eduModal .myModalInner{
     max-height: 800px;
+}
+
+#findIdModal1 .myModalInner{
+    max-width: 500px;
+    max-height: unset;
+    height: auto;
+}
+#findIdModal2 .myModalInner{
+    max-width: 500px;
+    max-height: unset;
+    height: auto;
+}
+
+#findPwModal1 .myModalInner{
+    max-width: 500px;
+    max-height: unset;
+    height: auto;
+}
+#findPwModal2 .myModalInner{
+    max-width: 500px;
+    max-height: unset;
+    height: auto;
 }

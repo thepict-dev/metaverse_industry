@@ -40,15 +40,22 @@
     width: 100%;
     max-width: 574px;
 }
-.loginContainer form > a{
-    display: block;
-    text-align: right;
+.findButtonContainer{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    column-gap: 6px;
     margin: 12px 0 64px 0;
+	width: 100%;
+}
+.findButtonContainer button{
+    display: block;
     padding: 10px;
     color: var(--grey-500);
     font-size: 16px;
     font-weight: 500;
     line-height: 100%; /* 16px */
+    cursor: pointer;
 }
 
 @media all and (max-width : 1024px){

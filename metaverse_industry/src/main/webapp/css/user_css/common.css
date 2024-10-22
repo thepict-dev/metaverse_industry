@@ -255,7 +255,9 @@ textarea {
 
 .fullButtonContainer.my {
     margin-bottom: 80px;
-
+}
+.fullButtonContainer.find {
+    margin-bottom: 0;
 }
 
 .fullButtonContainer.bag {
