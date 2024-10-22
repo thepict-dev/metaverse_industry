@@ -252,6 +252,7 @@ public class PictVO extends PictDefaultVO {
 	private int offset;
 	private int totalCnt;
 	private String reject_msg;
+	private boolean isAll;
 
 	public String getDescription() {
 		return description;
@@ -1751,6 +1752,14 @@ public class PictVO extends PictDefaultVO {
 
 	public void setReject_msg(String reject_msg) {
 		this.reject_msg = reject_msg;
+	}
+
+	public boolean isAll() {
+		return isAll;
+	}
+
+	public void setAll(boolean isAll) {
+		this.isAll = isAll;
 	}
 
 }

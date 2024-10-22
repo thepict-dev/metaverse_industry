@@ -2,7 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="pict_admin.service.impl.UserMapper">
     <select id="isUserIdAvailable" resultType="userVO">
-        select * from user_table where user_id = #{user_id}
+        select 
+        u.idx,
+        u.user_id,
+        u.password,
+        u.name,
+        u.email,
+        u.mobile,
+        u.birthday,
+        u.address1 as user_address1,
+        u.address2 as user_address2,
+        DATE_FORMAT(u.reg_date, '%Y-%m-%d') as reg_date,
+        u.company_nm,
+        u.company_address1,
+        u.company_address2,
+        u.sa_eob_no,
+        u.position,
+        u.document_url
+         from user_table as u where user_id = #{user_id}
     </select>
     
     <insert id="signUp" parameterType="userVO">
@@ -14,4 +31,95 @@
     		#{sa_eob_no}, #{position}, #{document_url}
     	)
     </insert>
+    <update id="updateUser" parameterType="userVO">
+    	UPDATE user_table
+    	SET
+    		address2 = #{user_address2},
+    		company_nm = #{company_nm},
+    		company_address1 = #{company_address1},
+    		company_address2 = #{company_address2},
+    		sa_eob_no = #{sa_eob_no},
+    		position = #{position}
+    		<if test="name != null and name != ''">
+		      , name = #{name}
+		    </if>
+		    <if test="mobile != null and mobile != ''">
+		      , mobile = #{mobile}
+		    </if>
+		    <if test="email != null and email != ''">
+		      , email = #{email}
+		    </if>
+		    <if test="birthday != null and birthday != ''">
+		      , birthday = #{birthday}
+		    </if>
+		    <if test="user_address1 != null and user_address1 != ''">
+		      , address1 = #{user_address1}
+		    </if>
+    		<if test="document_url != null and document_url != ''">
+		      , document_url = #{document_url}
+		    </if>
+		    WHERE user_id = #{user_id}
+    </update>
+    
+   	<select id="get_request_list" resultType="map">
+		SELECT 
+		    err.idx,
+		    err.id,
+		    err.equipment_id,
+		    err.user_id,
+		    err.rental_start_date,
+		    err.rental_end_date,
+		    err.request_status,
+		    date_format(err.request_date, '%Y-%m-%d') as request_date,
+		    err.type,
+		    err.equipment_plan,
+		    err.sa_eob_no,
+		    err.company_nm,
+		    err.position,
+		    err.company_address1,
+		    err.company_address2,
+		    err.file_path,
+		    err.reject_msg,
+		    et.name,
+		    et.type AS equipment_type,
+		    ut.name AS user_name
+		FROM 
+		    equipment_rental_request err
+		JOIN 
+		    equipment_item_table eit ON err.equipment_id = eit.id
+		JOIN 
+		    equipment_type_table et ON eit.equipment_type_id = et.id
+		JOIN 
+		    user_table ut ON ut.user_id = err.user_id
+		WHERE ut.user_id = #{user_id}
+		AND err.request_status != 'cancelled'
+		<if test="request_status != null and request_status != ''">
+		      and err.request_status = #{request_status}
+	    </if>
+	    <if test="limit_cnt != null and limit_cnt != 0">
+			limit #{limit_cnt} OFFSET #{startNumber}
+		</if>
+	</select>
+	
+	<select id="get_request_total_cnt" resultType="int">
+		select count(*) as totalCnt from equipment_rental_request
+		where user_id = #{user_id}
+		<if test="request_status != null and request_status != '' ">
+			and request_status = #{request_status}
+		</if>
+	</select>
+
+	<update id="updateRequestStatus" parameterType="pictVO">
+		UPDATE equipment_rental_request
+		SET
+			request_status = #{request_status}
+		WHERE user_id = #{user_id} and id = #{id} 
+	</update>
+	<update id="retryRequest" parameterType="pictVO">
+		UPDATE equipment_rental_request
+		SET
+			request_status = 'retry',
+			file_path = #{file_url}
+		WHERE user_id = #{user_id} and id = #{id} 
+	</update>
 </mapper>

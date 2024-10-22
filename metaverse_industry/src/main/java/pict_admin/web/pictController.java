@@ -1010,9 +1010,43 @@ public class pictController {
 		if(session == null || session == "null") {
 			return "redirect:/pict_login.do";
 		}
+		
+		int limitNumber = 10;
+		pictVO.setLimit_cnt(limitNumber);
+		Integer pageNum = pictVO.getPageNumber();
+		if(pageNum == 0) {
+			pictVO.setPageNumber(1);
+			pageNum = 1;
+		}
+		int startNum = (pageNum - 1) * limitNumber;
+		pictVO.setStartNumber(startNum);
+		Integer totalCnt = pictService.equipment_list_total_cnt(pictVO);
+		int lastPageValue = (int)(Math.ceil( totalCnt * 1.0 / 10 ));
+		System.out.println("startNum @@@@@@@@@@@@@@@@@@ "+ startNum);
+		System.out.println("totalCnt @@@@@@@@@@@@@@@@@@ "+ totalCnt);
+		System.out.println("lastPageValue @@@@@@@@@@@@@@@@@@ "+ lastPageValue);
+		pictVO.setLastPage(lastPageValue);
+		
+		Integer s_page = pageNum - 4;
+		Integer e_page = pageNum + 5;
+		if (s_page <= 0) {
+			s_page = 1;
+			e_page = 10;
+		} 
+		if (e_page > lastPageValue){
+			e_page = lastPageValue;
+		}
+		pictVO.setStartPage(s_page);
+		System.out.println("s_page @@@@@@@@@@@@@@@@@@ "+ s_page);
+		pictVO.setEndPage(e_page);
+		System.out.println("e_page @@@@@@@@@@@@@@@@@@ "+ e_page);
+		
+		
+		
 		pictVO.setOnlyAvailable(false);
 		List<?> equipment_list = pictService.equipment_list(pictVO);
 		model.addAttribute("resultList", equipment_list);
+		model.addAttribute("totalCnt", totalCnt);
 		model.addAttribute("size", equipment_list.size());
 		model.addAttribute("pictVO", pictVO);
 		
@@ -1089,18 +1123,24 @@ public class pictController {
 		}
 		pictVO.setUser_id(session);
 		System.out.println(pictVO.getUser_id());
+		if (pictVO.getIdx() == 0 && pictVO.getId()  == null) {
+			return "redirect:/equipment/equipment_list.do";
+		}
 		if(pictVO.getIdx() != 0) {
 			//수정
-			pictVO = pictService.board_list_one(pictVO);
+			pictVO = pictService.equipment_item_one(pictVO);
 			pictVO.setSaveType("update");
 			
 		}
 		else {
 			pictVO.setSaveType("insert");
 		}
-		List<?> equipment_list = pictService.equipment_list(pictVO);
-		//model.addAttribute("equipment_list", equipment_list);
-		model.addAttribute("resultList", equipment_list);
+		
+		if (pictVO.getId() != null) {
+			PictVO equipment = pictService.equipment_list_one(pictVO);
+			model.addAttribute("equipment", equipment);
+		}
+
 		model.addAttribute("pictVO", pictVO);
 		return "pict/equipment/equipment_cnt_register";
 	}
@@ -1108,12 +1148,10 @@ public class pictController {
 	@RequestMapping(value = "/equipment/equipment_cnt_save.do", method = RequestMethod.POST)
 	public String equipment_cnt_save(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, MultipartHttpServletRequest request) throws Exception {
 		String sessions = (String)request.getSession().getAttribute("id");
-		String depart = (String)request.getSession().getAttribute("depart");
 		if(sessions == null || sessions == "null") {
 			return "redirect:/pict_login.do";
 		}
 		 
-		pictVO.setDepart(depart);
 		
 		if(pictVO.getSaveType() != null && pictVO.getSaveType().equals("update")) {
 			pictService.equipment_cnt_update(pictVO);
@@ -1123,6 +1161,7 @@ public class pictController {
 			return "pict/main/message";
 		}
 		else {
+			// QR코드 생성
 			pictService.equipment_cnt_insert(pictVO);
 			model.addAttribute("message", "정상적으로 저장되었습니다.");
 			model.addAttribute("retType", ":location");
@@ -1152,7 +1191,130 @@ public class pictController {
 		model.addAttribute("search_text",pictVO.getSearch_text());
 		return "pict/history/history_list";
 	}
-    //대여/반납 관리
+    
+    
+    
+    //시설물 리스트
+    @RequestMapping(value = "/facility/facility_list.do")
+	public String facility_list(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request) throws Exception {
+		String session = (String)request.getSession().getAttribute("id");
+		if(session == null || session == "null") {
+			return "redirect:/pict_login.do";
+		}
+		
+		int limitNumber = 10;
+		pictVO.setLimit_cnt(limitNumber);
+		Integer pageNum = pictVO.getPageNumber();
+		if(pageNum == 0) {
+			pictVO.setPageNumber(1);
+			pageNum = 1;
+		}
+		int startNum = (pageNum - 1) * limitNumber;
+		pictVO.setStartNumber(startNum);
+		Integer totalCnt = pictService.equipment_list_total_cnt(pictVO);
+		int lastPageValue = (int)(Math.ceil( totalCnt * 1.0 / 10 ));
+		System.out.println("startNum @@@@@@@@@@@@@@@@@@ "+ startNum);
+		System.out.println("totalCnt @@@@@@@@@@@@@@@@@@ "+ totalCnt);
+		System.out.println("lastPageValue @@@@@@@@@@@@@@@@@@ "+ lastPageValue);
+		pictVO.setLastPage(lastPageValue);
+		
+		Integer s_page = pageNum - 4;
+		Integer e_page = pageNum + 5;
+		if (s_page <= 0) {
+			s_page = 1;
+			e_page = 10;
+		} 
+		if (e_page > lastPageValue){
+			e_page = lastPageValue;
+		}
+		pictVO.setStartPage(s_page);
+		System.out.println("s_page @@@@@@@@@@@@@@@@@@ "+ s_page);
+		pictVO.setEndPage(e_page);
+		System.out.println("e_page @@@@@@@@@@@@@@@@@@ "+ e_page);
+		
+		
+		
+		pictVO.setOnlyAvailable(false);
+		List<?> equipment_list = pictService.equipment_list(pictVO);
+		model.addAttribute("resultList", equipment_list);
+		model.addAttribute("totalCnt", totalCnt);
+		model.addAttribute("size", equipment_list.size());
+		model.addAttribute("pictVO", pictVO);
+		
+		return "pict/facility/facility_list";
+	}
+	
+	// 시설물 생성
+	@RequestMapping(value = "/facility/facility_register.do")
+	public String facility_register(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request) throws Exception {
+		String session = (String)request.getSession().getAttribute("id");
+		if(session == null || session == "null") {
+			return "redirect:/pict_login.do";
+		}
+		pictVO.setUser_id(session);
+		System.out.println(pictVO.getUser_id());
+		if(pictVO.getIdx() != 0) {
+			//수정
+			pictVO = pictService.equipment_list_one(pictVO);
+			System.out.println("pictVO ::::::::::"+pictVO);
+			pictVO.setSaveType("update");
+			
+		}
+		else {
+			pictVO.setSaveType("insert");
+		}
+		
+		model.addAttribute("pictVO", pictVO);
+		return "pict/facility/facility_register";
+	}
+	
+    // 시설물 대여 신청관리
+    @RequestMapping(value = "/facility/history_list.do")
+	public String facility_history_list(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request) throws Exception {
+		String session = (String)request.getSession().getAttribute("id");
+		if(session == null || session == "null") {
+			return "redirect:/pict_login.do";
+		}
+		System.out.println("get Idx @@@@@@" + pictVO.getIdx());
+		
+		
+		
+		List<?> history_list = pictService.get_request_list(pictVO);
+		System.out.println("get history_list @@@@@@@@@@@@" + history_list);
+		System.out.println("get status@@@@@@@@@" + pictVO.getStatus());
+		model.addAttribute("resultList", history_list);
+		model.addAttribute("size", history_list.size());
+		model.addAttribute("pictVO", pictVO);
+		model.addAttribute("search_text",pictVO.getSearch_text());
+		return "pict/facility/history_list";
+	}
+    
+    //시설물 대여신청 상세보기
+    @RequestMapping(value = "/facility/history_detail.do")
+	public String facility_history_detail(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request) throws Exception {
+		String session = (String)request.getSession().getAttribute("id");
+		if(session == null || session == "null") {
+			return "redirect:/pict_login.do";
+		}
+		if (pictVO.getIdx() == 0) {
+			return "redirect:/facility/history_list.do";
+		}
+		
+		
+		
+		
+		PictVO history_detail = pictService.get_request_detail(pictVO);
+		
+		System.out.println("get history_detail @@@@@@@@@@@@" + history_detail);
+		System.out.println("get status@@@@@@@@@" + pictVO.getStatus());
+		model.addAttribute("history_detail", history_detail);
+		model.addAttribute("pictVO", pictVO);
+		return "pict/facility/history_detail";
+	}
+    
+    
+    
+    // 장비 대여/반납 관리
     @RequestMapping(value = "/manage/manage_rental.do")
 	public String manage_rental(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request) throws Exception {
 		String session = (String)request.getSession().getAttribute("id");
@@ -1165,7 +1327,7 @@ public class pictController {
 		return "pict/manage/manage_rental";
 	}
 	
-    //대여신청 상세보기
+    //장비 대여신청 상세보기
     @RequestMapping(value = "/history/history_detail.do")
 	public String history_detail(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request) throws Exception {
 		String session = (String)request.getSession().getAttribute("id");

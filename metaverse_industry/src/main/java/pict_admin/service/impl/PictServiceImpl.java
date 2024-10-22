@@ -76,6 +76,13 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 	public Integer board_list_total_cnt(PictVO pictVO) throws Exception {
 		return pictMapper.board_list_total_cnt(pictVO);
 	}
+	
+	
+	@Override
+	public Integer equipment_list_total_cnt(PictVO pictVO) throws Exception {
+		return pictMapper.equipment_list_total_cnt(pictVO);
+	}
+	
 	@Override
 	public PictVO board_list_one(PictVO pictVO) throws Exception {
 		return pictMapper.board_list_one(pictVO);
@@ -120,6 +127,10 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 	}
 	
 	
+	@Override
+	public PictVO equipment_item_one(PictVO pictVO) throws Exception {
+		return pictMapper.equipment_item_one(pictVO);
+	}
 	
 	@Override
 	public void equipment_cnt_insert(PictVO pictVO) throws Exception {

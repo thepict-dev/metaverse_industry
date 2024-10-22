@@ -43,9 +43,12 @@ public interface PictMapper {
 	List<?> board_list(PictVO pictVO) throws Exception;
 	
 	Integer board_list_total_cnt(PictVO pictVO) throws Exception;
+	
+	Integer equipment_list_total_cnt(PictVO pictVO) throws Exception;
 
 	PictVO board_list_one(PictVO pictVO) throws Exception;
-
+	
+	
 	void board_update(PictVO pictVO) throws Exception;
 
 	void board_insert(PictVO pictVO) throws Exception;
@@ -65,6 +68,9 @@ public interface PictMapper {
 	void equipment_update(PictVO pictVO) throws Exception;
 
 	void equipment_insert(PictVO pictVO) throws Exception;
+	
+	
+	PictVO equipment_item_one(PictVO pictVO) throws Exception;
 	
 	void equipment_cnt_update(PictVO pictVO) throws Exception;
 

@@ -72,7 +72,7 @@
 	</update>
 	
 	
-	<select id="equipment_list" resultType="pictVO">
+	<!-- <select id="equipment_list" resultType="pictVO">
 	    SELECT * FROM (
 	        SELECT 
 	            et.*,
@@ -103,15 +103,77 @@
 	        </if>
 	    </where>
 	    ORDER BY reg_date DESC
+   	    <if test="limit_cnt != null and limit_cnt != 0">
+			limit #{limit_cnt} OFFSET #{startNumber}
+		</if>
+	</select> -->
+	<select id="equipment_list" resultType="pictVO">
+    SELECT * FROM (
+        SELECT 
+            et.idx,
+            et.id,
+            et.type,
+            et.name,
+            et.description,
+            et.image_url,
+            et.bujajae,
+            date_format(et.reg_date, '%Y-%m-%d') as reg_date,
+            et.use_ny,
+            COALESCE(avail_count.cnt, 0) AS avaliable_equipment_cnt
+        FROM 
+            equipment_type_table et
+        LEFT JOIN (
+            SELECT 
+                equipment_type_id,
+                COUNT(*) AS cnt
+            FROM 
+                equipment_item_table
+            WHERE 
+                status = 'available'
+            GROUP BY 
+                equipment_type_id
+        ) avail_count ON et.id = avail_count.equipment_type_id
+    ) AS subquery
+    <where>
+        <if test="isOnlyAvailable != null and isOnlyAvailable">
+            avaliable_equipment_cnt > 0
+        </if>
+        <if test="search_text != null and search_text != ''">
+            <if test="isOnlyAvailable != null and isOnlyAvailable">
+                AND
+            </if>
+            name LIKE CONCAT('%', #{search_text}, '%')
+        </if>
+        <if test="type != null and type != ''">
+            <if test="(isOnlyAvailable != null and isOnlyAvailable) or (search_text != null and search_text != '')">
+                AND
+            </if>
+            type LIKE CONCAT('%', #{type}, '%')
+        </if>
+    </where>
+    ORDER BY reg_date DESC
+    <if test="limit_cnt != null and limit_cnt != 0">
+        LIMIT #{limit_cnt} OFFSET #{startNumber}
+    </if>
+</select>
+	<select id="equipment_list_total_cnt" resultType="int">
+			select count(*) as totalCnt from equipment_type_table where use_ny = "Y"
 	</select>
 	
 	<select id="equipment_item_list" resultType="map">
-	    SELECT * FROM equipment_item_table
+	    SELECT 
+	    ei.idx,
+	    ei.id,
+	    ei.equipment_type_id,
+	    ei.serial_number,
+	    ei.status,
+	    date_format(reg_date, '%Y-%m-%d') as reg_date
+	     FROM equipment_item_table as ei
         <where>
 	        <if test="equipment_id != null and equipment_id != ''">
 	            equipment_type_id = #{equipment_id}
 	        </if>
-	        <if test="true">
+	        <if test="isAll != true">
 	            AND status = 'available'
 	        </if>
 	    </where>
@@ -157,8 +219,15 @@
 	
 	
 	<select id="equipment_list_one" resultType="pictVO">
-		select idx, id, type as category, name, description, image_url, bujajae from equipment_type_table
-		where idx = #{idx}
+		select idx, id, type as category, name, description, image_url, bujajae, date_format(reg_date, '%Y-%m-%d') as reg_date from equipment_type_table
+        <where>
+	        <if test="idx != 0 and id == null">
+	            idx = #{idx}
+	        </if>
+	        <if test="idx == 0 and id != null and id != ''">
+	            id = #{id}
+	        </if>
+	    </where>
 	</select>
 	
 	<insert id="equipment_insert" parameterType="pictVO">
@@ -192,10 +261,17 @@
 			  )
 	</insert>
 	
+	
+	<select id="equipment_item_one" resultType="pictVO">
+		select idx, id, equipment_type_id,, serial_number, status, date_format(reg_date, '%Y-%m-%d') as reg_date, image_url, text from equipment_item_table
+		where idx = #{idx}
+	</select>
+	
 	<update id="equipment_cnt_update" parameterType="pictVO">
 	  UPDATE equipment_item_table
 	  SET 
 	  	serial_number = #{serial_number},
+	  	text = ${text}
 	  WHERE idx = #{idx}
 	</update>
 	

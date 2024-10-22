@@ -27,20 +27,15 @@
 												<div class="inputBox">
 													<p class="inputCaption">장비구분*</p>
 													<select name="equipment_id" id="equipment_id" class="lgThinInput" disabled>
-														<c:forEach var="resultList" items="${resultList}" varStatus="status">
-															<option value="${resultList.id}"
-																<c:if test="${pictVO.equipment_id eq resultList.id}">
-																	selected
-																	</c:if>>
-																${resultList.name}
-															</option>
-														</c:forEach>
+														<option value="${equipment.category}" selected>
+															${equipment.category}
+														</option>
 													</select>
 												</div>
 												<div class="inputBox">
 													<p class="inputCaption">장비명*</p>
 													<input type="text" name="name" id="name" placeholder="장비 이름을 입력하세요…"
-														value="${pictVO.name}" disabled>
+														value="${equipment.name}" disabled>
 												</div>
 												<div class="inputBox">
 													<p class="inputCaption">장비상태</p>
@@ -59,14 +54,14 @@
 												</div>
 												<div class="inputBox">
 													<p class="inputCaption">등록일</p>
-													<input type="date" id="reg_date" name="reg_date" class="lgThinInput">
+													<input type="date" value="${pictVO.reg_date}" id="reg_date" name="reg_date" class="lgThinInput">
 												</div>
 											</div>
 											<div class="inputsContainer">
 												<div class="inputBox" style="width:100%">
 													<p class="inputCaption">비고</p>
 													<textarea name="bujajae" id="bujajae" cols="50" rows="10"
-														class="txt" style="width:100%;">${pictVO.bujajae}</textarea>
+														class="txt" style="width:100%;">${pictVO.text}</textarea>
 												</div>
 											</div>
 											<div class="btnContainer">

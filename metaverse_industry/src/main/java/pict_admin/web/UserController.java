@@ -190,7 +190,29 @@ public class UserController {
 			map.put("msg", "fail");
 		}
 		return map;
-
+	}
+	
+	@RequestMapping("/getEquipmentItems.do")
+	@ResponseBody
+	public HashMap<String, Object> getEquipmentItems(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
+			HttpServletRequest request, @RequestBody Map<String, Object> param) throws Exception {
+		System.out.println("param @@@@" + param);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		if (param.get("id") != null) {
+			String equipmentId = param.get("id").toString();
+			System.out.println(equipmentId + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+			
+			pictVO.setEquipment_id(equipmentId);
+			pictVO.setAll(true);
+			System.out.println("id @@@@" + pictVO.getId());
+			List<Map<String, Object>> item_list = pictService.equipment_item_list(pictVO);
+			System.out.println("available_date_list@@@@@@@@@@@ " + item_list);
+			map.put("msg", "ok");
+			map.put("data", item_list);
+		} else {
+			map.put("msg", "fail");
+		}
+		return map;
 	}
 	
 	
