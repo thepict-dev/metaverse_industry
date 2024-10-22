@@ -55,7 +55,7 @@
         <c:choose>
         	<c:when test="${name ne '' && name ne null && name ne undefined}">
 	            <a href="/mypage_account.do">마이페이지</a>
-	            <a href="#lnk">로그아웃</a> 
+	            <a href="/user_logout.do">로그아웃</a> 
             </c:when>
             <c:otherwise>
             	<a href="/user_login.do">로그인</a>

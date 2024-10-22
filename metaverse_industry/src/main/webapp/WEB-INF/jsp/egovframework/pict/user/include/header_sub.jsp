@@ -8,6 +8,7 @@
 <%
 	String url = request.getRequestURL().toString();
 	pageContext.setAttribute("url", url);	
+	pageContext.setAttribute("name", session.getAttribute("name"));
 %>
 
 <c:set var="intro" value="${fn:indexOf(url, 'intro')}"/>
@@ -55,9 +56,15 @@
             <div class="gnbBack"></div>
         </div>
         <div class="sideButtons">
-            <a href="/user_login.do">로그인</a>
-            <!-- <a href="#lnk">마이페이지</a>
-            <a href="#lnk">로그아웃</a> -->
+        <c:choose>
+        	<c:when test="${name ne '' && name ne null && name ne undefined}">
+	            <a href="/mypage_account.do">마이페이지</a>
+	            <a href="/user_logout.do">로그아웃</a> 
+            </c:when>
+            <c:otherwise>
+            	<a href="/user_login.do">로그인</a>
+            </c:otherwise>
+        </c:choose>
         </div>
         <button type="button" class="mbMenuBtn"><img src="/img/user_img/menu.png" alt=""></button>
         <div class="mobile-menu">

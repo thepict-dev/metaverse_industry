@@ -41,6 +41,8 @@ import pict_admin.service.PictVO;
 @Mapper("pictMapper")
 public interface PictMapper {
 	List<?> board_list(PictVO pictVO) throws Exception;
+	
+	Integer board_list_total_cnt(PictVO pictVO) throws Exception;
 
 	PictVO board_list_one(PictVO pictVO) throws Exception;
 

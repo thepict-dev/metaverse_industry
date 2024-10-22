@@ -131,12 +131,12 @@ public class PictVO extends PictDefaultVO {
 	private String maintitle;
 	private String from_date;
 	private String to_date;
-
+	// 현재 페이지
 	private int pageNumber;
 	private int startNumber;
 
 	private int totalPage;
-
+	
 	private int lastPage;
 	private int startPage;
 	private int endPage;
@@ -249,7 +249,9 @@ public class PictVO extends PictDefaultVO {
 	
 	private String request_status;
 	private String equipment_type;
-	
+	private int offset;
+	private int totalCnt;
+	private String reject_msg;
 
 	public String getDescription() {
 		return description;
@@ -1725,6 +1727,30 @@ public class PictVO extends PictDefaultVO {
 
 	public void setEquipment_type(String equipment_type) {
 		this.equipment_type = equipment_type;
+	}
+
+	public int getOffset() {
+		return offset;
+	}
+
+	public void setOffset(int offset) {
+		this.offset = offset;
+	}
+
+	public int getTotalCnt() {
+		return totalCnt;
+	}
+
+	public void setTotalCnt(int totalCnt) {
+		this.totalCnt = totalCnt;
+	}
+
+	public String getReject_msg() {
+		return reject_msg;
+	}
+
+	public void setReject_msg(String reject_msg) {
+		this.reject_msg = reject_msg;
 	}
 
 }

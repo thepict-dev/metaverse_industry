@@ -40,6 +40,8 @@ public interface PictService {
 	List<?> board_list(PictVO pictVO) throws Exception;
 
 	PictVO board_list_one(PictVO pictVO) throws Exception;
+	
+	Integer board_list_total_cnt(PictVO pictVO) throws Exception;
 
 	void board_update(PictVO pictVO) throws Exception;
 

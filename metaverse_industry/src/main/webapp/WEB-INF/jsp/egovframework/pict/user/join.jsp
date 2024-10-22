@@ -326,11 +326,6 @@
                                                 return window.alert("주소를 입력해주세요");
                                             }
 
-                                            if ($("#company_address1").val() === "") {
-                                                $("#company_address1").focus();
-                                                return window.alert("주소를 입력해주세요");
-                                            }
-
 
                                             if (!$("#agree").is(":checked")) {
                                                 return window.alert("개인정보 이용에 동의해주세요");

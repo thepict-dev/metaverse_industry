@@ -68,6 +68,9 @@ public class pictController {
 	
 	@RequestMapping(value = "/lending.do")
 	public String lending(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model, HttpSession session, RedirectAttributes rttr) throws Exception {
+		pictVO.setLimit_cnt(3);
+		List<?> notice_list = pictService.board_list(pictVO);
+		model.addAttribute("noticeList", notice_list);
 		return "pict/user/user_main";
 	}
 
@@ -76,6 +79,15 @@ public class pictController {
 	public String user_login_page(@ModelAttribute("searchVO") UserVO UserVO, HttpServletRequest request, ModelMap model, HttpSession session, RedirectAttributes rttr) throws Exception {
 		
 		return "pict/user/user_login";
+	}
+	
+	@RequestMapping(value = "/user_logout.do")
+	public String user_logout(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request,  ModelMap model) throws Exception {
+		request.getSession().setAttribute("id", null);
+		request.getSession().setAttribute("name", null);
+		
+		return "redirect:/";
+		
 	}
 	
 	@RequestMapping(value = "/login_action.do")
@@ -163,9 +175,6 @@ public class pictController {
 			model.addAttribute("retUrl", "/join.do");
 			return "pict/main/message";	
     	}
-		
-		
-		
 	}	
 	
 	
@@ -274,12 +283,56 @@ public class pictController {
 	@RequestMapping(value = "/notice.do")
 	public String notice(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model, HttpSession session, RedirectAttributes rttr) throws Exception {
 		
+		
+		int limitNumber = 10;
+		pictVO.setLimit_cnt(limitNumber);
+		Integer pageNum = pictVO.getPageNumber();
+		if(pageNum == 0) {
+			pictVO.setPageNumber(1);
+			pageNum = 1;
+		}
+		int startNum = (pageNum - 1) * limitNumber;
+		pictVO.setStartNumber(startNum);
+		Integer totalCnt = pictService.board_list_total_cnt(pictVO);
+		int lastPageValue = (int)(Math.ceil( totalCnt * 1.0 / 10 ));
+		System.out.println("startNum @@@@@@@@@@@@@@@@@@ "+ startNum);
+		System.out.println("totalCnt @@@@@@@@@@@@@@@@@@ "+ totalCnt);
+		System.out.println("lastPageValue @@@@@@@@@@@@@@@@@@ "+ lastPageValue);
+		pictVO.setLastPage(lastPageValue);
+		
+		Integer s_page = pageNum - 4;
+		Integer e_page = pageNum + 5;
+		if (s_page <= 0) {
+			s_page = 1;
+			e_page = 10;
+		} 
+		if (e_page > lastPageValue){
+			e_page = lastPageValue;
+		}
+		pictVO.setStartPage(s_page);
+		System.out.println("s_page @@@@@@@@@@@@@@@@@@ "+ s_page);
+		pictVO.setEndPage(e_page);
+		System.out.println("e_page @@@@@@@@@@@@@@@@@@ "+ e_page);
+    	
+		
+		List<?> notice_list = pictService.board_list(pictVO);
+		model.addAttribute("noticeList", notice_list);
+		model.addAttribute("pictVO", pictVO);
+		model.addAttribute("board_cnt", totalCnt);
 		return "pict/user/notice";
 	}
+	
 	//공지사항 뷰
 	@RequestMapping(value = "/notice_view.do")
 	public String notice_view(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model, HttpSession session, RedirectAttributes rttr) throws Exception {
+		if(pictVO.getIdx() == 0) {
+			return "redirect:/notice.do";
+		}
+		PictVO notice = pictService.board_list_one(pictVO);
 		
+		System.out.println("notice @@@@@@@@@@@@@@ "+notice);
+		model.addAttribute("noticeResult", notice);
+
 		return "pict/user/notice_view";
 	}
 	
@@ -306,16 +359,131 @@ public class pictController {
 	//마이페이지
 	//계정관리
 	@RequestMapping(value = "/mypage_account.do")
-	public String mypage_account(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model, HttpSession session, RedirectAttributes rttr) throws Exception {
-		
+	public String mypage_account(@ModelAttribute("searchVO") UserVO userVO, HttpServletRequest request, ModelMap model, HttpSession session, RedirectAttributes rttr) throws Exception {
+		String sessions = (String)request.getSession().getAttribute("id");
+		if (sessions == null || sessions == "") {			
+			return "redirect:/user_login.do";
+		}
+		userVO.setUser_id(sessions);
+		UserVO userInfo = userService.getUserInfo(userVO);
+		model.addAttribute("user_info", userInfo);
 		return "pict/user/mypage_account";
 	}
+	
 	//장비 예약정보
 	@RequestMapping(value = "/mypage_equip.do")
 	public String mypage_equip(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model, HttpSession session, RedirectAttributes rttr) throws Exception {
+		String sessions = (String)request.getSession().getAttribute("id");
+		if (sessions == null || sessions == "") {			
+			return "redirect:/user_login.do";
+		}
+		pictVO.setUser_id(sessions);
 		
+		int limitNumber = 10;
+		pictVO.setLimit_cnt(limitNumber);
+		Integer pageNum = pictVO.getPageNumber();
+		if(pageNum == 0) {
+			pictVO.setPageNumber(1);
+			pageNum = 1;
+		}
+		int startNum = (pageNum - 1) * limitNumber;
+		pictVO.setStartNumber(startNum);
+		Integer totalCnt = userService.get_request_total_cnt(pictVO);
+		int lastPageValue = (int)(Math.ceil( totalCnt * 1.0 / 10 ));
+		System.out.println("startNum @@@@@@@@@@@@@@@@@@ "+ startNum);
+		System.out.println("totalCnt @@@@@@@@@@@@@@@@@@ "+ totalCnt);
+		System.out.println("lastPageValue @@@@@@@@@@@@@@@@@@ "+ lastPageValue);
+		pictVO.setLastPage(lastPageValue);
+		
+		Integer s_page = pageNum - 4;
+		Integer e_page = pageNum + 5;
+		if (s_page <= 0) {
+			s_page = 1;
+			e_page = 10;
+		} 
+		if (e_page > lastPageValue){
+			e_page = lastPageValue;
+		}
+		pictVO.setStartPage(s_page);
+		System.out.println("s_page @@@@@@@@@@@@@@@@@@ "+ s_page);
+		pictVO.setEndPage(e_page);
+		System.out.println("e_page @@@@@@@@@@@@@@@@@@ "+ e_page);
+		
+		
+		
+		System.out.println("request_status @@@@@@@@@@@@@@ "+ pictVO.getRequest_status());
+		List<?> my_request_list = userService.get_request_list(pictVO);
+		String originStatus = pictVO.getRequest_status();
+		//승인 대기
+		pictVO.setRequest_status("pendding");
+		Integer penddingCnt = userService.get_request_total_cnt(pictVO);
+		//서류보완요청
+		pictVO.setRequest_status("rejected");
+		Integer rejectedCnt = userService.get_request_total_cnt(pictVO);
+		// 승인완료
+		pictVO.setRequest_status("approved");
+		Integer approvedCnt = userService.get_request_total_cnt(pictVO);
+
+		// 서류보완신청
+		pictVO.setRequest_status("retry");
+		Integer retryCnt = userService.get_request_total_cnt(pictVO);
+		
+		// 승인거절
+		pictVO.setRequest_status("refusal");
+		Integer refusalCnt = userService.get_request_total_cnt(pictVO);
+		
+		// 대여중
+		pictVO.setRequest_status("rental");
+		Integer rentalCnt = userService.get_request_total_cnt(pictVO);
+		// 연체중
+		pictVO.setRequest_status("overdue");
+		Integer overdueCnt = userService.get_request_total_cnt(pictVO);
+		pictVO.setRequest_status(originStatus);
+		
+		model.addAttribute("penddingCnt", penddingCnt);
+		model.addAttribute("rejectedCnt", rejectedCnt);
+		model.addAttribute("approvedCnt", approvedCnt);
+		model.addAttribute("retryCnt", retryCnt);
+		model.addAttribute("refusalCnt", refusalCnt);
+		model.addAttribute("rentalCnt", rentalCnt);
+		model.addAttribute("overdueCnt", overdueCnt);
+		
+		model.addAttribute("request_list", my_request_list);
+		model.addAttribute("pictVO", pictVO);
 		return "pict/user/mypage_equip";
 	}
+	
+	
+	@RequestMapping(value = "/retry_request.do", method = RequestMethod.POST)
+	public String retry_request(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, MultipartHttpServletRequest request,
+			@RequestParam("document_file") MultipartFile document_file) throws Exception {
+		String sessions = (String)request.getSession().getAttribute("id");
+		if(sessions == null || sessions == "null") {
+			return "redirect:/user_login.do";
+		}
+		pictVO.setUser_id(sessions);
+		if(document_file.getSize() != 0) {
+			UUID uuid = UUID.randomUUID();
+			String uploadPath = fileUpload_board(request, document_file, (String)request.getSession().getAttribute("id"), uuid);
+			//String filepath = "/user1/upload_file/metaverse_industry/";
+			
+			String filepath = "~/Desktop/upload_file/";
+			//String filepath = "D:\\user1\\upload_file\\billconcert\\";
+			String filename = uuid+uploadPath.split("#####")[1];
+			
+			pictVO.setFile_url(filepath+filename);
+		}
+
+		
+		userService.retryRequest(pictVO);
+		model.addAttribute("message", "정상적으로 수정되었습니다.");
+		model.addAttribute("retType", ":location");
+		model.addAttribute("retUrl", "/mypage_equip.do");
+		return "pict/main/message";
+	}
+	
+	
+	
 	//시설 예약정보
 	@RequestMapping(value = "/mypage_facil.do")
 	public String mypage_facil(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model, HttpSession session, RedirectAttributes rttr) throws Exception {
@@ -984,6 +1152,18 @@ public class pictController {
 		model.addAttribute("search_text",pictVO.getSearch_text());
 		return "pict/history/history_list";
 	}
+    //대여/반납 관리
+    @RequestMapping(value = "/manage/manage_rental.do")
+	public String manage_rental(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request) throws Exception {
+		String session = (String)request.getSession().getAttribute("id");
+		if(session == null || session == "null") {
+			return "redirect:/pict_login.do";
+		}
+		System.out.println("get Idx @@@@@@" + pictVO.getIdx());
+		model.addAttribute("pictVO", pictVO);
+		model.addAttribute("search_text",pictVO.getSearch_text());
+		return "pict/manage/manage_rental";
+	}
 	
     //대여신청 상세보기
     @RequestMapping(value = "/history/history_detail.do")
@@ -1189,6 +1369,8 @@ public class pictController {
     public String fileUpload_board(MultipartHttpServletRequest request, MultipartFile uploadFile, String target, UUID uuid) {
     	String path = "";
     	String fileName = "";
+    	Path uploadPath;
+    	/*
     	OutputStream out = null;
     	PrintWriter printWriter = null;
     	long fileSize = uploadFile.getSize();
@@ -1215,7 +1397,8 @@ public class pictController {
     	}
     	
     	return path + "#####" + fileName;
-    	/*
+    	*/
+    	
         try {
             fileName = uploadFile.getOriginalFilename();
             byte[] bytes = uploadFile.getBytes();
@@ -1243,15 +1426,15 @@ public class pictController {
             e.printStackTrace();
             return "Error: " + e.getMessage();
         }
-        */
+        
     }
     
     private String getSaveLocation(MultipartHttpServletRequest request, MultipartFile uploadFile) {
 		//서버
-    	String uploadPath = "/user1/upload_file/video_industry/";
+    	//String uploadPath = "/user1/upload_file/video_industry/";
     	
     	//로컬
-    	//String uploadPath = "~/Desktop/upload_file/";
+    	String uploadPath = "~/Desktop/upload_file/";
     	return uploadPath;
     }
 

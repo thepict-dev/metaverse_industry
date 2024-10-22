@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.time.LocalDate;
@@ -67,7 +68,99 @@ public class UserController {
 			map.put("rst", true);
 			return map;
 		}
+	}
+	
+	
+	@RequestMapping("/update_user.do")
+	@ResponseBody
+	public HashMap<String, Object> update_user(@ModelAttribute("searchVO") UserVO userVO, ModelMap model,
+			HttpServletRequest request,  @RequestBody Map<String, Object> param) throws Exception {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		HashMap<String, Object> result_data = new HashMap<String, Object>();
+		String sessions = (String)request.getSession().getAttribute("id");
+		if(sessions == null || sessions == "null") {
+			map.put("rst", false);
+			return map;
+		}
+		userVO.setUser_id(sessions);
+		
+		if (param.get("name") != null) {			
+			String name = param.get("name").toString();
+			userVO.setName(name);
+			result_data.put("name", name);
+		}
+		if (param.get("mobile") != null) {
+			String mobile = param.get("mobile").toString();
+			userVO.setMobile(mobile);
+			result_data.put("mobile", mobile);
+		}
+		
+		if (param.get("email") != null) {
+			String email = param.get("email").toString();
+			userVO.setEmail(email);
+			result_data.put("email", email);
+		}
+		if (param.get("birthday") != null) {
+			String birthday = param.get("birthday").toString();
+			userVO.setBirthday(birthday);
+			result_data.put("birthday", birthday);
+		}
+		if (param.get("user_address1") != null) {
+			String user_address1 = param.get("user_address1").toString();
+			userVO.setUser_address1(user_address1);
+			result_data.put("user_address1", user_address1);
+		}
+		
+		if (param.get("user_address2") != null) {
+			String user_address2 = param.get("user_address2").toString();
+			userVO.setUser_address2(user_address2);
+			result_data.put("user_address2", user_address2);
+		}
+		
+		if (param.get("company_nm") != null) {
+			String company_nm = param.get("company_nm").toString();
+			userVO.setCompany_nm(company_nm);
+			result_data.put("company_nm", company_nm);
+		}
+		
+		
+		if (param.get("sa_eob_no") != null) {
+			String sa_eob_no = param.get("sa_eob_no").toString();
+			userVO.setSa_eob_no(sa_eob_no);
+			result_data.put("sa_eob_no", sa_eob_no);
+		}
+		
+		if (param.get("position") != null) {
+			String position = param.get("position").toString();
+			userVO.setPosition(position);
+			result_data.put("position", position);
+		}
+		
+		if (param.get("company_address1") != null) {
+			String company_address1 = param.get("company_address1").toString();
+			userVO.setCompany_address1(company_address1);
+			result_data.put("company_address1", company_address1);
+		}
+		
+		if (param.get("company_address2") != null) {
+			String company_address2 = param.get("company_address2").toString();
+			userVO.setCompany_address2(company_address2);
+			result_data.put("company_address2", company_address2);
+		}
+		System.out.println("userVO @@@@@@@@@@@@" + userVO);
 
+		
+		
+		
+		try {
+			userService.updateUser(userVO);
+			map.put("rst", true);
+			map.put("data", result_data);
+			return map;
+		} catch(IOException e) {
+			map.put("rst", false);
+		}
+		return map;
 	}
 
 	@RequestMapping("/checkEquipmentAvailableDate.do")
@@ -99,6 +192,48 @@ public class UserController {
 		return map;
 
 	}
+	
+	
+	// 마이페이지 장비 예약폼 업데이트
+	@RequestMapping("/update_request.do")
+	@ResponseBody
+	public HashMap<String, Object> update_request(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
+			HttpServletRequest request, @RequestBody Map<String, Object> param) throws Exception {
+		System.out.println("param @@@@" + param);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String sessions = (String)request.getSession().getAttribute("id");
+		if(sessions == null || sessions == "null") {
+			map.put("rst", false);
+			return map;
+		}
+		pictVO.setUser_id(sessions);
+		if (param.get("id") != null) {
+			String request_id = param.get("id").toString();
+			System.out.println("request_id @@@@@@@@@@@@@@@@@@ " + request_id);
+
+			pictVO.setId(request_id);
+		} else {
+			map.put("rst", false);
+			return map;
+		}
+		
+		if (param.get("request_status") != null) {
+			String request_status = param.get("request_status").toString();
+			System.out.println("request_status @@@@@@@@@@@@@@@@@@ " + request_status);
+			pictVO.setRequest_status(request_status);
+		} else {
+			map.put("rst", false);
+			return map;
+		}
+		
+		userService.updateRequestStatus(pictVO);
+		map.put("rst", true);
+		return map;
+
+	}
+	
+	
+	
 	// 파일업로드쪽 수정해야되는지 체크하기
 	@RequestMapping("/booking.do")
 	@ResponseBody

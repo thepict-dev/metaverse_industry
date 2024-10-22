@@ -19,58 +19,65 @@
     </div>
     <div class="subContents">
         <ul class="tabNav">
-            <li class="active"><a href="#lnk">모두보기</a></li>
-            <li><a href="#lnk">센터소식</a></li>
-            <li><a href="#lnk">행사안내</a></li>
-            <li><a href="#lnk">보도자료</a></li>
-            <li><a href="#lnk">기타공고</a></li>
+            <li class="<c:if test="${pictVO.type eq null || pictVO.type eq ''}">active</c:if>"><a href="/notice.do">모두보기</a></li>
+            <li class="<c:if test="${pictVO.type eq '1'}">active</c:if>" ><a href="/notice.do?type=1">센터소식</a></li>
+            <li class="<c:if test="${pictVO.type eq '2'}">active</c:if>"><a href="/notice.do?type=2">행사안내</a></li>
+            <li class="<c:if test="${pictVO.type eq '3'}">active</c:if>"><a href="/notice.do?type=3">보도자료</a></li>
+            <li class="<c:if test="${pictVO.type eq '4'}">active</c:if>"><a href="/notice.do?type=4">기타공고</a></li>
         </ul>
         <div class="tabInner active">
             <div class="noticeContainer sub">
                 <ul class="notice">
-                    <li>
-                        <a href="/notice_view.do">
-                            <p class="ntInfos">
-                                <span class="category">센터소식</span>
-                                <span class="ntIndex">1</span>
-                                <span class="ntTitle">SW융합 해커톤 대회 강원지역 참가팀 모집 공고</span>
-                            </p>
-                            <p class="ntDate">2024.07.15<img src="/img/user_img/list-link.png" alt=""></p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/notice_view.do">
-                            <p class="ntInfos">
-                                <span class="category">행사안내</span>
-                                <span class="ntIndex">1</span>
-                                <span class="ntTitle">SW융합 해커톤 대회 강원지역 참가팀 모집 공고</span>
-                            </p>
-                            <p class="ntDate">2024.07.15<img src="/img/user_img/list-link.png" alt=""></p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/notice_view.do">
-                            <p class="ntInfos">
-                                <span class="category">보도자료</span>
-                                <span class="ntIndex">1</span>
-                                <span class="ntTitle">SW융합 해커톤 대회 강원지역 참가팀 모집 공고</span>
-                            </p>
-                            <p class="ntDate">2024.07.15<img src="/img/user_img/list-link.png" alt=""></p>
-                        </a>
-                    </li>
+                	<c:forEach var="notice" items="${noticeList}" varStatus="status">
+                          <li>
+                              <a href="/notice_view.do?idx=${notice.idx}">
+                                  <p class="ntInfos">
+                                      <span class="category">
+                              	        <c:choose>
+						                <c:when test="${notice.category eq '1'}">
+						                    센터소식
+						                </c:when>
+						                <c:when test="${notice.category eq '2'}">
+						                    행사안내
+						                </c:when>
+						                <c:when test="${notice.category eq '3'}">
+						                    보도자료
+						                </c:when>
+						                <c:when test="${notice.category eq '4'}">
+						                    기타공고
+						                </c:when>
+						            </c:choose>
+                                      </span>
+                                      
+                                      <span class="ntIndex">${notice.idx}</span>
+                                      <span class="ntTitle">${notice.title}</span>
+                                  </p>
+                                  <p class="ntDate">${notice.reg_date}<img src="/img/user_img/list-link.png" alt=""></p>
+                              </a>
+                          </li>
+                   	</c:forEach>
                 </ul>
             </div>
-            <div class="pagination">
-                <a href="#lnk"><img src="/img/user_img/first.png" alt="처음으로"></a>
-                <a href="#lnk"><img src="/img/user_img/prev.png" alt="이전으로"></a>
-                <a href="#lnk" class="active">1</a>
-                <a href="#lnk">2</a>
-                <a href="#lnk">3</a>
-                <p>...</p>
-                <a href="#lnk">10</a>
-                <a href="#lnk"><img src="/img/user_img/next.png" alt="다음으로"></a>
-                <a href="#lnk"><img src="/img/user_img/last.png" alt="처음으로"></a>
-            </div> 
+           <div class="pagination">
+               	<c:if test="${pictVO.pageNumber ne 1}">
+					<li><a href="/board/board_list.do?search_text=${param.search_text}&pageNumber=${pictVO.pageNumber - 10 < 1 ? 1 : pictVO.pageNumber - 10}"><img src="/img/admin/prev.png" alt=""></a></li>
+				</c:if>	
+				
+				<c:forEach var="i" begin="${pictVO.startPage}" end="${pictVO.endPage}">
+					<c:if test="${i eq pictVO.pageNumber}">
+						<li><a class="active" href="/notice.do?type=${pictVO.type}&pageNumber=${i}" >${i}</a></li>
+					</c:if>
+					<c:if test="${i ne pictVO.pageNumber}">
+						<li><a href="/notice.do?type=${pictVO.type}&pageNumber=${i}" >${i}</a></li>
+					</c:if>
+				</c:forEach>	
+                  
+                 <c:if test="${pictVO.lastPage ne pictVO.pageNumber && pictVO.lastPage != 0}">
+					<li><a href="/notice.do?type=${pictVO.type}&pageNumber=${pictVO.pageNumber + 10 > pictVO.lastPage ?  pictVO.lastPage : pictVO.pageNumber + 10}"><img src="/img/admin/next.png" alt=""></a></li>
+				</c:if>
+            </div>
+            
+            <!-- 페이지 네이 -->
         </div>  
     </div>
 	<%@ include file="./include/footer.jsp" %>

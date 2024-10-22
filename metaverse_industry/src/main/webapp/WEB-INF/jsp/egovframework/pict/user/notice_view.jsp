@@ -13,12 +13,27 @@
 	<%@ include file="./include/header.jsp" %>
     <div class="viewContainer">
         <div class="viewTop">
-            <span class="category">행사안내</span>
-            <p class="viewTitle">제에에에에에에에에에에에에에에에에에에에에에에에에목</p>
-            <span class="viewDate">2024-08-01</span>
+            <span class="category">
+            <c:choose>
+                <c:when test="${noticeResult.category eq '1'}">
+                    센터소식
+                </c:when>
+                <c:when test="${noticeResult.category eq '2'}">
+                    행사안내
+                </c:when>
+                <c:when test="${noticeResult.category eq '3'}">
+                    보도자료
+                </c:when>
+                <c:when test="${noticeResult.category eq '4'}">
+                    기타공고
+                </c:when>
+            </c:choose>
+            </span>
+            <p class="viewTitle">${noticeResult.title}</p>
+            <span class="viewDate">${noticeResult.reg_date}</span>
         </div>
         <div class="viewBottom">
-            <p>dadsfaf</p>
+            ${noticeResult.text}
         </div>
         <div class="fullButtonContainer bd">
             <a href="/notice.do" class="wt view">목록으로</a>

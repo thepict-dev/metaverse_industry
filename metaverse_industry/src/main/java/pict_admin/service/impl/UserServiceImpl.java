@@ -53,8 +53,35 @@ public class UserServiceImpl extends EgovAbstractServiceImpl implements UserServ
     public void signUp(UserVO userVO) throws Exception {
     	userMapper.signUp(userVO);
 	}
-    
+    @Override
     public UserVO getUserInfo(UserVO userVO) throws Exception {
 		return userMapper.isUserIdAvailable(userVO);
+	}
+    
+    @Override
+    public void updateUser(UserVO userVO) throws Exception {
+    	userMapper.updateUser(userVO);
+	}
+    
+	@Override
+	public List<?> get_request_list(PictVO pictVO) throws Exception {
+		return userMapper.get_request_list(pictVO);
+	}
+    
+	@Override
+	public Integer get_request_total_cnt(PictVO pictVO) throws Exception {
+		return userMapper.get_request_total_cnt(pictVO);
+	}
+	
+	
+    @Override
+    public void updateRequestStatus(PictVO pictVO) throws Exception {
+    	userMapper.updateRequestStatus(pictVO);
+	}
+    
+    
+    @Override
+    public void retryRequest(PictVO pictVO) throws Exception {
+    	userMapper.retryRequest(pictVO);
 	}
 }

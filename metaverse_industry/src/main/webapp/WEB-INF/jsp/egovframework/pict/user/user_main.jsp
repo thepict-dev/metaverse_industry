@@ -105,36 +105,34 @@
                     <div class="noticeContainer">
                         <h2 class="mainSubTitle">Notice</h2>
                         <ul class="notice main">
-                            <li>
-                                <a href="/notice_view.do">
-                                    <p class="ntInfos">
-                                        <span class="category">센터소식</span>
-                                        <span class="ntIndex">1</span>
-                                        <span class="ntTitle">SW융합 해커톤 대회 강원지역 참가팀 모집 공고</span>
-                                    </p>
-                                    <p class="ntDate">2024.07.15<img src="/img/user_img/list-link.png" alt=""></p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/notice_view.do">
-                                    <p class="ntInfos">
-                                        <span class="category">행사안내</span>
-                                        <span class="ntIndex">1</span>
-                                        <span class="ntTitle">SW융합 해커톤 대회 강원지역 참가팀 모집 공고</span>
-                                    </p>
-                                    <p class="ntDate">2024.07.15<img src="/img/user_img/list-link.png" alt=""></p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/notice_view.do">
-                                    <p class="ntInfos">
-                                        <span class="category">보도자료</span>
-                                        <span class="ntIndex">1</span>
-                                        <span class="ntTitle">SW융합 해커톤 대회 강원지역 참가팀 모집 공고</span>
-                                    </p>
-                                    <p class="ntDate">2024.07.15<img src="/img/user_img/list-link.png" alt=""></p>
-                                </a>
-                            </li>
+                        	<c:forEach var="notice" items="${noticeList}" varStatus="status">
+	                            <li>
+	                                <a href="/notice_view.do?idx=${notice.idx}">
+	                                    <p class="ntInfos">
+	                                        <span class="category">
+		                               	        <c:choose>
+									                <c:when test="${notice.category eq '1'}">
+									                    센터소식
+									                </c:when>
+									                <c:when test="${notice.category eq '2'}">
+									                    행사안내
+									                </c:when>
+									                <c:when test="${notice.category eq '3'}">
+									                    보도자료
+									                </c:when>
+									                <c:when test="${notice.category eq '4'}">
+									                    기타공고
+									                </c:when>
+									            </c:choose>
+	                                        </span>
+	                                        
+	                                        <span class="ntIndex">${notice.idx}</span>
+	                                        <span class="ntTitle">${notice.title}</span>
+	                                    </p>
+	                                    <p class="ntDate">${notice.reg_date}<img src="/img/user_img/list-link.png" alt=""></p>
+	                                </a>
+	                            </li>
+                        	</c:forEach>
                         </ul>
                     </div>
                 </div>
