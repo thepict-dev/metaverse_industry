@@ -9,13 +9,13 @@
 					<!DOCTYPE html>
 					<html lang="ko">
 					<c:import url="../main/head.jsp">
-						<c:param name="pageTitle" value="장비 리스트" />
+						<c:param name="pageTitle" value="시설 관리" />
 					</c:import>
 
 					<%@include file="../main/lnb.jsp" %>
 						<c:import url="../main/header.jsp">
-							<c:param name="title" value="장비 관리" />
-							<c:param name="subtitle" value="장비대여 관리대장" />
+							<c:param name="title" value="시설 관리" />
+							<c:param name="subtitle" value="시설대여 관리대장" />
 						</c:import>
 						<div class="contentsContainer">
 							<div class="listContainer">
@@ -23,25 +23,6 @@
 									<form action="" class="countList" id="search_fm" name="search_fm" method="get">
 										<p>총 <span>${size}</span>개</p>
 										<div class="inputsContainer">
-											<div class="inputBox listSearch">
-												<select name="category" id="category" class="lgThinInput">
-													<option value="HMD" <c:if test="${pictVO.category eq 'HMD'}">
-														selected</c:if>>HMD</option>
-													<option value="AR글래스" <c:if
-														test="${pictVO.category eq 'AR글래스'}">selected</c:if>>AR글래스
-													</option>
-													<option value="모션캡처" <c:if test="${pictVO.category eq '모션캡처'}">
-														selected</c:if>>모션캡처</option>
-													<option value="360카메라" <c:if
-														test="${pictVO.category eq '360카메라'}">selected</c:if>>360카메라
-													</option>
-													<option value="3D스캐너" <c:if
-														test="${pictVO.category eq '3D스캐너'}">selected</c:if>>3D스캐너
-													</option>
-													<option value="기타" <c:if test="${pictVO.category eq '기타'}">
-														selected</c:if>>기타</option>
-												</select>
-											</div>
 											<div class="inputBox listSearch">
 												<select name="status" id="status" class="lgThinInput">
 													<option value="">대여 상태 전체</option>
@@ -59,7 +40,7 @@
 					                    <a href="" class="smButton"><img src="/img/admin/excel.png" alt="">엑셀 다운로드</a>
 					                </div>
 									<div class="ListWrpper">
-										<ul class="listHead setHead">
+										<ul class="listHead setFacilHead">
 											<li>선택</li>
 											<li>순서</li>
 											<li>대여 상태</li>
@@ -67,12 +48,11 @@
 											<li>대여일(신청)</li>
 											<li>반납일(신청)</li>
 											<li>대여자 성명</li>
-											<li>구분</li>
-											<li>장비명</li>
+											<li>시설명</li>
 											<li>대여형태</li>
 											<li>삭제</li>
 										</ul>
-										<ul class="listBody setHead">
+										<ul class="listBody setFacilHead">
 											<c:forEach var="resultList" items="${resultList}" varStatus="status">
 												<li>
 						                            <div class="checkBox">
@@ -116,8 +96,7 @@
 													<p>${resultList.rental_start_date}</p>
 													<p>${resultList.rental_end_date}</p>
 													<p>${resultList.user_name}</p>
-													<p>${resultList.equipment_type}</p>
-													<p class="title">${resultList.name}</p>
+													<p class="title"><a href="/facility/facility_history_detail.do">${resultList.name}</a></p>
 													<p>형태</p>
 					                				<p class="delete"><a href="#lnk" onclick="board_delete('${resultList.idx}')"></a></p>
 												</li>
@@ -127,26 +106,26 @@
 										<div class="pagination">
 											<c:if test="${pictVO.pageNumber ne 1}">
 												<li><a
-														href="/equipment/equipment_list.do?search_text=${param.search_text}&pageNumber=${pictVO.pageNumber - 10 < 1 ? 1 : pictVO.pageNumber - 10}"><img
+														href="/facility/facility_history_list.do?search_text=${param.search_text}&pageNumber=${pictVO.pageNumber - 10 < 1 ? 1 : pictVO.pageNumber - 10}"><img
 															src="/img/admin/prev.png" alt=""></a></li>
 											</c:if>
 
 											<c:forEach var="i" begin="${pictVO.startPage}" end="${pictVO.endPage}">
 												<c:if test="${i eq pictVO.pageNumber}">
 													<li class="active"><a
-															href="/history/history_list.do?search_text=${param.search_text}&pageNumber=${i}">${i}</a>
+															href="/facility/facility_history_list.do?search_text=${param.search_text}&pageNumber=${i}">${i}</a>
 													</li>
 												</c:if>
 												<c:if test="${i ne pictVO.pageNumber}">
 													<li><a
-															href="/history/history_list.do?search_text=${param.search_text}&pageNumber=${i}">${i}</a>
+															href="/facility/facility_history_list.do?search_text=${param.search_text}&pageNumber=${i}">${i}</a>
 													</li>
 												</c:if>
 											</c:forEach>
 
 											<c:if test="${pictVO.lastPage ne pictVO.pageNumber}">
 												<li><a
-														href="/history/history_list.do?search_text=${param.search_text}&pageNumber=${pictVO.pageNumber + 10 > pictVO.lastPage ?  pictVO.lastPage : pictVO.pageNumber + 10}"><img
+														href="/facility/facility_history_list.do?search_text=${param.search_text}&pageNumber=${pictVO.pageNumber + 10 > pictVO.lastPage ?  pictVO.lastPage : pictVO.pageNumber + 10}"><img
 															src="/img/admin/next.png" alt=""></a></li>
 											</c:if>
 										</div>

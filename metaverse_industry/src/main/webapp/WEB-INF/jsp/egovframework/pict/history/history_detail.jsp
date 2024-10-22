@@ -123,15 +123,14 @@
 											<div class="inputsContainer">
 												<div class="inputBox">
 													<p class="inputCaption">첨부파일</p>
-						                            <div class="fileList binding">
+						                            <a href="#lnk" download class="fileList binding">
 						                                <p></p>
-						                            </div>
+						                            </a>
 												</div>
 											</div>
 										</div>
 									</div>
 									<div class="listWrapper">
-										<p class="regTitle">사용자 정보</p>
 										<div class="listInner set">
 											<div class="inputsContainer">
 												<div class="inputBox">
@@ -168,7 +167,7 @@
 									<div class="listWrapper">
 										<div class="listInner set">
 							                <div class="buttons">
-							                    <a href="" class="smButton"><img src="/img/admin/pdf.png" alt="">PDF 다운로드</a>
+							                    <a href="#lnk" class="smButton"><img src="/img/admin/pdf.png" alt="">PDF 다운로드</a>
 							                </div>
 										</div>
 									</div>
@@ -251,38 +250,12 @@
 									</div>
 								</div>
 								 -->
-							<div class="pagination">
-								<c:if test="${pictVO.pageNumber ne 1}">
-									<li><a
-											href="/equipment/equipment_list.do?search_text=${param.search_text}&pageNumber=${pictVO.pageNumber - 10 < 1 ? 1 : pictVO.pageNumber - 10}"><img
-												src="/img/admin/prev.png" alt=""></a></li>
-								</c:if>
-
-								<c:forEach var="i" begin="${pictVO.startPage}" end="${pictVO.endPage}">
-									<c:if test="${i eq pictVO.pageNumber}">
-										<li class="active"><a
-												href="/history/history_list.do?search_text=${param.search_text}&pageNumber=${i}">${i}</a>
-										</li>
-									</c:if>
-									<c:if test="${i ne pictVO.pageNumber}">
-										<li><a
-												href="/history/history_list.do?search_text=${param.search_text}&pageNumber=${i}">${i}</a>
-										</li>
-									</c:if>
-								</c:forEach>
-
-								<c:if test="${pictVO.lastPage ne pictVO.pageNumber}">
-									<li><a
-											href="/history/history_list.do?search_text=${param.search_text}&pageNumber=${pictVO.pageNumber + 10 > pictVO.lastPage ?  pictVO.lastPage : pictVO.pageNumber + 10}"><img
-												src="/img/admin/next.png" alt=""></a></li>
-								</c:if>
-							</div>
 						</div>
 						<script src="../../../../../js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 						<script src="../../../../../js/scripts.js"></script>
 						<script src="../../../../../js/Chart.min.js" crossorigin="anonymous"></script>
 						<script src="../../../../../js/simple-datatables@latest.js" crossorigin="anonymous"></script>
-						<script src="/js/list_js.js"></script>
+						<script src="/js/history_detail.js"></script>
 						</body>
 
 					</html>

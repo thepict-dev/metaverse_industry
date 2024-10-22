@@ -9,13 +9,13 @@
 <!DOCTYPE html>
 <html lang="ko">
 	<c:import url="../main/head.jsp">
-    	<c:param name="pageTitle" value="게시물 리스트"/>
+    	<c:param name="pageTitle" value="게시물"/>
     </c:import>
     
     <%@include file="../main/lnb.jsp" %>
 		<c:import url="../main/header.jsp">
-	    	<c:param name="title" value="게시물 관리"/>
-	    	<c:param name="subtitle" value="게시물 리스트"/>
+	    	<c:param name="title" value="게시물"/>
+	    	<c:param name="subtitle" value="공지사항 리스트"/>
 	    </c:import>
 	    <div class="contentsContainer">
 	        <div class="listContainer">

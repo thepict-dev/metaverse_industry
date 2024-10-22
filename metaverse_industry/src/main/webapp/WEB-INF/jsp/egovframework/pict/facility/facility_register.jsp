@@ -11,10 +11,10 @@
 						<c:param name="pageTitle">
 						    <c:choose>
 						        <c:when test="${pictVO.saveType eq 'update'}">
-						            장비 수정
+						            시설 수정
 						        </c:when>
 						        <c:otherwise>
-						            장비 등록
+						            시설 등록
 						        </c:otherwise>
 						    </c:choose>
 						</c:param>
@@ -27,20 +27,20 @@
 								<c:param name="title">
 								    <c:choose>
 								        <c:when test="${pictVO.saveType eq 'update'}">
-								            장비 수정
+								            시설 수정
 								        </c:when>
 								        <c:otherwise>
-								            장비 등록
+								            시설 등록
 								        </c:otherwise>
 								    </c:choose>
 								</c:param>
 								<c:param name="subtitle">
 								    <c:choose>
 								        <c:when test="${pictVO.saveType eq 'update'}">
-								            장비 수정
+								            시설 수정
 								        </c:when>
 								        <c:otherwise>
-								            장비 등록
+								            시설 등록
 								        </c:otherwise>
 								    </c:choose>
 								</c:param>
@@ -52,27 +52,7 @@
 											enctype="multipart/form-data" class="boardForm">
 											<div class="inputsContainer">
 												<div class="inputBox">
-													<p class="inputCaption">장비구분*</p>
-													<select name="category" id="category" class="lgThinInput">
-														<option value="HMD" <c:if test="${pictVO.category eq 'HMD'}">
-															selected</c:if>>HMD</option>
-														<option value="AR글래스" <c:if
-															test="${pictVO.category eq 'AR글래스'}">selected</c:if>>AR글래스
-														</option>
-														<option value="모션캡처" <c:if test="${pictVO.category eq '모션캡처'}">
-															selected</c:if>>모션캡처</option>
-														<option value="360카메라" <c:if
-															test="${pictVO.category eq '360카메라'}">selected</c:if>>360카메라
-														</option>
-														<option value="3D스캐너" <c:if
-															test="${pictVO.category eq '3D스캐너'}">selected</c:if>>3D스캐너
-														</option>
-														<option value="기타" <c:if test="${pictVO.category eq '기타'}">
-															selected</c:if>>기타</option>
-													</select>
-												</div>
-												<div class="inputBox">
-													<p class="inputCaption">장비명*</p>
+													<p class="inputCaption">시설명*</p>
 													<input type="text" name="name" id="name" placeholder="장비 이름을 입력하세요…"
 														value="${pictVO.name}">
 												</div>
@@ -105,7 +85,7 @@
 												</div>
 											</div>
 											<div class="btnContainer">
-												<a href="/equipment/equipment_list.do" class="normalButton white">목록으로</a>
+												<a href="/facility/facility_list.do" class="normalButton white">목록으로</a>
 												<a href="#lnk" onclick="button1_click()" class="basicButton blue"><img
 														src="/img/admin/add2.png" alt="완료">완료</a>
 											</div>
@@ -127,7 +107,7 @@
 								                    <a href="#lnk"><img src="/img/user_img/bag.png" alt=""></a>
 								                </div>
 								                <div class="itemTitles">
-								                    <span>${pictVO.type}</span>
+								                    <span>시설</span>
 								                    <p>${pictVO.name}</p>
 								                </div>
 								                <p>${pictVO.description}</p>

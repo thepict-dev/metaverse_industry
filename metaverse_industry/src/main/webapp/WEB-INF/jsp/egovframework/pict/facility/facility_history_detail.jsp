@@ -50,12 +50,6 @@
 												<span class="bindingText lg">${history_detail.address1} ${not empty history_detail.address2 ? history_detail.address2 : ''}</span>
 											</div>
 										</div>
-										<div class="inputsContainer">
-											<div class="inputBox">
-												<p class="inputCaption">사용자 주소*</p>
-												<span class="bindingText lg"></span>
-											</div>
-										</div>
 									</div>
 								</div>
 								<div class="listWrapper">
@@ -72,31 +66,7 @@
 											</div>
 											<div class="inputsContainer">
 												<div class="inputBox">
-													<p class="inputCaption">구분</p>
-													<select name="category" id="category" class="lgThinInput" disabled>
-														<option value="HMD" <c:if test="${pictVO.category eq 'HMD'}">
-															selected</c:if>>HMD</option>
-														<option value="AR글래스" <c:if
-															test="${pictVO.category eq 'AR글래스'}">selected</c:if>>AR글래스
-														</option>
-														<option value="모션캡처" <c:if test="${pictVO.category eq '모션캡처'}">
-															selected</c:if>>모션캡처</option>
-														<option value="360카메라" <c:if
-															test="${pictVO.category eq '360카메라'}">selected</c:if>>360카메라
-														</option>
-														<option value="3D스캐너" <c:if
-															test="${pictVO.category eq '3D스캐너'}">selected</c:if>>3D스캐너
-														</option>
-														<option value="기타" <c:if test="${pictVO.category eq '기타'}">
-															selected</c:if>>기타</option>
-													</select>
-												</div>
-												<div class="inputBox">
-													<p class="inputCaption">장비명*</p>
-													<span class="bindingText disable"></span>
-												</div>
-												<div class="inputBox">
-													<p class="inputCaption">수량*</p>
+													<p class="inputCaption">시설명*</p>
 													<span class="bindingText disable"></span>
 												</div>
 											</div>
@@ -107,16 +77,12 @@
 												</div>
 												<div class="inputBox">
 													<p class="inputCaption">대여일</p>
-													<input type="date" id="reg_date" name="reg_date" class="lgThinInput" disabled>
-												</div>
-												<div class="inputBox">
-													<p class="inputCaption">반납일</p>
-													<input type="date" id="reg_date" name="reg_date" class="lgThinInput" disabled>
+													<span class="bindingText disable"></span>
 												</div>
 											</div>
 											<div class="inputsContainer">
 												<div class="inputBox">
-													<p class="inputCaption">장비사용계획</p>
+													<p class="inputCaption">시설사용계획</p>
 													<span class="bindingText plan"></span>
 												</div>
 											</div>

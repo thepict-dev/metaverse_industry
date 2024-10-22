@@ -117,7 +117,7 @@
 													<p>${resultList.rental_end_date}</p>
 													<p>${resultList.user_name}</p>
 													<p>${resultList.equipment_type}</p>
-													<p class="title">${resultList.name}</p>
+													<p class="title"><a href="/history/history_detail.do">${resultList.name}</a></p>
 													<p>형태</p>
 					                				<p class="delete"><a href="#lnk" onclick="board_delete('${resultList.idx}')"></a></p>
 												</li>

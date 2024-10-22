@@ -16,16 +16,20 @@
 <c:set var="equipment_list" value="${fn:indexOf(url, 'equipment_list')}"/>
 <c:set var="equipment_register" value="${fn:indexOf(url, 'equipment_register')}"/>
 <c:set var="equipment_cnt_register" value="${fn:indexOf(url, 'equipment_cnt_register')}"/>
-
+<c:set var="equipment_history" value="${fn:indexOf(url, 'history/history_list')}"/>
+<c:set var="manage_rental" value="${fn:indexOf(url, 'manage_rental')}"/>
+<c:set var="facility_list" value="${fn:indexOf(url, 'facility_list')}"/>
+<c:set var="facility_register" value="${fn:indexOf(url, 'facility_register')}"/>
+<c:set var="facility_history_list" value="${fn:indexOf(url, 'facility_history_list')}"/>
 <c:set var="board_list" value="${fn:indexOf(url, 'board_list')}"/>
 <c:set var="board_register" value="${fn:indexOf(url, 'board_register')}"/>
 
-
-
+<c:set var="manage_education" value="${fn:indexOf(url, 'manage_education')}"/>/user_list/user_list.do
+<c:set var="manage_education_detail" value="${fn:indexOf(url, 'manage_education_detail')}"/>
 
 <c:set var="user_list" value="${fn:indexOf(url, 'user_list')}"/>
+
 <c:set var="feed_list" value="${fn:indexOf(url, 'feed_list')}"/>
-<c:set var="history_list" value="${fn:indexOf(url, 'history_list')}"/>
 <c:set var="event_list" value="${fn:indexOf(url, 'event_list')}"/>
 <c:set var="event_register" value="${fn:indexOf(url, 'event_register')}"/>
 
@@ -35,44 +39,44 @@
 <div class="lnb">
     <nav>
         <div class="nav">
-      		<div class="depth1  <c:if test="${equipment_list ne -1 || equipment_register ne -1 || equipment_cnt_register ne -1 || history_list ne -1}">active</c:if>">
+            <div class="depth1 <c:if test="${equipment_list ne -1 || equipment_register ne -1 || equipment_cnt_register ne -1 || equipment_history ne -1 || facility_list ne -1 || facility_register ne -1 || facility_history_list ne -1 || manage_education ne -1 || manage_education_detail ne -1}">active</c:if>">
                <span><img src="/img/admin/lnb_icons/lnb-category.png" alt=""></span>
                <a href="#lnk">자산 관리<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
            </div>
            <ul class="depth2">
-          	   <li><span>장비 관리</span></li>
+               <li><span>장비 관리</span></li>
                <li class="<c:if test="${equipment_list ne -1}">active</c:if>"><a href="/equipment/equipment_list.do">장비 목록</a></li>
-               <li class="<c:if test="${history_list ne -1}">active</c:if>"><a href="/history/history_list.do">장비대여 관리대장</a></li>
-               <li class="<c:if test="${board_register ne -1}">active</c:if>"><a href="">대여/반납처리</a></li>
-          	   <li><span>시설 관리</span></li>
-               <li class="<c:if test="${board_list ne -1}">active</c:if>"><a href="">시설 목록</a></li>
-               <li class="<c:if test="${board_register ne -1}">active</c:if>"><a href="">시설대여 관리대장</a></li>
+               <li class="<c:if test="${equipment_history ne -1}">active</c:if>"><a href="/history/history_list.do">장비대여 관리대장</a></li>
+               <li class="<c:if test="${manage_rental ne -1}">active</c:if>"><a href="/manage/manage_rental.do">대여/반납처리</a></li>
+               <li><span>시설 관리</span></li>
+               <li class="<c:if test="${facility_list ne -1}">active</c:if>"><a href="/facility/facility_list.do">시설 목록</a></li>
+               <li class="<c:if test="${facility_history_list ne -1}">active</c:if>"><a href="/facility/facility_history_list.do">시설대여 관리대장</a></li>
           	   <li><span>교육 관리</span></li>
-               <li class="<c:if test="${board_list ne -1}">active</c:if>"><a href="">신청 목록</a></li>
+               <li class="<c:if test="${manage_education ne -1}">active</c:if>"><a href="/education/manage_education.do">신청 목록</a></li>
            </ul>
-        	<div class="depth1 <c:if test="${board_list ne -1 || board_register ne -1}">active</c:if>">
+        	<div class="depth1 <c:if test="${user_list ne -1}">active</c:if>">
                <span><img src="/img/admin/lnb_icons/user.png" alt=""></span>
                <a href="#lnk">사용자<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
            </div>
            <ul class="depth2">
           	   <li><span>사용자 관리</span></li>
-               <li class="<c:if test="${board_list ne -1}">active</c:if>"><a href="">사용자 목록</a></li>
+               <li class="<c:if test="${user_list ne -1}">active</c:if>"><a href="/user_list/user_list.do">사용자 목록</a></li>
            </ul>
-        	<div class="depth1 <c:if test="${board_list ne -1 || board_register ne -1}">active</c:if>">
+        	<div class="depth1">
                <span><img src="/img/admin/lnb_icons/lnb-popup.png" alt=""></span>
                <a href="#lnk">팝업존<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
            </div>
            <ul class="depth2">
           	   <li><span>팝업 관리</span></li>
-               <li class="<c:if test="${board_list ne -1}">active</c:if>"><a href="">팝업 등록</a></li>
+               <li class=""><a href="">팝업 등록</a></li>
            </ul>
-        	<div class="depth1 <c:if test="${board_list ne -1 || board_register ne -1}">active</c:if>">
+        	<div class="depth1">
                <span><img src="/img/admin/lnb_icons/lnb-filter.png" alt=""></span>
                <a href="#lnk">데이터<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
            </div>
            <ul class="depth2">
           	   <li><span>홈페이지</span></li>
-               <li class="<c:if test="${board_list ne -1}">active</c:if>"><a href="">방문자 현황</a></li>
+               <li class=""><a href="">방문자 현황</a></li>
            </ul>
         	<div class="depth1 <c:if test="${board_list ne -1 || board_register ne -1}">active</c:if>">
                <span><img src="/img/admin/lnb_icons/board.png" alt=""></span>
@@ -81,7 +85,7 @@
            <ul class="depth2">
           	   <li><span>알림마당</span></li>
                <li class="<c:if test="${board_list ne -1}">active</c:if>"><a href="">공지사항</a></li>
-               <li class="<c:if test="${board_list ne -1}">active</c:if>"><a href="">사업공고</a></li>
+               <li class=""><a href="">사업공고</a></li>
            </ul>
             <%-- <div class="depth1 <c:if test="${event_list ne -1 || event_register ne -1}">active</c:if>">
                 <span><img src="/img/admin/lnb_icons/lnb-event.png" alt=""></span>

@@ -15,6 +15,9 @@
     display: flex;
     flex-direction: column;
 }
+.inputBox.per{
+	width: 100%;
+}
 
 /* 게시판 */
 .listInner .countList{
@@ -118,18 +121,46 @@
 .listHead.equipList{
     grid-template-columns: 5% 5% 5% 10% 35% 10% 10% 10% 10%;
 }
-
 .listBody.equipList > li{
     grid-template-columns: 5% 5% 5% 10% 35% 10% 10% 10% 10%;
     cursor: pointer;
 }
-/* 관리대장 리스트 */
+/* 장비 관리대장 리스트 */
 .listHead.setHead{
     grid-template-columns: 3% 5% 10% 10% 10% 10% 9% 5% 26% 7% 5%;
 }
-
 .listBody.setHead > li{
     grid-template-columns: 3% 5% 10% 10% 10% 10% 9% 5% 26% 7% 5%;
+}
+/* 시설리스트 */
+.listHead.facilList{
+    grid-template-columns: 5% 5% 20% 40% 10% 10% 10%;
+}
+.listBody.facilList > li{
+    grid-template-columns: 5% 5% 20% 40% 10% 10% 10%;
+}
+/* 시설 관리대장 리스트 */
+.listHead.setFacilHead{
+    grid-template-columns: 3% 5% 10% 10% 10% 10% 10% 30% 7% 5%;
+}
+.listBody.setFacilHead > li{
+    grid-template-columns: 3% 5% 10% 10% 10% 10% 10% 30% 7% 5%;
+}
+/*	교육신청 리스트 */
+.listHead.eduHead{
+    grid-template-columns: 5% 5% 55% 15% 15% 5%;
+}
+
+.listBody.eduBody > li{
+    grid-template-columns: 5% 5% 55% 15% 15% 5%;
+}
+/*	사용자 리스트 */
+.listHead.userList{
+    grid-template-columns: 5% 5% 10% 13% 13% 13% 35% 6%;
+}
+
+.listBody.userList > li{
+    grid-template-columns: 5% 5% 10% 13% 13% 13% 35% 6%;
     cursor: pointer;
 }
 
@@ -271,6 +302,14 @@
     font-weight: 400;
     line-height: 100%; /* 14px */
     letter-spacing: -0.7px;
+}
+.listButton.accept a{
+    padding: 8px 16px;
+}
+.listButton.accept a:first-of-type{
+    background: var(--blue-500);
+    border: 1px solid var(--blue-500);
+    color:#fff;
 }
 .listButton a:hover{
     background: var(--grey-50);
@@ -654,3 +693,36 @@
 	line-height: 100%; /* 14px */
 	letter-spacing: -0.7px;
 }
+
+.barcodeForm{
+	width: 100%;
+	height: 100%;
+}
+.barcodeContainer{
+	width: 100%;
+	padding: 16px;
+	background: var(--grey-50);
+	border-top: 1px solid var(--grey-100);
+}
+.listContainerInner{
+    display: flex;
+    column-gap: 40px;
+    margin-bottom: 20px;
+}
+.listContainerInner .listWrapper{
+	width: calc(50% - 20px);
+    height: 753px;
+}
+.listContainerInner .listWrapper .listInner{
+	height: 100%;
+}
+.wtButtonContainer{
+	width: 100%;
+    background: #fff;
+    margin-top: 40px;
+    padding: 24px 32px;
+}
+.wtButtonContainer .btnContainer{
+	padding-top: 0;
+}
+

@@ -35,3 +35,15 @@
 .imgModalInner img{
 	width: 100%;
 }
+
+
+#adminModal{
+    display: none;
+}
+#adminModal.active{
+    display: flex;
+}
+#adminModal .modalInner{
+    max-height: unset;
+    height: fit-content;
+}

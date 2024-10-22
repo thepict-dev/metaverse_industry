@@ -9,13 +9,13 @@
 					<!DOCTYPE html>
 					<html lang="ko">
 					<c:import url="../main/head.jsp">
-						<c:param name="pageTitle" value="시설 리스트" />
+						<c:param name="pageTitle" value="장비 리스트" />
 					</c:import>
 
 					<%@include file="../main/lnb.jsp" %>
 						<c:import url="../main/header.jsp">
-							<c:param name="title" value="시설 관리" />
-							<c:param name="subtitle" value="시설 리스트" />
+							<c:param name="title" value="장비 관리" />
+							<c:param name="subtitle" value="장비 리스트" />
 						</c:import>
 						<div class="contentsContainer">
 							<div class="listContainer">
@@ -33,47 +33,43 @@
 									</form>
 
 									<div class="ListWrpper">
-										<ul class="listHead facilList">
+										<ul class="listHead userList">
 											<li>선택</li>
 											<li>순서</li>
-											<li>이미지</li>
-											<li>시설명</li>
-											<li>등록일</li>
-											<li>수정</li>
+											<li>이름</li>
+											<li>연락처</li>
+											<li>이메일</li>
+											<li>생년월일</li>
+											<li>주소</li>
 											<li>삭제</li>
 										</ul>
-										<ul class="listBody facilList">
-											<c:forEach var="resultList" items="${resultList}" varStatus="status">
-												<li data-id="${resultList.id}">
-													<div class="checkBox">
-														<input type="checkbox" id="selection"><label for="selection"
-															class="lableOnly"></label>
-													</div>
-													<!-- 기존 내용 -->
-													<p>${resultList.idx}</p>
-													<div class="listImg"><img src="${resultList.image_url}"
-															alt="시설 이미지"></div>
-													<p class="title">${resultList.name}</p>
-													<p class="reg_date">${resultList.reg_date}</p>
-													<p class="modify"><a href="#lnk"
-															onclick="board_mod('${resultList.idx}');">수정</a></p>
-													<p class="delete"><a href="#lnk"
-															onclick="board_delete('${resultList.idx}')"></a></p>
-												</li>
-											</c:forEach>
+										<ul class="listBody userList">
+											<li>
+												<div class="checkBox">
+													<input type="checkbox" id="selection"><label for="selection"
+														class="lableOnly"></label>
+												</div>
+												<p>1</p>
+												<p>최태호</p>
+												<p>01012341234</p>
+												<p>fja@jfoiasjdfi.com</p>
+												<p>19931010</p>
+												<p>강원도 춘천시 효자로 144 픽트스퀘어</p>
+												<p class="delete"><a href="#lnk"></a></p>
+											</li>
 										</ul>
 
 										<div class="listButton">
-											<a href="/facility/facility_register.do"><img src="/img/admin/add.png"
+											<a href="/equipment/equipment_register.do"><img src="/img/admin/add.png"
 													alt="등록버튼">등록</a>
-											<a href="#lnk"><img src="/img/admin/delete.png"
+											<a href="/equipment/equipment_register.do"><img src="/img/admin/delete.png"
 													alt="삭제버튼">삭제</a>
 										</div>
 
 										<div class="pagination">
 											<c:if test="${pictVO.pageNumber ne 1}">
 												<li><a
-														href="/facility/facility_list.do?search_text=${param.search_text}&pageNumber=${pictVO.pageNumber - 10 < 1 ? 1 : pictVO.pageNumber - 10}"><img
+														href="/board/board_list.do?search_text=${param.search_text}&pageNumber=${pictVO.pageNumber - 10 < 1 ? 1 : pictVO.pageNumber - 10}"><img
 															src="/img/admin/prev.png" alt=""></a></li>
 											</c:if>
 
@@ -100,13 +96,56 @@
 									</div>
 								</div>
 							</div>
+							<div class="equipDetails">
+								<div class="detailsTop">
+									<p>사용자 세부사항</p>
+									<button><img src="/img/admin/close-bk.png" alt=""></button>
+								</div>
+								<div class="detailInfoContainer">
+									<div class="detailList">
+										<div class="listInner set">
+											<div class="inputsContainer">
+												<div class="inputBox">
+													<p class="inputCaption">회사명</p>
+													<span class="bindingText"></span>
+												</div>
+											</div>
+											<div class="inputsContainer">
+												<div class="inputBox">
+													<p class="inputCaption">사업자 등록번호</p>
+													<span class="bindingText"></span>
+												</div>
+												<div class="inputBox">
+													<p class="inputCaption">직책</p>
+													<span class="bindingText"></span>
+												</div>
+											</div>
+											<div class="inputsContainer">
+												<div class="inputBox per">
+													<p class="inputCaption">사업장 주소</p>
+													<span class="bindingText per"></span>
+												</div>
+											</div>
+											<div class="inputsContainer">
+												<div class="inputBox per">
+													<p class="inputCaption">증빙서류</p>
+													<a href="#lnk" download class="bindingText"></a>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="listButton detail">
+										<a href="#lnk"><img src="/img/admin/delete.png" alt="삭제버튼">삭제</a>
+									</div>
+								</div>
+							</div>
 						</div>
 						<form action="" id="register" name="register" method="post" enctype="multipart/form-data">
 							<input type='hidden' name="idx" id="idx" value='' />
 							<input type='hidden' name="use_at" id="use_at" value='' />
 							<input type='hidden' name="type" id="type" value='' />
 						</form>
-						<script type="text/javascript" src="/js/equipment_list.js"></script>
+						<script type="text/javascript" src="/js/user_list.js"></script>
 						<script src="../../../../../js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 						<script src="../../../../../js/scripts.js"></script>
 						<script src="../../../../../js/Chart.min.js" crossorigin="anonymous"></script>
