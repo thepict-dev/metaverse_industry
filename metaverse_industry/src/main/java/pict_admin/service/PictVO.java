@@ -15,10 +15,12 @@
  */
 package pict_admin.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.stringtemplate.v4.compiler.CodeGenerator.primary_return;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.type.TypeReference;
 /**
  * @Class Name : SampleVO.java
  * @Description : SampleVO Class
@@ -253,7 +255,22 @@ public class PictVO extends PictDefaultVO {
 	private int totalCnt;
 	private String reject_msg;
 	private boolean isAll;
-
+	
+	private String birthday;
+	private String address1;
+	private String address2;
+	// 시설물
+	private String facility_type_id;
+	private String facility_id;
+	private String facility_plan;
+	private String avaliable_facility_cnt;
+	private String facility_type;
+	private String facility_list;
+	private String equipment_list;
+    private transient List<Map<String, Object>> facilityListObject;  // 변환된 객체
+    private transient List<Map<String, Object>> equipmentListObject;
+    private String isLike;
+    
 	public String getDescription() {
 		return description;
 	}
@@ -1762,4 +1779,122 @@ public class PictVO extends PictDefaultVO {
 		this.isAll = isAll;
 	}
 
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getAddress1() {
+		return address1;
+	}
+
+	public void setAddress1(String address1) {
+		this.address1 = address1;
+	}
+
+	public String getAddress2() {
+		return address2;
+	}
+
+	public void setAddress2(String address2) {
+		this.address2 = address2;
+	}
+
+	public String getFacility_type_id() {
+		return facility_type_id;
+	}
+
+	public void setFacility_type_id(String facility_type_id) {
+		this.facility_type_id = facility_type_id;
+	}
+
+	public String getFacility_id() {
+		return facility_id;
+	}
+
+	public void setFacility_id(String facility_id) {
+		this.facility_id = facility_id;
+	}
+
+	public String getFacility_plan() {
+		return facility_plan;
+	}
+
+	public void setFacility_plan(String facility_plan) {
+		this.facility_plan = facility_plan;
+	}
+
+	public String getFacility_type() {
+		return facility_type;
+	}
+
+	public void setFacility_type(String facility_type) {
+		this.facility_type = facility_type;
+	}
+
+	public String getAvaliable_facility_cnt() {
+		return avaliable_facility_cnt;
+	}
+
+	public void setAvaliable_facility_cnt(String avaliable_facility_cnt) {
+		this.avaliable_facility_cnt = avaliable_facility_cnt;
+	}
+
+	public String getFacility_list() {
+		return facility_list;
+	}
+
+	public void setFacility_list(String facility_list) {
+		this.facility_list = facility_list;
+	}
+	
+	public List<Map<String, Object>> getFacilityListObject() {
+        if (facilityListObject == null && facility_list != null) {
+            try {
+                ObjectMapper mapper = new ObjectMapper();
+                facilityListObject = mapper.readValue(
+                    facility_list,
+                    new TypeReference<List<Map<String, Object>>>(){}
+                );
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return facilityListObject;
+    }
+	
+	
+	public List<Map<String, Object>> getEquipmentListObject() {
+        if (equipmentListObject == null && equipment_list != null) {
+            try {
+                ObjectMapper mapper = new ObjectMapper();
+                equipmentListObject = mapper.readValue(
+                    equipment_list,
+                    new TypeReference<List<Map<String, Object>>>(){}
+                );
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return equipmentListObject;
+    }
+
+	public String getEquipment_list() {
+		return equipment_list;
+	}
+
+	public void setEquipment_list(String equipment_list) {
+		this.equipment_list = equipment_list;
+	}
+
+	public String getIsLike() {
+		return isLike;
+	}
+
+	public void setIsLike(String isLike) {
+		this.isLike = isLike;
+	}
 }

@@ -192,19 +192,19 @@
                                         <div class="pagination my">
                                             <c:if test="${pictVO.pageNumber ne 1}">
                                                 <li><a
-                                                        href="/board/board_list.do?search_text=${param.search_text}&pageNumber=${pictVO.pageNumber - 10 < 1 ? 1 : pictVO.pageNumber - 10}"><img
+                                                        href="/mypage_equip.do?request_status=${pictVO.request_status}&pageNumber=${pictVO.pageNumber - 10 < 1 ? 1 : pictVO.pageNumber - 10}"><img
                                                             src="/img/admin/prev.png" alt=""></a></li>
                                             </c:if>
 
                                             <c:forEach var="i" begin="${pictVO.startPage}" end="${pictVO.endPage}">
                                                 <c:if test="${i eq pictVO.pageNumber}">
                                                     <li><a class="active"
-                                                            href="/notice.do?type=${pictVO.type}&pageNumber=${i}">${i}</a>
+                                                            href="/mypage_equip.do?request_status=${pictVO.request_status}&pageNumber=${i}">${i}</a>
                                                     </li>
                                                 </c:if>
                                                 <c:if test="${i ne pictVO.pageNumber}">
                                                     <li><a
-                                                            href="/notice.do?type=${pictVO.type}&pageNumber=${i}">${i}</a>
+                                                            href="/mypage_equip.do?request_status=${pictVO.request_status}&pageNumber=${i}">${i}</a>
                                                     </li>
                                                 </c:if>
                                             </c:forEach>
@@ -212,7 +212,7 @@
                                             <c:if
                                                 test="${pictVO.lastPage ne pictVO.pageNumber && pictVO.lastPage != 0}">
                                                 <li><a
-                                                        href="/notice.do?type=${pictVO.type}&pageNumber=${pictVO.pageNumber + 10 > pictVO.lastPage ?  pictVO.lastPage : pictVO.pageNumber + 10}"><img
+                                                        href="/mypage_equip.do?request_status=${pictVO.request_status}&pageNumber=${pictVO.pageNumber + 10 > pictVO.lastPage ?  pictVO.lastPage : pictVO.pageNumber + 10}"><img
                                                             src="/img/admin/next.png" alt=""></a></li>
                                             </c:if>
                                         </div>
@@ -269,28 +269,26 @@
                                                     alt=""></button>
                                         </div>
                                         <form class="modalBottom" method="post" enctype="multipart/form-data" id="retryForm">
-                                        	<input type="hidden" name="id" id="id" />
-                                            <div class="joinFormWrapper">
-                                                <div class="inputContainer">
-                                                    <p class="inputCaption">사유</p>
-                                                    <span class="bindingText reject_msg_ui"></span>
-                                                </div>
-                                                <div class="inputContainer">
-                                                    <p class="inputCaption">증빙서류 첨부</p>
-                                                    <div class="flexInputs file">
-                                                        <p class="fileName"></p>
-                                                        <label for="document_file" id="attach_file">파일추가</label>
-                                                        <input type="file" name="document_file" id="document_file" style="display: none;">
-                                                        <button type="button" id="deleteButton"
-                                                            style="display: none;"><img src="/img/user_img/del-file.png"
-                                                                alt=""></button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="fullButtonContainer my">
-                                                <a href="#lnk" class="wt normal retryButton">제출하기</a>
-                                            </div>
-                                        </form>
+							                <div class="joinFormWrapper">
+							                    <div class="inputContainer">
+							                        <p class="inputCaption">사유</p>
+							                        <span class="bindingText reject_msg_ui"></span>
+							                    </div>
+							                    <input type="hidden" name="id" id="id" />
+							                    <div class="inputContainer">
+							                        <p class="inputCaption">증빙서류 첨부</p>
+							                        <div class="flexInputs file">
+							                            <p class="fileName"></p>
+							                            <label for="document_file" id="attach_file">파일추가</label>
+							                            <input type="file" name="document_file" id="document_file" style="display: none;">
+							                            <button type="button" id="deleteButton" style="display: none;"><img src="/img/user_img/del-file.png" alt=""></button>
+							                        </div>
+							                    </div>
+							                </div>
+							                <div class="fullButtonContainer my">
+							                    <a href="#lnk" class="wt normal retryButton">제출하기</a>
+							                </div>
+							            </form>
                                     </div>
                                 </div>
                                 <div class="modalContainer" id="rejectModal">
@@ -304,7 +302,7 @@
                                             <div class="joinFormWrapper">
                                                 <div class="inputContainer">
                                                     <p class="inputCaption">거절 사유</p>
-                                                    <span class="bindingText">이래서 저래서 서류 거절함</span>
+                                                    <span class="bindingText"></span>
                                                 </div>
                                             </div>
                                             <div class="fullButtonContainer my">

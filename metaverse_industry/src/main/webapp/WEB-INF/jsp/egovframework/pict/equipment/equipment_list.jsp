@@ -48,8 +48,9 @@
 											<c:forEach var="resultList" items="${resultList}" varStatus="status">
 												<li data-id="${resultList.id}">
 													<div class="checkBox">
-														<input type="checkbox" id="selection"><label for="selection"
-															class="lableOnly"></label>
+														<input data-idx="${resultList.idx}" type="checkbox"
+															class="selection" id="selection${resultList.idx}"><label
+															for="selection${resultList.idx}" class="lableOnly"></label>
 													</div>
 													<!-- 기존 내용 -->
 													<p>${resultList.idx}</p>
@@ -60,12 +61,12 @@
 													<div class="listImg"><img src="${resultList.image_url}"
 															alt="장비 이미자"></div>
 													<p class="title">${resultList.name}</p>
-													<p>${resultList.avaliable_equipment_cnt}</p>
+													<p class="items_cnt">${resultList.avaliable_equipment_cnt}</p>
 													<p class="reg_date">${resultList.reg_date}</p>
 													<p class="modify"><a href="#lnk"
 															onclick="board_mod('${resultList.idx}');">수정</a></p>
-													<p class="delete"><a href="#lnk"
-															onclick="board_delete('${resultList.idx}')"></a></p>
+													<p class="delete"><button
+															onclick="board_delete('${resultList.idx}')"></button></p>
 												</li>
 											</c:forEach>
 										</ul>
@@ -73,26 +74,26 @@
 										<div class="listButton">
 											<a href="/equipment/equipment_register.do"><img src="/img/admin/add.png"
 													alt="등록버튼">등록</a>
-											<a href="/equipment/equipment_register.do"><img src="/img/admin/delete.png"
-													alt="삭제버튼">삭제</a>
+											<button class="deleteEquipments"><img src="/img/admin/delete.png"
+													alt="삭제버튼">삭제</button>
 										</div>
 
 										<div class="pagination">
 											<c:if test="${pictVO.pageNumber ne 1}">
 												<li><a
-														href="/board/board_list.do?search_text=${param.search_text}&pageNumber=${pictVO.pageNumber - 10 < 1 ? 1 : pictVO.pageNumber - 10}"><img
+														href="/equipment/equipment_list.do?pageNumber=${pictVO.pageNumber - 10 < 1 ? 1 : pictVO.pageNumber - 10}"><img
 															src="/img/admin/prev.png" alt=""></a></li>
 											</c:if>
 
 											<c:forEach var="i" begin="${pictVO.startPage}" end="${pictVO.endPage}">
 												<c:if test="${i eq pictVO.pageNumber}">
 													<li><a class="active"
-															href="/notice.do?type=${pictVO.type}&pageNumber=${i}">${i}</a>
+															href="/equipment/equipment_list.do?pageNumber=${i}">${i}</a>
 													</li>
 												</c:if>
 												<c:if test="${i ne pictVO.pageNumber}">
 													<li><a
-															href="/notice.do?type=${pictVO.type}&pageNumber=${i}">${i}</a>
+															href="/equipment/equipment_list.do?tpageNumber=${i}">${i}</a>
 													</li>
 												</c:if>
 											</c:forEach>
@@ -100,7 +101,7 @@
 											<c:if
 												test="${pictVO.lastPage ne pictVO.pageNumber && pictVO.lastPage != 0}">
 												<li><a
-														href="/notice.do?type=${pictVO.type}&pageNumber=${pictVO.pageNumber + 10 > pictVO.lastPage ?  pictVO.lastPage : pictVO.pageNumber + 10}"><img
+														href="/equipment/equipment_list.do?pageNumber=${pictVO.pageNumber + 10 > pictVO.lastPage ?  pictVO.lastPage : pictVO.pageNumber + 10}"><img
 															src="/img/admin/next.png" alt=""></a></li>
 											</c:if>
 										</div>
@@ -138,9 +139,10 @@
 										</ul>
 									</div>
 									<div class="listButton detail">
-										<a class="addSerial" href="/equipment/equipment_cnt_register.do"><img src="/img/admin/add.png"
-												alt="등록버튼">등록</a>
-										<a href="#lnk"><img src="/img/admin/delete.png" alt="삭제버튼">삭제</a>
+										<a class="addSerial" href="/equipment/equipment_cnt_register.do"><img
+												src="/img/admin/add.png" alt="등록버튼">등록</a>
+										<a class="deleteItems" href="#lnk"><img src="/img/admin/delete.png"
+												alt="삭제버튼">삭제</a>
 									</div>
 								</div>
 							</div>

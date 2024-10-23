@@ -23,16 +23,14 @@ const updateContainerClasses = (e) => {
 		newItem.dataset.id = id;
 		newItem.classList.add("rentalCountItem");
 		let imgSrc = liContainer.querySelector(".itemImg img").src;
-		let type = liContainer.querySelector(".itemTitles > span").textContent;
 		let name = liContainer.querySelector(".itemTitles > p").textContent;
 		newItem.innerHTML = `
            			<span><img src="${imgSrc}" alt=""></span>
 	                <div class="itemTexts">
-	                    <span>${type}</span>
 	                    <p>${name}</p>
 	                    <div class="numInput">
 	                        <button type="button" class="pr" disabled=""><span></span></button>
-	                        <input type="number" name="count_equip" id="count_equip" value="1" min="1" max="${cnt}">
+	                        <input type="number" name="count_equip" id="count_equip" value="1" min="1" max="1">
 	                        <button type="button" class="ne"><span></span></button>
 	                    </div>
 	                </div>
@@ -184,14 +182,13 @@ const updateTotalCnt = () => {
 const onSubmit = () => {
 	const form = document.createElement('form');
 	form.method = 'POST';
-	form.action = '/equipment_rental.do';
+	form.action = '/facility_rental.do';
 
 	const rentalItems = document.querySelectorAll('.rentalCountItem');
-
+	
 	rentalItems.forEach((item, index) => {
 		const id = item.dataset.id;
 		const count = item.querySelector('input[name="count_equip"]').value;
-		const type = item.querySelector(".itemTexts > span").textContent;
 		const name = item.querySelector(".itemTexts > p").textContent;
 		const idInput = document.createElement('input');
 		idInput.type = 'hidden';
@@ -204,28 +201,24 @@ const onSubmit = () => {
 		countInput.name = `equipment[${index}][count]`;
 		countInput.value = count;
 		form.appendChild(countInput);
-
-		const typeInput = document.createElement('input');
-		typeInput.type = 'hidden';
-		typeInput.name = `equipment[${index}][type]`;
-		typeInput.value = type;
-		form.appendChild(typeInput);
-
+		
+		
+		
 		const nameInput = document.createElement('input');
 		nameInput.type = 'hidden';
 		nameInput.name = `equipment[${index}][name]`;
 		nameInput.value = name;
 		form.appendChild(nameInput);
-
-
+		
+		
 	});
 	document.body.appendChild(form);
 	form.submit();
-
+	
 
 }
 
-document.querySelector(".rentalSubmit").addEventListener("click", () => {
+document.querySelector(".rentalSubmit").addEventListener("click", ()=>{
 	console.log("예약하기 버")
 	onSubmit()
 });
@@ -238,7 +231,7 @@ $('.add_bag').click(function () {
 	console.log(id);
 	let param = {
 		key_id: id,
-		type: "equipment"
+		type: "facility"
 	};
 
 	$.ajax({

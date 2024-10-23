@@ -27,6 +27,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -216,7 +219,38 @@ public class UserController {
 	}
 	
 	
-	// 마이페이지 장비 예약폼 업데이트
+	// 시설 대여가능 날짜 조회
+	@RequestMapping("/checkFacilityAvailableDate.do")
+	@ResponseBody
+	public HashMap<String, Object> getFacilityAvailableDate(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
+			HttpServletRequest request, @RequestBody Map<String, Object> param) throws Exception {
+		System.out.println("param @@@@" + param);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		if (param.get("id") != null) {
+			String facilityId = param.get("id").toString();
+			System.out.println(facilityId + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
+			pictVO.setId(facilityId);
+			System.out.println("id @@@@" + pictVO.getId());
+			List<Map<String, Object>> unavailable_date_list = pictService.facility_unavailable_date_list(pictVO);
+			System.out.println("available_date_list@@@@@@@@@@@ " + unavailable_date_list);
+			map.put("msg", "ok");
+			if (unavailable_date_list.isEmpty()) {
+				System.out.println("모두 가능할때@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ " + unavailable_date_list);
+				List<Map<String, Object>> allAvailable = new ArrayList<>();
+				map.put("data", allAvailable);
+			} else {
+				map.put("data", unavailable_date_list);
+			}
+
+		} else {
+			map.put("msg", "fail");
+		}
+		return map;
+	}
+	
+	
+	// 마이페이지 장비 예약폼 업데이트(취소처리)
 	@RequestMapping("/update_request.do")
 	@ResponseBody
 	public HashMap<String, Object> update_request(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
@@ -253,64 +287,74 @@ public class UserController {
 		return map;
 
 	}
+	// 마이페이지 시설 예약폼 업데이트(취소처리)
+	@RequestMapping("/update_facility_request.do")
+	@ResponseBody
+	public HashMap<String, Object> update_facility_request(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
+			HttpServletRequest request, @RequestBody Map<String, Object> param) throws Exception {
+		System.out.println("param @@@@" + param);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String sessions = (String)request.getSession().getAttribute("id");
+		if(sessions == null || sessions == "null") {
+			map.put("rst", false);
+			return map;
+		}
+		pictVO.setUser_id(sessions);
+		if (param.get("id") != null) {
+			String request_id = param.get("id").toString();
+			System.out.println("request_id @@@@@@@@@@@@@@@@@@ " + request_id);
+
+			pictVO.setId(request_id);
+		} else {
+			map.put("rst", false);
+			return map;
+		}
+		
+		if (param.get("request_status") != null) {
+			String request_status = param.get("request_status").toString();
+			System.out.println("request_status @@@@@@@@@@@@@@@@@@ " + request_status);
+			pictVO.setRequest_status(request_status);
+		} else {
+			map.put("rst", false);
+			return map;
+		}
+		
+		userService.updateFacilityRequestStatus(pictVO);
+		map.put("rst", true);
+		return map;
+
+	}
 	
 	
 	
 	// 파일업로드쪽 수정해야되는지 체크하기
 	@RequestMapping("/booking.do")
 	@ResponseBody
-	public HashMap<String, Object> submitBooking(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
-			HttpServletRequest request, @RequestBody Map<String, Object> param) throws Exception {
+	public HashMap<String, Object> submitBooking(@ModelAttribute PictVO pictVO, 
+            @RequestParam(value = "attach_file", required = false) MultipartFile attach_file,
+            HttpServletRequest request) throws Exception {
+		
 		String sessions = (String) request.getSession().getAttribute("id");
-		if (sessions == null || sessions == "") {
-
-		}
-		System.out.println("param @@@@" + param);
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		if (sessions == null || sessions == "") {
+			map.put("msg", "fail");
+			return map;
+		}
+		
+		if (attach_file.getSize() != 0) {
+			UUID uuid = UUID.randomUUID();
+			String uploadPath = upload_file(request, attach_file,
+					(String) request.getSession().getAttribute("id"), uuid);
+			// String filepath = "~/Desktop/upload_file/";
+			String filepath = "/user1/upload_file/metaverse_industry/";
+			String filename = uuid + uploadPath.split("#####")[1];
+			pictVO.setFile_url1(filename);
+		}
 
-		List<Map<String, Object>> equipment_list = (List<Map<String, Object>>) param.get("equipment_list");
-		String rental_type = param.get("rental_type").toString();
-		if (param.get("equipment_plan") != null) {
-			String equipment_plan = param.get("equipment_plan").toString();
-			if (equipment_plan != null) {
-				pictVO.setEquipment_plan(equipment_plan);
-				System.out.println("equipment_plan @@@@" + equipment_plan);
-			}
-		}
-		if (param.get("company_nm") != null) {
-			String company_nm = param.get("company_nm").toString();
-			if (company_nm != null) {
-				pictVO.setCompany_nm(company_nm);
-				System.out.println("company_nm @@@@" + company_nm);
-			}
-		}
-		if (param.get("sa_eob_no") != null) {
-			String sa_eob_no = param.get("sa_eob_no").toString();
-			if (sa_eob_no != null) {
-				pictVO.setSa_eob_no(sa_eob_no);
-			}
-		}
-		if (param.get("position") != null) {
-			String position = param.get("position").toString();
-			if (position != null) {
-				pictVO.setPosition(position);
-				System.out.println("position @@@@" + position);
-			}
-		}
-		if (param.get("company_address1") != null) {
-			String company_address1 = param.get("company_address1").toString();
-			if (company_address1 != null) {
-				pictVO.setCompany_address1(company_address1);
-				System.out.println("company_address1 @@@@" + company_address1);
-			}
-		}
-		if (param.get("company_address2") != null) {
-			String company_address2 = param.get("company_address2").toString();
-			if (company_address2 != null) {
-				pictVO.setCompany_address2(company_address2);
-				System.out.println("company_address2 @@@@" + company_address2);
-			}
-		}
+		
+		List<Map<String, Object>> equipment_list = pictVO.getEquipmentListObject();
+		String rental_type = pictVO.getRental_type();
+		
 		if (rental_type.equals("individual")) {
 			pictVO.setType("1");
 			// 개인 렌탈 신청
@@ -318,36 +362,129 @@ public class UserController {
 		} else if (rental_type.equals("company")) {
 			pictVO.setType("2");
 		}
+		
+			for(int i = 0; i < equipment_list.size(); i++ ) {
+				Map<String, Object> equipment = equipment_list.get(i);
+				String equipment_id = equipment.get("id").toString();
+				System.out.println("type_id @@@@@@@@@@@@@@" + equipment_id);
+				pictVO.setEquipment_id(equipment_id);
 
-		equipment_list.forEach(equipment -> {
-			String equipment_id = equipment.get("id").toString();
-			System.out.println("type_id @@@@@@@@@@@@@@" + equipment_id);
-			pictVO.setEquipment_id(equipment_id);
+				try {
+					List<Map<String, Object>> items = pictService.equipment_item_list(pictVO);
+					System.out.println("items @@@@@@@@@@@@@@" + items);
+					if (items.isEmpty()) {
+						// 재고가 없을 때
+						map.put("msg", "fail");
+						break;
+					} else {
+						// 재고가 있을 때
+						int cnt = Integer.parseInt(equipment.get("cnt").toString());
+						System.out.println("cnt @@@@@@@@@@@@@@" + cnt);
+						for (int j = 0; j < cnt; j++) {
+							Map<String, Object> randomItem = items.get(new Random().nextInt(items.size()));
+							// Map<String, Object> randomItem = items.get(new
+							// Random().nextInt(items.size()));
+							System.out.println("randomItem @@@@@@@@@@@@@@" + randomItem);
+
+							String equipment_item_id = randomItem.get("id").toString();
+							System.out.println("equipment_item_id @@@@@@@@@@@@@@" + equipment_item_id);
+							System.out.println("user_id @@@@@@@@@@@@@@" + sessions);
+							pictVO.setId(equipment_item_id);
+
+							String startDateStr = (String) equipment.get("rental_start_date");
+							String endDateStr = (String) equipment.get("rental_end_date");
+
+							pictVO.setRental_start_date(startDateStr);
+							pictVO.setRental_end_date(endDateStr);
+
+							pictVO.setUser_id(sessions);
+							
+							// 렌탈 신청
+							pictService.submit_rental_request(pictVO);
+							// 관리자로 메일 보내기
+						}
+
+						map.put("msg", "ok");
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+		return map;
+
+	}
+	
+	// 파일업로드쪽 수정해야되는지 체크하기
+	@RequestMapping("/booking_facility.do")
+	@ResponseBody
+	public HashMap<String, Object> booking_facility(@ModelAttribute PictVO pictVO, 
+            @RequestParam(value = "attach_file", required = false) MultipartFile attach_file,
+            HttpServletRequest request) throws Exception {
+		
+		String sessions = (String) request.getSession().getAttribute("id");
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		if (sessions == null || sessions == "") {
+			map.put("msg", "fail");
+			return map;
+		}
+		
+		if (attach_file.getSize() != 0) {
+			UUID uuid = UUID.randomUUID();
+			String uploadPath = upload_file(request, attach_file,
+					(String) request.getSession().getAttribute("id"), uuid);
+			// String filepath = "~/Desktop/upload_file/";
+			String filepath = "/user1/upload_file/metaverse_industry/";
+			String filename = uuid + uploadPath.split("#####")[1];
+			pictVO.setFile_url1(filename);
+		}
+		
+		
+		
+		List<Map<String, Object>> facility_list = pictVO.getFacilityListObject();
+		String rental_type = pictVO.getRental_type();
+		
+		if (rental_type.equals("individual")) {
+			pictVO.setType("1");
+			// 개인 렌탈 신청
+
+		} else if (rental_type.equals("company")) {
+			pictVO.setType("2");
+		}
+		
+		
+		for(int i = 0; i < facility_list.size(); i++ ) {
+			Map<String, Object> facility = facility_list.get(i);
+			String facility_id = facility.get("id").toString();
+			System.out.println("type_id @@@@@@@@@@@@@@" + facility_id);
+			pictVO.setEquipment_id(facility_id);
 
 			try {
-				List<Map<String, Object>> items = pictService.equipment_item_list(pictVO);
+				List<Map<String, Object>> items = pictService.facility_item_list(pictVO);
 				System.out.println("items @@@@@@@@@@@@@@" + items);
 				if (items.isEmpty()) {
 					// 재고가 없을 때
 					map.put("msg", "fail");
-					return;
+					break;
 				} else {
 					// 재고가 있을 때
-					int cnt = Integer.parseInt(equipment.get("cnt").toString());
+					int cnt = Integer.parseInt(facility.get("cnt").toString());
 					System.out.println("cnt @@@@@@@@@@@@@@" + cnt);
-					for (int i = 0; i < cnt; i++) {
+					for (int j = 0; j < cnt; j++) {
 						Map<String, Object> randomItem = items.get(new Random().nextInt(items.size()));
 						// Map<String, Object> randomItem = items.get(new
 						// Random().nextInt(items.size()));
 						System.out.println("randomItem @@@@@@@@@@@@@@" + randomItem);
 
-						String equipment_item_id = randomItem.get("id").toString();
-						System.out.println("equipment_item_id @@@@@@@@@@@@@@" + equipment_item_id);
+						String facility_item_id = randomItem.get("id").toString();
+						System.out.println("facility_item_id @@@@@@@@@@@@@@" + facility_item_id);
 						System.out.println("user_id @@@@@@@@@@@@@@" + sessions);
-						pictVO.setId(equipment_item_id);
+						pictVO.setId(facility_item_id);
 
-						String startDateStr = (String) equipment.get("rental_start_date");
-						String endDateStr = (String) equipment.get("rental_end_date");
+						String startDateStr = (String) facility.get("rental_start_date");
+						String endDateStr = (String) facility.get("rental_end_date");
 
 						pictVO.setRental_start_date(startDateStr);
 						pictVO.setRental_end_date(endDateStr);
@@ -355,7 +492,7 @@ public class UserController {
 						pictVO.setUser_id(sessions);
 						
 						// 렌탈 신청
-						pictService.submit_rental_request(pictVO);
+						pictService.submit_facility_request(pictVO);
 						// 관리자로 메일 보내기
 					}
 
@@ -365,143 +502,63 @@ public class UserController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		});
+		}
 		return map;
 
 	}
-	
-	
-	
-	
-//	@RequestMapping("/booking.do")
-//	@ResponseBody
-//	public HashMap<String, Object> submitBooking(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
-//			MultipartHttpServletRequest request, @RequestBody Map<String, Object> param, @RequestParam("attach_file") MultipartFile attach_file) throws Exception {
-//		String sessions = (String) request.getSession().getAttribute("id");
-//		if (sessions == null || sessions == "") {
-//
-//		}
-//		System.out.println("param @@@@" + param);
-//		HashMap<String, Object> map = new HashMap<String, Object>();
-//
-//		List<Map<String, Object>> equipment_list = (List<Map<String, Object>>) param.get("equipment_list");
-//		String rental_type = param.get("rental_type").toString();
-//		if (param.get("equipment_plan") != null) {
-//			String equipment_plan = param.get("equipment_plan").toString();
-//			if (equipment_plan != null) {
-//				pictVO.setEquipment_plan(equipment_plan);
-//				System.out.println("equipment_plan @@@@" + equipment_plan);
-//			}
-//		}
-//		if (param.get("company_nm") != null) {
-//			String company_nm = param.get("company_nm").toString();
-//			if (company_nm != null) {
-//				pictVO.setCompany_nm(company_nm);
-//				System.out.println("company_nm @@@@" + company_nm);
-//			}
-//		}
-//		if (param.get("sa_eob_no") != null) {
-//			String sa_eob_no = param.get("sa_eob_no").toString();
-//			if (sa_eob_no != null) {
-//				pictVO.setSa_eob_no(sa_eob_no);
-//			}
-//		}
-//		if (param.get("position") != null) {
-//			String position = param.get("position").toString();
-//			if (position != null) {
-//				pictVO.setPosition(position);
-//				System.out.println("position @@@@" + position);
-//			}
-//		}
-//		if (param.get("company_address1") != null) {
-//			String company_address1 = param.get("company_address1").toString();
-//			if (company_address1 != null) {
-//				pictVO.setCompany_address1(company_address1);
-//				System.out.println("company_address1 @@@@" + company_address1);
-//			}
-//		}
-//		if (param.get("company_address2") != null) {
-//			String company_address2 = param.get("company_address2").toString();
-//			if (company_address2 != null) {
-//				pictVO.setCompany_address2(company_address2);
-//				System.out.println("company_address2 @@@@" + company_address2);
-//			}
-//		}
-//		if (rental_type.equals("individual")) {
-//			pictVO.setType("1");
-//			// 개인 렌탈 신청
-//
-//		} else if (rental_type.equals("company")) {
-//			pictVO.setType("2");
-//		}
-//
-//		equipment_list.forEach(equipment -> {
-//			String equipment_id = equipment.get("id").toString();
-//			System.out.println("type_id @@@@@@@@@@@@@@" + equipment_id);
-//			pictVO.setEquipment_id(equipment_id);
-//
-//			try {
-//				List<Map<String, Object>> items = pictService.equipment_item_list(pictVO);
-//				System.out.println("items @@@@@@@@@@@@@@" + items);
-//				if (items.isEmpty()) {
-//					// 재고가 없을 때
-//					map.put("msg", "fail");
-//					return;
-//				} else {
-//					// 재고가 있을 때
-//					int cnt = Integer.parseInt(equipment.get("cnt").toString());
-//					System.out.println("cnt @@@@@@@@@@@@@@" + cnt);
-//					for (int i = 0; i < cnt; i++) {
-//						Map<String, Object> randomItem = items.get(new Random().nextInt(items.size()));
-//						// Map<String, Object> randomItem = items.get(new
-//						// Random().nextInt(items.size()));
-//						System.out.println("randomItem @@@@@@@@@@@@@@" + randomItem);
-//
-//						String equipment_item_id = randomItem.get("id").toString();
-//						System.out.println("equipment_item_id @@@@@@@@@@@@@@" + equipment_item_id);
-//						System.out.println("user_id @@@@@@@@@@@@@@" + sessions);
-//						pictVO.setId(equipment_item_id);
-//
-//						String startDateStr = (String) equipment.get("rental_start_date");
-//						String endDateStr = (String) equipment.get("rental_end_date");
-//
-//						pictVO.setRental_start_date(startDateStr);
-//						pictVO.setRental_end_date(endDateStr);
-//
-//						// pictVO.setRental_start_date(equipment.get("rental_start_date").toString());
-//						// pictVO.setRental_end_date(equipment.get("rental_end_date").toString());
-//
-//						pictVO.setUser_id(sessions);
-//						
-//						if(attach_file.getSize() != 0) {
-//							UUID uuid = UUID.randomUUID();
-//							String uploadPath = upload_file(request, attach_file, (String)request.getSession().getAttribute("id"), uuid);
-//							String filepath = "/user1/upload_file/metaverse_industry/";
-//							//String filepath = "D:\\user1\\upload_file\\billconcert\\";
-//							String filename = uuid+uploadPath.split("#####")[1];
-//							
-//							pictVO.setFile_url1(filepath+filename);
-//						}
-//						
-//						// 렌탈 신청
-//						pictService.submit_rental_request(pictVO);
-//						// 관리자로 메일 보내기
-//					}
-//
-//					map.put("msg", "ok");
-//				}
-//			} catch (Exception e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		});
-//		return map;
-//
-//	}
-	
-	public String upload_file(MultipartHttpServletRequest request, MultipartFile uploadFile, String target, UUID uuid) {
+
+	@RequestMapping("/toggle_bag.do")
+	@ResponseBody
+	public HashMap<String, Object> add_bag(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
+			HttpServletRequest request, @RequestBody Map<String, Object> param) throws Exception {
+		System.out.println("param @@@@" + param);
+		String sessions = (String) request.getSession().getAttribute("id");
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		if (sessions == null || sessions == "") {
+			map.put("msg", "fail");
+			return map;
+		}
+		
+		pictVO.setUser_id(sessions);
+		if (param.get("type") != null) {
+			String type = param.get("type").toString();
+			pictVO.setType(type);
+		} else {
+			map.put("msg", "fail");
+			return map;
+		}
+		if (param.get("key_id") != null) {
+			String key_id = param.get("key_id").toString();
+			System.out.println(key_id + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
+			pictVO.setKey_id(key_id);
+			System.out.println("key_id @@@@" + pictVO.getKey_id());
+			try {
+				Integer isBag = pictService.isBag(pictVO);
+				if (isBag == 0) {					
+					pictService.add_bag(pictVO);
+					map.put("msg", "added");	
+				} else {
+					pictService.delete_bag(pictVO);
+					map.put("msg", "deleted");	
+				}
+			} catch(Exception e) {
+				map.put("msg", "fail");
+			}
+		} else {
+			map.put("msg", "fail");
+		}
+		return map;
+	}
+		
+		
+	public String upload_file(HttpServletRequest request, MultipartFile uploadFile, String target, UUID uuid) {
     	String path = "";
     	String fileName = "";
+		Path uploadPath;
+		
+		/*
     	OutputStream out = null;
     	PrintWriter printWriter = null;
     	long fileSize = uploadFile.getSize();
@@ -528,7 +585,8 @@ public class UserController {
     	}
     	
     	return path + "#####" + fileName;
-    	/*
+    	*/
+    	
         try {
             fileName = uploadFile.getOriginalFilename();
             byte[] bytes = uploadFile.getBytes();
@@ -556,15 +614,15 @@ public class UserController {
             e.printStackTrace();
             return "Error: " + e.getMessage();
         }
-        */
+        
     }
     
     private String getSaveLocation(MultipartHttpServletRequest request, MultipartFile uploadFile) {
 		//서버
-    	String uploadPath = "/user1/upload_file/video_industry/";
+    	//String uploadPath = "/user1/upload_file/video_industry/";
     	
     	//로컬
-    	//String uploadPath = "~/Desktop/upload_file/";
+    	String uploadPath = "~/Desktop/upload_file/";
     	return uploadPath;
     }
 }

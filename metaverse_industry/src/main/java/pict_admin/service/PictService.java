@@ -42,7 +42,6 @@ public interface PictService {
 	PictVO board_list_one(PictVO pictVO) throws Exception;
 	
 	Integer board_list_total_cnt(PictVO pictVO) throws Exception;
-	Integer equipment_list_total_cnt(PictVO pictVO) throws Exception;
 	
 	void board_update(PictVO pictVO) throws Exception;
 
@@ -52,7 +51,11 @@ public interface PictService {
 
 	void board_file_delete(PictVO pictVO) throws Exception;
 	
+	//장비 관련
+	
 	List<?> equipment_list(PictVO pictVO) throws Exception;
+	
+	Integer equipment_list_total_cnt(PictVO pictVO) throws Exception;
 	
     List<Map<String, Object>> equipment_unavailable_date_list(PictVO pictVO) throws Exception;
 
@@ -65,19 +68,72 @@ public interface PictService {
 	
 	void equipment_update(PictVO pictVO) throws Exception;
 	
+	
+	void equipment_delete(Integer idx) throws Exception;
+	
 	PictVO equipment_item_one(PictVO pictVO) throws Exception;
 	
 	void equipment_cnt_insert(PictVO pictVO) throws Exception;
 	
 	void equipment_cnt_update(PictVO pictVO) throws Exception;
 	
+	void equipment_cnt_delete(Integer idx) throws Exception;
+
+
 	void submit_rental_request(PictVO pictVO) throws Exception;
 	
 	List<?> get_request_list(PictVO pictVO) throws Exception;
 	
-	PictVO get_request_detail(PictVO pictVO) throws Exception;
+	Map<String, Object>  get_request_detail(Integer idx) throws Exception;
+	
+	void update_request_status(PictVO pictVO) throws Exception;
+	
+	// 시설물 관련
+	List<?> facility_list(PictVO pictVO) throws Exception;
+	
+	Integer facility_list_total_cnt(PictVO pictVO) throws Exception;
+	
+    List<Map<String, Object>> facility_unavailable_date_list(PictVO pictVO) throws Exception;
+
+    
+    List<Map<String, Object>> facility_item_list(PictVO pictVO) throws Exception;
+	
+	PictVO facility_list_one(PictVO pictVO) throws Exception;
+	
+	void facility_insert(PictVO pictVO) throws Exception;
+	
+	void facility_update(PictVO pictVO) throws Exception;
 	
 	
+	void facility_delete(Integer idx) throws Exception;
+	
+	PictVO facility_item_one(PictVO pictVO) throws Exception;
+	
+	void facility_cnt_insert(PictVO pictVO) throws Exception;
+	
+	void facility_cnt_update(PictVO pictVO) throws Exception;
+	
+	void facility_cnt_delete(Integer idx) throws Exception;
+
+
+	void submit_facility_request(PictVO pictVO) throws Exception;
+	
+	List<?> get_facility_request_list(PictVO pictVO) throws Exception;
+	
+	Map<String, Object>  get_facility_request_detail(Integer idx) throws Exception;
+	
+	void update_facility_request_status(PictVO pictVO) throws Exception;
+	
+	//장바구니
+	
+	Integer isBag(PictVO pictVO) throws Exception;
+	
+	
+	void add_bag(PictVO pictVO) throws Exception;
+	
+	void delete_bag(PictVO pictVO) throws Exception;
+	
+	// 그 외
 	PictVO pemtour_select(PictVO pictVO) throws Exception;
 
 	void pemtour_update(PictVO pictVO) throws Exception;

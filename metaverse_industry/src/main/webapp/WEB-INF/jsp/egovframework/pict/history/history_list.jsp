@@ -27,16 +27,16 @@
 												<select name="category" id="category" class="lgThinInput">
 													<option value="HMD" <c:if test="${pictVO.category eq 'HMD'}">
 														selected</c:if>>HMD</option>
-													<option value="AR글래스" <c:if
-														test="${pictVO.category eq 'AR글래스'}">selected</c:if>>AR글래스
+													<option value="AR글래스" <c:if test="${pictVO.category eq 'AR글래스'}">
+														selected</c:if>>AR글래스
 													</option>
 													<option value="모션캡처" <c:if test="${pictVO.category eq '모션캡처'}">
 														selected</c:if>>모션캡처</option>
-													<option value="360카메라" <c:if
-														test="${pictVO.category eq '360카메라'}">selected</c:if>>360카메라
+													<option value="360카메라" <c:if test="${pictVO.category eq '360카메라'}">
+														selected</c:if>>360카메라
 													</option>
-													<option value="3D스캐너" <c:if
-														test="${pictVO.category eq '3D스캐너'}">selected</c:if>>3D스캐너
+													<option value="3D스캐너" <c:if test="${pictVO.category eq '3D스캐너'}">
+														selected</c:if>>3D스캐너
 													</option>
 													<option value="기타" <c:if test="${pictVO.category eq '기타'}">
 														selected</c:if>>기타</option>
@@ -55,12 +55,12 @@
 											</div>
 										</div>
 									</form>
-					                <div class="buttons">
-					                    <a href="" class="smButton"><img src="/img/admin/excel.png" alt="">엑셀 다운로드</a>
-					                </div>
+									<div class="buttons">
+										<a href="" class="smButton"><img src="/img/admin/excel.png" alt="">엑셀 다운로드</a>
+									</div>
 									<div class="ListWrpper">
 										<ul class="listHead setHead">
-											<li>선택</li>
+											<!-- <li>선택</li> -->
 											<li>순서</li>
 											<li>대여 상태</li>
 											<li>신청일</li>
@@ -70,14 +70,15 @@
 											<li>구분</li>
 											<li>장비명</li>
 											<li>대여형태</li>
-											<li>삭제</li>
+											<!-- <li>삭제</li> -->
 										</ul>
 										<ul class="listBody setHead">
 											<c:forEach var="resultList" items="${resultList}" varStatus="status">
 												<li>
-						                            <div class="checkBox">
-						                                <input type="checkbox" id="selection"><label for="selection" class="lableOnly"></label>
-						                            </div>
+													<!-- <div class="checkBox">
+														<input type="checkbox" id="selection"><label for="selection"
+															class="lableOnly"></label>
+													</div> -->
 													<!-- 기존 내용 -->
 													<p>${resultList.idx}</p>
 													<p>
@@ -117,9 +118,21 @@
 													<p>${resultList.rental_end_date}</p>
 													<p>${resultList.user_name}</p>
 													<p>${resultList.equipment_type}</p>
-													<p class="title"><a href="/history/history_detail.do">${resultList.name}</a></p>
-													<p>형태</p>
-					                				<p class="delete"><a href="#lnk" onclick="board_delete('${resultList.idx}')"></a></p>
+													<p class="title"><a
+															href="/history/history_detail.do?idx=${resultList.idx}">${resultList.name}</a>
+													</p>
+													<p>
+														<c:choose>
+															<c:when test="${resultList.type eq '1'}">
+																개인
+															</c:when>
+															<c:when test="${resultList.type eq '2'}">
+																기업
+															</c:when>
+														</c:choose>
+													</p>
+													<!-- <p class="delete"><a href="#lnk"
+															onclick="board_delete('${resultList.idx}')"></a></p> -->
 												</li>
 											</c:forEach>
 										</ul>
@@ -127,26 +140,27 @@
 										<div class="pagination">
 											<c:if test="${pictVO.pageNumber ne 1}">
 												<li><a
-														href="/equipment/equipment_list.do?search_text=${param.search_text}&pageNumber=${pictVO.pageNumber - 10 < 1 ? 1 : pictVO.pageNumber - 10}"><img
+														href="/board/board_list.do?search_text=${param.search_text}&pageNumber=${pictVO.pageNumber - 10 < 1 ? 1 : pictVO.pageNumber - 10}"><img
 															src="/img/admin/prev.png" alt=""></a></li>
 											</c:if>
 
 											<c:forEach var="i" begin="${pictVO.startPage}" end="${pictVO.endPage}">
 												<c:if test="${i eq pictVO.pageNumber}">
-													<li class="active"><a
-															href="/history/history_list.do?search_text=${param.search_text}&pageNumber=${i}">${i}</a>
+													<li><a class="active"
+															href="/notice.do?type=${pictVO.type}&pageNumber=${i}">${i}</a>
 													</li>
 												</c:if>
 												<c:if test="${i ne pictVO.pageNumber}">
 													<li><a
-															href="/history/history_list.do?search_text=${param.search_text}&pageNumber=${i}">${i}</a>
+															href="/notice.do?type=${pictVO.type}&pageNumber=${i}">${i}</a>
 													</li>
 												</c:if>
 											</c:forEach>
 
-											<c:if test="${pictVO.lastPage ne pictVO.pageNumber}">
+											<c:if
+												test="${pictVO.lastPage ne pictVO.pageNumber && pictVO.lastPage != 0}">
 												<li><a
-														href="/history/history_list.do?search_text=${param.search_text}&pageNumber=${pictVO.pageNumber + 10 > pictVO.lastPage ?  pictVO.lastPage : pictVO.pageNumber + 10}"><img
+														href="/notice.do?type=${pictVO.type}&pageNumber=${pictVO.pageNumber + 10 > pictVO.lastPage ?  pictVO.lastPage : pictVO.pageNumber + 10}"><img
 															src="/img/admin/next.png" alt=""></a></li>
 											</c:if>
 										</div>

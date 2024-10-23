@@ -213,9 +213,8 @@ function updateDateRangeInfo() {
             selectedSuccessEquipment.innerHTML = `
                 <div class="eqDate">
                     <div class="eq">
-                        <p class="eqDateTitle">제품</p>
-                        <p class="eqDateItem"><span>${targetName}
-                                /</span><span> ${cnt}</span></p>
+                        <p class="eqDateTitle">시설</p>
+                        <p class="eqDateItem"><span>${targetName}</span></p>
                     </div>
                     <div class="datesWrapper">
                         <div class="dates">
@@ -309,8 +308,8 @@ const resetCheckedEquip = () => {
     })
 }
 /**
- * 장비 대여 가능 날짜 조회
- * @param {String} id 장비 아이디
+ * 시설 대여 가능 날짜 조회
+ * @param {String} id 시설 아이디
  */
 const getEquipmentAvailableDate = (id) => {
 
@@ -318,7 +317,7 @@ const getEquipmentAvailableDate = (id) => {
         id: id
     }
     $.ajax({
-        url: '/api/checkEquipmentAvailableDate.do' // Replace with your actual endpoint
+        url: '/api/checkFacilityAvailableDate.do' // Replace with your actual endpoint
         , type: "POST"
         , data: JSON.stringify(param)
         , contentType: "application/json"
@@ -379,7 +378,7 @@ bookingBtn.addEventListener("click", () => {
     }
     if (rental_type === "individual") {
         if (document.querySelector(".equipment-plan").value === "") {
-            alert("장비 사용 계획을 작성해주세요.");
+            alert("시설 사용 계획을 작성해주세요.");
             return;
         }
         if (document.querySelector("#file1").files[0] === "") {
@@ -463,8 +462,8 @@ bookingBtn.addEventListener("click", () => {
             slide.innerHTML = `
             <ul class="bookingInfolists">
                 <li>
-                    <p>장비명</p>
-                    <span>${equipment.name} / ${equipment.cnt}대</span>
+                    <p>시설명</p>
+                    <span>${equipment.name}</span>
                 </li>
                 <li>
                     <p>대여자명</p>
@@ -506,8 +505,8 @@ bookingBtn.addEventListener("click", () => {
             slide.innerHTML = `
             <ul class="bookingInfolists">
                 <li>
-                    <p>장비명</p>
-                    <span>${equipment.name} / ${equipment.cnt}대</span>
+                    <p>시설명</p>
+                    <span>${equipment.name}</span>
                 </li>
                 <li>
                     <p>대여자명</p>
@@ -564,7 +563,7 @@ $('#setButton').click(function () {
 $("#checkModal button").click(function () {
     $('#checkModal').removeClass('active');
     $('body').removeClass("no-scroll");
-    location.href = "/equipment.do";
+    location.href = "/facility.do";
 })
 
 
@@ -574,13 +573,16 @@ const callBookingApi = () => {
     const formData = new FormData();
     if (rental_type === "individual") {
         console.log("개인 예약");
-        formData.append("rental_type", rental_type);
-        formData.append("equipment_list", JSON.stringify(selectedEquipment));
-        formData.append("equipment_plan", document.querySelector(".equipment-plan").value);
-        formData.append("attach_file", document.querySelector("#file1").files[0]);
 
+        formData.append("rental_type", rental_type);
+        formData.append("facility_list", JSON.stringify(selectedEquipment));
+        formData.append("facility_plan", document.querySelector(".equipment-plan").value);
+        formData.append("attach_file", document.querySelector("#file1").files[0]);
+        console.log(formData);
     } else if (rental_type === "company") {
         console.log("법인 예약");
+        formData.append("rental_type", rental_type);
+        formData.append("facility_list", JSON.stringify(selectedEquipment));
         formData.append("company_nm", document.querySelector("#company_nm").value);
         formData.append("sa_eob_no", document.querySelector("#sa_eob_no").value);
         formData.append("position", document.querySelector("#position").value);
@@ -590,7 +592,7 @@ const callBookingApi = () => {
         console.log(formData);
     }
     $.ajax({
-        url: '/api/booking.do'
+        url: '/api/booking_facility.do'
         , type: "POST"
         , data: formData
         , processData: false
@@ -655,7 +657,7 @@ const callBookingApi = () => {
                     slide.innerHTML = `
                     <ul class="bookingInfolists">
                         <li>
-                            <p>장비명</p>
+                            <p>시설명</p>
                             <span>${selectedEquipment[0].name} 외 ${totalCnt - 1}건</span>
                         </li>
                         <li>
@@ -680,7 +682,7 @@ const callBookingApi = () => {
                     slide.innerHTML = `
                     <ul class="bookingInfolists">
                         <li>
-                            <p>장비명</p>
+                            <p>시설명</p>
                             <span>${selectedEquipment[0].name} 외 ${totalCnt - 1}건</span>
                         </li>
                         <li>

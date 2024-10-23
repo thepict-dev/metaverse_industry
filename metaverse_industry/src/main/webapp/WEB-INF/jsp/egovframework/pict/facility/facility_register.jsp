@@ -53,7 +53,7 @@
 											<div class="inputsContainer">
 												<div class="inputBox">
 													<p class="inputCaption">시설명*</p>
-													<input type="text" name="name" id="name" placeholder="장비 이름을 입력하세요…"
+													<input type="text" name="name" id="name" placeholder="시설명을 입력하세요…"
 														value="${pictVO.name}">
 												</div>
 											</div>
@@ -102,76 +102,21 @@
 								            <label for="equip_${pictVO.idx}"></label>
 								            <div class="checkItem">
 								                <div class="itemImg">
-								                    <img src="${pictVO.image_url}" alt="">
-								                    <span></span>
+								                    <img class="preview-image" src="${pictVO.image_url}" alt="">
+								                    
 								                    <a href="#lnk"><img src="/img/user_img/bag.png" alt=""></a>
 								                </div>
 								                <div class="itemTitles">
 								                    <span>시설</span>
-								                    <p>${pictVO.name}</p>
+								                    <p  class="preview-name">${pictVO.name}</p>
 								                </div>
-								                <p>${pictVO.description}</p>
+								                <p class="preview-description">${pictVO.description}</p>
 								            </div>
 								        </li>
 									</ul>
 								</div>
 							</div>
-							<script>
-
-							 	// 파일 입력
-							    $('#attach_file').on('change', function(e) {
-							        var fileName = e.target.files[0].name;
-							        $('.fileList p').text(fileName);
-							        $('.fileList').css('display', 'flex');
-							    });
-						
-							    // 파일 삭제
-							    $('.fileList button').on('click', function(e) {
-							        e.preventDefault();
-							        $('.fileList p').text('');
-							        $('#attach_file').val('');
-							        $('.fileList').hide();
-							    });
-						
-							    // fileList 숨김
-							    $('.fileList').hide();
-							    
-								function button1_click() {
-									var name = $('#name').val();
-
-									if (name == "" || name == undefined) {
-										window.alert("장비 이름을 입력해주세요.");
-										$('#name').focus();
-										return false;
-									}
-
-									if (!$('#description').val()) {
-										window.alert("장비 설명을 입력해주세요.");
-										$('#description').focus();
-										return false;
-									}
-
-
-									if ($("#saveType").val() !== 'update') {
-										if ($('#attach_file')[0].files.length === 0) {
-											window.alert("썸네일을 추가해주세요.");
-											$('#attach_file').focus();
-											return false;
-										}
-									}
-
-									var text = "등록하시겠습니까?";
-									if ($("#saveType").val() == 'update') {
-										text = "수정하시겠습니까?"
-									}
-									
-									
-									if (confirm(text)) {
-										$("#register").attr("action", "/equipment/equipment_save.do");
-										$("#register").submit();
-									}
-								}
-							</script>
+							<script type="text/javascript" src="/js/facility_register.js"></script>
 					</body>
 
 					</html>

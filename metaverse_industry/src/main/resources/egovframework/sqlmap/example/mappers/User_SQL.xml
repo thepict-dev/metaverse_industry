@@ -122,4 +122,68 @@
 			file_path = #{file_url}
 		WHERE user_id = #{user_id} and id = #{id} 
 	</update>
+	
+	<!-- 시설 -->
+	<select id="get_facility_request_list" resultType="map">
+		SELECT 
+		    err.idx,
+		    err.id,
+		    err.facility_id,
+		    err.user_id,
+		    err.rental_start_date,
+		    err.rental_end_date,
+		    err.request_status,
+		    date_format(err.request_date, '%Y-%m-%d') as request_date,
+		    err.type,
+		    err.facility_plan,
+		    err.sa_eob_no,
+		    err.company_nm,
+		    err.position,
+		    err.company_address1,
+		    err.company_address2,
+		    err.file_path,
+		    err.reject_msg,
+		    et.name,
+		    et.type AS facility_type,
+		    ut.name AS user_name
+		FROM 
+		    facility_rental_request err
+		JOIN 
+		    facility_item_table eit ON err.facility_id = eit.id
+		JOIN 
+		    facility_type_table et ON eit.facility_type_id = et.id
+		JOIN 
+		    user_table ut ON ut.user_id = err.user_id
+		WHERE ut.user_id = #{user_id}
+		AND err.request_status != 'cancelled'
+		<if test="request_status != null and request_status != ''">
+		      and err.request_status = #{request_status}
+	    </if>
+	    <if test="limit_cnt != null and limit_cnt != 0">
+			limit #{limit_cnt} OFFSET #{startNumber}
+		</if>
+	</select>
+	
+	<select id="get_facility_request_total_cnt" resultType="int">
+		select count(*) as totalCnt from facility_rental_request
+		where user_id = #{user_id}
+		<if test="request_status != null and request_status != '' ">
+			and request_status = #{request_status}
+		</if>
+	</select>
+	
+	<update id="updateFacilityRequestStatus" parameterType="pictVO">
+		UPDATE facility_rental_request
+		SET
+			request_status = #{request_status}
+		WHERE user_id = #{user_id} and id = #{id} 
+	</update>
+	
+	<update id="retryFacilityRequest" parameterType="pictVO">
+		UPDATE facility_rental_request
+		SET
+			request_status = 'retry',
+			file_path = #{file_url}
+		WHERE user_id = #{user_id} and id = #{id} 
+	</update>
 </mapper>

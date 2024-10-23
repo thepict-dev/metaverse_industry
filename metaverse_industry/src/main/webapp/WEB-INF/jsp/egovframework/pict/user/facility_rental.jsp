@@ -17,61 +17,54 @@
     <div class="loginWrapper book">
         <form action="">
             <div class="bookingWrapper">
-                <h3 class="subTitles"><span>01</span> 시설 대여일을 선택해주세요</h3>
+                <h3 class="subTitles"><span>01</span> 시설 대여일/반납일을 선택해주세요</h3>
                 <div class="bookingContainer con01">
                     <div class="bookingInner equip">
                         <div class="equipLists">
                             <p class="bookingTitle">시설 목록</p>
                             <ul class="equipList">
-                                <li>
-                                    <input type="checkbox" name="booking" id="booking_1">
-                                    <label for="booking_1"></label>
-                                    <span class="checkBox"></span>
-                                    <div class="checkItem list">
-                                        <div class="itemTitles">
-                                            <span>시설</span>
-                                            <p><span>브이튜버룸</span></p>
-                                        </div>
-                                    </div>
-                                    <a href="#lnk"><img src="/img/user_img/delete2.png" alt=""></a>
-                                </li>
+                                <c:forEach var="equipment" items="${resultList}"
+                                   varStatus="status">
+                                   <li data-id="${equipment.id}"
+                                       data-cnt="${equipment.count}">
+                                       <!-- <input type="checkbox" name="booking" id="booking_${equipment.id}" class="booking-checkbox"> -->
+                                       <!-- <div class="equipment-status"></div> -->
+                                       <span class="checkBox"></span>
+                                       <div class="checkItem list">
+                                           <div class="itemTitles">
+                                               <p><span>${equipment.name}</span></p>
+                                           </div>
+                                       </div>
+                                       <a href="#lnk"><img src="/img/user_img/delete2.png"
+                                               alt=""></a>
+                                   </li>
+                               </c:forEach>
                             </ul>
                         </div>
                     </div>
                     <div class="bookingInner date">
-                        <p class="bookingTitle">대여일 선택</p>
+                    	<div class="disable-calendar">
+                          <p>좌측 시설을 선택하고<br /> 대여일/반납일을 선택해주세요</p>
+                       	</div>
+                        <p class="bookingTitle">대여일/반납일 선택</p>
                         <div class="dateContainer">
                             <div id="datepicker"></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="bookingWrapper">
+            <div class="bookingWrapper step-02 blind">
                 <h3 class="subTitles"><span>02</span> 예약하신 시설 정보를 확인해주세요</h3>
                 <div class="bookingContainer con01">
                     <div class="bookingInner">
                         <p class="bookingTitle">대여시설 확인</p>
                         <ul class="dateResultLists">
-                            <li>
-                                <div class="eqDate">
-                                    <div class="eq">
-                                        <p class="eqDateTitle">시설</p>
-                                        <p class="eqDateItem"><span>브이튜버룸</span></p>
-                                    </div>
-                                    <div class="datesWrapper">
-                                        <div class="dates">
-                                            <p class="eqDateTitle">대여일</p>
-                                            <p class="eqDateItem">2024.8.13.화 - 2024.8.14.수</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="#lnk">다시 선택</a>
-                            </li>
+                            
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="bookingWrapper">
+            <div class="bookingWrapper step-03 blind">
                 <h3 class="subTitles"><span>03</span> 대여 형태를 선택해주세요</h3>
                 <div class="bookingContainer con01">
                     <div class="bookingInner">
@@ -95,6 +88,11 @@
                     <div class="bookingInner">
                         <p class="bookingTitle">추가정보 입력</p>
                         <div class="joinFormWrapper">
+                        	<div class="inputContainer">
+                                <p class="inputCaption">시설사용계획</p>
+                                <textarea class="equipment-plan" name="" id=""
+                                    placeholder="시설 사용 계획을 상세히 적어주세요."></textarea>
+                            </div>
                             <div class="inputContainer">
                                 <p class="inputCaption">증빙서류 첨부</p>
                                 <div class="flexInputs file">
@@ -103,7 +101,7 @@
                                     <input type="file" id="file1" style="display: none;">
                                     <button type="button" id="deleteButton1" style="display: none;"><img src="/img/user_img/del-file.png" alt=""></button>
                                 </div>
-                                <p class="fileSub">장비사용계획서를 제출하세요</p>
+                                <!-- <p class="fileSub">장비사용계획서를 제출하세요</p> -->
                             </div>
                         </div>
                     </div>
@@ -166,7 +164,7 @@
                 <div class="infoSlides">
                     <div class="swiper">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide">
+                            <!-- <div class="swiper-slide">
                                 <ul class="bookingInfolists">
                                     <li>
                                         <p>장비명</p>
@@ -205,7 +203,7 @@
                                         <span>2024.8.13.화</span>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="swiper-pagination"></div>
@@ -243,32 +241,7 @@
                     <span>신청하신 대여/반납일에 <span>방문하시어</span><br>장비를 대여/반납하시기 바랍니다</span>
                 </div>
                 <div class="infoSlides">
-                    <ul class="bookingInfolists">
-                        <li>
-                            <p>장비명</p>
-                            <span>Oculus Quest2 외 2건</span>
-                        </li>
-                        <li>
-                            <p>대여자명</p>
-                            <span>이유리</span>
-                        </li>
-                        <li>
-                            <p>대여형태</p>
-                            <span>기업</span>
-                        </li>
-                        <li>
-                            <p>회사명</p>
-                            <span>주식회사 더픽트</span>
-                        </li>
-                        <li>
-                            <p>대여일</p>
-                            <span>2024.8.13.화</span>
-                        </li>
-                        <li>
-                            <p>반납일</p>
-                            <span>2024.8.13.화</span>
-                        </li>
-                    </ul>
+                    
                 </div>
                 <ul class="modalDesc">
                     <li>
@@ -286,219 +259,13 @@
                 </ul>
             </div>
             <div class="fullButtonContainer conirmBtn">
-                <a href="/mypage.do" class="bl">마이페이지</a>
+                <a href="/mypage_facil.do" class="bl">마이페이지</a>
             </div>
         </div>
     </div>
 
-    <script>
-        $(function() {
-            var dateFormat = "yy-mm-dd";
-            
-            // 예약 불가 더미
-            var disabledDates = [
-                "2024-09-15",
-            ];
-
-            // 오늘 날짜를 기준으로 설정 (시간은 00:00:00으로 설정)
-            var today = new Date();
-            today.setHours(0, 0, 0, 0);
-
-            function initDatepicker() {
-                $("#datepicker").datepicker({
-                    numberOfMonths: getNumberOfMonths(),
-                    // numberOfMonths: [1, 2],  // 1행 2열로 달력 표시
-                    dateFormat: dateFormat, 
-                    showOtherMonths: true,   // 이전,다음 달 날짜 표시
-                    selectOtherMonths: true, // 이전,다음 달 날짜 선택 가능
-                    dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],  
-                    monthNames: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"], 
-                    monthNamesShort: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
-                    beforeShowDay: function(date) {
-                        var stringDate = $.datepicker.formatDate(dateFormat, date);
-                        var isDisabled = disabledDates.indexOf(stringDate) !== -1;
-                        var startDate = $("#datepicker").data("startDate");
-                        var endDate = $("#datepicker").data("endDate");
-                        
-                        var classes = [];
-                        // 예약 불가능한 날짜
-                        if (isDisabled) {
-                            return [false, "user-disabled"];
-                        }
-                        
-                        // 오늘 이전 날짜
-                        if (date < today) {
-                            return [false, "past-date"];
-                        }
-                        
-                        // 선택된 날짜 범위 표시
-                        if (startDate && endDate && date > startDate && date < endDate) {
-                            classes.push("selected-range");
-                        }
-                        
-                        // 시작일과 종료일 강조 표시
-                        if (startDate && endDate && date >= startDate && date <= endDate) {
-                            if (date.getTime() === startDate.getTime()) {
-                                classes.push("dp-highlight-start");
-                            } else if (date.getTime() === endDate.getTime()) {
-                                classes.push("dp-highlight-end");
-                            }
-                        }
-                        return [true, classes.join(" ")];
-                    },
-                    onSelect: function(dateText, inst) {
-                        var selectedDate = $.datepicker.parseDate(dateFormat, dateText);
-                        
-                        var startDate = $("#datepicker").data("startDate");
-                        var endDate = $("#datepicker").data("endDate");
-
-                        // 시작일 선택 또는 새로운 범위 선택 시작
-                        if (!startDate || endDate) {
-                            $("#datepicker").data("startDate", selectedDate);
-                            $("#datepicker").data("endDate", null);
-                        } 
-                        // 종료일 선택 (선택된 날짜가 시작일 이후인 경우)
-                        else if (selectedDate >= startDate) {
-                            if (isRangeValid(startDate, selectedDate)) {
-                                $("#datepicker").data("endDate", selectedDate);
-                            } else {
-                                alert("선택한 기간 내에 예약 불가능한 날짜가 포함되어 있습니다. 다시 선택해주세요.");
-                                $("#datepicker").data("startDate", null);
-                                $("#datepicker").data("endDate", null);
-                            }
-                        } 
-                        // 종료일 선택 (선택된 날짜가 시작일 이전인 경우 - 역순 선택)
-                        else {
-                            if (isRangeValid(selectedDate, startDate)) {
-                                $("#datepicker").data("endDate", startDate);
-                                $("#datepicker").data("startDate", selectedDate);
-                            } else {
-                                alert("선택한 기간 내에 예약 불가능한 날짜가 포함되어 있습니다. 다시 선택해주세요.");
-                                $("#datepicker").data("startDate", null);
-                                $("#datepicker").data("endDate", null);
-                            }
-                        }
-
-                    updateDateRangeInfo();
-                    $(this).datepicker("refresh");
-                    }
-                });
-            }
-
-                function getNumberOfMonths() {
-                    return $(window).width() <= 1510 ? 1 : [1, 2];
-                }
-
-                initDatepicker();
-
-                $(window).resize(function() {
-                    $("#datepicker").datepicker("option", "numberOfMonths", getNumberOfMonths());
-                });
-
-            // 선택된 날짜 범위가 유효한지 확인 (예약 불가능한 날짜 포함 여부 체크)
-            function isRangeValid(start, end) {
-                var current = new Date(start);
-                while (current <= end) {
-                    var stringDate = $.datepicker.formatDate(dateFormat, current);
-                    if (disabledDates.indexOf(stringDate) !== -1) {
-                        return false;
-                    }
-                    current.setDate(current.getDate() + 1);
-                }
-                return true;
-            }
-
-            // 선택된 날짜 범위 정보를 업데이트하고 콘솔에 출력하는 함수
-            function updateDateRangeInfo() {
-                // datepicker에서 저장된 시작일과 종료일을 가져옴
-                var startDate = $("#datepicker").data("startDate");
-                var endDate = $("#datepicker").data("endDate");
-
-                // 시작일과 종료일이 모두 선택된 경우
-                if (startDate && endDate) {
-                    // 선택된 날짜 확인!
-                    console.log("선택된 기간: " + 
-                        $.datepicker.formatDate(dateFormat, startDate) + " ~ " + 
-                        $.datepicker.formatDate(dateFormat, endDate));
-                } 
-                // 시작일만 선택된 경우
-                else if (startDate) {
-                    // 시작일만 콘솔에 출력
-                    console.log("시작일: " + 
-                        $.datepicker.formatDate(dateFormat, startDate));
-                }
-                // 시작일도 선택되지 않은 경우에는 아무 것도 안나옴
-            }
-                // 페이지 로드 시 초기 날짜 범위 정보를 업데이트
-                // 이는 페이지 새로고침 후에도 이전에 선택된 날짜 정보를 표시하기 위함
-                updateDateRangeInfo();
-            });
-
-            // 라디오 체크
-            $('input[name="option"]').change(function() {
-                if ($(this).attr('id') === 'individual') {
-                    $('.addIndiv').show();
-                    $('.addCompany').hide();
-                } if ($(this).attr('id') === 'company') {
-                    $('.addCompany').show();
-                    $('.addIndiv').hide();
-                }
-            });
-
-            //파일첨부
-            function setupFileInput(fileInputId, fileNameClass, deleteButtonId) {
-            const fileInput = document.getElementById(fileInputId);
-            const fileName = document.querySelector(`.${fileNameClass}`);
-            const deleteButton = document.getElementById(deleteButtonId);
-
-            fileInput.addEventListener('change', function() {
-                if (this.files[0]) {
-                    fileName.textContent = this.files[0].name;
-                    deleteButton.style.display = 'inline-block';
-                }
-            });
-
-            deleteButton.addEventListener('click', function() {
-                fileInput.value = '';
-                fileName.textContent = '';
-                this.style.display = 'none';
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            setupFileInput('file1', 'fileName1', 'deleteButton1');
-            setupFileInput('file2', 'fileName2', 'deleteButton2');
-        });
-
-        // 컨펌 스와이퍼
-        const swiper = new Swiper('.swiper', {
-            speed: 2000,
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
-        });
-
-        //확인 모달 열고, 닫기
-        $('#bookingButton').click(function(){
-            $('#confirmModal').addClass('active');
-            $('body').addClass("no-scroll");
-        })
-        $('#confirmModal button').click(function(){
-            $('#confirmModal').removeClass('active');
-            $('body').removeClass("no-scroll");
-        })
-        //최종 모달 열고, 닫기
-        $('#setButton').click(function(){
-            $('#confirmModal').removeClass('active');
-            $('#checkModal').addClass('active');
-            $('body').addClass("no-scroll");
-        })
-        $('#checkModal button').click(function(){
-            $('#checkModal').removeClass('active');
-            $('body').removeClass("no-scroll");
-        })
-    </script>
-	
+    
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script type="text/javascript" src="/js/rental_facility.js"></script>
 </body>
 </html>

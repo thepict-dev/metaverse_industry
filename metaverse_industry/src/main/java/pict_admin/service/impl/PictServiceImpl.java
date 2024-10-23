@@ -77,27 +77,11 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 		return pictMapper.board_list_total_cnt(pictVO);
 	}
 	
-	
-	@Override
-	public Integer equipment_list_total_cnt(PictVO pictVO) throws Exception {
-		return pictMapper.equipment_list_total_cnt(pictVO);
-	}
-	
 	@Override
 	public PictVO board_list_one(PictVO pictVO) throws Exception {
 		return pictMapper.board_list_one(pictVO);
 	}
 	
-	@Override
-	public PictVO equipment_list_one(PictVO pictVO) throws Exception {
-		return pictMapper.equipment_list_one(pictVO);
-	}
-	
-	@Override
-    public List<Map<String, Object>> equipment_unavailable_date_list(PictVO pictVO) throws Exception {
-        System.out.println("임플리먼트 id 조회 @@@@@@@@@@@@@@" + pictVO.getId());
-        return pictMapper.equipment_unavailable_date_list(pictVO);
-    }
 	
 	@Override
 	public void board_update(PictVO pictVO) throws Exception {
@@ -109,6 +93,44 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 	public void board_insert(PictVO pictVO) throws Exception {
 		pictMapper.board_insert(pictVO);
 	}
+	
+
+	
+	@Override
+	public void board_delete(PictVO pictVO) throws Exception {
+		pictMapper.board_delete(pictVO);
+		
+	}
+
+	@Override
+	public void board_file_delete(PictVO pictVO) throws Exception {
+		pictMapper.board_file_delete(pictVO);
+		
+	}
+	
+	// 장비 관련	
+	
+	@Override
+	public List<?> equipment_list(PictVO pictVO) throws Exception {
+		return pictMapper.equipment_list(pictVO);
+	}
+	
+	@Override
+	public PictVO equipment_list_one(PictVO pictVO) throws Exception {
+		return pictMapper.equipment_list_one(pictVO);
+	}
+	
+	
+	@Override
+	public Integer equipment_list_total_cnt(PictVO pictVO) throws Exception {
+		return pictMapper.equipment_list_total_cnt(pictVO);
+	}
+	
+	@Override
+    public List<Map<String, Object>> equipment_unavailable_date_list(PictVO pictVO) throws Exception {
+        System.out.println("임플리먼트 id 조회 @@@@@@@@@@@@@@" + pictVO.getId());
+        return pictMapper.equipment_unavailable_date_list(pictVO);
+    }
 	
 	@Override
 	public List<Map<String, Object>> equipment_item_list(PictVO pictVO) throws Exception {
@@ -126,6 +148,16 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 		pictMapper.equipment_update(pictVO);
 	}
 	
+	
+	@Override
+	public void equipment_delete(Integer idx) throws Exception {
+		pictMapper.equipment_delete(idx);
+	}
+	
+	@Override
+	public void equipment_cnt_delete(Integer idx) throws Exception {
+		pictMapper.equipment_cnt_delete(idx);
+	}
 	
 	@Override
 	public PictVO equipment_item_one(PictVO pictVO) throws Exception {
@@ -156,28 +188,121 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 	}
 	
 	@Override
-	public PictVO get_request_detail(PictVO pictVO) throws Exception {
-		return pictMapper.get_request_detail(pictVO);
-	}
-	
-	
-
-	
-	@Override
-	public void board_delete(PictVO pictVO) throws Exception {
-		pictMapper.board_delete(pictVO);
-		
+	public Map<String, Object>  get_request_detail(Integer idx) throws Exception {
+		return pictMapper.get_request_detail(idx);
 	}
 
 	@Override
-	public void board_file_delete(PictVO pictVO) throws Exception {
-		pictMapper.board_file_delete(pictVO);
+	public void update_request_status(PictVO pictVO) throws Exception {
+		pictMapper.update_request_status(pictVO);
 		
 	}
+	
+	// 시설물 관려
+	
 	@Override
-	public List<?> equipment_list(PictVO pictVO) throws Exception {
-		return pictMapper.equipment_list(pictVO);
+	public List<?> facility_list(PictVO pictVO) throws Exception {
+		return pictMapper.facility_list(pictVO);
 	}
+	
+	@Override
+	public PictVO facility_list_one(PictVO pictVO) throws Exception {
+		return pictMapper.facility_list_one(pictVO);
+	}
+	
+	
+	@Override
+	public Integer facility_list_total_cnt(PictVO pictVO) throws Exception {
+		return pictMapper.facility_list_total_cnt(pictVO);
+	}
+	
+	@Override
+    public List<Map<String, Object>> facility_unavailable_date_list(PictVO pictVO) throws Exception {
+        System.out.println("임플리먼트 id 조회 @@@@@@@@@@@@@@" + pictVO.getId());
+        return pictMapper.facility_unavailable_date_list(pictVO);
+    }
+	
+	@Override
+	public List<Map<String, Object>> facility_item_list(PictVO pictVO) throws Exception {
+		return pictMapper.facility_item_list(pictVO);
+	}
+	
+	@Override
+	public void facility_insert(PictVO pictVO) throws Exception {
+		pictMapper.facility_insert(pictVO);
+		
+	}
+	
+	@Override
+	public void facility_update(PictVO pictVO) throws Exception {
+		pictMapper.facility_update(pictVO);
+	}
+	
+	
+	@Override
+	public void facility_delete(Integer idx) throws Exception {
+		pictMapper.facility_delete(idx);
+	}
+	
+	@Override
+	public void facility_cnt_delete(Integer idx) throws Exception {
+		pictMapper.facility_cnt_delete(idx);
+	}
+	
+	@Override
+	public PictVO facility_item_one(PictVO pictVO) throws Exception {
+		return pictMapper.facility_item_one(pictVO);
+	}
+	
+	@Override
+	public void facility_cnt_insert(PictVO pictVO) throws Exception {
+		pictMapper.facility_cnt_insert(pictVO);
+		
+	}
+	
+	@Override
+	public void facility_cnt_update(PictVO pictVO) throws Exception {
+		pictMapper.facility_cnt_update(pictVO);
+	}
+	
+	@Override
+	public void submit_facility_request(PictVO pictVO) throws Exception {
+		pictMapper.submit_facility_request(pictVO);
+		// pictMapper.update_equipment_item(pictVO);	
+	}
+	
+	@Override
+	public List<?> get_facility_request_list(PictVO pictVO) throws Exception {
+		return pictMapper.get_facility_request_list(pictVO);
+	}
+	
+	@Override
+	public Map<String, Object>  get_facility_request_detail(Integer idx) throws Exception {
+		return pictMapper.get_facility_request_detail(idx);
+	}
+
+	@Override
+	public void update_facility_request_status(PictVO pictVO) throws Exception {
+		pictMapper.update_facility_request_status(pictVO);
+		
+	}
+	
+	//장바구니
+	public Integer isBag(PictVO pictVO) throws Exception {
+		return pictMapper.isBag(pictVO);
+	}
+	
+	@Override
+	public void add_bag(PictVO pictVO) throws Exception {
+		pictMapper.add_bag(pictVO);
+	}
+	
+	@Override
+	public void delete_bag(PictVO pictVO) throws Exception {
+		pictMapper.delete_bag(pictVO);
+		
+	}
+
 
 	@Override
 	public PictVO pemtour_select(PictVO pictVO) throws Exception {

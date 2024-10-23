@@ -71,42 +71,7 @@
 		where idx = #{idx}
 	</update>
 	
-	
-	<!-- <select id="equipment_list" resultType="pictVO">
-	    SELECT * FROM (
-	        SELECT 
-	            et.*,
-	            COALESCE(avail_count.cnt, 0) AS avaliable_equipment_cnt
-	        FROM 
-	            equipment_type_table et
-	        LEFT JOIN (
-	            SELECT 
-	                equipment_type_id,
-	                COUNT(*) AS cnt
-	            FROM 
-	                equipment_item_table
-	            WHERE 
-	                status = 'available'
-	            GROUP BY 
-	                equipment_type_id
-	        ) avail_count ON et.id = avail_count.equipment_type_id
-	    ) AS subquery
-	    <where>
-	        <if test="isOnlyAvailable != null and isOnlyAvailable">
-	            AND avaliable_equipment_cnt > 0
-	        </if>
-	        <if test="search_text != null and search_text != ''">
-	            AND name LIKE CONCAT('%', #{search_text}, '%')
-	        </if>
-	        <if test="type != null and type != ''">
-	            AND type LIKE CONCAT('%', #{type}, '%')
-	        </if>
-	    </where>
-	    ORDER BY reg_date DESC
-   	    <if test="limit_cnt != null and limit_cnt != 0">
-			limit #{limit_cnt} OFFSET #{startNumber}
-		</if>
-	</select> -->
+	<!-- 장비관리  -->
 	<select id="equipment_list" resultType="pictVO">
     SELECT * FROM (
         SELECT 
@@ -119,7 +84,11 @@
             et.bujajae,
             date_format(et.reg_date, '%Y-%m-%d') as reg_date,
             et.use_ny,
-            COALESCE(avail_count.cnt, 0) AS avaliable_equipment_cnt
+            COALESCE(avail_count.cnt, 0) AS avaliable_equipment_cnt,
+            CASE 
+                WHEN bt.key_id IS NOT NULL THEN '1'
+                ELSE '0'
+            END AS isLike
         FROM 
             equipment_type_table et
         LEFT JOIN (
@@ -133,22 +102,18 @@
             GROUP BY 
                 equipment_type_id
         ) avail_count ON et.id = avail_count.equipment_type_id
+        LEFT JOIN bag_table bt ON et.id = bt.key_id
     ) AS subquery
     <where>
+        use_ny = 'Y'
         <if test="isOnlyAvailable != null and isOnlyAvailable">
-            avaliable_equipment_cnt > 0
+            AND avaliable_equipment_cnt > 0
         </if>
         <if test="search_text != null and search_text != ''">
-            <if test="isOnlyAvailable != null and isOnlyAvailable">
-                AND
-            </if>
-            name LIKE CONCAT('%', #{search_text}, '%')
+            AND name LIKE CONCAT('%', #{search_text}, '%')
         </if>
         <if test="type != null and type != ''">
-            <if test="(isOnlyAvailable != null and isOnlyAvailable) or (search_text != null and search_text != '')">
-                AND
-            </if>
-            type LIKE CONCAT('%', #{type}, '%')
+            AND type LIKE CONCAT('%', #{type}, '%')
         </if>
     </where>
     ORDER BY reg_date DESC
@@ -251,29 +216,61 @@
 	    </if>
 	  WHERE idx = #{idx}
 	</update>
+	<!-- 장비 삭제 -->
+	<update id="equipment_delete" parameterType="int">
+	  UPDATE equipment_type_table
+	  SET 
+	    use_ny = "N"
+	  WHERE idx = #{idx}
+	</update>
 	
-	
+	<!--  시리얼 넘버 생성  -->
 	<insert id="equipment_cnt_insert" parameterType="pictVO">
 		INSERT INTO equipment_item_table
-			(equipment_type_id, id, serial_number)
+			(equipment_type_id, id, serial_number, image_url, text, reg_date)
 		VALUES (
-			 #{equipment_id} , UUID(), #{serial_number}
+			 #{equipment_id} , UUID(), #{serial_number}, #{image_url}, #{text}, #{reg_date}
 			  )
 	</insert>
 	
 	
 	<select id="equipment_item_one" resultType="pictVO">
-		select idx, id, equipment_type_id,, serial_number, status, date_format(reg_date, '%Y-%m-%d') as reg_date, image_url, text from equipment_item_table
+		select 
+			idx,
+			id,
+			equipment_type_id,
+			serial_number,
+			status,
+			date_format(reg_date, '%Y-%m-%d') as reg_date,
+			image_url,
+			text
+		from equipment_item_table
+			
 		where idx = #{idx}
 	</select>
 	
 	<update id="equipment_cnt_update" parameterType="pictVO">
-	  UPDATE equipment_item_table
-	  SET 
-	  	serial_number = #{serial_number},
-	  	text = ${text}
-	  WHERE idx = #{idx}
+	    UPDATE equipment_item_table
+	    <set>
+	        <if test="serial_number != null">
+	            serial_number = #{serial_number},
+	        </if>
+	        <if test="text != null">
+	            text = #{text},
+	        </if>
+	        <if test="reg_date != null">
+	            reg_date = #{reg_date},
+	        </if>
+	        <if test="status != null">
+	            status = #{status}
+	        </if>
+	    </set>
+	    WHERE idx = #{idx}
 	</update>
+	
+	<delete id="equipment_cnt_delete" parameterType="int">
+		delete from equipment_item_table where idx = #{idx}
+	</delete>
 	
 	<insert id="submit_rental_request" parameterType="pictVO">
 		INSERT INTO equipment_rental_request
@@ -330,10 +327,12 @@
 				and ut.name LIKE CONCAT('%', #{search_text}, '%')
 			</if>
 		</where>
-		
+		<if test="limit_cnt != null and limit_cnt != 0">
+			limit #{limit_cnt} OFFSET #{startNumber}
+		</if>
 	</select>
 	
-	<select id="get_request_detail" resultType="pictVO">
+	<select id="get_request_detail" resultType="map">
 		SELECT 
 		    err.idx,
 		    err.id,
@@ -353,7 +352,12 @@
 		    err.file_path,
 		    et.name,
 		    et.type AS equipment_type,
-		    ut.name AS user_name
+		    ut.name AS user_name,
+		    ut.mobile,
+		    ut.birthday,
+		    ut.email,
+		    ut.address1 AS address1,
+		    ut.address2 AS address2
 		FROM 
 		    equipment_rental_request err
 		JOIN 
@@ -370,6 +374,367 @@
 		
 	</select>
 	
+	<update id="update_request_status" parameterType="pictVO">
+		UPDATE equipment_rental_request
+		SET
+			request_status = #{request_status},
+			reject_msg = #{reject_msg}
+		WHERE idx = #{idx} 
+	</update>
+	
+	
+	<!-- 시설물 관리 -->
+<select id="facility_list" resultType="pictVO">
+    SELECT * FROM (
+        SELECT 
+            et.idx,
+            et.id,
+            et.type,
+            et.name,
+            et.description,
+            et.image_url,
+            et.bujajae,
+            date_format(et.reg_date, '%Y-%m-%d') as reg_date,
+            et.use_ny,
+            COALESCE(avail_count.cnt, 0) AS avaliable_facility_cnt,
+            COALESCE(fit.status, 'available') as status,
+            CASE 
+                WHEN bt.key_id IS NOT NULL THEN '1'
+                ELSE '0'
+            END AS isLike
+        FROM 
+            facility_type_table et
+        LEFT JOIN (
+            SELECT 
+                facility_type_id,
+                COUNT(*) AS cnt
+            FROM 
+                facility_item_table
+            WHERE 
+                status = 'available'
+            GROUP BY 
+                facility_type_id
+        ) avail_count ON et.id = avail_count.facility_type_id
+        LEFT JOIN facility_item_table fit ON et.id = fit.facility_type_id
+        LEFT JOIN bag_table bt ON et.id = bt.key_id
+    ) AS subquery
+    <where>
+        use_ny = 'Y'
+        <if test="isOnlyAvailable != null and isOnlyAvailable">
+            AND avaliable_facility_cnt > 0
+        </if>
+        <if test="search_text != null and search_text != ''">
+            AND name LIKE CONCAT('%', #{search_text}, '%')
+        </if>
+        <if test="type != null and type != ''">
+            AND type LIKE CONCAT('%', #{type}, '%')
+        </if>
+    </where>
+    ORDER BY reg_date DESC
+    <if test="limit_cnt != null and limit_cnt != 0">
+        LIMIT #{limit_cnt} OFFSET #{startNumber}
+    </if>
+</select>
+
+	<select id="facility_list_total_cnt" resultType="int">
+			select count(*) as totalCnt from facility_type_table where use_ny = "Y"
+	</select>
+	
+	<select id="facility_item_list" resultType="map">
+	    SELECT 
+	    ei.idx,
+	    ei.id,
+	    ei.facility_type_id,
+	    ei.serial_number,
+	    ei.status,
+	    date_format(reg_date, '%Y-%m-%d') as reg_date
+	     FROM facility_item_table as ei
+        <where>
+	        <if test="facility_id != null and facility_id != ''">
+	            facility_type_id = #{facility_id}
+	        </if>
+	        <if test="isAll != true">
+	            AND status = 'available'
+	        </if>
+	    </where>
+	</select>
+	
+	
+	
+	
+	<select id="facility_unavailable_date_list" resultType="map">
+		<![CDATA[
+		WITH RECURSIVE
+		date_range AS (
+		    SELECT DATE_ADD(CURDATE(), INTERVAL 1 DAY) AS date
+		    UNION ALL
+		    SELECT date + INTERVAL 1 DAY
+		    FROM date_range
+		    WHERE date < LAST_DAY(DATE_ADD(CURDATE(), INTERVAL 1 MONTH))
+		),
+		facility_availability AS (
+		    SELECT 
+		        dr.date,
+		        et.id AS facility_type_id,
+		        COUNT(ei.id) AS total_count,
+		        SUM(CASE WHEN ei.status = 'available' THEN 1 ELSE 0 END) -
+		        COALESCE(SUM(CASE 
+		            WHEN r.request_status IN ('approved', 'pendding') 
+		            AND dr.date BETWEEN r.rental_start_date AND r.rental_end_date 
+		            THEN 1 ELSE 0 END), 0) AS available_count
+		    FROM date_range dr
+		    CROSS JOIN facility_type_table et
+		    JOIN facility_item_table ei ON et.id = ei.facility_type_id
+		    LEFT JOIN facility_rental_request r ON ei.id = r.facility_id
+		    WHERE et.id = #{id}
+		    GROUP BY dr.date, et.id
+		)
+		SELECT 
+		    DATE_FORMAT(date, '%Y-%m-%d') AS unavailable_date
+		FROM facility_availability
+		WHERE available_count = 0
+		ORDER BY date
+		]]>
+	</select>
+	
+	
+	<select id="facility_list_one" resultType="pictVO">
+		select idx, id, type as category, name, description, image_url, bujajae, date_format(reg_date, '%Y-%m-%d') as reg_date from facility_type_table
+        <where>
+	        <if test="idx != 0 and id == null">
+	            idx = #{idx}
+	        </if>
+	        <if test="idx == 0 and id != null and id != ''">
+	            id = #{id}
+	        </if>
+	    </where>
+	</select>
+	
+	<insert id="facility_insert" parameterType="pictVO">
+	  <selectKey keyProperty="facility_id" resultType="string" order="BEFORE">
+        	SELECT UUID() as facility_id
+  	  </selectKey>
+		    INSERT INTO facility_type_table
+		    (id, type, name, description, image_url, bujajae)
+		    VALUES (
+		        #{facility_id}, #{category}, #{name}, #{description}, #{image_url}, #{bujajae}
+		    );
+		    
+		    INSERT INTO facility_item_table
+		    (facility_type_id, id)
+		    VALUES (
+		        #{facility_id}, UUID()
+		    );
+	</insert>
+	
+	<update id="facility_update" parameterType="pictVO">
+	  UPDATE facility_type_table
+	  SET 
+	  	type = #{category},
+	    name = #{name},
+	    description = #{description},
+	    bujajae = #{bujajae},
+	    reg_date = NOW()
+	    <if test="image_url != null and image_url != ''">
+	      , image_url = #{image_url}
+	    </if>
+	  WHERE idx = #{idx}
+	</update>
+	<!-- 시설물 삭제 -->
+	<update id="facility_delete" parameterType="int">
+	  UPDATE facility_type_table
+	  SET 
+	    use_ny = "N"
+	  WHERE idx = #{idx}
+	</update>
+	
+	<!--  시리얼 넘버 생성  -->
+	<insert id="facility_cnt_insert" parameterType="pictVO">
+		INSERT INTO facility_item_table
+			(facility_type_id, id, serial_number, image_url, text, reg_date)
+		VALUES (
+			 #{facility_id} , UUID(), #{serial_number}, #{image_url}, #{text}, #{reg_date}
+			  )
+	</insert>
+	
+	
+	<select id="facility_item_one" resultType="pictVO">
+		select 
+			idx,
+			id,
+			facility_type_id,
+			serial_number,
+			status,
+			date_format(reg_date, '%Y-%m-%d') as reg_date,
+			image_url,
+			text
+		from facility_item_table
+			
+		where idx = #{idx}
+	</select>
+	
+	<update id="facility_cnt_update" parameterType="pictVO">
+	    UPDATE facility_item_table
+	    <set>
+	        <if test="serial_number != null">
+	            serial_number = #{serial_number},
+	        </if>
+	        <if test="text != null">
+	            text = #{text},
+	        </if>
+	        <if test="reg_date != null">
+	            reg_date = #{reg_date},
+	        </if>
+	        <if test="status != null">
+	            status = #{status}
+	        </if>
+	    </set>
+	    <where>
+	        <choose>
+	            <when test="idx != null and idx != 0">
+	                idx = #{idx}
+	            </when>
+	            <when test="id != null and id != ''">
+	                id = #{id}
+	            </when>
+	            <otherwise>
+	                1 = 2  <!-- 조건이 없는 경우 아무것도 업데이트되지 않도록 함 -->
+	            </otherwise>
+	        </choose>
+	    </where>
+	</update>
+	
+	<delete id="facility_cnt_delete" parameterType="int">
+		delete from facility_item_table where idx = #{idx}
+	</delete>
+	
+	<insert id="submit_facility_request" parameterType="pictVO">
+		INSERT INTO facility_rental_request
+			(id, facility_id, user_id, rental_start_date, rental_end_date, type, facility_plan, sa_eob_no, company_nm, position, company_address1, company_address2, file_path)
+		VALUES (
+			 UUID(), #{id}, #{user_id} , #{rental_start_date}, #{rental_end_date}, #{type}, #{facility_plan}, #{sa_eob_no}, #{company_nm}, #{position}, #{company_address1}, #{company_address2}, #{file_url1} 
+			  )
+	</insert>
+	
+	
+	<update id="update_facility_item" parameterType="pictVO">
+		update facility_item_table
+		set status = 'applied'
+		where id = '${id}'
+	</update>
+	
+	<select id="get_facility_request_list" resultType="map">
+		SELECT 
+		    err.idx,
+		    err.id,
+		    err.facility_id,
+		    err.user_id,
+		    err.rental_start_date,
+		    err.rental_end_date,
+		    err.request_status,
+		    date_format(err.request_date, '%Y-%m-%d') as request_date,
+		    err.type,
+		    err.facility_plan,
+		    err.sa_eob_no,
+		    err.company_nm,
+		    err.position,
+		    err.company_address1,
+		    err.company_address2,
+		    err.file_path,
+		    et.name,
+		    et.type AS facility_type,
+		    ut.name AS user_name
+		FROM 
+		    facility_rental_request err
+		JOIN 
+		    facility_item_table eit ON err.facility_id = eit.id
+		JOIN 
+		    facility_type_table et ON eit.facility_type_id = et.id
+		JOIN 
+		    user_table ut ON ut.user_id = err.user_id
+		<where>
+			<if test="idx != null and idx != 0">
+				and err.idx = #{idx}
+				
+			</if> 
+			<if test="request_status != null and request_status != ''">
+				and err.request_status = #{request_status}
+			</if>
+			<if test="search_text != null and search_text != '' ">
+				and ut.name LIKE CONCAT('%', #{search_text}, '%')
+			</if>
+		</where>
+		<if test="limit_cnt != null and limit_cnt != 0">
+			limit #{limit_cnt} OFFSET #{startNumber}
+		</if>
+	</select>
+	
+	<select id="get_facility_request_detail" resultType="map">
+		SELECT 
+		    err.idx,
+		    err.id,
+		    err.facility_id,
+		    err.user_id,
+		    err.rental_start_date,
+		    err.rental_end_date,
+		    err.request_status,
+		    date_format(err.request_date, '%Y-%m-%d') as request_date,
+		    err.type,
+		    err.facility_plan,
+		    err.sa_eob_no,
+		    err.company_nm,
+		    err.position,
+		    err.company_address1,
+		    err.company_address2,
+		    err.file_path,
+		    et.name,
+		    et.type AS facility_type,
+		    ut.name AS user_name,
+		    ut.mobile,
+		    ut.birthday,
+		    ut.email,
+		    ut.address1 AS address1,
+		    ut.address2 AS address2
+		FROM 
+		    facility_rental_request err
+		JOIN 
+		    facility_item_table eit ON err.facility_id = eit.id
+		JOIN 
+		    facility_type_table et ON eit.facility_type_id = et.id
+		JOIN 
+		    user_table ut ON ut.user_id = err.user_id
+		<where>
+			<if test="idx != null and idx != 0">
+				and err.idx = #{idx}
+			</if> 
+		</where>
+		
+	</select>
+	
+	<update id="update_facility_request_status" parameterType="pictVO">
+		UPDATE facility_rental_request
+		SET
+			request_status = #{request_status},
+			reject_msg = #{reject_msg}
+		WHERE idx = #{idx} 
+	</update>
+	
+	
+	<!-- 장바구니 -->
+	<select id="isBag" resultType="int">
+		select count(*) from bag_table where user_id = #{user_id} and key_id = #{key_id}
+	</select>
+	<insert id="add_bag" parameterType="pictVO">
+		INSERT INTO bag_table
+			(user_id, key_id, type)
+		VALUES (
+			 #{user_id}, #{key_id}, #{type} 
+			  )
+	</insert>
+	
+	<delete id="delete_bag" parameterType="pictVO">
+		delete from bag_table where user_id = #{user_id} and key_id = #{key_id}
+	</delete>
 	
 	
 	

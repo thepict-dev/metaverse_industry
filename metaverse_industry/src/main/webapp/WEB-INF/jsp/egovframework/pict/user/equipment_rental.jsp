@@ -64,27 +64,7 @@
                                                 <div class="bookingInner">
                                                     <p class="bookingTitle">대여장비 확인</p>
                                                     <ul class="dateResultLists">
-                                                        <!-- <li>
-                                                            <div class="eqDate">
-                                                                <div class="eq">
-                                                                    <p class="eqDateTitle">제품</p>
-                                                                    <p class="eqDateItem"><span>Oculus Quest2
-                                                                            /</span><span> 1개</span></p>
-                                                                </div>
-                                                                <div class="datesWrapper">
-                                                                    <div class="dates">
-                                                                        <p class="eqDateTitle">대여일</p>
-                                                                        <p class="eqDateItem">2024.8.13.화</p>
-                                                                    </div>
-                                                                    <img src="/img/user_img/date-arr.png" alt="">
-                                                                    <div class="dates">
-                                                                        <p class="eqDateTitle">반납일</p>
-                                                                        <p class="eqDateItem">2024.8.13.화</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <a href="#lnk">다시 선택</a>
-                                                        </li> -->
+                                                       
                                                     </ul>
                                                 </div>
                                             </div>
@@ -297,7 +277,7 @@
                                                 </ul>
                                             </div>
                                             <div class="fullButtonContainer conirmBtn">
-                                                <a href="/mypage.do" class="bl">마이페이지</a>
+                                                <a href="/mypage_equip.do" class="bl">마이페이지</a>
                                             </div>
                                         </div>
                                     </div>
