@@ -12,7 +12,6 @@ window.onload = function () {
 
 
 let selectedEquipment = [];
-const user_name = "이유리";
 let rental_type = "";
 
 

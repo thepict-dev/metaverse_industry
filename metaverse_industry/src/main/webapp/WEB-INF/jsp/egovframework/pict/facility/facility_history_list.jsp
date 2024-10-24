@@ -24,14 +24,14 @@
 										<p>총 <span>${size}</span>개</p>
 										<div class="inputsContainer">
 											<div class="inputBox listSearch">
-												<select name="status" id="status" class="lgThinInput">
+												<select name="request_status" id="status" class="lgThinInput" >
 													<option value="">대여 상태 전체</option>
-													<option value="pendding"">승인대기</option>
-													<option value="approved">승인</option>
-													<option value="rejected">서류보안요청</option>
-													<option value="retry">재신청</option>
-													<option value="refusal">거절</option>
-													<option value="cancelled">취소</option>
+													<option <c:if test="${pictVO.request_status eq 'pendding'}">selected</c:if> value="pendding"">승인대기</option>
+													<option <c:if test="${pictVO.request_status eq 'approved'}">selected</c:if> value="approved">승인</option>
+													<option <c:if test="${pictVO.request_status eq 'rejected'}">selected</c:if> value="rejected">서류보안요청</option>
+													<option <c:if test="${pictVO.request_status eq 'retry'}">selected</c:if> value="retry">재신청</option>
+													<option <c:if test="${pictVO.request_status eq 'refusal'}">selected</c:if> value="refusal">거절</option>
+													<option <c:if test="${pictVO.request_status eq 'cancelled'}">selected</c:if> value="cancelled">취소</option>
 												</select>
 											</div>
 											<div class="inputBox listSearch">
@@ -169,6 +169,10 @@
 								$("#search_fm").attr("action", "/facility/facility_history_list.do");
 								$("#search_fm").submit();
 							}
+							
+							$("#status").change(function(e){
+								location.href = "/facility/facility_history_list.do?request_status=" + $(this).val();
+							})
 						</script>
 
 						<script src="../../../../../js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

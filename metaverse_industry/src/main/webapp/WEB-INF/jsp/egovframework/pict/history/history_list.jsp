@@ -25,6 +25,7 @@
 										<div class="inputsContainer">
 											<div class="inputBox listSearch">
 												<select name="category" id="category" class="lgThinInput">
+													<option value="" >장비 타입</option>
 													<option value="HMD" <c:if test="${pictVO.category eq 'HMD'}">
 														selected</c:if>>HMD</option>
 													<option value="AR글래스" <c:if test="${pictVO.category eq 'AR글래스'}">
@@ -43,9 +44,19 @@
 												</select>
 											</div>
 											<div class="inputBox listSearch">
-												<select name="status" id="status" class="lgThinInput">
+												<select name="request_status" id="status" class="lgThinInput" >
 													<option value="">대여 상태 전체</option>
+													<option <c:if test="${pictVO.request_status eq 'pendding'}">selected</c:if> value="pendding"">승인대기</option>
+													<option <c:if test="${pictVO.request_status eq 'approved'}">selected</c:if> value="approved">승인</option>
+													<option <c:if test="${pictVO.request_status eq 'rejected'}">selected</c:if> value="rejected">서류보안요청</option>
+													<option <c:if test="${pictVO.request_status eq 'retry'}">selected</c:if> value="retry">재신청</option>
+													<option <c:if test="${pictVO.request_status eq 'refusal'}">selected</c:if> value="refusal">거절</option>
+													<option <c:if test="${pictVO.request_status eq 'cancelled'}">selected</c:if> value="cancelled">취소</option>
+													<option <c:if test="${pictVO.request_status eq 'rental'}">selected</c:if> value="cancelled">대여중</option>
+													<option <c:if test="${pictVO.request_status eq 'returened'}">selected</c:if> value="cancelled">반납완료</option>
+													<option <c:if test="${pictVO.request_status eq 'overdue'}">selected</c:if> value="cancelled">연체중</option>
 												</select>
+												
 											</div>
 											<div class="inputBox listSearch">
 												<input type="text" name="search_text" id="search_text"
@@ -193,6 +204,13 @@
 								$("#search_fm").attr("action", "/history/history_list.do");
 								$("#search_fm").submit();
 							}
+							
+							$("#status").change(function(e){
+								location.href = "/history/history_list.do?request_status=" + $(this).val();
+							})
+							$("#category").change(function(e){
+								location.href = "/history/history_list.do?category=" + $(this).val();
+							})
 						</script>
 
 						<script src="../../../../../js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

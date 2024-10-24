@@ -73,54 +73,57 @@
 	
 	<!-- 장비관리  -->
 	<select id="equipment_list" resultType="pictVO">
-    SELECT * FROM (
-        SELECT 
-            et.idx,
-            et.id,
-            et.type,
-            et.name,
-            et.description,
-            et.image_url,
-            et.bujajae,
-            date_format(et.reg_date, '%Y-%m-%d') as reg_date,
-            et.use_ny,
-            COALESCE(avail_count.cnt, 0) AS avaliable_equipment_cnt,
-            CASE 
-                WHEN bt.key_id IS NOT NULL THEN '1'
-                ELSE '0'
-            END AS isLike
-        FROM 
-            equipment_type_table et
-        LEFT JOIN (
-            SELECT 
-                equipment_type_id,
-                COUNT(*) AS cnt
-            FROM 
-                equipment_item_table
-            WHERE 
-                status = 'available'
-            GROUP BY 
-                equipment_type_id
-        ) avail_count ON et.id = avail_count.equipment_type_id
-        LEFT JOIN bag_table bt ON et.id = bt.key_id
-    ) AS subquery
-    <where>
-        use_ny = 'Y'
-        <if test="isOnlyAvailable != null and isOnlyAvailable">
-            AND avaliable_equipment_cnt > 0
-        </if>
-        <if test="search_text != null and search_text != ''">
-            AND name LIKE CONCAT('%', #{search_text}, '%')
-        </if>
-        <if test="type != null and type != ''">
-            AND type LIKE CONCAT('%', #{type}, '%')
-        </if>
-    </where>
-    ORDER BY reg_date DESC
-    <if test="limit_cnt != null and limit_cnt != 0">
-        LIMIT #{limit_cnt} OFFSET #{startNumber}
-    </if>
-</select>
+	    SELECT * FROM (
+	        SELECT 
+	            et.idx,
+	            et.id,
+	            et.type,
+	            et.name,
+	            et.description,
+	            et.image_url,
+	            et.bujajae,
+	            date_format(et.reg_date, '%Y-%m-%d') as reg_date,
+	            et.use_ny,
+	            COALESCE(avail_count.cnt, 0) AS avaliable_equipment_cnt,
+	            CASE 
+	                WHEN (bt.key_id IS NOT NULL AND bt.user_id = #{user_id}) THEN '1'
+	                ELSE '0'
+	            END AS isLike
+	        FROM 
+	            equipment_type_table et
+	        LEFT JOIN (
+	            SELECT 
+	                equipment_type_id,
+	                COUNT(*) AS cnt
+	            FROM 
+	                equipment_item_table
+	            WHERE 
+	                status = 'available'
+	            GROUP BY 
+	                equipment_type_id
+	        ) avail_count ON et.id = avail_count.equipment_type_id
+	        LEFT JOIN bag_table bt ON et.id = bt.key_id 
+	            <if test="user_id != null and user_id != ''">
+	                AND bt.user_id = #{user_id}
+	            </if>
+	    ) AS subquery
+	    <where>
+	        use_ny = 'Y'
+	        <if test="isOnlyAvailable != null and isOnlyAvailable">
+	            AND avaliable_equipment_cnt > 0
+	        </if>
+	        <if test="search_text != null and search_text != ''">
+	            AND name LIKE CONCAT('%', #{search_text}, '%')
+	        </if>
+	        <if test="type != null and type != ''">
+	            AND type LIKE CONCAT('%', #{type}, '%')
+	        </if>
+	    </where>
+	    ORDER BY reg_date DESC
+	    <if test="limit_cnt != null and limit_cnt != 0">
+	        LIMIT #{limit_cnt} OFFSET #{startNumber}
+	    </if>
+	</select>
 	<select id="equipment_list_total_cnt" resultType="int">
 			select count(*) as totalCnt from equipment_type_table where use_ny = "Y"
 	</select>
@@ -319,6 +322,9 @@
 			<if test="idx != null and idx != 0">
 				and err.idx = #{idx}
 				
+			</if>
+			<if test="category != null and category != ''">
+				and et.type = #{category}
 			</if> 
 			<if test="request_status != null and request_status != ''">
 				and err.request_status = #{request_status}
@@ -384,57 +390,60 @@
 	
 	
 	<!-- 시설물 관리 -->
-<select id="facility_list" resultType="pictVO">
-    SELECT * FROM (
-        SELECT 
-            et.idx,
-            et.id,
-            et.type,
-            et.name,
-            et.description,
-            et.image_url,
-            et.bujajae,
-            date_format(et.reg_date, '%Y-%m-%d') as reg_date,
-            et.use_ny,
-            COALESCE(avail_count.cnt, 0) AS avaliable_facility_cnt,
-            COALESCE(fit.status, 'available') as status,
-            CASE 
-                WHEN bt.key_id IS NOT NULL THEN '1'
-                ELSE '0'
-            END AS isLike
-        FROM 
-            facility_type_table et
-        LEFT JOIN (
-            SELECT 
-                facility_type_id,
-                COUNT(*) AS cnt
-            FROM 
-                facility_item_table
-            WHERE 
-                status = 'available'
-            GROUP BY 
-                facility_type_id
-        ) avail_count ON et.id = avail_count.facility_type_id
-        LEFT JOIN facility_item_table fit ON et.id = fit.facility_type_id
-        LEFT JOIN bag_table bt ON et.id = bt.key_id
-    ) AS subquery
-    <where>
-        use_ny = 'Y'
-        <if test="isOnlyAvailable != null and isOnlyAvailable">
-            AND avaliable_facility_cnt > 0
-        </if>
-        <if test="search_text != null and search_text != ''">
-            AND name LIKE CONCAT('%', #{search_text}, '%')
-        </if>
-        <if test="type != null and type != ''">
-            AND type LIKE CONCAT('%', #{type}, '%')
-        </if>
-    </where>
-    ORDER BY reg_date DESC
-    <if test="limit_cnt != null and limit_cnt != 0">
-        LIMIT #{limit_cnt} OFFSET #{startNumber}
-    </if>
-</select>
+	<select id="facility_list" resultType="pictVO">
+	    SELECT * FROM (
+	        SELECT 
+	            et.idx,
+	            et.id,
+	            et.type,
+	            et.name,
+	            et.description,
+	            et.image_url,
+	            et.bujajae,
+	            date_format(et.reg_date, '%Y-%m-%d') as reg_date,
+	            et.use_ny,
+	            COALESCE(avail_count.cnt, 0) AS avaliable_facility_cnt,
+	            COALESCE(fit.status, 'available') as status,
+	            CASE 
+	                WHEN (bt.key_id IS NOT NULL AND bt.user_id = #{user_id}) THEN '1'
+	                ELSE '0'
+	            END AS isLike
+	        FROM 
+	            facility_type_table et
+	        LEFT JOIN (
+	            SELECT 
+	                facility_type_id,
+	                COUNT(*) AS cnt
+	            FROM 
+	                facility_item_table
+	            WHERE 
+	                status = 'available'
+	            GROUP BY 
+	                facility_type_id
+	        ) avail_count ON et.id = avail_count.facility_type_id
+	        LEFT JOIN facility_item_table fit ON et.id = fit.facility_type_id
+	        LEFT JOIN bag_table bt ON et.id = bt.key_id 
+	            <if test="user_id != null and user_id != ''">
+	                AND bt.user_id = #{user_id}
+	            </if>
+	    ) AS subquery
+	    <where>
+	        use_ny = 'Y'
+	        <if test="isOnlyAvailable != null and isOnlyAvailable">
+	            AND avaliable_facility_cnt > 0
+	        </if>
+	        <if test="search_text != null and search_text != ''">
+	            AND name LIKE CONCAT('%', #{search_text}, '%')
+	        </if>
+	        <if test="type != null and type != ''">
+	            AND type LIKE CONCAT('%', #{type}, '%')
+	        </if>
+	    </where>
+	    ORDER BY reg_date DESC
+	    <if test="limit_cnt != null and limit_cnt != 0">
+	        LIMIT #{limit_cnt} OFFSET #{startNumber}
+	    </if>
+	</select>
 
 	<select id="facility_list_total_cnt" resultType="int">
 			select count(*) as totalCnt from facility_type_table where use_ny = "Y"
