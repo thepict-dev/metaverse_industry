@@ -84,25 +84,24 @@
 												value='${equipment.id}' />
 										</form>
 									</div>
-									<c:if test="${pictVO.image_url != null && pictVO.image_url != ''}">
-										<div class="detailCard detailSub">
-											<p class="inputCaption">라벨</p>
-											<div class="detailCardInner detailSub">
-												<div class="detailCardText">
-													<span class="detailCate">${equipment.category}</span>
-													<p>${equipment.name}</p>
-													<span class="detailDate">${pictVO.reg_date}</span>
-												</div>
-												<div class="detailCardImg">
-													<img src="${pictVO.image_url}" alt="장비이미지">
-												</div>
+									<div class="detailCard detailSub">
+										<p class="inputCaption">라벨</p>
+										<div class="detailCardInner detailSub">
+											<div class="detailCardText">
+												<span class="detailCate">${equipment.category}</span>
+												<p>${equipment.name}</p>
+												<span class="detailDate">${pictVO.reg_date}</span>
+												<span class="detailDate">${pictVO.reg_date}</span>
 											</div>
-											<div class="buttons">
-												<a href="" class="smButton"
-													style="margin-top: 8px; padding: 0 8px;">다운로드</a>
+											<div class="detailCardImg">
+												<img src="${pictVO.image_url}" alt="장비이미지">
 											</div>
 										</div>
-									</c:if>
+										<div class="buttons">
+											<a href="" class="smButton"
+												style="margin-top: 8px; padding: 0 8px;">다운로드</a>
+										</div>
+									</div>
 								</div>
 							</div>
 							<script>

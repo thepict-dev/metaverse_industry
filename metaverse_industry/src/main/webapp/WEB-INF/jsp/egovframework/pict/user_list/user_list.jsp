@@ -9,13 +9,13 @@
 					<!DOCTYPE html>
 					<html lang="ko">
 					<c:import url="../main/head.jsp">
-						<c:param name="pageTitle" value="장비 리스트" />
+						<c:param name="pageTitle" value="사용자" />
 					</c:import>
 
 					<%@include file="../main/lnb.jsp" %>
 						<c:import url="../main/header.jsp">
-							<c:param name="title" value="장비 관리" />
-							<c:param name="subtitle" value="장비 리스트" />
+							<c:param name="title" value="사용자" />
+							<c:param name="subtitle" value="사용자 리스트" />
 						</c:import>
 						<div class="contentsContainer">
 							<div class="listContainer">
@@ -60,9 +60,7 @@
 										</ul>
 
 										<div class="listButton">
-											<a href="/equipment/equipment_register.do"><img src="/img/admin/add.png"
-													alt="등록버튼">등록</a>
-											<a href="/equipment/equipment_register.do"><img src="/img/admin/delete.png"
+											<a href="#lnk"><img src="/img/admin/delete.png"
 													alt="삭제버튼">삭제</a>
 										</div>
 

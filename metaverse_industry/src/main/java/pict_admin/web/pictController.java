@@ -896,7 +896,13 @@ public class pictController {
 		return "redirect:/pict_login.do";
 
 	}
-
+	// 사용자 리스트
+	@RequestMapping(value = "/user_list/user_list.do")
+	public String user_lists(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request)
+			throws Exception {
+		return "pict/user_list/user_list";
+	}
+	
 	// 공지사항
 	@RequestMapping(value = "/board/board_list.do")
 	public String board_list(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request)
@@ -936,6 +942,45 @@ public class pictController {
 		return "pict/board/board_register";
 	}
 
+	// 사업공고
+	@RequestMapping(value = "/biz_post/biz_list.do")
+	public String biz_list(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request)
+			throws Exception {
+		String session = (String) request.getSession().getAttribute("id");
+		if (session == null || session == "null") {
+			return "redirect:/pict_login.do";
+		}
+
+		List<?> board_list = pictService.board_list(pictVO);
+		model.addAttribute("resultList", board_list);
+		model.addAttribute("size", board_list.size());
+		model.addAttribute("pictVO", pictVO);
+
+		return "pict/biz_post/biz_list";
+	}
+
+	@RequestMapping(value = "/biz_post/biz_register.do")
+	public String biz_register(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request)
+			throws Exception {
+		String session = (String) request.getSession().getAttribute("id");
+		if (session == null || session == "null") {
+			return "redirect:/pict_login.do";
+		}
+		pictVO.setUser_id(session);
+		System.out.println(pictVO.getUser_id());
+		if (pictVO.getIdx() != 0) {
+			// 수정
+			pictVO = pictService.board_list_one(pictVO);
+			pictVO.setSaveType("update");
+
+		} else {
+			pictVO.setSaveType("insert");
+		}
+
+		model.addAttribute("pictVO", pictVO);
+		return "pict/biz_post/biz_register";
+	}
+	
 	@RequestMapping(value = "/board/board_save.do", method = RequestMethod.POST)
 	public String board_save(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
 			MultipartHttpServletRequest request,

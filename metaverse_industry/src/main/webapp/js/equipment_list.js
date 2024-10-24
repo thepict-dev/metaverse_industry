@@ -224,3 +224,17 @@ $(".deleteEquipments").click(function () {
 		})
 	}
 })
+
+// 라벨열기
+$(document).on('click', '.label a', function(e) {
+    e.preventDefault();
+    $('.datailCardWrapper').addClass('active');
+});
+
+// 라벨 닫기
+$(document).on('click', function(e) {
+    if (!$(e.target).closest('.datailCardWrapper').length && 
+        !$(e.target).closest('.label a').length) {
+        $('.datailCardWrapper').removeClass('active');
+    }
+});
