@@ -59,7 +59,7 @@
 										<a href="" class="smButton"><img src="/img/admin/excel.png" alt="">엑셀 다운로드</a>
 									</div>
 									<div class="ListWrpper">
-										<ul class="listHead setHead">
+										<ul class="listHead setList">
 											<!-- <li>선택</li> -->
 											<li>순서</li>
 											<li>대여 상태</li>
@@ -72,7 +72,7 @@
 											<li>대여형태</li>
 											<!-- <li>삭제</li> -->
 										</ul>
-										<ul class="listBody setHead">
+										<ul class="listBody setList">
 											<c:forEach var="resultList" items="${resultList}" varStatus="status">
 												<li>
 													<!-- <div class="checkBox">
