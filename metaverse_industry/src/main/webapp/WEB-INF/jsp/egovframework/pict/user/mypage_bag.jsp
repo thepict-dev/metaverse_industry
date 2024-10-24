@@ -22,6 +22,10 @@
     </ul>
     <div class="tabInner loginWrapper active">
         <form class="myBagContainer">
+	    <ul class="tabNav sub">
+	        <li class="active"><a href="">장비</a></li>
+	        <li><a href="">시설</a></li>
+	    </ul>
             <ul class="rentalItemList my">
                 <li>
                     <input type="checkbox" name="equip" id="equip_1">

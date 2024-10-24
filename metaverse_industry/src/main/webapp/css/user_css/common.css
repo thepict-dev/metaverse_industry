@@ -199,7 +199,7 @@ textarea {
     width: 100%;
 }
 
-.fullButtonContainer a {
+.fullButtonContainer a, .fullButtonContainer button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -214,21 +214,21 @@ textarea {
     /* background-color: var(--navy-color); */
 }
 
-.fullButtonContainer a.bl {
+.fullButtonContainer a.bl, .fullButtonContainer button.bl {
     color: #FFF;
     background-color: var(--navy-color);
 }
 
-.fullButtonContainer a.wt {
+.fullButtonContainer a.wt, .fullButtonContainer button.wt {
     border: 1px solid var(--grey-100);
     background: #FFF;
 }
 
-.fullButtonContainer a.bl:hover {
+.fullButtonContainer a.bl:hover, .fullButtonContainer button.bl:hover {
     background-color: #0f1240;
 }
 
-.fullButtonContainer a.wt:hover {
+.fullButtonContainer a.wt:hover, .fullButtonContainer button.wt:hover {
     background-color: var(--grey-50);
 }
 

@@ -35,7 +35,7 @@
 <div class="lnb">
     <nav>
         <div class="nav">
-            <div class="depth1 <c:if test="${equipment_list ne -1 || equipment_register ne -1 || equipment_cnt_register ne -1 || equipment_history ne -1 || facility_list ne -1 || facility_register ne -1 || facility_history_list ne -1 || manage_education ne -1 || manage_education_detail ne -1}">active</c:if>">
+            <div class="depth1 <c:if test="${equipment_list ne -1 || equipment_register ne -1 || equipment_cnt_register ne -1 || equipment_history ne -1 || manage_rental ne -1 || facility_list ne -1 || facility_register ne -1 || facility_history_list ne -1 || manage_education ne -1 || manage_education_detail ne -1}">active</c:if>">
                <span><img src="/img/admin/lnb_icons/lnb-category.png" alt=""></span>
                <a href="#lnk">자산 관리<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
            </div>
