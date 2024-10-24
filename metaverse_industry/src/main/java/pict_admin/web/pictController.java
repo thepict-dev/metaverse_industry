@@ -1505,7 +1505,7 @@ public class pictController {
 	
 
 	// 시설물 대여 신청관리
-	@RequestMapping(value = "/facility/history_list.do")
+	@RequestMapping(value = "/facility/facility_history_list.do")
 	public String facility_history_list(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
 			HttpServletRequest request) throws Exception {
 		String session = (String) request.getSession().getAttribute("id");
@@ -1555,11 +1555,11 @@ public class pictController {
 		model.addAttribute("size", history_list.size());
 		model.addAttribute("pictVO", pictVO);
 		model.addAttribute("search_text", pictVO.getSearch_text());
-		return "pict/facility/history_list";
+		return "pict/facility/facility_history_list";
 	}
 
 	// 시설물 대여신청 상세보기
-	@RequestMapping(value = "/facility/history_detail.do")
+	@RequestMapping(value = "/facility/facility_history_detail.do")
 	public String facility_history_detail(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
 			HttpServletRequest request) throws Exception {
 		String session = (String) request.getSession().getAttribute("id");
@@ -1570,13 +1570,13 @@ public class pictController {
 			return "redirect:/facility/history_list.do";
 		}
 		Integer idx = pictVO.getIdx();
-		Map<String, Object> history_detail = pictService.get_request_detail(idx);
+		Map<String, Object> history_detail = pictService.get_facility_request_detail(idx);
 
 		System.out.println("get history_detail @@@@@@@@@@@@" + history_detail);
 		System.out.println("get status@@@@@@@@@" + pictVO.getStatus());
 		model.addAttribute("history_detail", history_detail);
 		model.addAttribute("pictVO", pictVO);
-		return "pict/facility/history_detail";
+		return "pict/facility/facility_history_detail";
 	}
 
 	// 장비 대여/반납 관리
@@ -1650,7 +1650,43 @@ public class pictController {
 		model.addAttribute("retType", ":location");
 		model.addAttribute("retUrl", "/history/history_list.do");
 		return "pict/main/message";
-		
+	}
+	
+	//관리자 시설대여 관리대장 상태 업데이트 (이메일 발송 추가해야 함)
+	@RequestMapping(value = "/facility/update_request.do", method = RequestMethod.POST)
+	public String update_facility_request(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
+			HttpServletRequest request) throws Exception {
+		String sessions = (String) request.getSession().getAttribute("id");
+		if (sessions == null || sessions == "null") {
+			return "redirect:/pict_login.do";
+		}
+
+		if (pictVO.getIdx() == 0) {
+			model.addAttribute("message", "서버와 통신 중 에러가 발생했습니다.");
+			model.addAttribute("retType", ":location");
+			model.addAttribute("retUrl", "/facility/facility_history_list.do");
+			return "pict/main/message";
+		}
+
+		if (pictVO.getRequest_status() == null || pictVO.getRequest_status() == "") {
+			model.addAttribute("message", "서버와 통신 중 에러가 발생했습니다.");
+			model.addAttribute("retType", ":location");
+			model.addAttribute("retUrl", "/history/facility_history_list.do");
+			return "pict/main/message";
+		}
+
+		if (pictVO.getReject_msg() == null) {
+			pictVO.setReject_msg("");
+		}
+
+		System.out.println("::::::::::::::::::::::::::::::::::::::::::" + pictVO.getRequest_status());
+		System.out.println("::::::::::::::::::::::::::::::::::::::::::" + pictVO.getIdx());
+		System.out.println("::::::::::::::::::::::::::::::::::::::::::" + pictVO.getReject_msg());
+		pictService.update_facility_request_status(pictVO);
+		model.addAttribute("message", "정상적으로 수정되었습니다.");
+		model.addAttribute("retType", ":location");
+		model.addAttribute("retUrl", "/facility/facility_history_list.do");
+		return "pict/main/message";
 	}
 
 

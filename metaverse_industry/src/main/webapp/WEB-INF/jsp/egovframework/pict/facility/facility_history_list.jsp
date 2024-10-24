@@ -26,6 +26,12 @@
 											<div class="inputBox listSearch">
 												<select name="status" id="status" class="lgThinInput">
 													<option value="">대여 상태 전체</option>
+													<option value="pendding"">승인대기</option>
+													<option value="approved">승인</option>
+													<option value="rejected">서류보안요청</option>
+													<option value="retry">재신청</option>
+													<option value="refusal">거절</option>
+													<option value="cancelled">취소</option>
 												</select>
 											</div>
 											<div class="inputBox listSearch">
@@ -81,12 +87,6 @@
 															<c:when test="${resultList.request_status eq 'refusal'}">
 																거절
 															</c:when>
-															<c:when test="${resultList.request_status eq 'rental'}">
-																대여중
-															</c:when>
-															<c:when test="${resultList.request_status eq 'returned'}">
-																반납완료
-															</c:when>
 														</c:choose>
 														<!-- <a href="javascript:void(0);" onclick="board_mod('${resultList.idx}');" class="link">
 					                		
@@ -96,8 +96,19 @@
 													<p>${resultList.rental_start_date}</p>
 													<p>${resultList.rental_end_date}</p>
 													<p>${resultList.user_name}</p>
-													<p class="title"><a href="/facility/facility_history_detail.do">${resultList.name}</a></p>
-													<p>형태</p>
+													<p class="title">
+														<a href="/facility/facility_history_detail.do?idx=${resultList.idx}">${resultList.name}</a>
+													</p>
+													<p>
+														<c:choose>
+															<c:when test="${resultList.type eq '1'}">
+																개인
+															</c:when>
+															<c:when test="${resultList.type eq '2'}">
+																기업
+															</c:when>
+														</c:choose>
+													</p>
 					                				<p class="delete"><a href="#lnk" onclick="board_delete('${resultList.idx}')"></a></p>
 												</li>
 											</c:forEach>
@@ -155,7 +166,7 @@
 								}
 							} */
 							function search() {
-								$("#search_fm").attr("action", "/history/history_list.do");
+								$("#search_fm").attr("action", "/facility/facility_history_list.do");
 								$("#search_fm").submit();
 							}
 						</script>

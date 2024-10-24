@@ -58,75 +58,97 @@
 											<div class="inputsContainer">
 												<div class="inputBox">
 													<p class="inputCaption">대여형태*</p>
-													<select name="history_detail" id="history_detail" class="lgThinInput" disabled>
-														<option value="1">개인</option>
-														<option value="2">기업</option>
-													</select>
+													<select name="history_detail" id="history_detail" class="lgThinInput"
+													disabled>
+													<option value="1" <c:if test="${history_detail.type eq '1'}">seleted
+														</c:if>>개인</option>
+													<option value="2" <c:if test="${history_detail.type eq '2'}">seleted
+														</c:if>>기업</option>
+												</select>
 												</div>
 											</div>
 											<div class="inputsContainer">
 												<div class="inputBox">
 													<p class="inputCaption">시설명*</p>
-													<span class="bindingText disable"></span>
+													<span class="bindingText disable">${history_detail.name}</span>
 												</div>
 											</div>
 											<div class="inputsContainer">
 												<div class="inputBox">
 													<p class="inputCaption">대여자명*</p>
-													<span class="bindingText disable"></span>
+													<span class="bindingText disable">${history_detail.user_name}</span>
 												</div>
 												<div class="inputBox">
 													<p class="inputCaption">대여일</p>
-													<span class="bindingText disable"></span>
+													<span class="bindingText disable" value="${history_detail.rental_start_date}"></span>
 												</div>
-											</div>
-											<div class="inputsContainer">
 												<div class="inputBox">
-													<p class="inputCaption">시설사용계획</p>
-													<span class="bindingText plan"></span>
+													<p class="inputCaption">반납일</p>
+													<input type="date" id="reg_date" name="reg_date" class="lgThinInput"
+														disabled value="${history_detail.rental_end_date}">
 												</div>
 											</div>
+											<c:if test="${history_detail.type eq '1'}">
+												<div class="inputsContainer">
+													<div class="inputBox">
+														<p class="inputCaption">시설사용계획</p>
+														<span
+															class="bindingText plan">${history_detail.facility_plan}</span>
+													</div>
+												</div>
+											</c:if>
 											<div class="inputsContainer">
 												<div class="inputBox">
 													<p class="inputCaption">첨부파일</p>
 						                            <div class="fileList binding">
-						                                <p></p>
+						                                <p>${history_detail.file_path}</p>
 						                            </div>
 												</div>
 											</div>
 										</div>
 									</div>
 									<div class="listWrapper">
-										<p class="regTitle">사용자 정보</p>
 										<div class="listInner set">
 											<div class="inputsContainer">
 												<div class="inputBox">
 													<p class="inputCaption">대여상태*</p>
-													<select name="history_detail" id="history_detail" class="lgThinInput">
-													    <option value="">선택하세요</option>
-													    <option value="pendding">대여신청</option>
-													    <option value="approved">승인</option>
-													    <option value="rejected">서류보완요청</option>
-													    <option value="retry">재신청</option>
-													    <option value="cancelled">취소</option>
-													    <option value="refusal">거절</option>
-													    <option value="rental">대여중</option>
-													    <option value="returned">반납완료</option>
-													</select>
+													<c:choose>
+															<c:when test="${history_detail.request_status eq 'pendding' or history_detail.request_status eq 'retry'}">
+																<select name="request_status" id="request_status" class="lgThinInput"
+																	value="${pictVO.request_status}">
+																	<option value="">선택하세요</option>
+																	<option value="approved">승인</option>
+																	<option value="rejected">서류보완요청</option>
+																	<option value="refusal">거절</option>
+																</select>
+															</c:when>
+															<c:when test="${history_detail.request_status ne 'pendding' and history_detail.request_status ne 'retry'}">
+																<span class="bindingText disable">
+																	<c:choose>
+																		<c:when test="${history_detail.request_status eq 'approved'}">
+																			승인
+																		</c:when>
+																		<c:when test="${history_detail.request_status eq 'rejected'}">
+																			승인보완요청
+																		</c:when>
+																		<c:when test="${history_detail.request_status eq 'cancelled'}">
+																			신청취소
+																		</c:when>
+																		<c:when test="${history_detail.request_status eq 'refusal'}">
+																			거절
+																		</c:when>
+																	</c:choose>
+																</span>
+															</c:when>
+													</c:choose>
+													
 												</div>
 											</div>
-											<div class="inputsContainer">
+											<div class="inputsContainer reason" style="display: none;">
 												<div class="inputBox" style="width:100%">
-													<p class="inputCaption">서류보완 요청 사유</p>
-													<textarea name="" id="" cols="50" rows="10"
-														class="txt" style="width:100%;"></textarea>
-												</div>
-											</div>
-											<div class="inputsContainer">
-												<div class="inputBox" style="width:100%">
-													<p class="inputCaption">승인거절 사유</p>
-													<textarea name="" id="" cols="50" rows="10"
-														class="txt" style="width:100%;"></textarea>
+													<p class="inputCaption reason_title">서류보완 요청 사유</p>
+													<textarea name="reject_msg" id="reject_msg" cols="50" rows="10"
+														class="txt" style="width:100%;">${pictVO.reject_msg}</textarea>
 												</div>
 											</div>
 										</div>
@@ -138,12 +160,17 @@
 							                </div>
 										</div>
 									</div>
+									<form class="hidden_form" action="/facility/update_request.do" method="post">
+										<input type="hidden" name="idx" value="${history_detail.idx}">
+										<input type="hidden" name="request_status" class="hidden_request_status">
+										<input type="hidden" name="reject_msg" class="hidden_reject_msg">
+									</form>
 									<div class="listWrapper">
 										<div class="listInner set">
 											<div class="btnContainer">
-												<a href="/history/history_list.do" class="normalButton white">목록으로</a>
-												<a href="#lnk" onclick="button1_click()" class="basicButton blue"><img
-														src="/img/admin/add2.png" alt="완료">완료</a>
+												<a href="/facility/facility_history_list.do" class="normalButton white">목록으로</a>
+												<button class="basicButton blue update_status"><img
+													src="/img/admin/add2.png" alt="완료">완료</button>
 											</div>
 										</div>
 									</div>
@@ -217,33 +244,38 @@
 									</div>
 								</div>
 								 -->
-							<div class="pagination">
-								<c:if test="${pictVO.pageNumber ne 1}">
-									<li><a
-											href="/equipment/equipment_list.do?search_text=${param.search_text}&pageNumber=${pictVO.pageNumber - 10 < 1 ? 1 : pictVO.pageNumber - 10}"><img
-												src="/img/admin/prev.png" alt=""></a></li>
-								</c:if>
-
-								<c:forEach var="i" begin="${pictVO.startPage}" end="${pictVO.endPage}">
-									<c:if test="${i eq pictVO.pageNumber}">
-										<li class="active"><a
-												href="/history/history_list.do?search_text=${param.search_text}&pageNumber=${i}">${i}</a>
-										</li>
-									</c:if>
-									<c:if test="${i ne pictVO.pageNumber}">
-										<li><a
-												href="/history/history_list.do?search_text=${param.search_text}&pageNumber=${i}">${i}</a>
-										</li>
-									</c:if>
-								</c:forEach>
-
-								<c:if test="${pictVO.lastPage ne pictVO.pageNumber}">
-									<li><a
-											href="/history/history_list.do?search_text=${param.search_text}&pageNumber=${pictVO.pageNumber + 10 > pictVO.lastPage ?  pictVO.lastPage : pictVO.pageNumber + 10}"><img
-												src="/img/admin/next.png" alt=""></a></li>
-								</c:if>
-							</div>
 						</div>
+						<script>
+
+							$("#request_status").change(function () {
+								$("#reject_msg").val("");
+								if ($("#request_status").val() === "rejected" || $("#request_status").val() === "refusal") {
+									if ($("#request_status").val() === "rejected") {
+										$(".reason_title").text("서류보완 요청 사유");
+									} else if ($("#request_status").val() === "refusal") {
+										$(".reason_title").text("거절 사유");
+									}
+									$(".reason").show();
+								} else {
+									$(".reason").hide();
+
+								}
+							})
+
+							$(".update_status").click(function () {
+								if ($("#request_status").val() === "") {
+									alert("대여상태를 선택해주세요.");
+									return;
+								} else {
+									$(".hidden_request_status").val($("#request_status").val());
+									console.log($(".hidden_request_status").val());
+									$(".hidden_reject_msg").val($("#reject_msg").val());
+									console.log($(".hidden_reject_msg").val());
+									$(".hidden_form").submit();
+								}
+								console.log("완료");
+							})
+						</script>
 						<script src="../../../../../js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 						<script src="../../../../../js/scripts.js"></script>
 						<script src="../../../../../js/Chart.min.js" crossorigin="anonymous"></script>

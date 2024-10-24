@@ -150,13 +150,35 @@
 										<div class="inputsContainer">
 											<div class="inputBox">
 												<p class="inputCaption">대여상태*</p>
-												<select name="request_status" id="request_status" class="lgThinInput"
-													value="${pictVO.request_status}">
-													<option value="">선택하세요</option>
-													<option value="approved">승인</option>
-													<option value="rejected">서류보완요청</option>
-													<option value="refusal">거절</option>
-												</select>
+												<c:choose>
+													<c:when test="${history_detail.request_status eq 'pendding' or history_detail.request_status eq 'retry'}">
+														<select name="request_status" id="request_status" class="lgThinInput"
+															value="${pictVO.request_status}">
+															<option value="">선택하세요</option>
+															<option value="approved">승인</option>
+															<option value="rejected">서류보완요청</option>
+															<option value="refusal">거절</option>
+														</select>
+													</c:when>
+													<c:when test="${history_detail.request_status ne 'pendding' and history_detail.request_status ne 'retry'}">
+														<span class="bindingText disable">
+															<c:choose>
+																<c:when test="${history_detail.request_status eq 'approved'}">
+																	승인
+																</c:when>
+																<c:when test="${history_detail.request_status eq 'rejected'}">
+																	승인보완요청
+																</c:when>
+																<c:when test="${history_detail.request_status eq 'cancelled'}">
+																	신청취소
+																</c:when>
+																<c:when test="${history_detail.request_status eq 'refusal'}">
+																	거절
+																</c:when>
+															</c:choose>
+														</span>
+													</c:when>
+											</c:choose>
 											</div>
 										</div>
 										<div class="inputsContainer reason" style="display: none;">
