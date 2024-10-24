@@ -130,6 +130,18 @@
     letter-spacing: -1.4px;
 }
 
+.tabNav.sub li span,
+.tabNav.sub li a {
+    display: block;
+    padding: 20px 24px;
+    color: var(--grey-500);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 140%;
+    /* 39.2px */
+    letter-spacing: -1.4px;
+}
+
 .tabNav li:hover span,
 .tabNav li:hover a {
     color: #000;
@@ -172,6 +184,15 @@
         letter-spacing: -1px;
         white-space: nowrap;
     }
+	.tabNav.sub {
+	    justify-content: center;
+	}
+	.tabNav.sub li span,
+	.tabNav.sub li a {
+        padding: 20px 16px;
+	    font-size: 16px;
+	    letter-spacing: -1px;
+	}
 }
 
 /* notice */
