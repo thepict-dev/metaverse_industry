@@ -236,6 +236,12 @@ textarea {
     width: 206px;
     font-weight: 500;
 }
+
+.fullButtonContainer button.go-rental {
+    width: 206px;
+    font-weight: 500;
+    cursor : ponter;
+}
 .fullButtonContainer a.gd.normal {
     width: 206px;
     font-weight: 500;

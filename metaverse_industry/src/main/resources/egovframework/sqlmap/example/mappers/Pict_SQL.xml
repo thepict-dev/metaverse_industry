@@ -741,9 +741,52 @@
 			  )
 	</insert>
 	
+
 	<delete id="delete_bag" parameterType="pictVO">
 		delete from bag_table where user_id = #{user_id} and key_id = #{key_id}
 	</delete>
+	
+	
+	<select id="getBagList" resultType="map">
+	    SELECT 
+	        bt.idx,
+	        bt.user_id,
+	        bt.key_id,
+	        bt.type,
+	        CASE 
+	            WHEN bt.type = 'equipment' THEN et.name
+	            ELSE ft.name
+	        END AS name,
+	        CASE 
+	            WHEN bt.type = 'equipment' THEN et.type
+	            ELSE ft.type
+	        END AS category,
+	        CASE 
+	            WHEN bt.type = 'equipment' THEN et.id
+	            ELSE ft.id
+	        END AS id,
+	        CASE 
+	            WHEN bt.type = 'equipment' THEN et.description
+	            ELSE ft.description
+	        END AS description,
+	        CASE 
+	            WHEN bt.type = 'equipment' THEN et.image_url
+	            ELSE ft.image_url
+	        END AS image_url
+	    FROM 
+	        bag_table bt
+	    LEFT JOIN equipment_type_table et ON (bt.type = 'equipment' AND bt.key_id = et.id)
+	    LEFT JOIN facility_type_table ft ON (bt.type = 'facility' AND bt.key_id = ft.id)
+	    <where>
+	        bt.user_id = #{user_id}
+	        <if test="type != null and type != ''">
+	            AND bt.type = #{type}
+	        </if>
+	    </where>
+	    ORDER BY bt.idx DESC
+	</select>
+	
+	
 	
 	
 	

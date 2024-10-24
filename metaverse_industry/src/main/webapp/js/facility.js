@@ -225,7 +225,6 @@ document.querySelector(".rentalSubmit").addEventListener("click", ()=>{
 
 
 $('.add_bag').click(function () {
-	console.log("장바구니 추가");
 	const id = $(this).data('id');
 	const tag = $(this)
 	console.log(id);

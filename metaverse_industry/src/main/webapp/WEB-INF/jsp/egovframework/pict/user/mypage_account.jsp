@@ -19,7 +19,7 @@
                                     <li class="active"><a href="/mypage_account.do">계정 관리</a></li>
                                     <li><a href="/mypage_equip.do">장비 예약정보</a></li>
                                     <li><a href="/mypage_facil.do">시설 예약정보</a></li>
-                                    <li><a href="/mypage_bag.do">장바구니</a></li>
+                                    <li><a href="/mypage_bag.do?type=equipment">장바구니</a></li>
                                 </ul>
                                 <div class="tabInner loginWrapper active">
                                     <form action="">

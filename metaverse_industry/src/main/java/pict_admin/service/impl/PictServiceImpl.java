@@ -299,10 +299,13 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 	
 	@Override
 	public void delete_bag(PictVO pictVO) throws Exception {
-		pictMapper.delete_bag(pictVO);
-		
+		pictMapper.delete_bag(pictVO);	
 	}
-
+	
+	@Override
+	public List<Map<String, Object>> getBagList(PictVO pictVO) throws Exception {
+		return pictMapper.getBagList(pictVO);
+	}
 
 	@Override
 	public PictVO pemtour_select(PictVO pictVO) throws Exception {

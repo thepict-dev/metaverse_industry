@@ -247,7 +247,7 @@ public class pictController {
 		}
 
 		List<Map<String, Object>> equipmentList = new ArrayList<>();
-
+		System.out.println("ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ"+ equipmentList);
 		for (int i = 0;; i++) {
 			String id = allParams.get("equipment[" + i + "][id]");
 			String count = allParams.get("equipment[" + i + "][count]");
@@ -652,7 +652,17 @@ public class pictController {
 	@RequestMapping(value = "/mypage_bag.do")
 	public String mypage_bag(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model,
 			HttpSession session, RedirectAttributes rttr) throws Exception {
+		String sessions = (String) request.getSession().getAttribute("id");
+		if (sessions == null || sessions == "null") {
+			return "redirect:/user_login.do";
+		}
+		
+		pictVO.setUser_id(sessions);
+	 	List<Map<String, Object>> bag_list = pictService.getBagList(pictVO);
+		System.out.println("bag_list @@@@@@@@@@@@@@ " + bag_list);
 
+		model.addAttribute("request_list", bag_list);
+		model.addAttribute("pictVO", pictVO);
 		return "pict/user/mypage_bag";
 	}
 
