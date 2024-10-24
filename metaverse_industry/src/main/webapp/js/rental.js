@@ -527,20 +527,31 @@ bookingBtn.addEventListener("click", () => {
             </ul>
             `
         }
-        document.querySelector(".swiper").appendChild(slide);
+        document.querySelector(".swiper-wrapper").appendChild(slide);
     })
-    // 컨펌 스와이퍼
-    const swiper = new Swiper('.swiper', {
-        speed: 2000,
+    
+    // 모달 표시
+    $('#confirmModal').addClass('active');
+    $('body').addClass("no-scroll");
+
+    // Swiper 초기화
+    if (window.confirmSwiper) {
+        window.confirmSwiper.destroy(true, true);
+    }
+
+    window.confirmSwiper = new Swiper('.swiper', {
+        speed: 500,
         pagination: {
             el: ".swiper-pagination",
             clickable: true,
+            type: 'bullets',
         },
+        slidesPerView: 1,
+        spaceBetween: 30,
+        centeredSlides: true,
+        observer: true,
+        observeParents: true
     });
-    $('#confirmModal').addClass('active');
-
-    $('body').addClass("no-scroll");
-
 })
 
 //확인 모달 닫기

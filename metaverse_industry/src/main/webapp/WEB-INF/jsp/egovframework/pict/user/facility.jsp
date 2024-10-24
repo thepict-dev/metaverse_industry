@@ -12,11 +12,11 @@
 <meta charset="ko">
 <%@ include file="./include/head.jsp" %>
 <style>
-								.add_bag.active {
-								    border: 2px solid #03B635;
-   									background: rgba(3, 182, 53, 0.10);
-								}
-							</style>
+.add_bag.active {
+    border: 2px solid #03B635;
+	background: rgba(3, 182, 53, 0.10);
+}
+</style>
 <body>
 	<%@ include file="./include/header_sub.jsp" %>
 	
@@ -26,7 +26,7 @@
             <p>누구나 이용할 수 있는<br>시설 대여 서비스입니다</p>
         </div>
     </div>
-    <div class="subContents rental">
+    <div class="subContents rental facil">
         <div class="rentalCountContainer">
             <p class="rentalListTitle"><button type="button" class="mb"><img src="/img/user_img/list-back.png" alt=""></button>예약 목록</p>
             <div class="rentalSum">
@@ -51,9 +51,9 @@
                 <button class="bl rentalSubmit">예약하기</button>
             </div>
         </div>
-        <div class="rentalListContainer">
+        <div class="rentalListContainer facil">
             <div class="tabInner active">
-                <ul class="rentalItemList">
+                <ul class="rentalItemList fa">
 			    <c:forEach var="item" items="${resultList}" varStatus="status">
 			        <li data-id="${item.id}" data-cnt="${item.avaliable_equipment_cnt}">
 			            <input type="checkbox" name="equip" id="equip_${item.idx}">
@@ -74,12 +74,6 @@
 			    </c:forEach>
 			</ul>
             </div>
-            <div class="tabInner"></div>
-            <div class="tabInner"></div>
-            <div class="tabInner"></div>
-            <div class="tabInner"></div>
-            <div class="tabInner"></div>
-            <div class="tabInner"></div>
         </div>
     </div>
 	<%@ include file="./include/footer.jsp" %>
