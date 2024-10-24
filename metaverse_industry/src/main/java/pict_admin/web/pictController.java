@@ -1523,7 +1523,7 @@ public class pictController {
 		}
 		int startNum = (pageNum - 1) * limitNumber;
 		pictVO.setStartNumber(startNum);
-		Integer totalCnt = pictService.equipment_list_total_cnt(pictVO);
+		Integer totalCnt = pictService.facility_list_total_cnt(pictVO);
 		int lastPageValue = (int) (Math.ceil(totalCnt * 1.0 / 10));
 		System.out.println("startNum @@@@@@@@@@@@@@@@@@ " + startNum);
 		System.out.println("totalCnt @@@@@@@@@@@@@@@@@@ " + totalCnt);
@@ -1548,7 +1548,7 @@ public class pictController {
 		
 		
 
-		List<?> history_list = pictService.get_request_list(pictVO);
+		List<?> history_list = pictService.get_facility_request_list(pictVO);
 		System.out.println("get history_list @@@@@@@@@@@@" + history_list);
 		System.out.println("get status@@@@@@@@@" + pictVO.getStatus());
 		model.addAttribute("resultList", history_list);
