@@ -139,6 +139,11 @@ public interface PictMapper {
 	void delete_bag(PictVO pictVO) throws Exception;
 	
 	List<Map<String, Object>> getBagList(PictVO pictVO) throws Exception;
+	
+	// 교육신청
+	void request_education(PictVO pictVO) throws Exception;
+	
+	
 
 	// 그 외
 	

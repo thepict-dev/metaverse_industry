@@ -787,6 +787,16 @@
 	</select>
 	
 	
+	<!-- 교육신청 -->
+	<insert id="request_education" parameterType="pictVO">
+		INSERT INTO education_table
+			(
+			 id, user_Id, team, address1, address2, tel, position, mobile, email, type, cnt, visit_date
+			)
+		VALUES (
+			 UUID(), #{user_id}, #{team}, #{address1}, #{address2}, #{tel}, #{position}, #{mobile}, #{email}, #{type}, #{totalCnt}, #{visit_date}
+			  ) 
+	</insert>
 	
 	
 	

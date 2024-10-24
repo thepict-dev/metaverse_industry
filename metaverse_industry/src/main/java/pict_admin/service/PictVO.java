@@ -271,6 +271,12 @@ public class PictVO extends PictDefaultVO {
     private transient List<Map<String, Object>> equipmentListObject;
     private String isLike;
     
+    // 교육신청서
+    private String team;
+    private String visit_date;
+    private String school;
+    private String grade;
+    
 	public String getDescription() {
 		return description;
 	}
@@ -1896,5 +1902,39 @@ public class PictVO extends PictDefaultVO {
 
 	public void setIsLike(String isLike) {
 		this.isLike = isLike;
+	}
+
+	public String getTeam() {
+		return team;
+	}
+
+	public void setTeam(String team) {
+		this.team = team;
+	}
+
+	public String getVisit_date() {
+		return visit_date;
+	}
+
+	public void setVisit_date(String visit_date) {
+		this.visit_date = visit_date;
+	}
+
+
+
+	public String getSchool() {
+		return school;
+	}
+
+	public void setSchool(String school) {
+		this.school = school;
+	}
+
+	public String getGrade() {
+		return grade;
+	}
+
+	public void setGrade(String grade) {
+		this.grade = grade;
 	}
 }

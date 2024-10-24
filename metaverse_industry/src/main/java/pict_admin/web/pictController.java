@@ -329,10 +329,58 @@ public class pictController {
 	@RequestMapping(value = "/education.do")
 	public String education(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model,
 			HttpSession session, RedirectAttributes rttr) throws Exception {
+        model.addAttribute("pictVO", pictVO);
 
 		return "pict/user/education";
 	}
 
+    @RequestMapping("/submit_education.do")
+    @ResponseBody
+    public HashMap<String, Object> submit_education(@ModelAttribute("searchVO") PictVO pictVO,
+            HttpServletRequest request, @RequestParam(required = false) MultipartFile file) throws Exception {
+        String sessions = (String) request.getSession().getAttribute("id");
+
+        System.out.println("ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ"+ sessions);
+        System.out.println("team @@@@@"+ pictVO.getTeam());
+        System.out.println("address1 @@@@@"+ pictVO.getAddress1());
+        System.out.println("address2 @@@@@"+ pictVO.getAddress2());
+        System.out.println("team @@@@@"+ pictVO.getTeam());
+        System.out.println("tel @@@@@"+ pictVO.getTel());
+        System.out.println("postion @@@@@"+ pictVO.getPosition());
+        System.out.println("mobile @@@@@"+ pictVO.getMobile());
+        System.out.println("email @@@@@"+ pictVO.getEmail());
+        System.out.println("type @@@@@"+ pictVO.getType());
+        System.out.println("totalCnt @@@@@"+ pictVO.getTotalCnt());
+        System.out.println("visit_date @@@@@"+ pictVO.getVisit_date());
+        System.out.println("school @@@@@"+ pictVO.getSchool());
+        System.out.println("grade @@@@@"+ pictVO.getGrade());
+        
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        pictVO.setUser_id(sessions);
+        
+        try {
+        	pictService.request_education(pictVO);
+        	map.put("msg", "ok");
+        }catch (Exception e) {
+        	map.put("msg", "fail");
+			e.printStackTrace();
+		}
+        return map;
+        // userVO = userService.isUserIdAvailable(userVO);
+        // userVO.getName();
+        // 중
+//      if (userVO != null) {
+//          map.put("rst", false);
+//          return map;
+//      }
+//      // 가입가
+//      else {
+//          map.put("rst", true);
+//          return map;
+//      }
+    }
+	
+	
 	// 공지사항
 	@RequestMapping(value = "/notice.do")
 	public String notice(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model,
@@ -1188,6 +1236,7 @@ public class pictController {
 			PictVO equipmentVO = new PictVO();
 			equipmentVO.setId(pictVO.getEquipment_type_id());
 			PictVO equipment = pictService.equipment_list_one(equipmentVO);
+			System.out.println("equipment" + equipment);
 			model.addAttribute("equipment", equipment);
 			model.addAttribute("pictVO", pictVO);
 			pictVO.setSaveType("update");

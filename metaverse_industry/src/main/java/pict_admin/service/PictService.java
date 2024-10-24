@@ -134,7 +134,10 @@ public interface PictService {
 	void delete_bag(PictVO pictVO) throws Exception;
 	
 	List<Map<String, Object>> getBagList(PictVO pictVO) throws Exception;
-
+	
+	
+	//교육 신청
+	void request_education(PictVO pictVO) throws Exception;
 	
 	// 그 외
 	PictVO pemtour_select(PictVO pictVO) throws Exception;

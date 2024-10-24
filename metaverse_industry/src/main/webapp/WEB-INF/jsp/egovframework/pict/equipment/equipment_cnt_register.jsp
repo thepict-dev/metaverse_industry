@@ -4,7 +4,8 @@
 			<%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %>
 				<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 					<script type="text/javascript" src="/js/HuskyEZCreator.js" charset="utf-8"></script>
-
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+					<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 					<!DOCTYPE html>
 					<html lang="ko">
 					<c:import url="../main/head.jsp">
@@ -84,24 +85,26 @@
 												value='${equipment.id}' />
 										</form>
 									</div>
-									<div class="detailCard detailSub">
-										<p class="inputCaption">라벨</p>
-										<div class="detailCardInner detailSub">
-											<div class="detailCardText">
-												<span class="detailCate">${equipment.category}</span>
-												<p>${equipment.name}</p>
-												<span class="detailDate">${pictVO.reg_date}</span>
-												<span class="detailDate">${pictVO.reg_date}</span>
+									<c:if test="${pictVO.saveType eq 'update'}">
+										<div class="detailCard detailSub">
+											<p class="inputCaption">라벨</p>
+											<div class="detailCardInner detailSub">
+												<div class="detailCardText">
+													<span class="detailCate">${equipment.category}</span>
+													<p>${equipment.name}</p>
+													<p class="detailDate">시리얼넘버 : ${pictVO.serial_number}</p>
+													<span class="detailDate">${pictVO.reg_date}</span>
+												</div>
+												<div class="detailCardImg" id="qr_img">
+													<%-- <img id="qr_img" src="${pictVO.image_url}" alt="장비이미지"> --%>
+												</div>
 											</div>
-											<div class="detailCardImg">
-												<img src="${pictVO.image_url}" alt="장비이미지">
+											<div class="buttons">
+												<button href="" class="smButton"
+													style="margin-top: 8px; padding: 0 8px;">다운로드</button>
 											</div>
 										</div>
-										<div class="buttons">
-											<a href="" class="smButton"
-												style="margin-top: 8px; padding: 0 8px;">다운로드</a>
-										</div>
-									</div>
+									</c:if>
 								</div>
 							</div>
 							<script>
@@ -123,12 +126,24 @@
 										$("#register").submit();
 									}
 								}
+								$( document ).ready(function() {
+								    var idx = '${pictVO.idx}'
+								    console.log(idx);
+								    var qrcode = new QRCode(document.getElementById("qr_img"), {text: idx});
+								    console.log(qrcode);
+								});
 								$('.toggle').change(function (e) {
 									console.log("toggle @@@@@@@@@@@", e.target.checked);
 									$('#status').val(e.target.checked ? 'available' : 'disabled');
 									console.log("changed status", $('#status').val());
 								})
+								
+								
+								
+								
 							</script>
+							<script src="/js/download_qr.js"></script>
+							
 					</body>
 
 					</html>

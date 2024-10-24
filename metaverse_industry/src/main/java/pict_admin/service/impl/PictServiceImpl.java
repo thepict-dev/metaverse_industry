@@ -306,6 +306,14 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 	public List<Map<String, Object>> getBagList(PictVO pictVO) throws Exception {
 		return pictMapper.getBagList(pictVO);
 	}
+	
+	
+	//교육신청
+	@Override
+	public void request_education(PictVO pictVO) throws Exception {
+		pictMapper.request_education(pictVO);
+	}
+	
 
 	@Override
 	public PictVO pemtour_select(PictVO pictVO) throws Exception {
