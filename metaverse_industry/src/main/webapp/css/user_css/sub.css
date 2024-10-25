@@ -1364,7 +1364,7 @@
     height: 24px;
 }
 
-.dateResultLists li>a {
+.dateResultLists li>button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1376,9 +1376,10 @@
     line-height: 170%;
     /* 23.8px */
     letter-spacing: -0.7px;
+    cursor: pointer;
 }
 
-.dateResultLists li>a:hover {
+.dateResultLists li>button:hover {
     background-color: var(--grey-50);
 }
 

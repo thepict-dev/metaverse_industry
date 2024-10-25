@@ -1794,6 +1794,18 @@ public class pictController {
 	}
 
 
+	// 교육신청
+	@RequestMapping(value = "/education/manage_education.do")
+	public String manage_education(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request) {
+
+		return "pict/education/manage_education";
+	}
+	// 교육신청 뷰
+	@RequestMapping(value = "/education/manage_education_detail.do")
+	public String manage_education_detail(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request) {
+
+		return "pict/education/manage_education_detail";
+	}
 	
 
 
