@@ -66,7 +66,7 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 	private EgovIdGnrService egovIdGnrService;
 
 
-
+	// 공지사항 관리
 	@Override
 	public List<?> board_list(PictVO pictVO) throws Exception {
 		
@@ -105,6 +105,48 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 	@Override
 	public void board_file_delete(PictVO pictVO) throws Exception {
 		pictMapper.board_file_delete(pictVO);
+		
+	}
+	
+	// 사업공고 관리
+	@Override
+	public List<?> biz_list(PictVO pictVO) throws Exception {
+		
+		return pictMapper.biz_list(pictVO);
+	}
+	@Override
+	public Integer biz_list_total_cnt(PictVO pictVO) throws Exception {
+		return pictMapper.biz_list_total_cnt(pictVO);
+	}
+	
+	@Override
+	public PictVO biz_list_one(PictVO pictVO) throws Exception {
+		return pictMapper.biz_list_one(pictVO);
+	}
+	
+	
+	@Override
+	public void biz_update(PictVO pictVO) throws Exception {
+		pictMapper.biz_update(pictVO);
+		
+	}
+
+	@Override
+	public void biz_insert(PictVO pictVO) throws Exception {
+		pictMapper.biz_insert(pictVO);
+	}
+	
+
+	
+	@Override
+	public void biz_delete(PictVO pictVO) throws Exception {
+		pictMapper.biz_delete(pictVO);
+		
+	}
+
+	@Override
+	public void biz_file_delete(PictVO pictVO) throws Exception {
+		pictMapper.biz_file_delete(pictVO);
 		
 	}
 	
@@ -313,7 +355,23 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 	public void request_education(PictVO pictVO) throws Exception {
 		pictMapper.request_education(pictVO);
 	}
+
+	@Override
+	public List<Map<String, Object>> get_education_list(PictVO pictVO) throws Exception {
+		return pictMapper.get_education_list(pictVO);
+	}
 	
+	@Override
+	public Map<String, Object> get_education_by_id(PictVO pictVO) throws Exception {
+		return pictMapper.get_education_by_id(pictVO);
+	}
+	
+	@Override
+	public void update_education(PictVO pictVO) throws Exception {
+		pictMapper.update_education(pictVO);
+	}
+	
+	// 그외
 
 	@Override
 	public PictVO pemtour_select(PictVO pictVO) throws Exception {

@@ -42,6 +42,7 @@ import pict_admin.service.PictVO;
  */
 @Mapper("pictMapper")
 public interface PictMapper {
+	// 공지사항
 	List<?> board_list(PictVO pictVO) throws Exception;
 	
 	Integer board_list_total_cnt(PictVO pictVO) throws Exception;
@@ -55,6 +56,22 @@ public interface PictMapper {
 	void board_delete(PictVO pictVO) throws Exception;
 	
 	void board_file_delete(PictVO pictVO) throws Exception;
+	
+	
+	// 사업 공고
+	List<?> biz_list(PictVO pictVO) throws Exception;
+	
+	Integer biz_list_total_cnt(PictVO pictVO) throws Exception;
+	
+	PictVO biz_list_one(PictVO pictVO) throws Exception;
+	
+	void biz_update(PictVO pictVO) throws Exception;
+
+	void biz_insert(PictVO pictVO) throws Exception;
+
+	void biz_delete(PictVO pictVO) throws Exception;
+	
+	void biz_file_delete(PictVO pictVO) throws Exception;
 	
 	// 장비 관련 매
 	
@@ -143,7 +160,13 @@ public interface PictMapper {
 	// 교육신청
 	void request_education(PictVO pictVO) throws Exception;
 	
+	List<Map<String, Object>> get_education_list(PictVO pictVO) throws Exception;
 	
+	Map<String, Object> get_education_by_id(PictVO pictVO) throws Exception;
+	
+	
+	void update_education(PictVO pictVO) throws Exception;
+
 
 	// 그 외
 	

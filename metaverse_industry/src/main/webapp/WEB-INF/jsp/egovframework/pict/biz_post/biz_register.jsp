@@ -15,7 +15,7 @@
 		<%@include file="../main/lnb.jsp" %>
 		<c:import url="../main/header.jsp">
 	    	<c:param name="title" value="게시물"/>
-	    	<c:param name="subtitle" value="공지사항 등록"/>
+	    	<c:param name="subtitle" value="사업공고 등록"/>
 	    </c:import>
 	    <div class="contentsContainer">
 	        <div class="listContainer">
@@ -25,10 +25,7 @@
 	                        <div class="inputBox">
 	                            <p class="inputCaption">카테고리*</p>
 	                            <select name="category" id="category" class="lgThinInput">
-	                                <option value="1" <c:if test="${pictVO.category eq '1'}">selected</c:if>>센터소식</option>
-	                                <option value="2" <c:if test="${pictVO.category eq '2'}">selected</c:if>>행사안내</option>
-	                                <option value="3" <c:if test="${pictVO.category eq '3'}">selected</c:if>>보도자료</option>
-	                                <option value="4" <c:if test="${pictVO.category eq '4'}">selected</c:if>>기타공고</option>
+	                                <option value="1" <c:if test="${pictVO.category eq '5'}">selected</c:if>>사업공고</option>
 	                            </select>
 	                        </div>
 	                    </div>
@@ -161,7 +158,7 @@
 				}
 				oEditors[0].exec("UPDATE_CONTENTS_FIELD", []);
 				if (confirm(text)) {
-					$("#register").attr("action", "/board/board_save.do");
+					$("#register").attr("action", "/biz_post/biz_save.do");
 					$("#register").submit();
 				}
 			}

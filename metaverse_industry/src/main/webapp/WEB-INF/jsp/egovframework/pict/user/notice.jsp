@@ -49,7 +49,10 @@
 						            </c:choose>
                                       </span>
                                       
-                                      <span class="ntIndex">${notice.idx}</span>
+                                      <span class="ntIndex">
+                    ${(pictVO.pageNumber - 1) * 10 + status.count}
+                                      
+                                      </span>
                                       <span class="ntTitle">${notice.title}</span>
                                   </p>
                                   <p class="ntDate">${notice.reg_date}<img src="/img/user_img/list-link.png" alt=""></p>
@@ -60,7 +63,7 @@
             </div>
            <div class="pagination">
                	<c:if test="${pictVO.pageNumber ne 1}">
-					<li><a href="/board/board_list.do?search_text=${param.search_text}&pageNumber=${pictVO.pageNumber - 10 < 1 ? 1 : pictVO.pageNumber - 10}"><img src="/img/admin/prev.png" alt=""></a></li>
+					<li><a href="/notice.do?search_text=${param.search_text}&pageNumber=${pictVO.pageNumber - 10 < 1 ? 1 : pictVO.pageNumber - 10}"><img src="/img/admin/prev.png" alt=""></a></li>
 				</c:if>	
 				
 				<c:forEach var="i" begin="${pictVO.startPage}" end="${pictVO.endPage}">

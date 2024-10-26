@@ -46,7 +46,7 @@
 									<c:if test="${pictVO.pageNumber ne 1}">
 										<p>${board_cnt - (status.index +  ((pictVO.pageNumber - 1) * 20))}</p>
 									</c:if>
-		                            <a href="/board/board_register.do?idx=${resultList.idx}"><p>${resultList.title}</p></a>
+		                            <a href="/biz_post/biz_register.do?idx=${resultList.idx}"><p>${resultList.title}</p></a>
 		                            <p>${resultList.reg_date}</p>
 		                            <p class="delete"><a href="#lnk" onclick="board_delete('${resultList.idx}')"></a></p>
 		                        </li>
@@ -54,7 +54,7 @@
 	                    </ul>
 	                    
 	                    <div class="listButton">
-	                        <a href="/board/board_register.do"><img src="/img/admin/add.png" alt="등록버튼">등록</a>
+	                        <a href="/biz_post/biz_register.do"><img src="/img/admin/add.png" alt="등록버튼">등록</a>
 	                    </div>
 	                    
 	                    <div class="pagination">
@@ -87,21 +87,21 @@
 		<script>
 	
 			function board_mod(idx){
-				location.href= "/board/board_register.do?idx="+ idx;
+				location.href= "/biz_post/biz_register.do?idx="+ idx;
 			}
 			function board_list(){
-				location.href= "/board/board_list.do";
+				location.href= "/biz_post/biz_list.do";
 			}
 
 			function board_delete(idx) {
 				if (confirm("삭제 하시겠습니까?")) {
 					$('#idx').val(idx)
-					$("#register").attr("action", "/board/board_delete.do");
+					$("#register").attr("action", "/biz_post/biz_delete.do");
 					$("#register").submit();
 				}
 			}
 			function search(){
-				$("#search_fm").attr("action", "/board/board_list.do");
+				$("#search_fm").attr("action", "/biz_post/biz_list.do");
 				$("#search_fm").submit();
 			}
 		</script>

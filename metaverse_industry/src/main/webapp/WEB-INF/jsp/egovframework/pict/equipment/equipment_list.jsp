@@ -3,7 +3,9 @@
 		<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 			<%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %>
 				<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-
+					<script type="text/javascript" src="/js/HuskyEZCreator.js" charset="utf-8"></script>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+					<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
 
 					<!DOCTYPE html>
@@ -147,18 +149,19 @@
 								</div>
 							</div>
 						</div>
-						<div class="datailCardWrapper">
+						<div class="datailCardWrapper qr-label-container">
 							<div class="detailCard detailSub">
 								<p class="inputCaption">라벨</p>
 								<div class="detailCardInner detailSub">
 									<div class="detailCardText">
-										<span class="detailCate">${equipment.category}</span>
-										<p>${equipment.name}</p>
-										<span class="detailDate">${pictVO.reg_date}</span>
-										<span class="detailDate">${pictVO.reg_date}</span>
+										<span class="detailCate label-type"></span>
+										<p class="label-name"></p>
+										<p class="label-serial-number" class="detailDate">시리얼 넘버 : </p>
+										<span class="lable-reg-date detailDate"></span>
+										
 									</div>
-									<div class="detailCardImg">
-										<img src="${pictVO.image_url}" alt="장비이미지">
+									<div class="detailCardImg qr-img">
+										
 									</div>
 								</div>
 								<div class="buttons">

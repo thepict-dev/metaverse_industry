@@ -25,7 +25,14 @@
 										<div class="inputsContainer">
 											<div class="inputBox listSearch">
 												<select name="status" id="status" class="lgThinInput">
-													<option value="">대여 상태 전체</option>
+													<option value="" <c:if test="${pictVO.request_status eq '' or pictVO.request_status eq null}">
+														selected</c:if>>전체</option>
+													<option value="pendding" <c:if test="${pictVO.request_status eq 'pendding'}">
+														selected</c:if>>승인대기</option>
+													<option value="approved" <c:if test="${pictVO.request_status eq 'approved'}">
+														selected</c:if>>승인</option>
+													<option value="rejected" <c:if test="${pictVO.request_status eq 'rejected'}">
+														selected</c:if>>거절</option>
 												</select>
 											</div>
 											<div class="inputBox listSearch">
@@ -41,25 +48,35 @@
 					                </div>
 									<div class="ListWrpper">
 										<ul class="listHead eduHead">
-											<li>선택</li>
 											<li>순서</li>
 											<li>단체명(학교명)</li>
 											<li>이름(담당자)</li>
 											<li>전화번호</li>
-											<li>삭제</li>
+											<li>상태</li>
 										</ul>
 										<ul class="listBody eduBody">
-											<li>
-					                            <div class="checkBox">
-					                                <input type="checkbox" id="selection"><label for="selection" class="lableOnly"></label>
-					                            </div>
-												<!-- 기존 내용 -->
-												<p>1</p>
-												<p class="title"><a href="/education/manage_education_detail.do">교동초등학교</a></p>
-												<p>최태호</p>
-												<p>01012341234</p>
-				                				<p class="delete"><a href="#lnk" onclick="board_delete('${resultList.idx}')"></a></p>
-											</li>
+											<c:forEach var="item" items="${education_list}" varStatus="status">
+												<li>
+													<p>1</p>
+													<p class="title"><a href="/education/manage_education_detail.do?id=${item.id}">${item.school}</a></p>
+													<p>${item.user_name}</p>
+													<p>${item.mobile}</p>
+				                					<p>
+				                						<c:choose>
+				                							<c:when test="${item.request_status eq 'pendding'}">
+				                								승인대기
+				                							</c:when>
+				                							<c:when test="${item.request_status eq 'approved'}">
+				                								승인
+				                							</c:when>
+				                							<c:when test="${item.request_status eq 'rejected'}">
+				                								거절
+				                							</c:when>
+				                						</c:choose>
+				                					</p>
+												</li>	
+											</c:forEach>
+											
 										</ul>
 
 										<div class="pagination">
@@ -117,6 +134,10 @@
 								$("#search_fm").attr("action", "/history/history_list.do");
 								$("#search_fm").submit();
 							}
+							
+							$("#status").change(function(e){
+								location.href = "/education/manage_education.do?request_status=" + $(this).val();
+							})
 						</script>
 
 						<script src="../../../../../js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

@@ -25,53 +25,65 @@
 										<div class="inputsContainer">
 											<div class="inputBox">
 												<p class="inputCaption">단체명(학교명)</p>
-												<span class="bindingText"></span>
+												<span class="bindingText">${education.school}</span>
 											</div>
 										</div>
 										<div class="inputsContainer">
 											<div class="inputBox per">
 												<p class="inputCaption">주소</p>
-												<span class="bindingText per"></span>
+												<span class="bindingText per">${education.address1} ${education.address2}</span>
 											</div>
 										</div>
 										<div class="inputsContainer">
 											<div class="inputBox">
 												<p class="inputCaption">성명(담당자)</p>
-												<span class="bindingText"></span>
+												<span class="bindingText">${education.user_name}</span>
 											</div>
 											<div class="inputBox">
 												<p class="inputCaption">직책</p>
-												<span class="bindingText"></span>
+												<span class="bindingText">${education.position}</span>
 											</div>
 										</div>
 										<div class="inputsContainer">
 											<div class="inputBox">
 												<p class="inputCaption">전화번호</p>
-												<span class="bindingText"></span>
+												<span class="bindingText">${education.mobile}</span>
 											</div>
 											<div class="inputBox">
 												<p class="inputCaption">이메일</p>
-												<span class="bindingText"></span>
+												<span class="bindingText">${education.email}</span>
 											</div>
 										</div>
 										<div class="inputsContainer">
 											<div class="inputBox">
 												<p class="inputCaption">신청교육</p>
-												<span class="bindingText"></span>
+												<span class="bindingText">
+													<c:choose>
+														<c:when test="${education.type eq '1'}">
+												             견학형
+											            </c:when>
+											            <c:when test="${education.type eq '2'}">
+												             실습형-버츄얼 유튜버
+											            </c:when>
+											            <c:when test="${education.type eq '3'}">
+												             실습형-모션캡처
+											            </c:when>
+													</c:choose>
+												</span>
 											</div>
 											<div class="inputBox">
 												<p class="inputCaption">참여인원</p>
-												<span class="bindingText"></span>
+												<span class="bindingText">${education.cnt}명</span>
 											</div>
 										</div>
 										<div class="inputsContainer">
 											<div class="inputBox">
 												<p class="inputCaption">희망일시</p>
-												<span class="bindingText"></span>
+												<span class="bindingText">${education.visit_date}</span>
 											</div>
 											<div class="inputBox">
 												<p class="inputCaption">교육생</p>
-												<span class="bindingText"><span>학교</span><span> 학년</span></span>
+												<span class="bindingText"><span>${education.school}학교</span><span> ${education.grade}학년</span></span>
 											</div>
 										</div>
 									</div>
@@ -87,7 +99,8 @@
 									<div class="listInner set">
 										<div class="btnContainer">
 											<a href="/education/manage_education.do" class="normalButton white">목록으로</a>
-											<a href="#lnk" onclick="button1_click()" class="normalButton blue">승인</a>
+											<button class="normalButton white reject" data-id="${education.id}">거절</button>
+											<button class="normalButton blue approve" data-id="${education.id}">승인</button>
 										</div>
 									</div>
 								</div>

@@ -36,7 +36,7 @@ import java.util.Map;
  *  Copyright (C) by MOPAS All right reserved.
  */
 public interface PictService {
-	
+	// 공지사항 관리
 	List<?> board_list(PictVO pictVO) throws Exception;
 
 	PictVO board_list_one(PictVO pictVO) throws Exception;
@@ -51,6 +51,20 @@ public interface PictService {
 
 	void board_file_delete(PictVO pictVO) throws Exception;
 	
+	// 사업공고 관리
+	List<?> biz_list(PictVO pictVO) throws Exception;
+	
+	Integer biz_list_total_cnt(PictVO pictVO) throws Exception;
+	
+	PictVO biz_list_one(PictVO pictVO) throws Exception;
+	
+	void biz_update(PictVO pictVO) throws Exception;
+
+	void biz_insert(PictVO pictVO) throws Exception;
+
+	void biz_delete(PictVO pictVO) throws Exception;
+	
+	void biz_file_delete(PictVO pictVO) throws Exception;
 	//장비 관련
 	
 	List<?> equipment_list(PictVO pictVO) throws Exception;
@@ -138,6 +152,13 @@ public interface PictService {
 	
 	//교육 신청
 	void request_education(PictVO pictVO) throws Exception;
+	
+	List<Map<String, Object>> get_education_list(PictVO pictVO) throws Exception;
+
+	Map<String, Object> get_education_by_id(PictVO pictVO) throws Exception;
+	
+	void update_education(PictVO pictVO) throws Exception;
+	
 	
 	// 그 외
 	PictVO pemtour_select(PictVO pictVO) throws Exception;

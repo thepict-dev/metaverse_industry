@@ -5,13 +5,18 @@
 		select idx, title, category, text, date_format(reg_date, '%Y-%m-%d') as reg_date, file_url1, file_url2, file_url3 from board_table
 		
 		<where>
-			<if test="search_text != null and search_text != '' ">
-				and title LIKE CONCAT('%', #{search_text}, '%')
-			</if>
-			<if test="type != null and type != '' ">
-				and category = #{type}
-			</if>
-		</where>
+	        <if test="search_text != null and search_text != ''">
+	            and title LIKE CONCAT('%', #{search_text}, '%')
+	        </if>
+	        <choose>
+	            <when test="type != null and type != ''">
+	                and category = #{type}
+	            </when>
+	            <otherwise>
+	                and category != '5'
+	            </otherwise>
+	        </choose>
+	    </where>
 		order by reg_date desc
 		<if test="limit_cnt != null and limit_cnt != 0">
 			limit #{limit_cnt} OFFSET #{startNumber}
@@ -66,6 +71,72 @@
 	</delete>
 	
 	<update id="board_file_delete" parameterType="pictVO">
+		update board_master
+		set img_url=NULL
+		where idx = #{idx}
+	</update>
+	
+	<!-- 사업공고 관리 -->
+	<select id="biz_list" resultType="pictVO">
+		select idx, title, category, text, date_format(reg_date, '%Y-%m-%d') as reg_date, file_url1, file_url2, file_url3 from board_table
+		
+		<where>
+			category = '5'
+	        <if test="search_text != null and search_text != ''">
+	            and title LIKE CONCAT('%', #{search_text}, '%')
+	        </if>
+	    </where>
+		order by reg_date desc
+		<if test="limit_cnt != null and limit_cnt != 0">
+			limit #{limit_cnt} OFFSET #{startNumber}
+		</if>
+	</select>
+	
+	<select id="biz_list_total_cnt" resultType="int">
+		select count(*) as totalCnt from board_table where category = '5'
+	</select>
+	
+	<select id="biz_list_one" resultType="pictVO">
+		select idx, title, category, text, date_format(reg_date, '%Y-%m-%d') as reg_date, file_url1, file_url2, file_url3 from board_table
+		where idx = #{idx}
+	</select>
+
+	
+	<insert id="biz_insert" parameterType="pictVO">
+		INSERT INTO board_table
+			(
+			 title, category, reg_date, use_at, text, file_url1, file_url2, file_url3
+			)
+		VALUES (
+			 #{title}, '5' ,now(), 'Y', #{text}, #{file_url1}, #{file_url2}, #{file_url3}
+			  ) 
+	</insert>
+	
+	<update id="biz_update" parameterType="pictVO">
+	  UPDATE board_table
+	  SET 
+	  	category = #{category},
+	    title = #{title},
+	    text = #{text}, 
+	    reg_date = NOW()
+	    <if test="file_url1 != null and file_url1 != ''">
+	      , file_url1 = #{file_url1}
+	    </if>
+	    <if test="file_url2 != null and file_url2 != ''">
+	      , file_url2 = #{file_url2}
+	    </if>
+	    <if test="file_url3 != null and file_url3 != ''">
+	      , file_url3 = #{file_url3}
+	    </if>
+	  WHERE idx = #{idx}
+	</update>
+	
+
+	<delete id="biz_delete" parameterType="pictVO">
+		delete from board_table where idx = #{idx}
+	</delete>
+	
+	<update id="biz_file_delete" parameterType="pictVO">
 		update board_master
 		set img_url=NULL
 		where idx = #{idx}
@@ -791,12 +862,84 @@
 	<insert id="request_education" parameterType="pictVO">
 		INSERT INTO education_table
 			(
-			 id, user_Id, team, address1, address2, tel, position, mobile, email, type, cnt, visit_date
+			 id, user_Id, team, address1, address2, tel, position, mobile, email, type, cnt, visit_date, school, grade
 			)
 		VALUES (
-			 UUID(), #{user_id}, #{team}, #{address1}, #{address2}, #{tel}, #{position}, #{mobile}, #{email}, #{type}, #{totalCnt}, #{visit_date}
+			 UUID(), #{user_id}, #{team}, #{address1}, #{address2}, #{tel}, #{position}, #{mobile}, #{email}, #{type}, #{totalCnt}, #{visit_date}, #{school}, #{grade}
 			  ) 
 	</insert>
+	
+	<select id="get_education_list" resultType="map">
+	    SELECT 
+	        et.idx,
+	        et.id,
+	        et.user_id,
+	        et.team,
+	        et.address1,
+	        et.address2,
+	        et.tel,
+	        et.position,
+	        et.mobile,
+	        et.email,
+	        et.type,
+	        et.cnt,
+	        et.school,
+	        et.grade,
+	        date_format(et.visit_date, '%Y-%m-%d') as visit_date,
+	        et.request_status,
+	        date_format(et.reg_date, '%Y-%m-%d') as reg_date,
+	        ut.name as user_name
+	    FROM 
+	        education_table et
+	    LEFT JOIN 
+	        user_table ut ON et.user_id = ut.user_id
+	    WHERE 1=1
+	    <if test="search_text != null and search_text != ''">
+	        AND (
+	            ut.name LIKE CONCAT('%', #{search_text}, '%') 
+	        ) 
+	    </if>
+	    <if test="request_status != null and request_status != ''">
+	        AND et.request_status = #{request_status}
+	    </if>
+	    ORDER BY et.idx DESC
+	    <if test="limit_cnt != null and limit_cnt != 0">
+	        LIMIT #{limit_cnt} OFFSET #{startNumber}
+	    </if>
+	</select>
+	
+	<select id="get_education_by_id" resultType="map">
+		SELECT 
+	        et.idx,
+	        et.id,
+	        et.user_id,
+	        et.team,
+	        et.address1,
+	        et.address2,
+	        et.tel,
+	        et.position,
+	        et.mobile,
+	        et.email,
+	        et.type,
+	        et.cnt,
+	        et.school,
+	        et.grade,
+	        date_format(et.visit_date, '%Y-%m-%d') as visit_date,
+	        et.request_status,
+	        date_format(et.reg_date, '%Y-%m-%d') as reg_date,
+	        ut.name as user_name
+	    FROM 
+	        education_table et
+	    LEFT JOIN 
+	        user_table ut ON et.user_id = ut.user_id
+	    WHERE et.id = #{id}
+	</select>
+	
+	<update id="update_education" parameterType="pictVO">
+		update education_table
+		set `request_status` = #{request_status}
+		where id = #{id}
+	</update>
 	
 	
 	
