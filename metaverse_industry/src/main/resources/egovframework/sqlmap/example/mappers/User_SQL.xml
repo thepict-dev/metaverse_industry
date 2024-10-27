@@ -22,6 +22,38 @@
          from user_table as u where user_id = #{user_id}
     </select>
     
+    <select id="find_id_pwd" resultType="map">
+        select 
+        u.idx,
+        u.user_id,
+        u.password,
+        u.name,
+        u.email,
+        u.mobile,
+        u.birthday,
+        u.address1 as user_address1,
+        u.address2 as user_address2,
+        DATE_FORMAT(u.reg_date, '%Y-%m-%d') as reg_date,
+        u.company_nm,
+        u.company_address1,
+        u.company_address2,
+        u.sa_eob_no,
+        u.position,
+        u.document_url
+         from user_table as u
+         <where>
+         	<if test="name != null and name != ''">
+         		name = #{name}
+         	</if>
+         	<if test="mobile != null and mobile != ''">
+         		and mobile = #{mobile}
+         	</if>
+         	<if test="user_id != null and user_id != ''">
+         		and user_id = #{user_id}
+         	</if>
+         </where>
+    </select>
+    
     <insert id="signUp" parameterType="userVO">
     	INSERT INTO user_table
     	(
@@ -31,6 +63,14 @@
     		#{sa_eob_no}, #{position}, #{document_url}
     	)
     </insert>
+    
+    <update id="set_new_password" parameterType="userVO">
+    	UPDATE user_table
+    	SET
+    		password = #{password}
+		    WHERE user_id=#{user_id}
+    </update>
+    
     <update id="updateUser" parameterType="userVO">
     	UPDATE user_table
     	SET

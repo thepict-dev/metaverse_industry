@@ -151,7 +151,7 @@
                                                                     <td class="request_status"><a href="#lnk">승인완료</a>
                                                                     </td>
                                                                 </c:if>
-                                                                <c:if test="${item.request_status eq 'refused'}">
+                                                                <c:if test="${item.request_status eq 'refusal'}">
                                                                     <td class="request_status"><a href="#lnk"
                                                                             class="clickable reject">승인거절</a>
                                                                     </td>

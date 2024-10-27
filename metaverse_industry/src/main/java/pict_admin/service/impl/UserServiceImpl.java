@@ -49,6 +49,14 @@ public class UserServiceImpl extends EgovAbstractServiceImpl implements UserServ
 	public UserVO isUserIdAvailable(UserVO userVO) throws Exception {
 		return userMapper.isUserIdAvailable(userVO);
 	}
+	
+	 
+	@Override
+	public Map<String, Object> find_id_pwd(UserVO userVO) throws Exception {
+		return userMapper.find_id_pwd(userVO);
+	}
+	
+	
     @Override
     public void signUp(UserVO userVO) throws Exception {
     	userMapper.signUp(userVO);
@@ -62,6 +70,12 @@ public class UserServiceImpl extends EgovAbstractServiceImpl implements UserServ
     public void updateUser(UserVO userVO) throws Exception {
     	userMapper.updateUser(userVO);
 	}
+    
+    @Override
+    public void set_new_password(UserVO userVO) throws Exception {
+    	userMapper.set_new_password(userVO);
+	}
+    
     
     // 장비
 	@Override

@@ -30,10 +30,12 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.MessageDigest;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -71,6 +73,101 @@ public class UserController {
 			map.put("rst", true);
 			return map;
 		}
+	}
+	//아이디 찾기
+	@RequestMapping("/find_id.do")
+	@ResponseBody
+	public HashMap<String, Object> find_id(@ModelAttribute("searchVO") UserVO userVO, ModelMap model,
+			HttpServletRequest request, @RequestBody Map<String, Object> param) throws Exception {
+		System.out.println("param @@@@" + param);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		System.out.println("여기???3333" + param.get("user_name"));
+		if (param.get("user_name") != null && param.get("mobile") != null) {
+			System.out.println("여기???222");
+			String user_name =  param.get("user_name").toString();
+			String mobile =  param.get("mobile").toString();
+			System.out.println("user_name @@@@" + user_name);
+			userVO.setName(user_name);
+			userVO.setMobile(mobile);
+			
+			Map<String, Object> user = userService.find_id_pwd(userVO);
+			System.out.println("user @@@@" + user);
+			if (user.isEmpty()) {
+				map.put("msg", "fail");
+			} else {
+				String user_id = user.get("user_id").toString();
+				map.put("msg", "ok");
+				map.put("user_id", user_id);
+			}
+		} else {
+			System.out.println("여기???1111");
+			map.put("msg", "fail");
+		}
+		return map;
+	}
+	
+	
+	//비밀번호 찾기
+	@RequestMapping("/find_pwd.do")
+	@ResponseBody
+	public HashMap<String, Object> find_pwd(@ModelAttribute("searchVO") UserVO userVO, ModelMap model,
+			HttpServletRequest request, @RequestBody Map<String, Object> param) throws Exception {
+		System.out.println("param @@@@" + param);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		System.out.println("여기???3333" + param.get("user_name"));
+		if (param.get("user_name") != null && param.get("mobile") != null && param.get("user_id") != null) {
+			System.out.println("여기???222");
+			String user_name =  param.get("user_name").toString();
+			String user_id =  param.get("user_id").toString();
+			String mobile =  param.get("mobile").toString();
+			System.out.println("user_name @@@@" + user_name);
+			userVO.setName(user_name);
+			userVO.setMobile(mobile);
+			userVO.setUser_id(user_id);
+			
+			Map<String, Object> user = userService.find_id_pwd(userVO);
+			System.out.println("user @@@@" + user);
+			if (user.isEmpty()) {
+				map.put("msg", "fail");
+			} else {
+				map.put("msg", "ok");
+			}
+		} else {
+			System.out.println("여기???1111");
+			map.put("msg", "fail");
+		}
+		return map;
+	}
+	
+	//새로운 비밀번호 설정
+	@RequestMapping("/set_new_password.do")
+	@ResponseBody
+	public HashMap<String, Object> set_new_password(@ModelAttribute("searchVO") UserVO userVO, ModelMap model,
+			HttpServletRequest request, @RequestBody Map<String, Object> param) throws Exception {
+		System.out.println("param @@@@" + param);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		System.out.println("여기???3333" + param.get("user_name"));
+		if (param.get("password") != null && param.get("user_id") != null) {
+			String user_id =  param.get("user_id").toString();
+			String password =  param.get("password").toString();
+			String enpassword = encryptPassword(password, user_id); // 입력비밀번호
+			System.out.println("여기???222");
+			userVO.setUser_id(user_id);
+			userVO.setPassword(enpassword);
+			try {
+				userService.set_new_password(userVO);
+				map.put("msg", "ok");
+			} catch(IOException e) {
+				map.put("msg", "fail");
+			}
+		} else {
+			System.out.println("여기???1111");
+			map.put("msg", "fail");
+		}
+		return map;
 	}
 	
 	
@@ -625,4 +722,19 @@ public class UserController {
     	// String uploadPath = "~/Desktop/upload_file/";
     	return uploadPath;
     }
+    
+    public static String encryptPassword(String password, String id) throws Exception {
+		if (password == null)
+			return "";
+		if (id == null)
+			return ""; // KISA 보안약점 조치 (2018-12-11, 신용호)
+		byte[] hashValue = null; // 해쉬값
+
+		MessageDigest md = MessageDigest.getInstance("SHA-256");
+		md.reset();
+		md.update(id.getBytes());
+		hashValue = md.digest(password.getBytes());
+
+		return new String(Base64.encodeBase64(hashValue));
+	}
 }

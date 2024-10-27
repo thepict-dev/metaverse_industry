@@ -13,9 +13,13 @@ public interface UserMapper {
 //	List<Map<String, Object>> isUserIdAvailable(String userId) throws Exception;
 	UserVO isUserIdAvailable(UserVO userVO) throws Exception;
 	
+	Map<String, Object> find_id_pwd(UserVO userVO) throws Exception;
+	
 	void signUp(UserVO userVO) throws Exception;
 	
 	void updateUser(UserVO userVO) throws Exception;
+	
+	void set_new_password(UserVO userVO) throws Exception;
 	
 	
 	
