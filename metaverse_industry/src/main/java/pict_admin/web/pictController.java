@@ -609,9 +609,9 @@ public class pictController {
 			UUID uuid = UUID.randomUUID();
 			String uploadPath = fileUpload_board(request, document_file,
 					(String) request.getSession().getAttribute("id"), uuid);
-			// String filepath = "/user1/upload_file/metaverse_industry/";
+			String filepath = "/user1/upload_file/metaverse_industry/";
 
-			String filepath = "~/Desktop/upload_file/";
+			// String filepath = "~/Desktop/upload_file/";
 			// String filepath = "D:\\user1\\upload_file\\billconcert\\";
 			String filename = uuid + uploadPath.split("#####")[1];
 
@@ -720,10 +720,10 @@ public class pictController {
 			UUID uuid = UUID.randomUUID();
 			String uploadPath = fileUpload_board(request, document_file,
 					(String) request.getSession().getAttribute("id"), uuid);
-			// String filepath = "/user1/upload_file/metaverse_industry/";
+			String filepath = "/user1/upload_file/metaverse_industry/";
 
-			String filepath = "~/Desktop/upload_file/";
-			// String filepath = "D:\\user1\\upload_file\\billconcert\\";
+			//String filepath = "~/Desktop/upload_file/";
+
 			String filename = uuid + uploadPath.split("#####")[1];
 
 			pictVO.setFile_url(filepath + filename);
@@ -1869,6 +1869,64 @@ public class pictController {
 		model.addAttribute("search_text", pictVO.getSearch_text());
 		return "pict/manage/manage_rental";
 	}
+	
+	@RequestMapping("/get_qr_code.do")
+	@ResponseBody
+	public HashMap<String, Object> get_qr_code(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
+			HttpServletRequest request, @RequestBody Map<String, Object> param) throws Exception {
+		System.out.println("param @@@@" + param);
+		String sessions = (String) request.getSession().getAttribute("id");
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		if (sessions == null || sessions == "") {
+			map.put("msg", "fail");
+			return map;
+		}
+		if (param.get("idx") != null) {
+			Integer idx =  Integer.parseInt(param.get("idx").toString());
+			System.out.println("idx @@@@" + idx);
+			Map<String, Object> rental = pictService.get_qr_code(idx);
+			if (rental.get("request_idx") != null) {				
+				System.out.println("rental @@@@" + rental);
+				map.put("msg", "ok");
+				map.put("data", rental);
+			} else {
+				map.put("msg", "fail");
+			}
+		}
+		
+		return map;
+	}
+	
+	@RequestMapping("/update_request.do")
+	@ResponseBody
+	public HashMap<String, Object> update_request(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
+			HttpServletRequest request, @RequestBody Map<String, Object> param) throws Exception {
+		System.out.println("param @@@@" + param);
+		String sessions = (String) request.getSession().getAttribute("id");
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		if (sessions == null || sessions == "") {
+			map.put("msg", "fail");
+			return map;
+		}
+		if (param.get("idx") != null && param.get("status") != null) {
+			Integer idx =  Integer.parseInt(param.get("idx").toString());
+			String status = param.get("status").toString();
+			pictVO.setIdx(idx);
+			pictVO.setRequest_status(status);
+			try {				
+				pictService.update_request_status(pictVO);
+				map.put("msg", "ok");
+			} catch(Exception e) {
+				map.put("msg", "fail");	
+			}
+		} else {
+			map.put("msg", "fail");
+		}
+		
+		return map;
+	}
 
 	// 장비 대여신청 상세보기
 	@RequestMapping(value = "/history/history_detail.do")
@@ -2115,35 +2173,34 @@ public class pictController {
 		String path = "";
 		String fileName = "";
 		Path uploadPath;
+		
+		OutputStream out = null;
+    	PrintWriter printWriter = null;
+    	long fileSize = uploadFile.getSize();
+    	try {
+    		fileName = uploadFile.getOriginalFilename();
+    		byte[] bytes = uploadFile.getBytes();
+    		
+			path = getSaveLocation(request, uploadFile);
+    		
+    		
+    		File file = new File(path);
+    		if(fileName != null && !fileName.equals("")) {
+    			if(file.exists()) {
+    				file = new File(path +uuid+ fileName);
+    			}
+    		}
+    		out = new FileOutputStream(file);
+    		out.write(bytes);
+    	
+    		
+    	}
+    	catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	
+    	return path + "#####" + fileName;
 		/*
-		 * OutputStream out = null;
-		 * PrintWriter printWriter = null;
-		 * long fileSize = uploadFile.getSize();
-		 * try {
-		 * fileName = uploadFile.getOriginalFilename();
-		 * byte[] bytes = uploadFile.getBytes();
-		 * 
-		 * path = getSaveLocation(request, uploadFile);
-		 * 
-		 * 
-		 * File file = new File(path);
-		 * if(fileName != null && !fileName.equals("")) {
-		 * if(file.exists()) {
-		 * file = new File(path +uuid+ fileName);
-		 * }
-		 * }
-		 * out = new FileOutputStream(file);
-		 * out.write(bytes);
-		 * 
-		 * 
-		 * }
-		 * catch(Exception e) {
-		 * e.printStackTrace();
-		 * }
-		 * 
-		 * return path + "#####" + fileName;
-		 */
-
 		try {
 			fileName = uploadFile.getOriginalFilename();
 			byte[] bytes = uploadFile.getBytes();
@@ -2171,6 +2228,7 @@ public class pictController {
 			e.printStackTrace();
 			return "Error: " + e.getMessage();
 		}
+		*/
 
 	}
 

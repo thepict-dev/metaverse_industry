@@ -18,7 +18,7 @@
 							<c:param name="subtitle" value="대여/반납 관리" />
 						</c:import>
 						<div class="contentsContainer">
-							<form action="" class="barcodeForm" id="search_fm" name="search_fm" method="get">
+							
 								<div class="barcodeContainer">
 									<div class="inputsContainer">
 										<div class="inputBox">
@@ -40,8 +40,8 @@
 												</div>
 												<div class="inputsContainer">
 													<div class="inputBox">
-														<p class="inputCaption">구분</p>
-														<span class="bindingText equipment_type"></span>
+														<p class="inputCaption">신청상태</p>
+														<span class="bindingText request_status"></span>
 													</div>
 													<div class="inputBox">
 														<p class="inputCaption">장비명</p>
@@ -78,7 +78,7 @@
 													<div class="inputBox">
 														<p class="inputCaption">첨부파일</p>
 														<div class="fileList binding">
-															<p></p>
+															<p class="file_name"></p>
 														</div>
 													</div>
 												</div>
@@ -99,7 +99,7 @@
 													<div class="inputBox">
 														<p class="inputCaption">장비상태</p>
 														<div class="switchInput nonTop">
-															<input type="checkbox" value="on" name="onoff-switch"
+															<input type="checkbox" checked value="on" name="onoff-switch"
 																id="onoff-switch1" disabled />
 															<label for="onoff-switch1"></label>
 														</div>
@@ -121,7 +121,7 @@
 														<p class="inputCaption">비고</p>
 														<textarea name="bujajae" id="bujajae" cols="50" rows="50"
 															class="txt" style="width:100%;"
-															disabled>${pictVO.bujajae}</textarea>
+															disabled></textarea>
 													</div>
 												</div>
 											</div>
@@ -129,12 +129,11 @@
 									</div>
 									<div class="wtButtonContainer">
 										<div class="btnContainer">
-											<a href="#lnk" class="normalButton blue">대여처리</a>
-											<a href="#lnk" class="normalButton blue">반납처리</a>
+											<a href="#lnk" class="normalButton blue submit">대여처리</a>
 										</div>
 									</div>
 								</div>
-							</form>
+							
 						</div>
 						<div class="modalContainer" id="adminModal">
 							<div class="modalInner">
@@ -183,29 +182,13 @@
 							<input type='hidden' name="use_at" id="use_at" value='' />
 							<input type='hidden' name="type" id="type" value='' />
 						</form>
-						<script>
-							$('.normalButton').click(function () {
-								$('#adminModal').addClass('active');
-							});
-							$('.close').click(function () {
-								$('#adminModal').removeClass('active');
-							});
-
-							function search_list() {
-								$("#search_fm").attr("action", "/board/board_list.do");
-								$("#search_fm").submit();
-							}
-
-							$("#id").change(function () {
-								console.log($("#id").val());
-							})
-						</script>
+						
 
 						<script src="../../../../../js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 						<script src="../../../../../js/scripts.js"></script>
 						<script src="../../../../../js/Chart.min.js" crossorigin="anonymous"></script>
 						<script src="../../../../../js/simple-datatables@latest.js" crossorigin="anonymous"></script>
-
+						<script src="/js/manage_rental.js"></script>
 						</body>
 
 					</html>

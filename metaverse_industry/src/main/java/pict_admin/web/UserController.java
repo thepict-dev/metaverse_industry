@@ -558,7 +558,7 @@ public class UserController {
     	String fileName = "";
 		Path uploadPath;
 		
-		/*
+		
     	OutputStream out = null;
     	PrintWriter printWriter = null;
     	long fileSize = uploadFile.getSize();
@@ -585,8 +585,8 @@ public class UserController {
     	}
     	
     	return path + "#####" + fileName;
-    	*/
     	
+    	/*
         try {
             fileName = uploadFile.getOriginalFilename();
             byte[] bytes = uploadFile.getBytes();
@@ -614,15 +614,15 @@ public class UserController {
             e.printStackTrace();
             return "Error: " + e.getMessage();
         }
-        
+        */
     }
     
-    private String getSaveLocation(MultipartHttpServletRequest request, MultipartFile uploadFile) {
+    private String getSaveLocation(HttpServletRequest request, MultipartFile uploadFile) {
 		//서버
-    	//String uploadPath = "/user1/upload_file/video_industry/";
+    	String uploadPath = "/user1/upload_file/video_industry/";
     	
     	//로컬
-    	String uploadPath = "~/Desktop/upload_file/";
+    	// String uploadPath = "~/Desktop/upload_file/";
     	return uploadPath;
     }
 }

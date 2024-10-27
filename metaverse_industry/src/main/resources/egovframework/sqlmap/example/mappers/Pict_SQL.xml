@@ -454,10 +454,81 @@
 	<update id="update_request_status" parameterType="pictVO">
 		UPDATE equipment_rental_request
 		SET
-			request_status = #{request_status},
-			reject_msg = #{reject_msg}
+			request_status = #{request_status}
+			<if test="reject_msg != null and reject_msg != ''">
+			, reject_msg = #{reject_msg}
+			</if>
 		WHERE idx = #{idx} 
 	</update>
+	
+	<!-- QR코드 -->
+	<select id="get_qr_code" parameterType="int" resultType="map">
+	    SELECT 
+	        eit.idx AS item_idx,
+	        eit.id AS item_id,
+	        eit.serial_number,
+	        eit.status AS item_status,
+	        eit.image_url AS item_image,
+	        eit.text AS item_text,
+	        
+     	   	date_format(eit.reg_date, '%Y-%m-%d') as equipment_reg_date,
+	        ett.id AS type_id,
+	        ett.type,
+	        ett.name AS equipment_name,
+	        ett.description,
+	        ett.image_url AS type_image,
+	        ett.bujajae,
+	        ett.use_ny,
+	        
+	        err.idx AS request_idx,
+	        err.id AS rental_id,
+	        err.user_id,
+	        date_format(err.rental_start_date, '%Y-%m-%d') as rental_start_date,
+	        date_format(err.rental_end_date, '%Y-%m-%d') as rental_end_date,
+	        err.request_status,
+	        date_format(err.request_date, '%Y-%m-%d') as request_date,
+	        err.type AS rental_type,
+	        err.equipment_plan,
+	        err.sa_eob_no,
+	        err.company_nm,
+	        err.position,
+	        err.company_address1,
+	        err.company_address2,
+	        err.file_path,
+	        err.reject_msg,
+	        
+	        ut.name AS user_name,
+	        ut.mobile AS user_mobile,
+	        ut.email AS user_email,
+	        ut.birthday AS user_birthday,
+	        ut.address1 AS user_address1,
+	        ut.address2 AS user_address2,
+	        date_format(ut.reg_date, '%Y-%m-%d') as user_reg_date,
+	        ut.company_nm AS user_company_nm,
+	        ut.company_address1 AS user_company_address1,
+	        ut.company_address2 AS user_company_address2,
+	        ut.sa_eob_no AS user_sa_eob_no,
+	        ut.position AS user_position,
+	        ut.document_url AS user_document_url
+	    FROM 
+	        equipment_item_table eit
+	    INNER JOIN 
+	        equipment_type_table ett ON eit.equipment_type_id = ett.id
+	    LEFT JOIN 
+	        equipment_rental_request err ON eit.id = err.equipment_id
+	        AND err.request_status IN ('approved', 'rental', 'overdue', 'returned')
+	        AND (
+	            CURDATE() BETWEEN err.rental_start_date AND err.rental_end_date
+	            OR
+	            err.rental_start_date >= CURDATE()
+	        )
+	    LEFT JOIN 
+	        user_table ut ON err.user_id = ut.user_id
+	    WHERE 
+	        eit.idx = #{idx}
+	    ORDER BY 
+	        err.rental_start_date ASC
+	</select>
 	
 	
 	<!-- 시설물 관리 -->

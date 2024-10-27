@@ -240,6 +240,11 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 		
 	}
 	
+	@Override
+	public Map<String, Object>  get_qr_code(Integer idx) throws Exception {
+		return pictMapper.get_qr_code(idx); 
+	}
+	
 	// 시설물 관려
 	
 	@Override
