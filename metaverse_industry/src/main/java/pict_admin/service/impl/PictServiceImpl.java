@@ -64,8 +64,19 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 	/** ID Generation */
 	@Resource(name = "egovIdGnrService")
 	private EgovIdGnrService egovIdGnrService;
-
-
+	 
+	@Override
+	public List<Map<String, Object>> get_user_list(PictVO pictVO) throws Exception {
+		
+		return pictMapper.get_user_list(pictVO);
+	}
+	
+	@Override
+	public void delete_user(Integer idx) throws Exception {
+		pictMapper.delete_user(idx);
+		
+	}
+	
 	// 공지사항 관리
 	@Override
 	public List<?> board_list(PictVO pictVO) throws Exception {

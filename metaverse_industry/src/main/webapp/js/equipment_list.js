@@ -252,7 +252,6 @@ function deleteItems(id_list, idx_list, item_cnt) {
 }
 
 $(".selection").change(function () {
-	console.log($(this).data("idx"));
 	equipmentIdxList.push($(this).data("idx"));
 })
 

@@ -38,6 +38,10 @@ import org.apache.ibatis.annotations.Param;
  *  Copyright (C) by MOPAS All right reserved.
  */
 public interface PictService {
+	// 유저 정보
+	List<Map<String, Object>> get_user_list(PictVO pictVO) throws Exception;
+	
+	void delete_user(@Param("idx") Integer idx) throws Exception;
 	// 공지사항 관리
 	List<?> board_list(PictVO pictVO) throws Exception;
 

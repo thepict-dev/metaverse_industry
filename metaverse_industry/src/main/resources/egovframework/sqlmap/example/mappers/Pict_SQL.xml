@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pict_admin.service.impl.PictMapper">
+	<select id="get_user_list" resultType="map">
+		select * from user_table
+		
+		where 1=1
+		<if test="search_text != null and search_text != '' ">
+			and (
+				id LIKE CONCAT('%', #{search_text}, '%') or
+				name LIKE CONCAT('%', #{search_text}, '%') or
+				mobile LIKE CONCAT('%', #{search_text}, '%')
+			) 
+		</if>
+		order by reg_date desc
+		<if test="limit_cnt != null and limit_cnt != 0">
+			limit #{limit_cnt} OFFSET #{startNumber}
+		</if>
+	</select>
+	
+	<delete id="delete_user" parameterType="int">
+		delete from user_table where idx = #{idx}
+	</delete>
+
+
 	<select id="board_list" resultType="pictVO">
 		select idx, title, category, text, date_format(reg_date, '%Y-%m-%d') as reg_date, file_url1, file_url2, file_url3 from board_table
 		

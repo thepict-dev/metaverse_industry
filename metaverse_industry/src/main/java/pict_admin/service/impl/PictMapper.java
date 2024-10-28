@@ -42,6 +42,11 @@ import pict_admin.service.PictVO;
  */
 @Mapper("pictMapper")
 public interface PictMapper {
+	// 유저 정보
+	List<Map<String, Object>> get_user_list(PictVO pictVO) throws Exception; 
+	
+	void delete_user(@Param("idx") Integer idx) throws Exception;
+	
 	// 공지사항
 	List<?> board_list(PictVO pictVO) throws Exception;
 	

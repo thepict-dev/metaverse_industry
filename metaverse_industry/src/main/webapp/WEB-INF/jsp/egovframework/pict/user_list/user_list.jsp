@@ -44,53 +44,56 @@
 											<li>삭제</li>
 										</ul>
 										<ul class="listBody userList">
-											<li>
-												<div class="checkBox">
-													<input type="checkbox" id="selection"><label for="selection"
-														class="lableOnly"></label>
-												</div>
-												<p>1</p>
-												<p>최태호</p>
-												<p>01012341234</p>
-												<p>fja@jfoiasjdfi.com</p>
-												<p>19931010</p>
-												<p>강원도 춘천시 효자로 144 픽트스퀘어</p>
-												<p class="delete"><a href="#lnk"></a></p>
-											</li>
+											<c:forEach var="resultList" items="${resultList}" varStatus="status">
+												<li>
+													<input type="hidden" value="${resultList.company_nm}" class="company_nm" />
+													<input type="hidden" value="${resultList.company_address1}" class="company_address1" />
+													<input type="hidden" value="${resultList.company_address2}" class="company_address2" />
+													<input type="hidden" value="${resultList.sa_eob_no}" class="sa_eob_no" />
+													<input type="hidden" value="${resultList.position}" class="position" />
+													<input type="hidden" value="${resultList.document_url}" class="document_url" />
+													<div class="checkBox">
+														<input data-idx="${resultList.idx}" type="checkbox"
+															class="selection" id="selection${resultList.idx}"><label
+															for="selection${resultList.idx}" class="lableOnly"></label>
+													</div>
+													<!-- 기존 내용 -->
+													<p>${resultList.idx}</p>
+													<p class="title">${resultList.name}</p>
+													
+													<p class="mobile">${resultList.mobile}</p>
+													<p class="email">${resultList.email}</p>
+													<p class="birthday">${resultList.birthday}</p>
+													<p class="birthday">${resultList.address1} ${resultList.address2}</p>
+													<p class="delete"><button
+															onclick="user_delete(${resultList.idx})"></button></p>
+												</li>
+											</c:forEach>
 										</ul>
 
 										<div class="listButton">
-											<a href="#lnk"><img src="/img/admin/delete.png"
-													alt="삭제버튼">삭제</a>
+											<button class="delete_user"><img src="/img/admin/delete.png"
+													alt="삭제버튼">삭제</button>
 										</div>
 
 										<div class="pagination">
-											<c:if test="${pictVO.pageNumber ne 1}">
-												<li><a
-														href="/board/board_list.do?search_text=${param.search_text}&pageNumber=${pictVO.pageNumber - 10 < 1 ? 1 : pictVO.pageNumber - 10}"><img
-															src="/img/admin/prev.png" alt=""></a></li>
-											</c:if>
-
+							               	<c:if test="${pictVO.pageNumber ne 1}">
+												<li><a href="/user_list/user_list.do?search_text=${param.search_text}&pageNumber=${pictVO.pageNumber - 10 < 1 ? 1 : pictVO.pageNumber - 10}"><img src="/img/admin/prev.png" alt=""></a></li>
+											</c:if>	
+											
 											<c:forEach var="i" begin="${pictVO.startPage}" end="${pictVO.endPage}">
 												<c:if test="${i eq pictVO.pageNumber}">
-													<li><a class="active"
-															href="/notice.do?type=${pictVO.type}&pageNumber=${i}">${i}</a>
-													</li>
+													<li><a class="active" href="/notice.do?search_text=${param.search_text}&pageNumber=${i}" >${i}</a></li>
 												</c:if>
 												<c:if test="${i ne pictVO.pageNumber}">
-													<li><a
-															href="/notice.do?type=${pictVO.type}&pageNumber=${i}">${i}</a>
-													</li>
+													<li><a href="/user_list/user_list.do?search_text=${param.search_text}&pageNumber=${i}" >${i}</a></li>
 												</c:if>
-											</c:forEach>
-
-											<c:if
-												test="${pictVO.lastPage ne pictVO.pageNumber && pictVO.lastPage != 0}">
-												<li><a
-														href="/notice.do?type=${pictVO.type}&pageNumber=${pictVO.pageNumber + 10 > pictVO.lastPage ?  pictVO.lastPage : pictVO.pageNumber + 10}"><img
-															src="/img/admin/next.png" alt=""></a></li>
+											</c:forEach>	
+							                  
+							                 <c:if test="${pictVO.lastPage ne pictVO.pageNumber && pictVO.lastPage != 0}">
+												<li><a href="/user_list/user_list.do?search_text=${param.search_text}&pageNumber=${pictVO.pageNumber + 10 > pictVO.lastPage ?  pictVO.lastPage : pictVO.pageNumber + 10}"><img src="/img/admin/next.png" alt=""></a></li>
 											</c:if>
-										</div>
+							            </div>
 									</div>
 								</div>
 							</div>
@@ -105,35 +108,32 @@
 											<div class="inputsContainer">
 												<div class="inputBox">
 													<p class="inputCaption">회사명</p>
-													<span class="bindingText"></span>
+													<span class="bindingText _company_nm"></span>
 												</div>
 											</div>
 											<div class="inputsContainer">
 												<div class="inputBox">
 													<p class="inputCaption">사업자 등록번호</p>
-													<span class="bindingText"></span>
+													<span class="bindingText _sa_eob_no"></span>
 												</div>
 												<div class="inputBox">
 													<p class="inputCaption">직책</p>
-													<span class="bindingText"></span>
+													<span class="bindingText _position"></span>
 												</div>
 											</div>
 											<div class="inputsContainer">
 												<div class="inputBox per">
 													<p class="inputCaption">사업장 주소</p>
-													<span class="bindingText per"></span>
+													<span class="bindingText _company_address"></span>
 												</div>
 											</div>
 											<div class="inputsContainer">
 												<div class="inputBox per">
 													<p class="inputCaption">증빙서류</p>
-													<a href="#lnk" download class="bindingText"></a>
+													<a href="#lnk" download class="bindingText _document_url"></a>
 												</div>
 											</div>
 										</div>
-									</div>
-									<div class="listButton detail">
-										<a href="#lnk"><img src="/img/admin/delete.png" alt="삭제버튼">삭제</a>
 									</div>
 								</div>
 							</div>
