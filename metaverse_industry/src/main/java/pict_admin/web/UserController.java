@@ -716,7 +716,7 @@ public class UserController {
     
     private String getSaveLocation(HttpServletRequest request, MultipartFile uploadFile) {
 		//서버
-    	String uploadPath = "/user1/upload_file/video_industry/";
+    	String uploadPath = "/user1/upload_file/metaverse_industry/";
     	
     	//로컬
     	// String uploadPath = "~/Desktop/upload_file/";
