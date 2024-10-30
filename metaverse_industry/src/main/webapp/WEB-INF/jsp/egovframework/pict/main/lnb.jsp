@@ -28,6 +28,10 @@
 <c:set var="manage_education_detail" value="${fn:indexOf(url, 'manage_education_detail')}"/>
 
 <c:set var="user_list" value="${fn:indexOf(url, 'user_list')}"/>
+<c:set var="popup_list" value="${fn:indexOf(url, 'popup_list')}"/>
+
+<c:set var="popup_form" value="${fn:indexOf(url, 'popup_form')}"/>
+<c:set var="settings" value="${fn:indexOf(url, 'settings')}"/>
 
 <c:set var="biz_list" value="${fn:indexOf(url, 'biz_list')}"/>
 <c:set var="biz_register" value="${fn:indexOf(url, 'biz_register')}"/>
@@ -58,26 +62,19 @@
           	   <li><span>사용자 관리</span></li>
                <li class="<c:if test="${user_list ne -1}">active</c:if>"><a href="/user_list/user_list.do">사용자 목록</a></li>
            </ul>
-           <!-- 
+            
         	<div class="depth1">
                <span><img src="/img/admin/lnb_icons/lnb-popup.png" alt=""></span>
                <a href="#lnk">팝업존<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
            </div>
            <ul class="depth2">
           	   <li><span>팝업 관리</span></li>
-               <li class=""><a href="">팝업 등록</a></li>
+               <li class="<c:if test="${popup_list ne -1 || popup_form ne -1}">active</c:if>"><a href="/popup/popup_list.do">팝업 리스트</a></li>
            </ul>
-            -->
-           <!-- 
-        	<div class="depth1">
-               <span><img src="/img/admin/lnb_icons/lnb-filter.png" alt=""></span>
-               <a href="#lnk">데이터<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
-           </div>
-           <ul class="depth2">
-          	   <li><span>홈페이지</span></li>
-               <li class=""><a href="">방문자 현황</a></li>
-           </ul>
-            -->
+           
+            
+        	
+            
         	<div class="depth1 <c:if test="${board_list ne -1 || board_register ne -1 || biz_list ne -1 || biz_register ne -1}">active</c:if>">
                <span><img src="/img/admin/lnb_icons/board.png" alt=""></span>
                <a href="#lnk">게시물<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
@@ -87,6 +84,16 @@
                <li class="<c:if test="${board_list ne -1}">active</c:if>"><a href="/board/board_list.do">공지사항</a></li>
                <li class="<c:if test="${biz_list ne -1}">active</c:if>"><a href="/biz_post/biz_list.do">사업공고</a></li>
            </ul>
+           
+           <div class="depth1">
+               <span><img src="/img/admin/lnb_icons/lnb-filter.png" alt=""></span>
+               <a href="#lnk">설정<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
+           </div>
+           <ul class="depth2">
+          	   <li><span>홈페이지</span></li>
+               <li class="<c:if test="${settings ne -1}">active</c:if>"><a href="/setting/settings.do">림크설정</a></li>
+           </ul>
+           
             <%-- <div class="depth1 <c:if test="${event_list ne -1 || event_register ne -1}">active</c:if>">
                 <span><img src="/img/admin/lnb_icons/lnb-event.png" alt=""></span>
                 <a href="#lnk">행사 관리<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>

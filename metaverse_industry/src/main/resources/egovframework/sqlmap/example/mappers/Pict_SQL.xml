@@ -1,6 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pict_admin.service.impl.PictMapper">
+
+	<select id="get_url_settings" resultType="map">
+		select * from url_table where idx = 1
+	</select>
+	
+	<update id="update_url_settings" parameterType="pictVO">
+	  UPDATE url_table
+	  SET 
+	    content_url = #{content_url},
+	    professional_url = #{professional_url},
+	    infra_url = #{infra_url},
+	    video_url = #{video_url}
+	    <if test="video_thumb != null and video_thumb != ''">
+	    , video_thumb = #{video_thumb}
+	    </if>
+	  WHERE idx = 1
+	</update>
+	
+	
+	<select id="get_popup_list" resultType="map">
+		select * from popup_table
+		where 1=1
+		<if test="idx != null and idx != 0">
+			and idx = #{idx}
+		</if>
+		<if test="order_by != null and order_by == 'true'">
+			order by order_by asc
+		</if>
+	</select>
+	
+	<select id="popup_list_one" resultType="pictVO">
+		select idx, title, link_url, image_url, order_by as order_val from popup_table
+		where idx = #{idx}
+	</select>
+	
+	<insert id="popup_insert" parameterType="pictVO">
+		INSERT INTO popup_table
+			(
+			 title, link_url,image_url, order_by
+			)
+		VALUES (
+			 #{title}, #{link_url}, #{image_url}, #{order_val}
+			  ) 
+	</insert>
+	
+	<update id="popup_update" parameterType="pictVO">
+	  UPDATE popup_table
+	  SET 
+	    title = #{title}
+	    <if test="file_url1 != null and file_url1 != ''">
+	      , file_url1 = #{file_url1}
+	    </if>
+	    <if test="link_url != null and link_url != ''">
+	      , link_url = #{link_url}
+	    </if>
+	    <if test="order_val != null and order_val != 0">
+	      , order_by = #{order_val}
+	    </if>
+	  WHERE idx = #{idx}
+	</update>
+	
+	<delete id="popup_delete" parameterType="pictVO">
+		delete from popup_table where idx = #{idx}
+	</delete>
+	
+	<select id="get_popup_total_cnt" resultType="int">
+		select count(*) as totalCnt from popup_table
+	</select>
+	
+	
 	<select id="get_user_list" resultType="map">
 		select * from user_table
 		
@@ -219,6 +289,9 @@
 	</select>
 	<select id="equipment_list_total_cnt" resultType="int">
 			select count(*) as totalCnt from equipment_type_table where use_ny = "Y"
+			<if test="type != null and type != ''">
+	            AND type LIKE CONCAT('%', #{type}, '%')
+	        </if>
 	</select>
 	
 	<select id="equipment_item_list" resultType="map">

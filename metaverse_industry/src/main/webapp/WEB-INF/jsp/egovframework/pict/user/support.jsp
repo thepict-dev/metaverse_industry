@@ -72,7 +72,7 @@
                     </ul>
                 </div>
             </div>
-            <a href="/biz_post.do">사업 공고 바로가기 <img src="/img/user_img/arrow-right.png" alt=""></a>
+            <a href="${setting.content_url}">사업 공고 바로가기 <img src="/img/user_img/arrow-right.png" alt=""></a>
         </div>
         <div class="tabInner subContentsInner">
             <h3 class="subTextTitle">전문인력 양성</h3>
@@ -91,7 +91,7 @@
                     </div>
                 </div>
             </div>
-            <a href="/biz_post.do">사업 공고 바로가기 <img src="/img/user_img/arrow-right.png" alt=""></a>
+            <a href="${setting.professional_url}">사업 공고 바로가기 <img src="/img/user_img/arrow-right.png" alt=""></a>
         </div>
         <div class="tabInner subContentsInner">
             <h3 class="subTextTitle">인프라 지원</h3>
@@ -146,7 +146,11 @@
                     </ul>
                 </div>
             </div>
-            <a href="/biz_post.do">사업 공고 바로가기 <img src="/img/user_img/arrow-right.png" alt=""></a>
+            
+            <div class="_buttons">
+	            <a href="/equipment.do">장비 예약<img src="/img/user_img/arrow-right.png" alt=""></a>
+	            <a href="/facility.do">시설 예약<img src="/img/user_img/arrow-right.png" alt=""></a>
+            </div>
         </div>
     </div>
 	<%@ include file="./include/footer.jsp" %>

@@ -101,8 +101,8 @@
 											<div class="inputsContainer">
 												<div class="inputBox" style="width:100%">
 													<p class="inputCaption">설명</p>
-													<textarea name="bujajae" id="description" cols="50" rows="10"
-														class="txt" style="width:100%;">${pictVO.bujajae}</textarea>
+													<textarea name="description" id="description" cols="50" rows="10"
+														class="txt" style="width:100%;">${pictVO.description}</textarea>
 												</div>
 											</div>
 											<div class="btnContainer">

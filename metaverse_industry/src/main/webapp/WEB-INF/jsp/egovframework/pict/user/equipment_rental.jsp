@@ -95,8 +95,8 @@
                                                     <div class="joinFormWrapper">
                                                         <div class="inputContainer">
                                                             <p class="inputCaption">장비사용계획</p>
-                                                            <textarea class="equipment-plan" name="" id=""
-                                                                placeholder="장비 사용 계획을 상세히 적어주세요."></textarea>
+                                                            <textarea class="equipment-plan-company" name="" id=""
+                                                                placeholder="사용목적/기간/인원/세부내용 등 장비사용계획을 상세히 적어주세요. "></textarea>
                                                         </div>
                                                         <div class="inputContainer">
                                                             <p class="inputCaption">증빙서류 첨부</p>
@@ -109,7 +109,7 @@
                                                                     <img src="/img/user_img/del-file.png" alt="" />
                                                                 </button>
                                                             </div>
-                                                            <!-- <p class="fileSub">장비사용계획서를 제출하세요</p> -->
+                                                            <p class="fileSub">신분증 사본</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -148,6 +148,11 @@
                                                                 id="company_address2">
                                                         </div>
                                                         <div class="inputContainer">
+                                                            <p class="inputCaption">장비사용계획</p>
+                                                            <textarea class="equipment-plan" name="" id=""
+                                                                placeholder="사용목적/기간/인원/세부내용 등 장비사용계획을 상세히 적어주세요. "></textarea>
+                                                        </div>
+                                                        <div class="inputContainer">
                                                             <p class="inputCaption">증빙서류 첨부</p>
                                                             <div class="flexInputs file">
                                                                 <p class="fileName2"></p>
@@ -158,7 +163,7 @@
                                                                         src="/img/user_img/del-file.png"
                                                                         alt="" /></button>
                                                             </div>
-                                                            <p class="fileSub">사업자등록증을 제출하세요</p>
+                                                            <p class="fileSub">사업자등록증/재직증명서를 제출하세요</p>
                                                         </div>
                                                     </div>
                                                 </div>

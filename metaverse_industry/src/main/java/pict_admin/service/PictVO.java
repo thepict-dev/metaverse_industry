@@ -277,6 +277,14 @@ public class PictVO extends PictDefaultVO {
     private String school;
     private String grade;
     
+    private String content_url;
+    private String professional_url;
+    private String infra_url;
+    private String video_url;
+    private String video_thumb;
+    
+    
+    
 	public String getDescription() {
 		return description;
 	}
@@ -1936,5 +1944,45 @@ public class PictVO extends PictDefaultVO {
 
 	public void setGrade(String grade) {
 		this.grade = grade;
+	}
+
+	public String getInfra_url() {
+		return infra_url;
+	}
+
+	public void setInfra_url(String infra_url) {
+		this.infra_url = infra_url;
+	}
+
+	public String getProfessional_url() {
+		return professional_url;
+	}
+
+	public void setProfessional_url(String professional_url) {
+		this.professional_url = professional_url;
+	}
+
+	public String getContent_url() {
+		return content_url;
+	}
+
+	public void setContent_url(String content_url) {
+		this.content_url = content_url;
+	}
+
+	public String getVideo_url() {
+		return video_url;
+	}
+
+	public void setVideo_url(String video_url) {
+		this.video_url = video_url;
+	}
+
+	public String getVideo_thumb() {
+		return video_thumb;
+	}
+
+	public void setVideo_thumb(String video_thumb) {
+		this.video_thumb = video_thumb;
 	}
 }

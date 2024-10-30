@@ -2031,6 +2031,29 @@
     transition: all 0.2s;
 }
 
+.subContentsInner ._buttons {
+	display : flex;
+	column-gap : 12px;
+}
+
+.subContentsInner > ._buttons > a {
+	    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 80px;
+    padding: 20px 28px;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+    /* 33.6px */
+    letter-spacing: -1.2px;
+    border: 1px solid var(--grey-100);
+    transition: all 0.2s;
+	
+}
+
 .subContentsInner>a:hover,
 .subContents.etc>a:hover {
     background-color: var(--grey-50);

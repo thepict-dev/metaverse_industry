@@ -22,33 +22,34 @@
 									<% String fullUrl=request.getRequestURL().toString(); String
 										queryString=request.getQueryString(); pageContext.setAttribute("queryString",
 										queryString); %>
-
-
 										<!-- 쿼리스트링 파싱 및 'type' 파라미터 확인 -->
 										<c:if test="${not empty queryString}">
-											<c:set var="params" value="${fn:split(queryString, '&')}" />
-											<c:forEach items="${params}" var="param">
-												<c:choose>
-													<c:when test="${fn:indexOf(queryString, 'hmd') ne -1}">
-														<c:set var="isHmd" value="true" />
-													</c:when>
-													<c:when test="${fn:indexOf(queryString, 'ar') ne -1}">
-														<c:set var="isAr" value="true" />
-													</c:when>
-													<c:when test="${fn:indexOf(queryString, 'motion') ne -1}">
-														<c:set var="isMotion" value="true" />
-													</c:when>
-													<c:when test="${fn:indexOf(queryString, 'camera') ne -1}">
-														<c:set var="isCamera" value="true" />
-													</c:when>
-													<c:when test="${fn:indexOf(queryString, 'scanner') ne -1}">
-														<c:set var="isScanner" value="true" />
-													</c:when>
-													<c:when test="${fn:indexOf(queryString, 'else') ne -1}">
-														<c:set var="isElse" value="true" />
-													</c:when>
-												</c:choose>
-											</c:forEach>
+										    <c:set var="params" value="${fn:split(queryString, '&')}" />
+										    <c:forEach items="${params}" var="param">
+										        <c:choose>
+										            <c:when test="${fn:indexOf(param, 'hmd') ne -1}">
+										                <c:set var="isHmd" value="true" />
+										            </c:when>
+										            <c:when test="${fn:indexOf(param, 'ar') ne -1}">
+										                <c:set var="isAr" value="true" />
+										            </c:when>
+										            <c:when test="${fn:indexOf(param, 'motion') ne -1}">
+										                <c:set var="isMotion" value="true" />
+										            </c:when>
+										            <c:when test="${fn:indexOf(param, 'camera') ne -1}">
+										                <c:set var="isCamera" value="true" />
+										            </c:when>
+										            <c:when test="${fn:indexOf(param, 'scanner') ne -1}">
+										                <c:set var="isScanner" value="true" />
+										            </c:when>
+										            <c:when test="${fn:indexOf(param, 'else') ne -1}">
+										                <c:set var="isElse" value="true" />
+										            </c:when>
+										            <c:otherwise>
+										                <%-- 일치하는 조건이 없을 때의 처리 --%>
+										            </c:otherwise>
+										        </c:choose>
+										    </c:forEach>
 										</c:if>
 										<div class="subTop rental">
 											<div class="subColor">
@@ -85,37 +86,37 @@
 											<div class="rentalListContainer">
 												<ul class="tabNav rental">
 
-													<li class="<c:if test=" ${empty queryString}">active</c:if>">
+													<li class="<c:if test="${empty queryString}">active</c:if>">
 														<a href="/equipment.do">
 															모두보기
 														</a>
 													</li>
-													<li class="<c:if test=" ${isHmd}">active</c:if>">
+													<li class="<c:if test="${isHmd}">active</c:if>">
 														<a href="/equipment.do?type=hmd">
 															HMD
 														</a>
 													</li>
-													<li class="<c:if test=" ${isAr}">active</c:if>">
+													<li class="<c:if test="${isAr}">active</c:if>">
 														<a href="/equipment.do?type=ar">
 															AR글래스
 														</a>
 													</li>
-													<li class="<c:if test=" ${isMotion}">active</c:if>">
+													<li class="<c:if test="${isMotion}">active</c:if>">
 														<a href="/equipment.do?type=motion">
 															모션캡처
 														</a>
 													</li>
-													<li class="<c:if test=" ${isCamera}">active</c:if>">
+													<li class="<c:if test="${isCamera}">active</c:if>">
 														<a href="/equipment.do?type=camera">
 															360카메라
 														</a>
 													</li>
-													<li class="<c:if test=" ${isScanner}">active</c:if>">
+													<li class="<c:if test="${isScanner}">active</c:if>">
 														<a href="/equipment.do?type=scanner">
 															3D스캐너
 														</a>
 													</li>
-													<li class="<c:if test=" ${isElse}">active</c:if>">
+													<li class="<c:if test="${isElse}">active</c:if>">
 														<a href="/equipment.do?type=else">
 															기타
 														</a>

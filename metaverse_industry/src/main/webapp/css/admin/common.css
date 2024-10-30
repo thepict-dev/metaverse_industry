@@ -44,6 +44,14 @@ body{
     visibility: hidden;
 }
 
+
+.prev_img {
+	width : 360px;
+}
+.prev_img img {
+	width : 100%;
+}
+
 /* margin, padding, border */
 .mt20{
     margin-top: 20px;

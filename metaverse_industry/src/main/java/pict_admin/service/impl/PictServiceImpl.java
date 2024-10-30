@@ -64,6 +64,57 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 	/** ID Generation */
 	@Resource(name = "egovIdGnrService")
 	private EgovIdGnrService egovIdGnrService;
+	
+	@Override
+	public Map<String, Object> get_url_settings(PictVO pictVO) throws Exception {
+		
+		return pictMapper.get_url_settings(pictVO);
+	}
+	
+	@Override
+	public void update_url_settings(PictVO pictVO) throws Exception {
+		pictMapper.update_url_settings(pictVO);
+	}
+		
+	
+	
+	// 팝업 리스트 
+	@Override
+	public List<?> get_popup_list(PictVO pictVO) throws Exception {
+		
+		return pictMapper.get_popup_list(pictVO);
+	}
+	
+	@Override
+	public PictVO popup_list_one(PictVO pictVO) throws Exception {
+		return pictMapper.popup_list_one(pictVO);
+	}
+	
+	
+	@Override
+	public void popup_insert(PictVO pictVO) throws Exception {
+		pictMapper.popup_insert(pictVO);
+		
+	}
+	
+	@Override
+	public void popup_update(PictVO pictVO) throws Exception {
+		pictMapper.popup_update(pictVO);
+		
+	}
+	
+	@Override
+	public void popup_delete(PictVO pictVO) throws Exception {
+		pictMapper.popup_delete(pictVO);
+		
+	}
+	
+	@Override
+	public Integer get_popup_total_cnt(PictVO pictVO) throws Exception {
+		return pictMapper.get_popup_total_cnt(pictVO);
+	}
+	
+	// 유저	
 	 
 	@Override
 	public List<Map<String, Object>> get_user_list(PictVO pictVO) throws Exception {

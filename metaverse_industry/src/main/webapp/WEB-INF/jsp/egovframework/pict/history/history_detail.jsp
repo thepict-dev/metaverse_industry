@@ -167,7 +167,7 @@
 																	승인
 																</c:when>
 																<c:when test="${history_detail.request_status eq 'rejected'}">
-																	승인보완요청
+																	서류보완요청
 																</c:when>
 																<c:when test="${history_detail.request_status eq 'cancelled'}">
 																	신청취소

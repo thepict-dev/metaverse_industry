@@ -26,6 +26,26 @@
 										<p>총 <span>${size}</span>개</p>
 										<div class="inputsContainer">
 											<div class="inputBox listSearch">
+												<select name="category" id="category" class="lgThinInput">
+													<option value="" >장비 타입</option>
+													<option value="HMD" <c:if test="${pictVO.type eq 'HMD'}">
+														selected</c:if>>HMD</option>
+													<option value="AR글래스" <c:if test="${pictVO.type eq 'AR글래스'}">
+														selected</c:if>>AR글래스
+													</option>
+													<option value="모션캡처" <c:if test="${pictVO.type eq '모션캡처'}">
+														selected</c:if>>모션캡처</option>
+													<option value="360카메라" <c:if test="${pictVO.type eq '360카메라'}">
+														selected</c:if>>360카메라
+													</option>
+													<option value="3D스캐너" <c:if test="${pictVO.type eq '3D스캐너'}">
+														selected</c:if>>3D스캐너
+													</option>
+													<option value="기타" <c:if test="${pictVO.type eq '기타'}">
+														selected</c:if>>기타</option>
+												</select>
+											</div>
+											<div class="inputBox listSearch">
 												<input type="text" name="search_text" id="search_text"
 													placeholder="내용을 입력하세요…" value="${pictVO.search_text}">
 												<a href="#lnk" onclick="search_list();"><img
@@ -57,9 +77,6 @@
 													<!-- 기존 내용 -->
 													<p>${resultList.idx}</p>
 													<p class="equip_type">${resultList.type}</p>
-													<!-- 
-					                <p>${resultList.description}</p>
-					                 -->
 													<div class="listImg"><img src="${resultList.image_url}"
 															alt="장비 이미자"></div>
 													<p class="title">${resultList.name}</p>
@@ -83,19 +100,19 @@
 										<div class="pagination">
 											<c:if test="${pictVO.pageNumber ne 1}">
 												<li><a
-														href="/equipment/equipment_list.do?pageNumber=${pictVO.pageNumber - 10 < 1 ? 1 : pictVO.pageNumber - 10}"><img
+														href="/equipment/equipment_list.do?type=${pictVO.type}&pageNumber=${pictVO.pageNumber - 10 < 1 ? 1 : pictVO.pageNumber - 10}"><img
 															src="/img/admin/prev.png" alt=""></a></li>
 											</c:if>
 
 											<c:forEach var="i" begin="${pictVO.startPage}" end="${pictVO.endPage}">
 												<c:if test="${i eq pictVO.pageNumber}">
 													<li><a class="active"
-															href="/equipment/equipment_list.do?pageNumber=${i}">${i}</a>
+															href="/equipment/equipment_list.do?type=${pictVO.type}&pageNumber=${i}">${i}</a>
 													</li>
 												</c:if>
 												<c:if test="${i ne pictVO.pageNumber}">
 													<li><a
-															href="/equipment/equipment_list.do?tpageNumber=${i}">${i}</a>
+															href="/equipment/equipment_list.do?type=${pictVO.type}&pageNumber=${i}">${i}</a>
 													</li>
 												</c:if>
 											</c:forEach>
@@ -103,7 +120,7 @@
 											<c:if
 												test="${pictVO.lastPage ne pictVO.pageNumber && pictVO.lastPage != 0}">
 												<li><a
-														href="/equipment/equipment_list.do?pageNumber=${pictVO.pageNumber + 10 > pictVO.lastPage ?  pictVO.lastPage : pictVO.pageNumber + 10}"><img
+														href="/equipment/equipment_list.do?type=${pictVO.type}&pageNumber=${pictVO.pageNumber + 10 > pictVO.lastPage ?  pictVO.lastPage : pictVO.pageNumber + 10}"><img
 															src="/img/admin/next.png" alt=""></a></li>
 											</c:if>
 										</div>
@@ -175,6 +192,11 @@
 							<input type='hidden' name="use_at" id="use_at" value='' />
 							<input type='hidden' name="type" id="type" value='' />
 						</form>
+						<script>
+							$("#category").change(function(e){
+								location.href = "/equipment/equipment_list.do?type=" + $(this).val();
+							})
+						</script>
 						<script type="text/javascript" src="/js/equipment_list.js"></script>
 						<script src="../../../../../js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 						<script src="../../../../../js/scripts.js"></script>

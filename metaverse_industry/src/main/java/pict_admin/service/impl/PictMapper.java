@@ -42,6 +42,24 @@ import pict_admin.service.PictVO;
  */
 @Mapper("pictMapper")
 public interface PictMapper {
+	// 세팅
+	Map<String, Object> get_url_settings(PictVO pictVO) throws Exception;
+	
+	void update_url_settings(PictVO pictVO) throws Exception;
+	
+	// 팝업 리스트
+	List<?> get_popup_list(PictVO pictVO) throws Exception;
+	
+	PictVO popup_list_one(PictVO pictVO) throws Exception;
+	
+	void popup_insert(PictVO pictVO) throws Exception;
+	
+	void popup_update(PictVO pictVO) throws Exception;
+	
+	void popup_delete(PictVO pictVO) throws Exception;
+	
+	Integer get_popup_total_cnt(PictVO pictVO) throws Exception;
+	
 	// 유저 정보
 	List<Map<String, Object>> get_user_list(PictVO pictVO) throws Exception; 
 	

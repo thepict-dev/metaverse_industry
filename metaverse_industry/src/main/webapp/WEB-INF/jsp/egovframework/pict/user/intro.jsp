@@ -65,7 +65,7 @@
                     </li>
                     <li>
                         <p><img src="/img/user_img/call.png" alt="">대표전화</p>
-                        <p>033-245-6313</p>
+                        <p>033-245-6315</p>
                     </li>
                 </ul>
             </div>
