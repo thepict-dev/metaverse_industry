@@ -545,7 +545,7 @@ bookingBtn.addEventListener("click", () => {
             el: ".swiper-pagination",
             clickable: true,
             type: 'bullets',
-        },
+        }, 
         slidesPerView: 1,
         spaceBetween: 30,
         centeredSlides: true,
@@ -594,7 +594,6 @@ const callBookingApi = () => {
         formData.append("company_nm", document.querySelector("#company_nm").value);
         formData.append("sa_eob_no", document.querySelector("#sa_eob_no").value);
         formData.append("position", document.querySelector("#position").value);
-        formData.append("equipment_plan", document.querySelector(".equipment-plan-company").value);
         formData.append("company_address1", document.querySelector("#company_address1").value);
         formData.append("company_address2", document.querySelector("#company_address2").value);
         formData.append("attach_file", document.querySelector("#file2").files[0]);
