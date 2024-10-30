@@ -235,7 +235,7 @@
 	</update>
 	
 	<!-- 장비관리  -->
-	<select id="equipment_list" resultType="pictVO">
+	<!-- <select id="equipment_list" resultType="pictVO">
 	    SELECT * FROM (
 	        SELECT 
 	            et.idx,
@@ -265,6 +265,75 @@
 	            GROUP BY 
 	                equipment_type_id
 	        ) avail_count ON et.id = avail_count.equipment_type_id
+	        LEFT JOIN bag_table bt ON et.id = bt.key_id 
+	            <if test="user_id != null and user_id != ''">
+	                AND bt.user_id = #{user_id}
+	            </if>
+	    ) AS subquery
+	    <where>
+	        use_ny = 'Y'
+	        <if test="isOnlyAvailable != null and isOnlyAvailable">
+	            AND avaliable_equipment_cnt > 0
+	        </if>
+	        <if test="search_text != null and search_text != ''">
+	            AND name LIKE CONCAT('%', #{search_text}, '%')
+	        </if>
+	        <if test="type != null and type != ''">
+	            AND type LIKE CONCAT('%', #{type}, '%')
+	        </if>
+	    </where>
+	    ORDER BY reg_date DESC
+	    <if test="limit_cnt != null and limit_cnt != 0">
+	        LIMIT #{limit_cnt} OFFSET #{startNumber}
+	    </if>
+	</select> -->
+	
+	<select id="equipment_list" resultType="pictVO">
+	    SELECT * FROM (
+	        SELECT 
+	            et.idx,
+	            et.id,
+	            et.type,
+	            et.name,
+	            et.description,
+	            et.image_url,
+	            et.bujajae,
+	            date_format(et.reg_date, '%Y-%m-%d') as reg_date,
+	            et.use_ny,
+	            COALESCE(avail_count.cnt, 0) AS avaliable_equipment_cnt,
+	            COALESCE(inventory_count.inventoryCnt, 0) AS inventoryCnt,
+	            CASE 
+	                WHEN (bt.key_id IS NOT NULL AND bt.user_id = #{user_id}) THEN '1'
+	                ELSE '0'
+	            END AS isLike
+	        FROM 
+	            equipment_type_table et
+	        LEFT JOIN (
+	            SELECT 
+	                equipment_type_id,
+	                COUNT(*) AS cnt
+	            FROM 
+	                equipment_item_table
+	            WHERE 
+	                status = 'available'
+	            GROUP BY 
+	                equipment_type_id
+	        ) avail_count ON et.id = avail_count.equipment_type_id
+	        LEFT JOIN (
+	            SELECT 
+	                ei.equipment_type_id,
+	                COUNT(*) AS inventoryCnt
+	            FROM 
+	                equipment_item_table ei
+	            LEFT JOIN equipment_rental_request err ON ei.id = err.equipment_id 
+	                AND err.request_status = 'rental'
+	                AND CURDATE() BETWEEN err.rental_start_date AND err.rental_end_date
+	            WHERE 
+	                ei.status = 'available'
+	                AND err.id IS NULL
+	            GROUP BY 
+	                ei.equipment_type_id
+	        ) inventory_count ON et.id = inventory_count.equipment_type_id
 	        LEFT JOIN bag_table bt ON et.id = bt.key_id 
 	            <if test="user_id != null and user_id != ''">
 	                AND bt.user_id = #{user_id}

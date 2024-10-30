@@ -282,7 +282,7 @@ public class PictVO extends PictDefaultVO {
     private String infra_url;
     private String video_url;
     private String video_thumb;
-    
+    private Integer inventoryCnt;
     
     
 	public String getDescription() {
@@ -1984,5 +1984,13 @@ public class PictVO extends PictDefaultVO {
 
 	public void setVideo_thumb(String video_thumb) {
 		this.video_thumb = video_thumb;
+	}
+
+	public Integer getInventoryCnt() {
+		return inventoryCnt;
+	}
+
+	public void setInventoryCnt(Integer inventoryCnt) {
+		this.inventoryCnt = inventoryCnt;
 	}
 }

@@ -1419,6 +1419,7 @@ public class pictController {
 
 		Integer totalCnt = pictService.equipment_list_total_cnt(pictVO);
 		int lastPageValue = (int) (Math.ceil(totalCnt * 1.0 / 10));
+		System.out.println("pageNum @@@@@@@@@@@@@@@@@@ " + pageNum);
 		System.out.println("startNum @@@@@@@@@@@@@@@@@@ " + startNum);
 		System.out.println("totalCnt @@@@@@@@@@@@@@@@@@ " + totalCnt);
 		System.out.println("lastPageValue @@@@@@@@@@@@@@@@@@ " + lastPageValue);
