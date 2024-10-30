@@ -402,6 +402,10 @@ bookingBtn.addEventListener("click", () => {
             alert("사업장 주소를 입력해주세요.");
             return;
         }
+        if (document.querySelector(".equipment-plan-company").value === "") {
+            alert("장비 사용 계획을 작성해주세요.");
+            return;
+        }
         if (document.querySelector("#file2").files[0] === "") {
             alert("증빙서류를 첨부해주세요.");
             return;
@@ -596,6 +600,7 @@ const callBookingApi = () => {
         formData.append("position", document.querySelector("#position").value);
         formData.append("company_address1", document.querySelector("#company_address1").value);
         formData.append("company_address2", document.querySelector("#company_address2").value);
+        formData.append("equipment_plan", document.querySelector(".equipment-plan-company").value);
         formData.append("attach_file", document.querySelector("#file2").files[0]);
         console.log(formData);
     }

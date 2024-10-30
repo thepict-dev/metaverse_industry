@@ -95,7 +95,7 @@
                                                     <div class="joinFormWrapper">
                                                         <div class="inputContainer">
                                                             <p class="inputCaption">장비사용계획</p>
-                                                            <textarea class="equipment-plan-company" name="" id=""
+                                                            <textarea class="equipment-plan" name="" id=""
                                                                 placeholder="사용목적/기간/인원/세부내용 등 장비사용계획을 상세히 적어주세요. "></textarea>
                                                         </div>
                                                         <div class="inputContainer">
@@ -149,7 +149,7 @@
                                                         </div>
                                                         <div class="inputContainer">
                                                             <p class="inputCaption">장비사용계획</p>
-                                                            <textarea class="equipment-plan" name="" id=""
+                                                            <textarea class="equipment-plan-company" name="" id=""
                                                                 placeholder="사용목적/기간/인원/세부내용 등 장비사용계획을 상세히 적어주세요. "></textarea>
                                                         </div>
                                                         <div class="inputContainer">
@@ -242,7 +242,7 @@
                                                     </li>
                                                     <li>
                                                         <span>•</span>
-                                                        <p>장비 대여 및 반납시 방문전 033-245-6313으로 연락 부탁드립니다.</p>
+                                                        <p>장비 대여 및 반납시 방문전 033-245-6315으로 연락 부탁드립니다.</p>
                                                     </li>
                                                 </ul>
                                                 <div class="checkConfirm">
