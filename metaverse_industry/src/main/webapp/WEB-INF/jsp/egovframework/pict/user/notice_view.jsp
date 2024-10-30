@@ -35,6 +35,12 @@
         <div class="viewBottom">
             ${noticeResult.text}
         </div>
+        <div class="addFile">
+            <a href="#lnk" download>
+                <img src="/img/user_img/file.png" alt="">
+                파일이름ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
+            </a>
+        </div>
         <div class="fullButtonContainer bd">
             <a href="/notice.do" class="wt view">목록으로</a>
         </div>
