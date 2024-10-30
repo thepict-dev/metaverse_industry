@@ -13,17 +13,35 @@
 	<%@ include file="./include/header.jsp" %>
     <div class="viewContainer">
         <div class="viewTop">
-            <p class="viewTitle">제에에에에에에에에에에에에에에에에에에에에에에에에목</p>
-            <span class="viewDate">2024-08-01</span>
+        	<span class="category">사업공고</span>
+            <p class="viewTitle">${noticeResult.title}</p>
+            <span class="viewDate">${noticeResult.reg_date}</span>
         </div>
         <div class="viewBottom">
-            <p>dadsfaf</p>
+            ${noticeResult.text}
         </div>
         <div class="addFile">
-            <a href="#lnk" download>
-                <img src="/img/user_img/file.png" alt="">
-                파일이름ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
-            </a>
+            <c:if test="${noticeResult.file_url1 ne null and noticeResult.file_url1 ne ''}">
+        	    <c:set var="fileName1" value="${fn:substringAfter(noticeResult.file_url1, 'metaverse_industry/')}" />
+	            <a href="${noticeResult.file_url1}" download>
+	                <img src="/img/user_img/file.png" alt="">
+	                ${fileName1}
+	            </a>
+        	</c:if>
+        	<c:if test="${noticeResult.file_url2 ne null and noticeResult.file_url2 ne ''}">
+        	    <c:set var="fileName2" value="${fn:substringAfter(noticeResult.file_url2, 'metaverse_industry/')}" />
+	            <a href="${noticeResult.file_url2}" download>
+	                <img src="/img/user_img/file.png" alt="">
+	                ${fileName2}
+	            </a>
+        	</c:if>
+        	<c:if test="${noticeResult.file_url3 ne null and noticeResult.file_url3 ne ''}">
+        	    <c:set var="fileName3" value="${fn:substringAfter(noticeResult.file_url3, 'metaverse_industry/')}" />
+	            <a href="${noticeResult.file_url3}" download>
+	                <img src="/img/user_img/file.png" alt="">
+	                ${fileName3}
+	            </a>
+        	</c:if>
         </div>
         <div class="fullButtonContainer bd">
             <a href="/biz_post.do" class="wt view">목록으로</a>

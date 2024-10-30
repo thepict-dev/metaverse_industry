@@ -3,7 +3,7 @@ $('.active-sub-depth').hover(
         // 마우스가 요소 위에 있을 때 실행될 코드
         $('.header .menu-depth li .sub-depth').slideDown(200);
         $('.header .header-back').slideDown(200);
-    },
+    }
 )
 $('.header').hover(() => {
 

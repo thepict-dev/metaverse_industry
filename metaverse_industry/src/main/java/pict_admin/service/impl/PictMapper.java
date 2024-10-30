@@ -85,7 +85,7 @@ public interface PictMapper {
 	List<?> biz_list(PictVO pictVO) throws Exception;
 	
 	Integer biz_list_total_cnt(PictVO pictVO) throws Exception;
-	
+
 	PictVO biz_list_one(PictVO pictVO) throws Exception;
 	
 	void biz_update(PictVO pictVO) throws Exception;
@@ -114,6 +114,8 @@ public interface PictMapper {
 	
 	PictVO equipment_item_one(PictVO pictVO) throws Exception;
 	
+	List<Map<String, Object>> get_overdue_list() throws Exception;
+	
 	void equipment_cnt_update(PictVO pictVO) throws Exception;
 
 	void equipment_cnt_insert(PictVO pictVO) throws Exception;
@@ -126,10 +128,15 @@ public interface PictMapper {
 	
 	List<?> get_request_list(PictVO pictVO) throws Exception;
 	
+	
+	Integer request_total_cnt(PictVO pictVO) throws Exception;
+	
 	Map<String, Object> get_request_detail(@Param("idx") Integer idx) throws Exception;
 	
 	
 	void update_request_status(PictVO pictVO) throws Exception;
+	
+	Map<String, Object> get_user_by_request(PictVO pictVO) throws Exception; 
 	
 	Integer equipment_list_total_cnt(PictVO pictVO) throws Exception;
 	

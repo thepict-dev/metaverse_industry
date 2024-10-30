@@ -94,10 +94,10 @@
                     <span>시설•장비</span>
                     <ul class="sub-depth">
                         <li>
-                            <a href="/equipment.do">장비대여</a>
+                            <a href="/equipment.do">장비사용</a>
                         </li>
                         <li>
-                        	<a href="/facility.do">시설예약</a>
+                        	<a href="/facility.do">시설사용</a>
                         </li>
                     </ul>
                 </li>

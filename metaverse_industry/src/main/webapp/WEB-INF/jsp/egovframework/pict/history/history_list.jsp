@@ -9,7 +9,7 @@
 					<!DOCTYPE html>
 					<html lang="ko">
 					<c:import url="../main/head.jsp">
-						<c:param name="pageTitle" value="장비 리스트" />
+						<c:param name="pageTitle" value="장비대여 관리대장" />
 					</c:import>
 
 					<%@include file="../main/lnb.jsp" %>
@@ -21,7 +21,7 @@
 							<div class="listContainer">
 								<div class="listInner">
 									<form action="" class="countList" id="search_fm" name="search_fm" method="get">
-										<p>총 <span>${size}</span>개</p>
+										<p>총 <span>${totalCnt}</span>개</p>
 										<div class="inputsContainer">
 											<div class="inputBox listSearch">
 												<select name="category" id="category" class="lgThinInput">
@@ -52,9 +52,9 @@
 													<option <c:if test="${pictVO.request_status eq 'retry'}">selected</c:if> value="retry">재신청</option>
 													<option <c:if test="${pictVO.request_status eq 'refusal'}">selected</c:if> value="refusal">거절</option>
 													<option <c:if test="${pictVO.request_status eq 'cancelled'}">selected</c:if> value="cancelled">취소</option>
-													<option <c:if test="${pictVO.request_status eq 'rental'}">selected</c:if> value="cancelled">대여중</option>
-													<option <c:if test="${pictVO.request_status eq 'returened'}">selected</c:if> value="cancelled">반납완료</option>
-													<option <c:if test="${pictVO.request_status eq 'overdue'}">selected</c:if> value="cancelled">연체중</option>
+													<option <c:if test="${pictVO.request_status eq 'rental'}">selected</c:if> value="rental">대여중</option>
+													<option <c:if test="${pictVO.request_status eq 'returened'}">selected</c:if> value="returened">반납완료</option>
+													<option <c:if test="${pictVO.request_status eq 'overdue'}">selected</c:if> value="overdue">연체중</option>
 												</select>
 												
 											</div>
@@ -205,12 +205,7 @@
 								$("#search_fm").submit();
 							}
 							
-							$("#status").change(function(e){
-								location.href = "/history/history_list.do?request_status=" + $(this).val();
-							})
-							$("#category").change(function(e){
-								location.href = "/history/history_list.do?category=" + $(this).val();
-							})
+							
 						</script>
 
 						<script src="../../../../../js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

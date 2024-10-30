@@ -59,20 +59,20 @@
 	                    
 	                    <div class="pagination">
 	                    	<c:if test="${pictVO.pageNumber ne 1}">
-								<li><a href="/board/board_list.do?search_text=${param.search_text}&pageNumber=${pictVO.pageNumber - 10 < 1 ? 1 : pictVO.pageNumber - 10}"><img src="/img/admin/prev.png" alt=""></a></li>
+								<li><a href="/biz_post/biz_list.do?search_text=${param.search_text}&pageNumber=${pictVO.pageNumber - 10 < 1 ? 1 : pictVO.pageNumber - 10}"><img src="/img/admin/prev.png" alt=""></a></li>
 							</c:if>	
 							
 							<c:forEach var="i" begin="${pictVO.startPage}" end="${pictVO.endPage}">
 								<c:if test="${i eq pictVO.pageNumber}">
-									<li class="active"><a href="/board/board_list.do?search_text=${param.search_text}&pageNumber=${i}" >${i}</a></li>
+									<li><a class="active" href="/biz_post/biz_list.do?search_text=${param.search_text}&pageNumber=${i}" >${i}</a></li>
 								</c:if>
 								<c:if test="${i ne pictVO.pageNumber}">
-									<li><a href="/board/board_list.do?search_text=${param.search_text}&pageNumber=${i}" >${i}</a></li>
+									<li><a href="/biz_post/biz_list.do?search_text=${param.search_text}&pageNumber=${i}" >${i}</a></li>
 								</c:if>
 							</c:forEach>	
 	                    
 		                    <c:if test="${pictVO.lastPage ne pictVO.pageNumber}">
-								<li><a href="/board/board_list.do?search_text=${param.search_text}&pageNumber=${pictVO.pageNumber + 10 > pictVO.lastPage ?  pictVO.lastPage : pictVO.pageNumber + 10}"><img src="/img/admin/next.png" alt=""></a></li>
+								<li><a href="/biz_post/biz_list.do?search_text=${param.search_text}&pageNumber=${pictVO.pageNumber + 10 > pictVO.lastPage ?  pictVO.lastPage : pictVO.pageNumber + 10}"><img src="/img/admin/next.png" alt=""></a></li>
 							</c:if>
 	                    </div>
 	                </div>

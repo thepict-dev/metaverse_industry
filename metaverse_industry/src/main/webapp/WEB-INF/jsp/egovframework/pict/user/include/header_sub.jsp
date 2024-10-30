@@ -38,8 +38,8 @@
                 <li <c:if test="${equipment ne -1 || facility ne -1}">class="active"</c:if>>
                     <a href="/equipment.do">시설·장비</a>
                     <ul class="gnbNav">
-                        <li><a href="/equipment.do">장비대여</a></li>
-                        <li><a href="/facility.do">시설예약</a></li>
+                        <li><a href="/equipment.do">장비사용</a></li>
+                        <li><a href="/facility.do">시설사용</a></li>
                     </ul>
                 </li>
                 <li <c:if test="${education ne -1}">class="active"</c:if>>
@@ -97,10 +97,10 @@
                     <span>시설•장비</span>
                     <ul class="sub-depth">
                         <li>
-                            <a href="/equipment.do">장비대여</a>
+                            <a href="/equipment.do">장비사용</a>
                         </li>
                         <li>
-                        	<a href="/facility.do">시설예약</a>
+                        	<a href="/facility.do">시설사용</a>
                         </li>
                     </ul>
                 </li>

@@ -292,6 +292,11 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 	}
 	
 	@Override
+	public Integer request_total_cnt(PictVO pictVO) throws Exception {
+		return pictMapper.request_total_cnt(pictVO);
+	}
+	
+	@Override
 	public Map<String, Object>  get_request_detail(Integer idx) throws Exception {
 		return pictMapper.get_request_detail(idx);
 	}
@@ -300,6 +305,17 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 	public void update_request_status(PictVO pictVO) throws Exception {
 		pictMapper.update_request_status(pictVO);
 		
+	}
+	
+	@Override
+	public Map<String, Object> get_user_by_request(PictVO pictVO) throws Exception {
+		return pictMapper.get_user_by_request(pictVO);
+	}
+	
+	
+	@Override
+	public List<Map<String, Object>> get_overdue_list() throws Exception {
+		return pictMapper.get_overdue_list();
 	}
 	
 	@Override

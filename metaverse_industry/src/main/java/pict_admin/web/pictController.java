@@ -6,11 +6,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -23,8 +26,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.UUID;
 
 import javax.mail.PasswordAuthentication;
@@ -36,6 +41,7 @@ import pict_admin.service.AdminService;
 import pict_admin.service.AdminVO;
 import javax.annotation.Resource;
 
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -47,12 +53,33 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.impl.client.HttpClients;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.mail.Transport;
+
+
 
 @Controller
 public class pictController {
@@ -1275,7 +1302,7 @@ public class pictController {
 		}
 		int startNum = (pageNum - 1) * limitNumber;
 		pictVO.setStartNumber(startNum);
-		Integer totalCnt = pictService.equipment_list_total_cnt(pictVO);
+		Integer totalCnt = pictService.biz_list_total_cnt(pictVO);
 		int lastPageValue = (int) (Math.ceil(totalCnt * 1.0 / 10));
 		System.out.println("startNum @@@@@@@@@@@@@@@@@@ " + startNum);
 		System.out.println("totalCnt @@@@@@@@@@@@@@@@@@ " + totalCnt);
@@ -1299,6 +1326,7 @@ public class pictController {
 		List<?> biz_list = pictService.biz_list(pictVO);
 		model.addAttribute("resultList", biz_list);
 		model.addAttribute("size", biz_list.size());
+		model.addAttribute("totalCnt", totalCnt);
 		model.addAttribute("pictVO", pictVO);
 
 		return "pict/biz_post/biz_list";
@@ -1705,7 +1733,7 @@ public class pictController {
 		}
 		int startNum = (pageNum - 1) * limitNumber;
 		pictVO.setStartNumber(startNum);
-		Integer totalCnt = pictService.equipment_list_total_cnt(pictVO);
+		Integer totalCnt = pictService.request_total_cnt(pictVO);
 		int lastPageValue = (int) (Math.ceil(totalCnt * 1.0 / 10));
 		System.out.println("startNum @@@@@@@@@@@@@@@@@@ " + startNum);
 		System.out.println("totalCnt @@@@@@@@@@@@@@@@@@ " + totalCnt);
@@ -1732,6 +1760,7 @@ public class pictController {
 		model.addAttribute("resultList", history_list);
 		model.addAttribute("size", history_list.size());
 		model.addAttribute("pictVO", pictVO);
+		model.addAttribute("totalCnt", totalCnt);
 		model.addAttribute("search_text", pictVO.getSearch_text());
 		return "pict/history/history_list";
 	}
@@ -2100,6 +2129,15 @@ public class pictController {
 		System.out.println("::::::::::::::::::::::::::::::::::::::::::" + pictVO.getIdx());
 		System.out.println("::::::::::::::::::::::::::::::::::::::::::" + pictVO.getReject_msg());
 		pictService.update_request_status(pictVO);
+		Map<String, Object> user = pictService.get_user_by_request(pictVO);
+		System.out.println("user::::::::::::::::::::::::::::::::::::::::::" + user);
+		if (user.get("mobile") != null && user.get("mobile") != "") {
+			
+			
+			
+			// send_sms("16444845", "장비예약이 승인되었습니다.", "01032233817");
+			//send_sms(String sender, String msg, String receiver)
+		}
 		model.addAttribute("message", "정상적으로 수정되었습니다.");
 		model.addAttribute("retType", ":location");
 		model.addAttribute("retUrl", "/history/history_list.do");
@@ -2292,6 +2330,23 @@ public class pictController {
 		return "pict/popup/popup_list";
 	}
 	
+	@RequestMapping(value = "/popup/popup_delete.do")
+	public String popup_delete(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request)
+			throws Exception {
+		String session = (String) request.getSession().getAttribute("id");
+		if (session == null || session == "null") {
+			return "redirect:/pict_login.do";
+		}
+
+		pictService.popup_delete(pictVO);
+
+		model.addAttribute("message", "정상적으로 삭제되었습니다.");
+		model.addAttribute("retType", ":location");
+		model.addAttribute("retUrl", "/popup/popup_list.do");
+		return "pict/main/message";
+	}
+	
+	
 	@RequestMapping(value = "/popup/popup_form.do")
 	public String popup_form(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request)
 			throws Exception {
@@ -2417,6 +2472,88 @@ public class pictController {
 			return "pict/main/message";
 		}
 	}
+	
+
+  	
+  	//문자
+	public void send_sms(String sender, String msg, String receiver) throws Exception {
+
+    	try{
+    		
+    		final String encodingType = "utf-8";
+    		final String boundary = "____boundary____";
+    	
+    		/**************** 문자전송하기 예제 ******************/
+    		/* "result_code":결과코드,"message":결과문구, */
+    		/* "msg_id":메세지ID,"error_cnt":에러갯수,"success_cnt":성공갯수 */
+    		/* 동일내용 > 전송용 입니다.  
+    		/******************** 인증정보 ********************/
+    		String sms_url = "https://apis.aligo.in/send/"; // 전송요청 URL
+    		
+    		Map<String, String> sms = new HashMap<String, String>();
+    		
+    		sms.put("user_id", "finecom"); // SMS 아이디
+    		sms.put("key", "rox9v7vxxxuoawg6i3yb7ofaf8ih3f5s"); //인증키
+    		
+    		/******************** 인증정보 ********************/
+    		
+    		/******************** 전송정보 ********************/
+
+    		//request.getAttribute("text").toString();
+    		sms.put("msg", msg);
+    		
+    		sms.put("receiver", receiver); // 수신번호
+    		//sms.put("sender", "16444845"); // 발신번호
+    		sms.put("sender", sender); // 발신번호
+    		String image = "";
+    		//image = "/tmp/pic_57f358af08cf7_sms_.jpg"; // MMS 이미지 파일 위치
+    		
+    		/******************** 전송정보 ********************/
+    		
+    		MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+    		
+    		builder.setBoundary(boundary);
+    		builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+    		builder.setCharset(Charset.forName(encodingType));
+    		
+    		for(Iterator<String> i = sms.keySet().iterator(); i.hasNext();){
+    			String key = i.next();
+    			builder.addTextBody(key, sms.get(key)
+    					, ContentType.create("Multipart/related", encodingType));
+    		}
+    		/*
+    		File imageFile = new File(image);
+    		if(image!=null && image.length()>0 && imageFile.exists()){
+    	
+    			builder.addPart("image",
+    					new FileBody(imageFile, ContentType.create("application/octet-stream"),
+    							URLEncoder.encode(imageFile.getName(), encodingType)));
+    		}
+    		*/
+    		HttpEntity entity = builder.build();
+    		
+    		HttpClient client = HttpClients.createDefault();
+    		HttpPost post = new HttpPost(sms_url);
+    		post.setEntity(entity);
+    		
+    		HttpResponse res = client.execute(post);
+    		
+    		String result = "";
+    		if(res != null){
+    			BufferedReader in = new BufferedReader(new InputStreamReader(res.getEntity().getContent(), encodingType));
+    			String buffer = null;
+    			while((buffer = in.readLine())!=null){
+    				result += buffer;
+    			}
+    			in.close();
+    		}
+    		System.out.println(result);
+    		
+    	}catch(Exception e){
+    		System.out.println(e.getMessage());
+    	}
+    }
+
 	
 
 	public static String encryptPassword(String password, String id) throws Exception {
