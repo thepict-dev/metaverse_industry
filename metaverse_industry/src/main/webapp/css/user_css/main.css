@@ -1097,16 +1097,21 @@ main{
 }
 .swiper-pagination-bullet-active{
 	width: 28px;
- height: 6px;
- background-color: var(--purple-500);
+	 height: 6px;
+	 background-color: var(--navy-color);
 }
 
+@media all and (max-width : 768px){
+	.mainPopupInner .swiper-horizontal>.swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal, .swiper-pagination-custom, .swiper-pagination-fraction {
+      transform: unset;
+	}
+}
 @media all and (max-width : 768px){
 	.mainPopupInner{
  width: 90%;
  height: fit-content;
  }
  .mainPopupInner .swiper-wrapper .swiper-slide {
-    height: auto;
+   	height: auto;
  }
 }

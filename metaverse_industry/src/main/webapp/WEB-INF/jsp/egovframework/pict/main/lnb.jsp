@@ -63,7 +63,7 @@
                <li class="<c:if test="${user_list ne -1}">active</c:if>"><a href="/user_list/user_list.do">사용자 목록</a></li>
            </ul>
             
-        	<div class="depth1">
+        	<div class="depth1 <c:if test="${popup_list ne -1 || popup_form ne -1}">active</c:if>">
                <span><img src="/img/admin/lnb_icons/lnb-popup.png" alt=""></span>
                <a href="#lnk">팝업존<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
            </div>
@@ -85,7 +85,7 @@
                <li class="<c:if test="${biz_list ne -1}">active</c:if>"><a href="/biz_post/biz_list.do">사업공고</a></li>
            </ul>
            
-           <div class="depth1">
+           <div class="depth1 <c:if test="${settings ne -1}">active</c:if>">
                <span><img src="/img/admin/lnb_icons/lnb-filter.png" alt=""></span>
                <a href="#lnk">설정<span><img src="/img/admin/lnb_icons/lnb-arr.png" alt=""></span></a>
            </div>

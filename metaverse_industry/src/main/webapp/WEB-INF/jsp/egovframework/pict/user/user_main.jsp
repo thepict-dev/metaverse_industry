@@ -283,7 +283,7 @@
   	    	    disableOnInteraction: false
   	    	  },
   	    	  loop: true,	// 무한 루프 적용
-  	    	  speed: 5000, 
+  	    	  speed: 2000, 
   	    	  pagination: {
   	    	    el: ".swiper-pagination.popup",
   	    	    clickable: true,

@@ -1,17 +1,28 @@
 const subContents = document.querySelector('.subContents');
+const lenis = new Lenis({
+    duration: 1.5,  // 스크롤 애니메이션 지속 시간
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // 이징 함수
+    smooth: true
+});
 
 if (subContents) {
-    setTimeout(() => {
-        subContents.scrollIntoView({ behavior: 'smooth' });
-    }, 1000); // 5000ms = 5초
-}
+    let hasScrolled = false;
 
-// Lenis 부드러운 스크롤 초기화
-const lenis = new Lenis()
+    window.addEventListener('scroll', () => {
+        if (!hasScrolled) {
+            const targetPosition = subContents.offsetTop;
+            lenis.scrollTo(targetPosition, {
+                duration: 1,  // 스크롤 지속시간 (초)
+                easing: (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t) // 부드러운 이징
+            });
+            hasScrolled = true;
+        }
+    }, { once: true });
+}
 
 function raf(time) {
-    lenis.raf(time)
-    requestAnimationFrame(raf)
+    lenis.raf(time);
+    requestAnimationFrame(raf);
 }
 
-requestAnimationFrame(raf)
+requestAnimationFrame(raf); 

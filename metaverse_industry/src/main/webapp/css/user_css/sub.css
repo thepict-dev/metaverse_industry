@@ -24,7 +24,7 @@
 }
 
 .subTop.notice1 {
-    background-image: url(/img/user_img/sub-notice1.png);
+    background-image: url(/img/user_img/sub-notice1.jpeg);
 }
 
 .subTop.biz {
@@ -48,7 +48,11 @@
 }
 
 .subTop.meta {
-    background-image: url(/img/user_img/meta.jpeg);
+    background-image: url(/img/user_img/edu.jpeg);
+}
+
+.subTop.edu {
+    background-image: url(/img/user_img/edu.jpeg);
 }
 
 .subTop h2 {

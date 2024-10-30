@@ -17,7 +17,7 @@
             <p>보호자와 아이가 함께 하는<br>무료 체험 교육입니다</p>
         </div>
     </div>
-    <div class="subContents etc">
+    <div class="subContents">
         <h3 class="subTextTitle">메타버스 현장체험교육</h3>
         <div class="textsContentWrapper">
             <div class="subTextContents">

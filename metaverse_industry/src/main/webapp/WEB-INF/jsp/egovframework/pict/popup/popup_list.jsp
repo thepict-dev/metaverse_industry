@@ -30,7 +30,7 @@
 	                    </div> --%>
 	                </form>
 	                <div class="ListWrpper">
-		                <ul class="listHead equipList">
+		                <ul class="listHead popupList">
 		                    <li>순서</li>
 		                    <li>제목</li>
 		                    <li>링크</li>
@@ -38,7 +38,7 @@
 		                    <li>등록일</li>
 		                    <li>삭제</li>
 		                </ul>
-		                <ul class="listBody equipList">
+		                <ul class="listBody popupList">
 		                	<c:forEach var="item" items="${resultList}" varStatus="status">
 			                    <li>
 			                        <p>
