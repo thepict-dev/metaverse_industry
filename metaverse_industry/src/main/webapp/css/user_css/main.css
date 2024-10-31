@@ -386,6 +386,21 @@ main{
     font-weight: 500;
     line-height: 130%; /* 23.4px */
     letter-spacing: -0.9px;
+    transition: all .2s;
+}
+.swiperTexts a img.hover{
+    display: none;
+}
+.swiperTexts a:hover{
+	border: 1px solid var(--wh, #FFF);
+	background: #FFF;
+	color: var(--Navy, #171C61); 
+}
+.swiperTexts a:hover img{
+    display: none;
+}
+.swiperTexts a:hover img.hover{
+    display: block;
 }
 
 @media all and (max-width : 1390px){
@@ -480,9 +495,12 @@ main{
         display: none;
     }
     .swiperSection .swiper-horizontal>.swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal, .swiper-pagination-custom, .swiper-pagination-fraction{
+        position: absolute;
         right: 50%;
         bottom: 24px;
         transform: translateX(50%);
+        display: flex;
+        column-gap: 10px;
     }
     .swiperSection .swiper-pagination-bullet-active{
         width: 12px;
@@ -848,7 +866,7 @@ main{
 }
 .cardContents p{
     margin: 40px 0 32px 0;
-    font-size: 56px;
+    font-size: 46px;
     font-weight: 700;
     line-height: 120%; /* 67.2px */
     letter-spacing: -2.8px;

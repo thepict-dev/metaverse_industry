@@ -19,6 +19,13 @@ const updateContainerClasses = (e) => {
 	console.log(e.target.checked);
 	const checked = e.target.checked;
 	if (checked) {
+		const currentSelected = document.querySelectorAll('.rentalCountItem').length;
+		if (currentSelected >= 4) {
+			e.target.checked = false;
+			window.alert("최대 4개까지 선택 가능합니다.");
+			return;
+		}
+		
 		const newItem = document.createElement("li");
 		newItem.dataset.id = id;
 		newItem.classList.add("rentalCountItem");
@@ -166,7 +173,7 @@ const deleteAll = () => {
 document.querySelector(".removeAll").addEventListener("click", () => {
 	console.log("삭제;;")
 	if ($('.rentalCountItem').length > 0) {
-		if (window.confirm("장바구니를 비우시겠습니까?")) {
+		if (window.confirm("전체 삭제하시겠습니까?")) {
 			deleteAll();
 			checkCart();
 		}
@@ -251,3 +258,29 @@ $('.add_bag').click(function () {
 		}
 	})
 })
+
+// 선택 가능한 최대 개수 표시 텍스트 수정
+const rentalSum = document.querySelector('.rentalSum');
+rentalSum.querySelector('p span:last-child').textContent = '/최대 4곳 선택 가능';
+
+// 마우스 휠 이벤트 처리
+const rentalItemsContainer = document.querySelector('.rentalItemsContainer');
+
+// 마우스가 컨테이너 위에 있을 때
+rentalItemsContainer.addEventListener('mouseenter', function() {
+    document.body.style.overflow = 'hidden'; // 페이지 스크롤 비활성화
+    lenis.stop(); // Lenis 스크롤 비활성화
+});
+
+// 마우스가 컨테이너를 벗어날 때
+rentalItemsContainer.addEventListener('mouseleave', function() {
+    document.body.style.overflow = 'auto'; // 페이지 스크롤 다시 활성화
+    lenis.start(); // Lenis 스크롤 다시 활성화
+});
+
+rentalItemsContainer.addEventListener('wheel', function(e) {
+    e.preventDefault(); // 기본 페이지 스크롤 방지
+    
+    const delta = e.deltaY || e.detail || e.wheelDelta;
+    this.scrollTop += delta;
+}, { passive: false });

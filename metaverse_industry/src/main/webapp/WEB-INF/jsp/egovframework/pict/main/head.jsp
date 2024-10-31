@@ -16,8 +16,8 @@
     <meta name="author" content="" />
     <title>${param.pageTitle}</title>
     <link rel="shortcut icon" type="image/x-icon" href="/images/pict/favicon.webp">
-    <link rel="stylesheet" href="/css/admin/reset.css">
     <link rel="stylesheet" href="/css/admin/nice-select.css">
+    <link rel="stylesheet" href="/css/admin/reset.css">
     <link rel="stylesheet" href="/css/admin/common.css">
     <link rel="stylesheet" href="/css/admin/modal.css">
     <link rel="stylesheet" href="/css/admin/header.css">

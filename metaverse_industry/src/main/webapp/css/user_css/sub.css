@@ -857,7 +857,6 @@
     align-items: center;
     width: 36px;
     height: 36px;
-    background-color: #fff;
     border: 1px solid var(--grey-100);
 }
 
@@ -1211,6 +1210,9 @@
 .checkItem.list .itemTitles p span:last-child {
     color: var(--grey-500);
 }
+.checkItem.list .itemTitles p span.facil {
+    color: #000;
+}
 
 .checkItem.list {
     padding: 13px 40px 13px 76px;
@@ -1224,12 +1226,13 @@
     background: var(--grey-50);
 }
 
-.equipList li.success .checkBox {
+.equipList li.checked .checkBox {
     background-image: url(/img/user_img/checked-grey.png);
 }
 
 .equipList li.checked>.checkItem {
-    border: 1px solid var(--validation-green);
+    border-bottom: 1px solid #B0C9EB;
+	background: #E6EEF8;
 }
 
 .equipList li.success>.checkItem {
@@ -1237,12 +1240,8 @@
     background-color: var(--grey-100);
 }
 
-.equipList li.checked .checkItem.list .itemTitles span {
-    color: var(--grey-500);
-}
-
-.equipList li.checked~.checkItem.list .itemTitles p span:first-child {
-    color: var(--grey-700);
+.equipList li.success .checkBox {
+    background-image: url(/img/user_img/checked-grey.png);
 }
 
 .equipList li>a {
@@ -2059,10 +2058,53 @@
 	
 }
 
+.subContentsInner>a::after,
+.subContents.etc>a::after,
+.subContents>a::after,
+.subContentsInner > ._buttons > a::after{
+    display: none;
+}
 .subContentsInner>a:hover,
 .subContents.etc>a:hover,
-.subContents>a:hover {
-    background-color: var(--grey-50);
+.subContents>a:hover,
+.subContentsInner > ._buttons > a:hover{
+	border: 1px solid var(--gold-color);
+	color: var(--gold-color); 
+}
+.subContentsInner>a:hover img,
+.subContents.etc>a:hover img,
+.subContents>a:hover img,
+.subContentsInner > ._buttons > a:hover img{
+    display: none;
+}
+.subContentsInner>a:hover::after,
+.subContents.etc>a:hover::after,
+.subContents>a:hover::after,
+.subContentsInner > ._buttons > a:hover::after{
+    display: block;
+    content: "";
+    width: 40px;
+    height: 40px;
+    background-image: url(/img/user_img/arr-hover.png);
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+}
+
+.linkButton.blk img.hover{
+    display: none;
+}
+.linkButton.blk:hover{
+	border: 1px solid var(--wh, #FFF);
+	background: #FFF;
+	color: var(--Navy, #171C61); 
+}
+.linkButton.blk:hover img{
+    display: none;
+}
+.linkButton.blk:hover img.hover{
+    display: block;
 }
 
 @media all and (max-width : 1024px) {

@@ -291,10 +291,11 @@
     padding: 10px 20px;
     border: 1px solid var(--grey-grey-100, #DBDEE2);
     background: var(--wh, #FFF);
-    color: var(--grey-500);
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 100%; /* 18px */
+    color: var(--bk, #000);
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 100%; /* 14px */
     margin: 12px 0;
 }
 #attach_file, #attach_file1, #attach_file2{
@@ -305,8 +306,8 @@
     width: 89px;
     height: 34px;
     text-decoration-line: none;
-    border: 1px solid var(--200, #E2E8F0);
-    color: var(--600, #475569);
+    border: 1px solid  #E2E8F0;
+    color: #475569;
     font-family: SUIT;
     font-size: 14px;
     font-style: normal;
@@ -318,6 +319,11 @@
     position: absolute;
     right: 110px;
     cursor: pointer;
+    width: 24px;
+    height: 24px;
+}
+.flexInputs.file > button img{
+    width: 100%;
 }
 .fileSub{
     color: var(--grey-400);

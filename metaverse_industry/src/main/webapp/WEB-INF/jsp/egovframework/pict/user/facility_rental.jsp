@@ -32,7 +32,7 @@
                                        <span class="checkBox"></span>
                                        <div class="checkItem list">
                                            <div class="itemTitles">
-                                               <p><span>${equipment.name}</span></p>
+                                               <p><span class="facil">${equipment.name}</span></p>
                                            </div>
                                        </div>
                                        <a href="#lnk"><img src="/img/user_img/delete2.png"
@@ -101,7 +101,7 @@
                                     <input type="file" id="file1" style="display: none;">
                                     <button type="button" id="deleteButton1" style="display: none;"><img src="/img/user_img/del-file.png" alt=""></button>
                                 </div>
-                                <!-- <p class="fileSub">장비사용계획서를 제출하세요</p> -->
+                                <p class="fileSub">신분증 사본 등 필요서류를 한 파일로 통합하여 제출해주세요.</p>
                             </div>
                         </div>
                     </div>
@@ -141,7 +141,7 @@
                                     <input type="file" id="file2" style="display: none;">
                                     <button type="button" id="deleteButton2" style="display: none;"><img src="/img/user_img/del-file.png" alt=""></button>
                                 </div>
-                                <p class="fileSub">사업자등록증을 제출하세요</p>
+                                <p class="fileSub">사업자 등록증, 재직증명서 등 필요서류를 한 파일로 통합하여 제출해주세요.</p>
                             </div>
                         </div>
                     </div>

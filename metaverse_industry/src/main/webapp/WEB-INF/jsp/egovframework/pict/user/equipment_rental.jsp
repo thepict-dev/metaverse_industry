@@ -109,7 +109,7 @@
                                                                     <img src="/img/user_img/del-file.png" alt="" />
                                                                 </button>
                                                             </div>
-                                                            <p class="fileSub">신분증 사본</p>
+                                                            <p class="fileSub">신분증 사본 등 필요서류를 한 파일로 통합하여 제출해주세요.</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -163,7 +163,7 @@
                                                                         src="/img/user_img/del-file.png"
                                                                         alt="" /></button>
                                                             </div>
-                                                            <p class="fileSub">사업자등록증/재직증명서를 제출하세요</p>
+                                                            <p class="fileSub">사업자 등록증, 재직증명서 등 필요서류를 한 파일로 통합하여 제출해주세요.</p>
                                                         </div>
                                                     </div>
                                                 </div>

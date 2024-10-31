@@ -68,6 +68,12 @@
 
 		const onSubmit = () => {
 			const rentalItems = document.querySelectorAll('.equipment_checkbox:checked');
+			const rentalItemList = document.querySelectorAll('.rentalItemList li');
+
+			if (rentalItemList.length === 0) {
+				alert('장바구니가 비어있습니다.');
+				return;
+			}
 			if (rentalItems.length === 0) {
 				return window.alert("예약할 장비를 선택하세요.")
 			}

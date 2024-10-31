@@ -1,3 +1,7 @@
+$(document).ready(function() {
+    $('select').niceSelect();
+});
+
 var acodian = {
     click: function(target) {
         var _self = this,

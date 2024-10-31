@@ -16,9 +16,8 @@ $(document).ready(function() {
 
 // 서브 메뉴 토글
 $(".mobile-menu ul.depth > li > a, .mobile-menu ul.depth > li > span").click(function(e) {
-    e.preventDefault();
-    var $parentLi = $(this).parent('li');
-    var $subDepth = $parentLi.find('.sub-depth');
+	var $parentLi = $(this).parent('li');
+	var $subDepth = $parentLi.find('.sub-depth');
 
     // 다른 모든 메뉴 항목의 active 클래스 제거 및 서브메뉴 닫기
     $(".mobile-menu ul.depth > li").not($parentLi).removeClass("active").find('.sub-depth').slideUp(200);

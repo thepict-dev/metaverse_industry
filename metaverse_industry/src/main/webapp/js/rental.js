@@ -41,6 +41,19 @@ function initDatepicker() {
             var startDate = $("#datepicker").data("startDate");
             var endDate = $("#datepicker").data("endDate");
 
+            // 선택된 장비가 있는지 확인
+            const targetEquipment = document.querySelector(".equipList li.checked");
+            if (!targetEquipment) {
+                return [false, "no-equipment-selected"];
+            }
+
+            // 이미 선택된 장비인지 확인
+            const equipId = targetEquipment.dataset.id;
+            const isAlreadySelected = selectedEquipment.some(equip => equip.id === equipId);
+            if (isAlreadySelected) {
+                return [false, "equipment-already-selected"];
+            }
+
             var classes = [];
             // 예약 불가능한 날짜
             if (isDisabled) {
@@ -295,10 +308,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.querySelectorAll(".checkItem").forEach(el => {
     el.addEventListener("click", () => {
-
-        resetCheckedEquip();
-        el.parentElement.classList.add("checked");
-        getEquipmentAvailableDate(el.parentElement.dataset.id);
+        // 이미 선택된 장비인지 확인
+        const equipId = el.parentElement.dataset.id;
+        const isAlreadySelected = selectedEquipment.some(equip => equip.id === equipId);
+        
+        if (!isAlreadySelected) {
+            resetCheckedEquip();
+            el.parentElement.classList.add("checked");
+            getEquipmentAvailableDate(equipId);
+        } else {
+            alert("이미 선택된 장비입니다. 다른 장비를 선택해주세요.");
+        }
     })
 })
 
@@ -376,163 +396,96 @@ bookingBtn.addEventListener("click", () => {
         alert("대여할 날짜를 선택해주세요.");
         return;
     }
-    if (rental_type === "individual") {
-        if (document.querySelector(".equipment-plan").value === "") {
-            alert("장비 사용 계획을 작성해주세요.");
-            return;
-        }
-        if (document.querySelector("#file1").files[0] === "") {
-            alert("증빙서류를 첨부해주세요.");
-            return;
-        }
-    } else if (rental_type === "company") {
-        if (document.querySelector("#company_nm").value === "") {
-            alert("회사명을 입력해주세요.");
-            return;
-        }
-        if (document.querySelector("#sa_eob_no").value === "") {
-            alert("사업자등록번호를 입력해주세요.");
-            return;
-        }
-        if (document.querySelector("#position").value === "") {
-            alert("직책을 입력해주세요.");
-            return;
-        }
-        if (document.querySelector("#company_address1").value === "") {
-            alert("사업장 주소를 입력해주세요.");
-            return;
-        }
-        if (document.querySelector(".equipment-plan-company").value === "") {
-            alert("장비 사용 계획을 작성해주세요.");
-            return;
-        }
-        if (document.querySelector("#file2").files[0] === "") {
-            alert("증빙서류를 첨부해주세요.");
-            return;
-        }
-    }
+    
+    // 입력값 체크 로직...
+
+    // 기존 슬라이드 초기화
+    document.querySelector(".swiper-wrapper").innerHTML = '';
+    
     selectedEquipment.forEach(equipment => {
         let startDay = '';
         switch (equipment.original_rental_start_date.getUTCDay()) {
-            case 0:
-                startDay = '일';
-                break;
-            case 1:
-                startDay = '월';
-                break;
-            case 2:
-                startDay = '화';
-                break;
-            case 3:
-                startDay = '수';
-                break;
-            case 4:
-                startDay = '목';
-                break;
-            case 5:
-                startDay = '금';
-                break;
-            case 6:
-                startDay = '토';
-                break;
+            case 0: startDay = '일'; break;
+            case 1: startDay = '월'; break;
+            case 2: startDay = '화'; break;
+            case 3: startDay = '수'; break;
+            case 4: startDay = '목'; break;
+            case 5: startDay = '금'; break;
+            case 6: startDay = '토'; break;
         }
+        
         let endDay = '';
         switch (equipment.original_rental_end_date.getUTCDay()) {
-            case 0:
-                endDay = '일';
-                break;
-            case 1:
-                endDay = '월';
-                break;
-            case 2:
-                endDay = '화';
-                break;
-            case 3:
-                endDay = '수';
-                break;
-            case 4:
-                endDay = '목';
-                break;
-            case 5:
-                endDay = '금';
-                break;
-            case 6:
-                endDay = '토';
-                break;
+            case 0: endDay = '일'; break;
+            case 1: endDay = '월'; break;
+            case 2: endDay = '화'; break;
+            case 3: endDay = '수'; break;
+            case 4: endDay = '목'; break;
+            case 5: endDay = '금'; break;
+            case 6: endDay = '토'; break;
         }
+        
         const slide = document.createElement("div");
         slide.classList.add("swiper-slide");
-        if (rental_type === "company") {
+        
+        if (rental_type === "individual") {
             slide.innerHTML = `
-            <ul class="bookingInfolists">
-                <li>
-                    <p>장비명</p>
-                    <span>${equipment.name} / ${equipment.cnt}대</span>
-                </li>
-                <li>
-                    <p>대여자명</p>
-                    <span>${user_name}</span>
-                </li>
-                <li>
-                    <p>대여형태</p>
-                    <span>
-                        ${rental_type === "individual" ? "개인" : "기업"}
-                    </span>
-                </li>
-                <li>
-                    <p>회사명</p>
-                    <span>${document.querySelector("#company_nm").value}</span>
-                </li>
-                <li>
-                    <p>사업자등록번호</p>
-                    <span>${document.querySelector("#sa_eob_no").value}</span>
-                </li>
-                <li>
-                    <p>직책</p>
-                    <span>${document.querySelector("#position").value}</span>
-                </li>
-                <li>
-                    <p>주소</p>
-                    <span>${document.querySelector("#company_address1").value} ${document.querySelector("#company_address2").value}</span>
-                </li>
-                <li>
-                    <p>대여일</p>
-                    <span>${equipment.rental_start_date}.${startDay}</span>
-                </li>
-                <li>
-                    <p>반납일</p>
-                    <span>${equipment.rental_end_date}.${endDay}</span>
-                </li>
-            </ul>
-            `
-        } else if (rental_type === "individual") {
+                <ul class="bookingInfolists">
+                    <li>
+                        <p>장비명</p>
+                        <span>${equipment.name} / ${equipment.cnt}</span>
+                    </li>
+                    <li>
+                        <p>대여자명</p>
+                        <span>${user_name}</span>
+                    </li>
+                    <li>
+                        <p>대여형태</p>
+                        <span>개인</span>
+                    </li>
+                    <li>
+                        <p>대여일</p>
+                        <span>${equipment.rental_start_date}.${startDay}</span>
+                    </li>
+                    <li>
+                        <p>반납일</p>
+                        <span>${equipment.rental_end_date}.${endDay}</span>
+                    </li>
+                </ul>
+            `;
+        } else if (rental_type === "company") {
             slide.innerHTML = `
-            <ul class="bookingInfolists">
-                <li>
-                    <p>장비명</p>
-                    <span>${equipment.name} / ${equipment.cnt}대</span>
-                </li>
-                <li>
-                    <p>대여자명</p>
-                    <span>${user_name}</span>
-                </li>
-                <li>
-                    <p>대여형태</p>
-                    <span>개인</span>
-                </li>
-                <li>
-                    <p>대여일</p>
-                    <span>${equipment.rental_start_date}.${startDay}</span>
-                </li>
-                <li>
-                    <p>반납일</p>
-                    <span>${equipment.rental_end_date}.${endDay}</span>
-                </li>
-            </ul>
-            `
+                <ul class="bookingInfolists">
+                    <li>
+                        <p>장비명</p>
+                        <span>${equipment.name} / ${equipment.cnt}</span>
+                    </li>
+                    <li>
+                        <p>대여자명</p>
+                        <span>${user_name}</span>
+                    </li>
+                    <li>
+                        <p>대여형태</p>
+                        <span>기업</span>
+                    </li>
+                    <li>
+                        <p>회사명</p>
+                        <span>${document.querySelector("#company_nm").value}</span>
+                    </li>
+                    <li>
+                        <p>대여일</p>
+                        <span>${equipment.rental_start_date}.${startDay}</span>
+                    </li>
+                    <li>
+                        <p>반납일</p>
+                        <span>${equipment.rental_end_date}.${endDay}</span>
+                    </li>
+                </ul>
+            `;
         }
+        
         document.querySelector(".swiper-wrapper").appendChild(slide);
-    })
+    });
     
     // 모달 표시
     $('#confirmModal').addClass('active');
@@ -562,6 +515,8 @@ bookingBtn.addEventListener("click", () => {
 $('#confirmModal button').click(function () {
     $('#confirmModal').removeClass('active');
     $('body').removeClass("no-scroll");
+    // 모달이 닫힐 때 슬라이드 초기화
+    document.querySelector(".swiper-wrapper").innerHTML = '';
 })
 //최종 모달 열고, 닫기
 $('#setButton').click(function () {

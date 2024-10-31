@@ -89,16 +89,23 @@
                                 <span>강원 메타버스 지원센터는</span>
                                 <p>강원특별자치도의 미래 시대<br>
                                     콘텐츠 산업을 선도합니다</p>
-                                <a href="#lnk">보러가기<img src="/img/user_img/linkto.png" alt=""></a>
+                                <a href="#lnk">보러가기
+                                	<img src="/img/user_img/linkto.png" alt="">
+                                	<img src="/img/user_img/linkto-hover.png" alt="" class="hover">
+                               	</a>
                             </div>
                         </div>
-                        <div class="swiper-slide">
+                        <div class="swiper-slide"> 
                             <img src="/img/user_img/swiper-img2.png" alt="">
                             <div class="swiperTexts second">
                                 <span>강원 메타버스 지원센터</span>
                                 <p>VR·AR 시설 및<br>
                                     장비 무상 지원</p>
-                                <a href="#lnk">보러가기<img src="/img/user_img/linkto.png" alt=""></a>
+                                <a href="#lnk">
+	                                보러가기
+	                                <img src="/img/user_img/linkto.png" alt="">
+                                	<img src="/img/user_img/linkto-hover.png" alt="" class="hover">
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -178,7 +185,11 @@
                         <span class="cardSub">콘텐츠 제작 지원</span>
                         <p>메타버스 융합콘텐츠<br>제작 지원 사업</p>
                         <span class="cardDesc">강원도 내 메타버스 관련 기업을 지원하여 레저·휴양과 의료 분야의 혁신적 콘텐츠 제작을 목표로 하는 사업입니다. 지원 대상은 메타버스 기술 또는 서비스를 보유한 강원특별자치도 소재 기업으로, 자세한 내용은 홈페이지를 참고하세요.</span>
-                        <a href="${setting.content_url}" class="linkButton blk">보러가기<img src="/img/user_img/list-link.png" alt=""></a>
+                        <a href="${setting.content_url}" class="linkButton blk">
+                        	보러가기
+                       		<img src="/img/user_img/list-link.png" alt="">
+                            <img src="/img/user_img/linkto-hover.png" alt="" class="hover">
+                       	</a>
                     </div>
                 </li>
                 <li>
@@ -187,16 +198,24 @@
                         <span class="cardSub">전문인력 양성</span>
                         <p>메타버스 전문인력<br>양성 교육 사업</p>
                         <span class="cardDesc">강원지역 메타버스 산업의 요구사항을 반영한 실무형 교육을 통해 산업 종사자 및 취업 희망자의 직무 능력을 향상시키고 인재를 발굴하는 사업입니다. 지원 대상은 강원 소재 기업 재직자, 미취업자, 대학생으로, 교육장소는 추후 공지됩니다. 자세한 내용은 사업공고일에 확인하세요.</span>
-                        <a href="${setting.professional_url}" class="linkButton blk">보러가기<img src="/img/user_img/list-link.png" alt=""></a>
+                        <a href="${setting.professional_url}" class="linkButton blk">
+                        	보러가기
+                       		<img src="/img/user_img/list-link.png" alt="">
+                            <img src="/img/user_img/linkto-hover.png" alt="" class="hover">
+                     	</a>
                     </div>
                 </li>
                 <li>
                     <span><img src="/img/user_img/intro3.png" alt=""></span>
                     <div class="cardContents">
                         <span class="cardSub">인프라 지원</span>
-                        <p>강원 메타버스 지원센터<br>인프라(시설·장비) 지원</p>
+                        <p>강원 메타버스 지원센터<br>���프라(시설·장비) 지원</p>
                         <span class="cardDesc">메타버스 콘텐츠 제작에 필요한 인프라(시설·장비)를 강원특별자치도 내 메타버스 기업 및 유관기관에 지원합니다. 사용 방법은 홈페이지를 통한 예약신청 후 방문입니다. 지원대상은 강원특별자치도의 메타버스 관련 기업, 유관기관 임직원 및 메타버스 관련 창업·취업 준비자입니다.</span>
-                        <a href="${setting.infra_url}" class="linkButton blk">보러가기<img src="/img/user_img/list-link.png" alt=""></a>
+                        <a href="${setting.infra_url}" class="linkButton blk">
+                        	보러가기
+                        	<img src="/img/user_img/list-link.png" alt="">
+                            <img src="/img/user_img/linkto-hover.png" alt="" class="hover">
+                       	</a>
                     </div>
                 </li>
             </ul>
@@ -282,7 +301,7 @@
   	    	    delay: 3000,
   	    	    disableOnInteraction: false
   	    	  },
-  	    	  loop: true,	// 무한 루프 적용
+  	    	  loop: true,	// 무한 루�� 적용
   	    	  speed: 2000, 
   	    	  pagination: {
   	    	    el: ".swiper-pagination.popup",
@@ -293,9 +312,13 @@
             swiper = new Swiper(".swiperSection .swiper", {
                 centeredSlides: true,
                 loop: true,
-                autoplay: {
+                allowTouchMove: window.innerWidth <= 1024 ? false : true, // 모바일에서 터치 슬라이드 비활성화
+                autoplay:{
                     delay: autoplayDuration,
                     disableOnInteraction: false,
+                },
+                fadeEffect: {
+                    crossFade: true
                 },
                 pagination: {
                     el: ".swiper-pagination",

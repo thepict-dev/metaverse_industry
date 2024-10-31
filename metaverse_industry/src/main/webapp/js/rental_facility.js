@@ -33,6 +33,17 @@ function initDatepicker() {
            var startDate = $("#datepicker").data("startDate");
            var endDate = $("#datepicker").data("endDate");
 
+           const targetEquipment = document.querySelector(".equipList li.checked");
+           if (!targetEquipment) {
+               return [false, "no-equipment-selected"];
+           }
+
+           const facilityId = targetEquipment.dataset.id;
+           const isAlreadySelected = selectedEquipment.some(equip => equip.id === facilityId);
+           if (isAlreadySelected) {
+               return [false, "equipment-already-selected"];
+           }
+
            var classes = [];
            if (isDisabled) {
                return [false, "user-disabled"];
@@ -256,9 +267,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.querySelectorAll(".checkItem").forEach(el => {
    el.addEventListener("click", () => {
-       resetCheckedEquip();
-       el.parentElement.classList.add("checked");
-       getEquipmentAvailableDate(el.parentElement.dataset.id);
+       const facilityId = el.parentElement.dataset.id;
+       const isAlreadySelected = selectedEquipment.some(equip => equip.id === facilityId);
+       
+       if (!isAlreadySelected) {
+           resetCheckedEquip();
+           el.parentElement.classList.add("checked");
+           getEquipmentAvailableDate(facilityId);
+       } else {
+           alert("이미 선택된 시설입니다. 다른 시설을 선택해주세요.");
+       }
    })
 });
 
@@ -349,7 +367,7 @@ bookingBtn.addEventListener("click", () => {
             return;
         }
         if (!position || position.value === "") {
-            alert("직책을 입력해주세요.");
+            alert("직책을 입력주세요.");
             return;
         }
         if (!company_address1 || company_address1.value === "") {
@@ -370,7 +388,6 @@ bookingBtn.addEventListener("click", () => {
         const slide = document.createElement("div");
         slide.classList.add("swiper-slide");
         
-        // 각 장비별로 슬라이드 생성
         let slideHtml = `
             <ul class="bookingInfolists">
                 <li>
@@ -461,7 +478,8 @@ function getWeekDay(date) {
 $('#confirmModal button').click(function () {
     $('#confirmModal').removeClass('active');
     $('body').removeClass("no-scroll");
-})
+    document.querySelector(".swiper-wrapper").innerHTML = '';
+});
 //최종 모달 열고, 닫기
 $('#setButton').click(function () {
     if ($("#agree").is(":checked")) {

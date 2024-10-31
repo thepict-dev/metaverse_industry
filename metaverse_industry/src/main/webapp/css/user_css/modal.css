@@ -38,7 +38,7 @@
     align-items: center;
     width: 100%;
     padding: 10px 20px;
-    column-gap: 8px;
+    column-gap: 18px;
     background-color: #fff;
     border-radius: 10px;
 }
@@ -56,6 +56,7 @@
     font-weight: 500;
     line-height: 140%; /* 22.4px */
     letter-spacing: -0.8px;
+   	word-break: keep-all;
 }
 
 /* 예약모달 */
@@ -90,12 +91,15 @@
     font-weight: 700;
     line-height: 140%; /* 39.2px */
     letter-spacing: -1.4px;
+    text-align: center;
 }
 .modalTitles span{
+    display: block;
     font-size: 16px;
     font-weight: 500;
     line-height: 140%; /* 22.4px */
     letter-spacing: -0.8px;
+    text-align: center;
 }
 .modalTitles span span{
     color: var(--gold-color);

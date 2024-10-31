@@ -18,13 +18,15 @@ $('.header').hover(() => {
 
 let mobileMenuSlided = false;
 
-$(".mobile-menu .use-depth").click(function () {
-    if (!mobileMenuSlided) {
-        $('.mobile-menu ul.depth .sub-depth').slideDown(200)
-        mobileMenuSlided = true;
-    } else {
-        $('.mobile-menu ul.depth .sub-depth').slideUp(200)
-        mobileMenuSlided = false;
+$(".mobile-menu .use-depth").click(function (event) {
+    if ($(event.target).is('span')) {
+        if (!mobileMenuSlided) {
+            $('.mobile-menu ul.depth .sub-depth').slideDown(200)
+            mobileMenuSlided = true;
+        } else {
+            $('.mobile-menu ul.depth .sub-depth').slideUp(200)
+            mobileMenuSlided = false;
+        }
     }
 })
 

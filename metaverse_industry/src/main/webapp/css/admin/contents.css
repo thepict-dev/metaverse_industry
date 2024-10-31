@@ -378,7 +378,7 @@
     margin-bottom: 10px;
 }
 .fileList.binding{
-    display: block;
+    display: flex;
 	
 }
 .fileList p{

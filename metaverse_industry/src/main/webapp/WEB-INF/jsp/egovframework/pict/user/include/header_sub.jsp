@@ -66,7 +66,16 @@
             </c:otherwise>
         </c:choose>
         </div>
-        <button type="button" class="mbMenuBtn"><img src="/img/user_img/menu.png" alt=""></button>
+        <button type="button" class="mbMenuBtn">
+		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<mask id="mask0_940_18342" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+				<rect width="24" height="24" fill="#D9D9D9"/>
+			</mask>
+			<g mask="url(#mask0_940_18342)">
+				<path d="M3.5 17.6347V16.135H20.5V17.6347H3.5ZM3.5 12.7502V11.2502H20.5V12.7502H3.5ZM3.5 7.86547V6.36572H20.5V7.86547H3.5Z" fill="white"/>
+			</g>
+		</svg>
+		</button>
         <div class="mobile-menu">
             <div class="mobile-header">
                 <a href="#" class="logo">
@@ -105,16 +114,16 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="">현장체험교육</a>
+                    <a href="/education.do">현장체험교육</a>
                 </li>
                 <li>
-                    <a href="">알림마당</a>
+                    <span>알림마당</span>
                     <ul class="sub-depth">
                         <li>
-                        	<a href="notice.do">공지사항</a>
+                        	<a href="/notice.do">공지사항</a>
                         </li>
                         <li>
-                        	<a href="biz_post.do">사업공고</a>
+                        	<a href="/biz_post.do">사업공고</a>
                         </li>
                     </ul>
                 </li>

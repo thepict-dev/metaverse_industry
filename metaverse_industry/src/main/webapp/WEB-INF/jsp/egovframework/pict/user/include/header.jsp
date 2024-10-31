@@ -66,7 +66,7 @@
         <button type="button" class="mbMenuBtn"><img src="/img/user_img/menu.png" alt=""></button>
         <div class="mobile-menu">
             <div class="mobile-header">
-                <a href="#" class="logo">
+                <a href="/" class="logo">
                     <img src="/img/user_img/logo-sub.png" alt="" srcset="">
                 </a>
                 <button class="menu-close">
@@ -102,16 +102,16 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="">현장체험교육</a>
+                    <a href="/education.do">현장체험교육</a>
                 </li>
                 <li>
-                    <a href="">알림마당</a>
+                    <span>알림마당</span>
                     <ul class="sub-depth">
                         <li>
-                        	<a href="notice.do">공지사항</a>
+                        	<a href="/notice.do">공지사항</a>
                         </li>
                         <li>
-                        	<a href="biz_post.do">사업공고</a>
+                        	<a href="/biz_post.do">사업공고</a>
                         </li>
                     </ul>
                 </li>
