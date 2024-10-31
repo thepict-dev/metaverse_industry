@@ -2472,8 +2472,6 @@ public class pictController {
 			return "pict/main/message";
 		}
 	}
-	
-
   	
   	//문자
 	public void send_sms(String sender, String msg, String receiver) throws Exception {

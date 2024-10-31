@@ -433,7 +433,7 @@
 	    </where>
 	</select>
 	
-	<select id="get_overdue_list">
+	<select id="get_overdue_list" resultType="map">
 		SELECT 
 		    err.id AS rental_request_id,
 		    DATE_FORMAT(err.rental_start_date, '%Y-%m-%d') AS rental_start_date,
