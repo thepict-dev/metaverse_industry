@@ -90,6 +90,8 @@
     }
     .introSecContents{
         padding-top: 30%;
+        
+        padding-left: 0;
         align-items: center;
         justify-content: flex-start;
         background: linear-gradient(-180deg, #000 0%, rgba(0, 0, 0, 0.7) 20.38%, rgba(0, 0, 0, 0.2) 70.38%);

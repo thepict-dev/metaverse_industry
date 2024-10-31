@@ -1,8 +1,8 @@
 .contentsContainer{
     position: absolute;
     top: 112px;
-    left: 56px;
-    width: calc(100% - 56px);
+    left: 180px;
+    width: calc(100% - 180px);
     height: calc(100% - 112px);
 }
 .inputsContainer{

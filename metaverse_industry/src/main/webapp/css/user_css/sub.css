@@ -2018,7 +2018,8 @@
 }
 
 .subContentsInner>a,
-.subContents.etc>a {
+.subContents.etc>a,
+.subContents>a {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -2059,7 +2060,8 @@
 }
 
 .subContentsInner>a:hover,
-.subContents.etc>a:hover {
+.subContents.etc>a:hover,
+.subContents>a:hover {
     background-color: var(--grey-50);
 }
 
@@ -2073,7 +2075,8 @@
     }
 
     .subContentsInner>a,
-    .subContents.etc>a {
+    .subContents.etc>a,
+	.subContents>a {
         margin-top: 36px;
         font-size: 18px;
         letter-spacing: -0.9px;

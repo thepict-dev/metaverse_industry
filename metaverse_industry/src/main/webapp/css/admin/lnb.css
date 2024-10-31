@@ -3,7 +3,7 @@
     left: 0;
     top: 56px;
     z-index: 10;
-    width: 56px;
+    width: 180px;
     height: calc(100% - 56px);
     transition: all .3s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
@@ -39,7 +39,7 @@ nav::-webkit-scrollbar{
     height: 56px;
 }
 .depth1 > a{
-    display: none;
+    display: flex;
     justify-content: space-between;
     align-items: center;
     width: calc(100% - 56px);
@@ -64,13 +64,6 @@ nav::-webkit-scrollbar{
 .depth1:hover{
     background: var(--blue-500);
 }
-.lnb:hover{
-    width: 180px;
-}
-.lnb:hover .depth1 > a{
-    display: flex;
-}
-
 .depth2{
     display: none;
     width: 100%;
@@ -110,13 +103,16 @@ nav::-webkit-scrollbar{
     font-weight: 400;
     letter-spacing: -0.7px;
     color: #fff;
+}.depth2 li span{
+    background: var(--blue-500);
 }
 .depth2 li span{
     font-weight: 800;
 }
 .depth2 li a:hover{
-    text-decoration-line: underline;
+    color: var(--blue-100);
 }
 .depth2 li.active a{
-    text-decoration-line: underline;
+    color: var(--blue-100);
+    font-weight: 800;
 }

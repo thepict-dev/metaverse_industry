@@ -480,6 +480,38 @@ $("#checkModal button").click(function () {
     location.href = "/facility.do";
 })
 
+document.querySelector('label[for="agree"]').addEventListener('click', function(e) {
+    e.preventDefault();
+    $('#agreeModal').addClass('active');
+    $('body').addClass("no-scroll");
+});
+
+// 모달 닫기 버튼
+document.querySelector('#agreeModal button').addEventListener('click', function() {
+    $('#agreeModal').removeClass('active');
+    $('body').removeClass("no-scroll");
+});
+
+// 동의하기 버튼
+document.getElementById('agreeButton').addEventListener('click', function() {
+    document.getElementById('agree').checked = true;
+    $('#agreeModal').removeClass('active');
+    $('body').removeClass("no-scroll");
+});
+
+// 체크박스 직접 클릭 방지
+document.querySelector('#agree').addEventListener('click', function(e) {
+    e.preventDefault();
+    $('#agreeModal').addClass('active');
+    $('body').addClass('no-scroll');
+});
+
+// 동의하기 버튼 클릭 시 체크박스 체크
+document.querySelector('#agreeButton').addEventListener('click', function() {
+    document.querySelector('#agree').checked = true;
+    $('#agreeModal').removeClass('active');
+    $('body').removeClass('no-scroll');
+});
 
 
 
