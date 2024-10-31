@@ -188,7 +188,7 @@
                         <a href="${setting.content_url}" class="linkButton blk">
                         	보러가기
                        		<img src="/img/user_img/list-link.png" alt="">
-                            <img src="/img/user_img/linkto-hover.png" alt="" class="hover">
+                            <img src="/img/user_img/arr-hover2.png" alt="" class="hover">
                        	</a>
                     </div>
                 </li>
@@ -201,7 +201,7 @@
                         <a href="${setting.professional_url}" class="linkButton blk">
                         	보러가기
                        		<img src="/img/user_img/list-link.png" alt="">
-                            <img src="/img/user_img/linkto-hover.png" alt="" class="hover">
+                            <img src="/img/user_img/arr-hover2.png" alt="" class="hover">
                      	</a>
                     </div>
                 </li>
@@ -209,12 +209,12 @@
                     <span><img src="/img/user_img/intro3.png" alt=""></span>
                     <div class="cardContents">
                         <span class="cardSub">인프라 지원</span>
-                        <p>강원 메타버스 지원센터<br>���프라(시설·장비) 지원</p>
+                        <p>강원 메타버스 지원센터<br>인프라(시설·장비) 지원</p>
                         <span class="cardDesc">메타버스 콘텐츠 제작에 필요한 인프라(시설·장비)를 강원특별자치도 내 메타버스 기업 및 유관기관에 지원합니다. 사용 방법은 홈페이지를 통한 예약신청 후 방문입니다. 지원대상은 강원특별자치도의 메타버스 관련 기업, 유관기관 임직원 및 메타버스 관련 창업·취업 준비자입니다.</span>
                         <a href="${setting.infra_url}" class="linkButton blk">
                         	보러가기
                         	<img src="/img/user_img/list-link.png" alt="">
-                            <img src="/img/user_img/linkto-hover.png" alt="" class="hover">
+                            <img src="/img/user_img/arr-hover2.png" alt="" class="hover">
                        	</a>
                     </div>
                 </li>

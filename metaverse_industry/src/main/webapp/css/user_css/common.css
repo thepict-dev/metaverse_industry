@@ -171,22 +171,6 @@ textarea {
     background: rgba(0, 0, 0, 0.70);
     color: #fff;
 }
-
-.linkButton.blk img.hover{
-    display: none;
-}
-.linkButton.blk:hover{
-	border: 1px solid var(--wh, #FFF);
-	background: #FFF;
-	color: var(--Navy, #171C61); 
-}
-.linkButton.blk:hover img{
-    display: none;
-}
-.linkButton.blk:hover img.hover{
-    display: block;
-}
-
 @media all and (max-width : 1024px) {
     .linkButton {
         font-size: 14px;
