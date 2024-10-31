@@ -23,7 +23,7 @@
 									<div class="inputsContainer">
 										<div class="inputBox">
 											<p class="inputCaption">시리얼 넘버</p>
-											<input type="text" name="idx" id="idx" placeholder="QR코드를 찍어주세요." value="${pictVO.id}">
+											<input type="text" name="idx" id="idx" placeholder="QR코드를 찍어주세요." value="${pictVO.serial_number}">
 										</div>
 									</div>
 								</div>

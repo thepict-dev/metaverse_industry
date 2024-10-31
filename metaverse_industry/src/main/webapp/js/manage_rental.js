@@ -3,7 +3,7 @@
 $("#idx").change(function(e) {
 	console.log($(this).val())
 	let param = {
-		idx: $(this).val(),
+		serial_number: $(this).val(),
 	};
 
 	$.ajax({

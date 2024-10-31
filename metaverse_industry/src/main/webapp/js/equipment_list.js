@@ -85,10 +85,12 @@ $('.listBody.equipList > li').click(function (e) {
 						}
 					})
 					li.querySelector(".label a").addEventListener('click', (e) => {
-						$(".qr-img").empty();
+						$("#qr-img").empty();
+						console.log(item);
+						console.log(item.serial_number);
 						e.preventDefault();
-						new QRCode(document.querySelector(".qr-img"), {
-							text: item.idx
+						new QRCode(document.querySelector("#qr-img"), {
+							text: item.serial_number
 						});
 						document.querySelector(".label-type").textContent = type;
 						document.querySelector(".label-name").textContent = name;

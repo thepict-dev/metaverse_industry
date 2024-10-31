@@ -680,7 +680,7 @@
 	</update>
 	
 	<!-- QR코드 -->
-	<select id="get_qr_code" parameterType="int" resultType="map">
+	<select id="get_qr_code" parameterType="string" resultType="map">
 	    SELECT 
 	        eit.idx AS item_idx,
 	        eit.id AS item_id,
@@ -743,7 +743,7 @@
 	    LEFT JOIN 
 	        user_table ut ON err.user_id = ut.user_id
 	    WHERE 
-	        eit.idx = #{idx}
+	        eit.serial_number = #{serial_number}
 	    ORDER BY 
 	        err.rental_start_date ASC
 	</select>

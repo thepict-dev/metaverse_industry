@@ -140,7 +140,7 @@ public interface PictMapper {
 	
 	Integer equipment_list_total_cnt(PictVO pictVO) throws Exception;
 	
-	Map<String, Object> get_qr_code(@Param("idx") Integer idx) throws Exception;
+	Map<String, Object> get_qr_code(String serial_number) throws Exception;
 
 	
 	// 시설물 관리 매퍼

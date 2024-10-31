@@ -38,6 +38,7 @@ public class Scheduler {
     @Scheduled(cron = "0 28 13 * * *")//매일 오전 9시
 	//@Scheduled(cron = "0/5 * * * * *")
     public void jandi() throws Exception{
+    	/*
     	PictVO pictVO = null;
     	List<Map<String, Object>> jandiList = pictService.get_overdue_list();
     	String html = "";
@@ -64,6 +65,7 @@ public class Scheduler {
     	
     	
     	System.out.println("서비스가 돌고있으면 탈것");
+    	*/
     	
     }
   	public void mailsend(String subejct, String body) throws Exception{

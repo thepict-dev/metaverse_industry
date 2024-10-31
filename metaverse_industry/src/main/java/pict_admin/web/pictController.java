@@ -2030,10 +2030,10 @@ public class pictController {
 			map.put("msg", "fail");
 			return map;
 		}
-		if (param.get("idx") != null) {
-			Integer idx = Integer.parseInt(param.get("idx").toString());
-			System.out.println("idx @@@@" + idx);
-			Map<String, Object> rental = pictService.get_qr_code(idx);
+		if (param.get("serial_number") != null) {
+			String serial_number = param.get("serial_number").toString(); 
+			System.out.println("serial_number @@@@" + serial_number);
+			Map<String, Object> rental = pictService.get_qr_code(serial_number);
 			if (rental.get("request_idx") != null) {
 				System.out.println("rental @@@@" + rental);
 				map.put("msg", "ok");

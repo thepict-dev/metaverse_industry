@@ -319,8 +319,8 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 	}
 	
 	@Override
-	public Map<String, Object>  get_qr_code(Integer idx) throws Exception {
-		return pictMapper.get_qr_code(idx); 
+	public Map<String, Object>  get_qr_code(String serial_number) throws Exception {
+		return pictMapper.get_qr_code(serial_number); 
 	}
 	
 	// 시설물 관려

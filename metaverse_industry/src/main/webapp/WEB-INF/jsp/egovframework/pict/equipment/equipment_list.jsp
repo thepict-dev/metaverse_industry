@@ -167,24 +167,26 @@
 								</div>
 							</div>
 						</div>
-						<div class="datailCardWrapper">
+						<div class="datailCardWrapper qr-label-container">
 							<div class="detailCard detailSub">
 								<p class="inputCaption">라벨</p>
 								<div class="detailCardInner detailSub">
 									<div class="detailCardText">
-										<span class="detailCate">${equipment.category}</span>
-										<p>${equipment.name}</p>
-										<span class="detailDate">${pictVO.reg_date}</span>
-										<span class="detailDate">${pictVO.reg_date}</span>
+										<span class="detailCate label-type"></span>
+										<p class="label-name">${equipment.name}</p>
+										<p class="detailDate">시리얼넘버</p>
+										<p class="detailDate label-serial-number"></p>
+										<br />
+										<span class="detailDate lable-reg-date">${pictVO.reg_date}</span>
 									</div>
-									<div class="detailCardImg">
-										<img src="${pictVO.image_url}" alt="장비이미지">
+									<div class="detailCardImg" id="qr-img">
+										
 									</div>
 								</div>
-								<div class="buttons">
+								<!-- <div class="buttons">
 									<a href="" class="smButton"
 										style="margin-top: 8px; padding: 0 8px;">다운로드</a>
-								</div>
+								</div> -->
 							</div>
 						</div>
 						<script>
@@ -197,6 +199,8 @@
 							<input type='hidden' name="use_at" id="use_at" value='' />
 							<input type='hidden' name="type" id="type" value='' />
 						</form>
+						<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+						<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 						<script type="text/javascript" src="/js/equipment_list.js"></script>
 						<script src="../../../../../js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 						<script src="../../../../../js/scripts.js"></script>

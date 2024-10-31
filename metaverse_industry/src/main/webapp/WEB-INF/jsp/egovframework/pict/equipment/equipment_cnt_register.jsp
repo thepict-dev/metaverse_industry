@@ -127,9 +127,9 @@
 									}
 								}
 								$( document ).ready(function() {
-								    var idx = '${pictVO.idx}'
-								    console.log(idx);
-								    var qrcode = new QRCode(document.getElementById("qr_img"), {text: idx});
+								    var serial_number = '${pictVO.serial_number}'
+								    console.log(serial_number);
+								    var qrcode = new QRCode(document.getElementById("qr_img"), {text: serial_number});
 								    console.log(qrcode);
 								});
 								$('.toggle').change(function (e) {
