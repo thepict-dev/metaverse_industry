@@ -99,13 +99,13 @@
 		<script>
 	
 			function fn_search(){
-				$("#search_fm").attr("action", "/admin/front/popup_list");
+				$("#search_fm").attr("action", "/popup/popup_list.do");
 				$("#search_fm").submit();
 			}
 			function board_delete(idx) {
 				if (confirm("삭제 하시겠습니까?")) {
 					$('#idx').val(idx)
-					$("#register").attr("action", "/admin/front/popup_delete");
+					$("#register").attr("action", "/popup/popup_delete.do");
 					$("#register").submit();
 				}
 			}
