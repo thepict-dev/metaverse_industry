@@ -45,14 +45,14 @@
            </div>
            <ul class="depth2">
                <li><span>장비 관리</span></li>
-               <li class="<c:if test="${equipment_list ne -1}">active</c:if>"><a href="/equipment/equipment_list.do">장비 목록</a></li>
-               <li class="<c:if test="${equipment_history ne -1}">active</c:if>"><a href="/history/history_list.do">장비대여 관리대장</a></li>
-               <li class="<c:if test="${manage_rental ne -1}">active</c:if>"><a href="/manage/manage_rental.do">대여/반납처리</a></li>
+               <li class="<c:if test="${equipment_list ne -1}">active</c:if>"><a href="/equipment/equipment_list.do">- 장비 목록</a></li>
+               <li class="<c:if test="${equipment_history ne -1}">active</c:if>"><a href="/history/history_list.do">- 장비대여 관리대장</a></li>
+               <li class="<c:if test="${manage_rental ne -1}">active</c:if>"><a href="/manage/manage_rental.do">- 대여/반납처리</a></li>
                <li><span>시설 관리</span></li>
-               <li class="<c:if test="${facility_list ne -1}">active</c:if>"><a href="/facility/facility_list.do">시설 목록</a></li>
-               <li class="<c:if test="${facility_history_list ne -1}">active</c:if>"><a href="/facility/facility_history_list.do">시설대여 관리대장</a></li>
+               <li class="<c:if test="${facility_list ne -1}">active</c:if>"><a href="/facility/facility_list.do">- 시설 목록</a></li>
+               <li class="<c:if test="${facility_history_list ne -1}">active</c:if>"><a href="/facility/facility_history_list.do">- 시설대여 관리대장</a></li>
           	   <li><span>교육 관리</span></li>
-               <li class="<c:if test="${manage_education ne -1}">active</c:if>"><a href="/education/manage_education.do">신청 목록</a></li>
+               <li class="<c:if test="${manage_education ne -1}">active</c:if>"><a href="/education/manage_education.do">- 신청 목록</a></li>
            </ul>
         	<div class="depth1 <c:if test="${user_list ne -1}">active</c:if>">
                <span><img src="/img/admin/lnb_icons/user.png" alt=""></span>
@@ -60,7 +60,7 @@
            </div>
            <ul class="depth2">
           	   <li><span>사용자 관리</span></li>
-               <li class="<c:if test="${user_list ne -1}">active</c:if>"><a href="/user_list/user_list.do">사용자 목록</a></li>
+               <li class="<c:if test="${user_list ne -1}">active</c:if>"><a href="/user_list/user_list.do">- 사용자 목록</a></li>
            </ul>
             
         	<div class="depth1 <c:if test="${popup_list ne -1 || popup_form ne -1}">active</c:if>">
@@ -69,7 +69,7 @@
            </div>
            <ul class="depth2">
           	   <li><span>팝업 관리</span></li>
-               <li class="<c:if test="${popup_list ne -1 || popup_form ne -1}">active</c:if>"><a href="/popup/popup_list.do">팝업 리스트</a></li>
+               <li class="<c:if test="${popup_list ne -1 || popup_form ne -1}">active</c:if>"><a href="/popup/popup_list.do">- 팝업 리스트</a></li>
            </ul>
            
             
@@ -81,8 +81,8 @@
            </div>
            <ul class="depth2">
           	   <li><span>알림마당</span></li>
-               <li class="<c:if test="${board_list ne -1}">active</c:if>"><a href="/board/board_list.do">공지사항</a></li>
-               <li class="<c:if test="${biz_list ne -1}">active</c:if>"><a href="/biz_post/biz_list.do">사업공고</a></li>
+               <li class="<c:if test="${board_list ne -1}">active</c:if>"><a href="/board/board_list.do">- 공지사항</a></li>
+               <li class="<c:if test="${biz_list ne -1}">active</c:if>"><a href="/biz_post/biz_list.do">- 사업공고</a></li>
            </ul>
            
            <div class="depth1 <c:if test="${settings ne -1}">active</c:if>">
@@ -91,7 +91,7 @@
            </div>
            <ul class="depth2">
           	   <li><span>홈페이지</span></li>
-               <li class="<c:if test="${settings ne -1}">active</c:if>"><a href="/setting/settings.do">림크설정</a></li>
+               <li class="<c:if test="${settings ne -1}">active</c:if>"><a href="/setting/settings.do">- 링크설정</a></li>
            </ul>
            
             <%-- <div class="depth1 <c:if test="${event_list ne -1 || event_register ne -1}">active</c:if>">
