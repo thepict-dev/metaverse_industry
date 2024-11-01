@@ -116,6 +116,9 @@
 															<c:when test="${resultList.request_status eq 'rental'}">
 																대여중
 															</c:when>
+															<c:when test="${resultList.request_status eq 'overdue'}">
+																연체중
+															</c:when>
 															<c:when test="${resultList.request_status eq 'returned'}">
 																반납완료
 															</c:when>

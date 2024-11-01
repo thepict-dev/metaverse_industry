@@ -173,8 +173,9 @@ public class UserController {
 	
 	@RequestMapping("/update_user.do")
 	@ResponseBody
-	public HashMap<String, Object> update_user(@ModelAttribute("searchVO") UserVO userVO, ModelMap model,
-			HttpServletRequest request,  @RequestBody Map<String, Object> param) throws Exception {
+	public HashMap<String, Object> update_user(@ModelAttribute UserVO userVO, 
+            @RequestParam(value = "attach_file", required = false) MultipartFile attach_file,
+            HttpServletRequest request) throws Exception {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		HashMap<String, Object> result_data = new HashMap<String, Object>();
 		String sessions = (String)request.getSession().getAttribute("id");
@@ -183,7 +184,22 @@ public class UserController {
 			return map;
 		}
 		userVO.setUser_id(sessions);
+		if (attach_file != null && attach_file.getSize() != 0) {
+			UUID uuid = UUID.randomUUID();
+			String uploadPath = upload_file(request, attach_file,
+					(String) request.getSession().getAttribute("id"), uuid);
+			// String filepath = "~/Desktop/upload_file/";
+			String filepath = "/user1/upload_file/metaverse_industry/";
+			String filename = uuid + uploadPath.split("#####")[1];
+			userVO.setDocument_url(filename);
+		}
+		System.out.println("userVO @@@@@@@@@@@@" + userVO.getName());
+		System.out.println("userVO @@@@@@@@@@@@" + userVO.getPosition());
+		System.out.println("userVO @@@@@@@@@@@@" + userVO.getCompany_address1());
+		System.out.println("userVO @@@@@@@@@@@@" + userVO.getCompany_address2());
 		
+		
+		/*
 		if (param.get("name") != null) {			
 			String name = param.get("name").toString();
 			userVO.setName(name);
@@ -248,10 +264,10 @@ public class UserController {
 			result_data.put("company_address2", company_address2);
 		}
 		System.out.println("userVO @@@@@@@@@@@@" + userVO);
-
+		*/
 		
 		
-		
+		/*
 		try {
 			userService.updateUser(userVO);
 			map.put("rst", true);
@@ -260,6 +276,7 @@ public class UserController {
 		} catch(IOException e) {
 			map.put("rst", false);
 		}
+		*/
 		return map;
 	}
 
