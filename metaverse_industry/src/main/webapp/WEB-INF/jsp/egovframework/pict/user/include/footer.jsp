@@ -16,17 +16,17 @@
                 <div class="famDrop">
                     <button type="button">강원디지털인프라</button>
                     <ul class="famLists">
-                        <li><a href="#lnk" target="_blank" title="새창이동"><span>강원 메타버스 지원센터</span></a></li>
-                        <li><a href="" target="_blank" title="새창이동"><span>스마트토이비즈센터</span></a></li>
-                        <li><a href="" target="_blank" title="새창이동"><span>강원 CKL</span></a></li>
-                        <li><a href="" target="_blank" title="새창이동"><span>강원음악창작소</span></a></li>
-                        <li><a href="" target="_blank" title="새창이동"><span>소담 스퀘어</span></a></li>
-                        <li><a href="" target="_blank" title="새창이동"><span>강원시청자미디어센터</span></a></li>
-                        <li><a href="" target="_blank" title="새창이동"><span>KNU메이커스페이스</span></a></li>
-                        <li><a href="" target="_blank" title="새창이동"><span>Fab Lab강원</span></a></li>
-                        <li><a href="" target="_blank" title="새창이동"><span>커먼즈필드 춘천</span></a></li>
-                        <li><a href="" target="_blank" title="새창이동"><span>강원대학교 버추얼 프로덕션 LED 스튜디오</span></a></li>
-                        <li><a href="" target="_blank" title="새창이동"><span>춘천시영상산업지원센터</span></a></li>
+                        <li><a href="#lnk" target="_blank" title="강원 메타버스 지원센터"><span>강원 메타버스 지원센터</span></a></li>
+                        <li><a href="" target="_blank" title="스마트토이비즈센터"><span>스마트토이비즈센터</span></a></li>
+                        <li><a href="" target="_blank" title="강원 CKL"><span>강원 CKL</span></a></li>
+                        <li><a href="" target="_blank" title="강원음악창작소"><span>강원음악창작소</span></a></li>
+                        <li><a href="" target="_blank" title="소담 스퀘어"><span>소담 스퀘어</span></a></li>
+                        <li><a href="" target="_blank" title="강원시청자미디어센터"><span>강원시청자미디어센터</span></a></li>
+                        <li><a href="" target="_blank" title="KNU메이커스페이스"><span>KNU메이커스페이스</span></a></li>
+                        <li><a href="" target="_blank" title="Fab Lab강원"><span>Fab Lab강원</span></a></li>
+                        <li><a href="" target="_blank" title="커먼즈필드 춘천"><span>커먼즈필드 춘천</span></a></li>
+                        <li><a href="" target="_blank" title="강원대학교 버추얼 프로덕션 LED 스튜디오"><span>강원대학교 버추얼 프로덕션 LED 스튜디오</span></a></li>
+                        <li><a href="" target="_blank" title="춘천시영상산업지원센터"><span>춘천시영상산업지원센터</span></a></li>
                     </ul>
                 </div>
             </div>

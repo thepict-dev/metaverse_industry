@@ -393,6 +393,10 @@
     text-overflow: ellipsis;
     word-break: break-all;
 }
+.fileList.hisDetail p{
+    width: 100%;
+    padding: 0 10px;
+}
 .fileList button{
 	cursor: pointer;
 }
