@@ -63,7 +63,7 @@
 .modalInner{
     position: relative;
     width: 400px;
-    max-height: 687px;
+    max-height: 700px;
     height: 80%;
     padding-top: 64px;
     background-color: #fff;
@@ -129,7 +129,7 @@
 }
 .infoSlides .swiper-horizontal>.swiper-pagination-bullets, .infoSlides .swiper-pagination-bullets.swiper-pagination-horizontal, .infoSlides .swiper-pagination-custom, .infoSlides .swiper-pagination-fraction{
     position: unset;
-    margin-bottom: 36px;
+    margin-bottom: 10px;
 }
 .infoSlides .swiper-pagination-bullet{
 	width: 5px;
@@ -149,7 +149,6 @@
     flex-direction: column;
     row-gap: 12px;
     padding: 20px 0;
-    margin-bottom: 36px;
 
 }
 .bookingInfolists li{
@@ -202,7 +201,6 @@
     align-items: center;
     justify-content: center;
     column-gap: 8px;
-    margin: 36px 0;
 }
 .checkConfirm.edu1{
     margin: 36px 0 0 0;

@@ -1,17 +1,16 @@
-@import url('https://webfontworld.github.io/sunn/SUIT.css');
-
 *{
     box-sizing: border-box;
+    font-family: 'SUIT', sans-serif;
 }
 
 body{
     position: relative;
     height: 100vh;
-    font-family: 'SUIT';
+    font-family: 'SUIT', sans-serif;
     overflow: hidden;
 }
 :root {
-    --fn-suit: 'SUIT';
+    --fn-suit: 'SUIT, sans-serif';
     --blue-50: #e6eef8;
     --blue-100: #b0c9eb;
     --blue-200: #8aafe1;

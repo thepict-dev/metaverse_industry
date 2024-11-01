@@ -31,9 +31,9 @@
                 </div>
             </div>
             <div class="footerTexts">
-                <p>강원도 춘천시 서면 박사로 854 강원정보문화산업진흥원 문화지원센터</p>
-                <p>TEL<span>033-245-6313</span></p>
-                <p>COPYRIGHT(C) 2020 Gangwon VRㆍAR Production Center. ALL RIGHTS RESERVED.</p>
+                <p>강원특별자치도 춘천시 서면 박사로 854 창작발전소(뒷 건물) 1층</p>
+                <p>TEL<span>033-245-6315</span></p>
+                <p>COPYRIGHT(C) 2020 Gangwon Metaverse Support Center. ALL RIGHTS RESERVED.</p>
             </div>
         </div>
         <ul class="footerInfo">

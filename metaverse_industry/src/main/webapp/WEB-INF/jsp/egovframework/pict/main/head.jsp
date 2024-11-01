@@ -16,6 +16,7 @@
     <meta name="author" content="" />
     <title>${param.pageTitle}</title>
     <link rel="shortcut icon" type="image/x-icon" href="/images/pict/favicon.webp">
+    <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/static/woff2/SUIT.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/admin/nice-select.css">
     <link rel="stylesheet" href="/css/admin/reset.css">
     <link rel="stylesheet" href="/css/admin/common.css">

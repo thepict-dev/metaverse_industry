@@ -1,8 +1,12 @@
-@import url('https://webfontworld.github.io/sunn/SUIT.css');
 @import url('https://fonts.googleapis.com/css2?family=Aldrich&display=swap');
 
+*{
+    box-sizing: border-box;
+    font-family: 'SUIT', sans-serif;
+}
+
 :root {
-    --fn-suit: 'SUIT';
+    --fn-suit: 'SUIT, sans-serif';
     --fn-ald: "Aldrich", sans-serif;
     --grey-50: #f3f5f6;
     --grey-100: #dbdee2;
@@ -22,7 +26,7 @@
 
 body {
     position: relative;
-    font-family: var(--fn-suit);
+    font-family: 'SUIT', sans-serif;
     color: #000;
 }
 
@@ -216,6 +220,7 @@ textarea {
 .fullButtonContainer a.bl, .fullButtonContainer button.bl {
     color: #FFF;
     background-color: var(--navy-color);
+    cursor: pointer;
 }
 
 .fullButtonContainer a.wt, .fullButtonContainer button.wt {

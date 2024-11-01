@@ -33,17 +33,6 @@ function initDatepicker() {
            var startDate = $("#datepicker").data("startDate");
            var endDate = $("#datepicker").data("endDate");
 
-           const targetEquipment = document.querySelector(".equipList li.checked");
-           if (!targetEquipment) {
-               return [false, "no-equipment-selected"];
-           }
-
-           const facilityId = targetEquipment.dataset.id;
-           const isAlreadySelected = selectedEquipment.some(equip => equip.id === facilityId);
-           if (isAlreadySelected) {
-               return [false, "equipment-already-selected"];
-           }
-
            var classes = [];
            if (isDisabled) {
                return [false, "user-disabled"];
@@ -141,30 +130,29 @@ function updateDateRangeInfo() {
            targetEquipment.classList.remove("checked");
            targetEquipment.classList.add("success");
 
-           const targetName = targetEquipment.querySelector(".itemTitles > p > span:first-child").textContent;
            const selectedSuccessEquipment = document.createElement("li");
            selectedSuccessEquipment.dataset.id = targetEquipment.dataset.id;
-
            selectedSuccessEquipment.innerHTML = `
                <div class="eqDate">
                    <div class="eq">
                        <p class="eqDateTitle">시설</p>
-                       <p class="eqDateItem"><span>${targetName}</span></p>
+                       <p class="eqDateItem"><span>${equipment.name}</span></p>
                    </div>
                    <div class="datesWrapper">
                        <div class="dates">
                            <p class="eqDateTitle">대여일</p>
-                           <p class="eqDateItem">${$.datepicker.formatDate("yy.mm.dd", startDate)}.${getWeekDay(startDate)}</p>
+                           <p class="eqDateItem">${equipment.rental_start_date}.${getWeekDay(startDate)}</p>
                        </div>
                        <img src="/img/user_img/date-arr.png" alt="">
                        <div class="dates">
                            <p class="eqDateTitle">반납일</p>
-                           <p class="eqDateItem">${$.datepicker.formatDate("yy.mm.dd", endDate)}.${getWeekDay(endDate)}</p>
+                           <p class="eqDateItem">${equipment.rental_end_date}.${getWeekDay(endDate)}</p>
                        </div>
                    </div>
                </div>
                <button class="resetSelectedDate">다시 선택</button>      
-           `
+           `;
+           
            document.querySelector(".step-02").classList.remove("blind");
            document.querySelector(".step-03").classList.remove("blind");
            document.querySelector(".dateResultLists").appendChild(selectedSuccessEquipment);

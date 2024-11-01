@@ -15,9 +15,8 @@
         <img src="/img/user_img/mb-back.png" alt="" class="mbBack">
         <div class="introSecContents">
             <h2><img src="/img/user_img/logo-sub.png" alt=""></h2>
-            <span>강원 메타버스 지원센터는</span>
-            <p>강원특별자치도의 미래 시대
-                콘텐츠 산업을 선도합니다</p>
+            <span>'강원 메타버스 지원센터'는</span>
+            <p>강원특별자치도의<br>미래 시대 콘텐츠 산업을<br>선도합니다</p>
             <div class="scroll">Scroll Down<img src="/img/user_img/down.png" alt=""></div>
         </div>
     </div>

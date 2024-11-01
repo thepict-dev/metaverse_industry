@@ -80,15 +80,15 @@
                 <div class="infoTable">
                     <table>
                         <colgroup>
-                            <col width="10%" />
-                            <col width="11.5%" />
-                            <col width="11.5%" />
-                            <col width="10%" />
-                            <col width="10%" />
-                            <col width="15%" />
-                            <col width="12%" />
-                            <col width="10%" />
-                            <col width="10%" />
+	                        <col width="11.5%" />
+	                        <col width="11.5%" />
+	                        <col width="11.5%" />
+	                        <col width="10%" />
+	                        <col width="10%" />
+	                        <col width="15%" />
+	                        <col width="12%" />
+	                        <col width="8.5%" />
+	                        <col width="10%" />
                         </colgroup>
                         <thead>
                             <tr>
