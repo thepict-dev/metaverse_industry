@@ -312,6 +312,11 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 		return pictMapper.get_user_by_request(pictVO);
 	}
 	
+	@Override
+	public Map<String, Object> get_user_by_faility_request(PictVO pictVO) throws Exception {
+		return pictMapper.get_user_by_faility_request(pictVO);
+	}
+	
 	
 	@Override
 	public List<Map<String, Object>> get_overdue_list() throws Exception {

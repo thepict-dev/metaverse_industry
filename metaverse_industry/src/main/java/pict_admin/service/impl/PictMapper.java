@@ -138,6 +138,8 @@ public interface PictMapper {
 	
 	Map<String, Object> get_user_by_request(PictVO pictVO) throws Exception; 
 	
+	Map<String, Object> get_user_by_faility_request(PictVO pictVO) throws Exception; 
+	
 	Integer equipment_list_total_cnt(PictVO pictVO) throws Exception;
 	
 	Map<String, Object> get_qr_code(String serial_number) throws Exception;

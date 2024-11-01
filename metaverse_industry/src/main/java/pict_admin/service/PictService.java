@@ -131,6 +131,9 @@ public interface PictService {
 	
 	Map<String, Object> get_user_by_request(PictVO pictVO) throws Exception;
 	
+	Map<String, Object> get_user_by_faility_request(PictVO pictVO) throws Exception; 
+
+	
 	Map<String, Object> get_qr_code(String serial_number) throws Exception;
 	
 	// 시설물 관련

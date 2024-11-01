@@ -2132,11 +2132,17 @@ public class pictController {
 		Map<String, Object> user = pictService.get_user_by_request(pictVO);
 		System.out.println("user::::::::::::::::::::::::::::::::::::::::::" + user);
 		if (user.get("mobile") != null && user.get("mobile") != "") {
+			String msg = "강원 메타버스 지원센터에서 알려드립니다. 신청하신 장비 대여 서비스가 ";
+			if (pictVO.getRequest_status().equals("rejected")) {
+				msg += "반려처리 되었습니다. 마이페이지에서 반려사유를 확인 후 서류를 보완해주세요.";
+			} else if (pictVO.getRequest_status().equals("approved")) {
+				msg += "승인처리 되었습니다. 대여날짜에 맞춰 방문해주세요.";
+			} else if (pictVO.getRequest_status().equals("refusal")) {
+				msg += "거절처리 되었습니다. 마이페이지에서 거절사유를 확인해주세요.";
+			}
 			
+			send_sms(msg ,(String) user.get("mobile"));
 			
-			
-			// send_sms("16444845", "장비예약이 승인되었습니다.", "01032233817");
-			//send_sms(String sender, String msg, String receiver)
 		}
 		model.addAttribute("message", "정상적으로 수정되었습니다.");
 		model.addAttribute("retType", ":location");
@@ -2175,6 +2181,21 @@ public class pictController {
 		System.out.println("::::::::::::::::::::::::::::::::::::::::::" + pictVO.getIdx());
 		System.out.println("::::::::::::::::::::::::::::::::::::::::::" + pictVO.getReject_msg());
 		pictService.update_facility_request_status(pictVO);
+		Map<String, Object> user = pictService.get_user_by_faility_request(pictVO);
+		System.out.println("user::::::::::::::::::::::::::::::::::::::::::" + user);
+		if (user.get("mobile") != null && user.get("mobile") != "") {
+			String msg = "강원 메타버스 지원센터에서 알려드립니다. 신청하신 시설 대여 서비스가 ";
+			if (pictVO.getRequest_status().equals("rejected")) {
+				msg += "반려처리 되었습니다. 마이페이지에서 반려사유를 확인 후 서류를 보완해주세요.";
+			} else if (pictVO.getRequest_status().equals("approved")) {
+				msg += "승인처리 되었습니다. 날짜에 맞춰 방문해주세요.";
+			} else if (pictVO.getRequest_status().equals("refusal")) {
+				msg += "거절처리 되었습니다. 마이페이지에서 거절사유를 확인해주세요.";
+			}
+			
+			send_sms(msg ,(String) user.get("mobile"));
+			
+		}
 		model.addAttribute("message", "정상적으로 수정되었습니다.");
 		model.addAttribute("retType", ":location");
 		model.addAttribute("retUrl", "/facility/facility_history_list.do");
@@ -2474,7 +2495,7 @@ public class pictController {
 	}
   	
   	//문자
-	public void send_sms(String sender, String msg, String receiver) throws Exception {
+	public void send_sms(String msg, String receiver) throws Exception {
 
     	try{
     		
@@ -2490,19 +2511,20 @@ public class pictController {
     		
     		Map<String, String> sms = new HashMap<String, String>();
     		
-    		sms.put("user_id", "finecom"); // SMS 아이디
-    		sms.put("key", "rox9v7vxxxuoawg6i3yb7ofaf8ih3f5s"); //인증키
+    		sms.put("user_id", "gica"); // SMS 아이디
+    		sms.put("key", "rarf9fv8guylxaw80avten6uig3spw1b"); //인증키
     		
     		/******************** 인증정보 ********************/
     		
     		/******************** 전송정보 ********************/
 
-    		//request.getAttribute("text").toString();
+//    		request.getAttribute("text").toString();
     		sms.put("msg", msg);
-    		
+    		System.out.println("전달 받은 msg :::: @@@@"+ msg);
     		sms.put("receiver", receiver); // 수신번호
+    		System.out.println("전달 받은 receiver :::: @@@@"+ receiver);
     		//sms.put("sender", "16444845"); // 발신번호
-    		sms.put("sender", sender); // 발신번호
+    		sms.put("sender", "0332456315"); // 발신번호
     		String image = "";
     		//image = "/tmp/pic_57f358af08cf7_sms_.jpg"; // MMS 이미지 파일 위치
     		

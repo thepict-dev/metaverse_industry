@@ -501,6 +501,9 @@
 	<select id="get_user_by_request" resultType="map">
 		select ut.mobile, ut.name, ut.email from equipment_rental_request err left join user_table ut on ut.user_id = err.user_id where err.idx = #{idx};
 	</select>
+	<select id="get_user_by_faility_request" resultType="map">
+		select ut.mobile, ut.name, ut.email from facility_rental_request err left join user_table ut on ut.user_id = err.user_id where err.idx = #{idx};
+	</select>
 	<!-- 장비 삭제 -->
 	<update id="equipment_delete" parameterType="int">
 	  UPDATE equipment_type_table
@@ -621,10 +624,18 @@
 	</select>
 	
 	<select id="request_total_cnt" resultType="int">
-			select count(*) as totalCnt from equipment_rental_request where 1=1
-			<if test="request_status != null and request_status != ''">
-	            AND request_status = #{request_status}
-	        </if>
+		select count(*) as totalCnt from equipment_rental_request err 
+		JOIN 
+	    	equipment_item_table eit ON err.equipment_id = eit.id
+		JOIN 
+	    	equipment_type_table et ON eit.equipment_type_id = et.id
+		where 1=1
+		<if test="request_status != null and request_status != ''">
+            AND request_status = #{request_status}
+        </if>
+        <if test="category != null and category != ''">
+			and et.type = #{category}
+		</if> 
 	</select>
 	
 	<select id="get_request_detail" resultType="map">
