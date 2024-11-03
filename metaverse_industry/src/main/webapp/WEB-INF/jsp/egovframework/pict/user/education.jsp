@@ -24,7 +24,7 @@
                 <h4 class="textTitle">사용자 범위</h4>
                 <div class="textsContent">
                     <!-- <p class="textsContentTitle">누구나 신청가능(보호자1인+아동1인, 2인1조로 체험)</p> -->
-                    <p class="textsContentTitle">초등학교 4학년 이상 누구나</p>
+                    <p class="textsContentTitle">사용 대상자</p>
                 </div>
             </div>
             <div class="subTextContents">
@@ -43,7 +43,7 @@
             <div class="subTextContents">
                 <h4 class="textTitle">장소</h4>
                 <div class="textsContent">
-                    <p class="textsContentTitle">강원VRAR제작거점센터(강원 춘천시 박사로 854 창작발전소 1층)</p>
+                    <p class="textsContentTitle">강원 메타버스 지원 센터(강원특별자치도 춘천시 서면 박사로 854 창작발전소(뒷 건물) 1층)</p>
                 </div>
             </div>
             <div class="subTextContents">

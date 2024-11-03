@@ -41,10 +41,12 @@
 	                        </div>
 	                    </div>
 	                    <div class="inputsContainer">
-	                    	<p class="inputCaption">썸네일 미리보기*
-                            </p>
-	                        <div class="prev_img">
-	                        	<img src="${pictVO.video_thumb}" />
+	                        <div class="inputBox">
+		                    	<p class="inputCaption">썸네일 미리보기*
+		                           </p>
+		                        <div class="prev_img">
+		                        	<img src="${pictVO.video_thumb}" />
+		                        </div>
 	                        </div>
 	                    </div>
 	                    <div class="inputsContainer">

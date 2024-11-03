@@ -149,11 +149,14 @@
 }
 /*	교육신청 리스트 */
 .listHead.eduHead{
-    grid-template-columns: 5% 5% 55% 15% 15% 5%;
+    grid-template-columns: 5% 55% 20% 15% 5%;
 }
 
 .listBody.eduBody > li{
-    grid-template-columns: 5% 5% 55% 15% 15% 5%;
+    grid-template-columns: 5% 55% 20% 15% 5%;
+}
+.listBody.eduBody li p.title{
+   	justify-content: center;
 }
 /*	사용자 리스트 */
 .listHead.userList{

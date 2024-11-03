@@ -15,7 +15,7 @@
 					<%@include file="../main/lnb.jsp" %>
 						<c:import url="../main/header.jsp">
 							<c:param name="title" value="장비 관리" />
-							<c:param name="subtitle" value="장비대여 관리대장" />
+							<c:param name="subtitle" value="시설대여 관리대장" />
 						</c:import>
 						<div class="contentsContainer">
 							<div class="listContainer set">

@@ -17,10 +17,12 @@
 <c:set var="equipment_register" value="${fn:indexOf(url, 'equipment_register')}"/>
 <c:set var="equipment_cnt_register" value="${fn:indexOf(url, 'equipment_cnt_register')}"/>
 <c:set var="equipment_history" value="${fn:indexOf(url, 'history/history_list')}"/>
+<c:set var="equipment_history_detail" value="${fn:indexOf(url, 'history/history_detail')}"/>
 <c:set var="manage_rental" value="${fn:indexOf(url, 'manage_rental')}"/>
 <c:set var="facility_list" value="${fn:indexOf(url, 'facility_list')}"/>
 <c:set var="facility_register" value="${fn:indexOf(url, 'facility_register')}"/>
 <c:set var="facility_history_list" value="${fn:indexOf(url, 'facility_history_list')}"/>
+<c:set var="facility_history_detail" value="${fn:indexOf(url, 'facility_history_detail')}"/>
 <c:set var="board_list" value="${fn:indexOf(url, 'board_list')}"/>
 <c:set var="board_register" value="${fn:indexOf(url, 'board_register')}"/>
 
@@ -45,12 +47,12 @@
            </div>
            <ul class="depth2">
                <li><span>장비 관리</span></li>
-               <li class="<c:if test="${equipment_list ne -1}">active</c:if>"><a href="/equipment/equipment_list.do">- 장비 목록</a></li>
-               <li class="<c:if test="${equipment_history ne -1}">active</c:if>"><a href="/history/history_list.do">- 장비대여 관리대장</a></li>
+               <li class="<c:if test="${equipment_list ne -1 || equipment_cnt_register ne -1}">active</c:if>"><a href="/equipment/equipment_list.do">- 장비 목록</a></li>
+               <li class="<c:if test="${equipment_history ne -1 || equipment_history_detail ne -1}">active</c:if>"><a href="/history/history_list.do">- 장비대여 관리대장</a></li>
                <li class="<c:if test="${manage_rental ne -1}">active</c:if>"><a href="/manage/manage_rental.do">- 대여/반납처리</a></li>
                <li><span>시설 관리</span></li>
-               <li class="<c:if test="${facility_list ne -1}">active</c:if>"><a href="/facility/facility_list.do">- 시설 목록</a></li>
-               <li class="<c:if test="${facility_history_list ne -1}">active</c:if>"><a href="/facility/facility_history_list.do">- 시설대여 관리대장</a></li>
+               <li class="<c:if test="${facility_list ne -1 || facility_register ne -1}">active</c:if>"><a href="/facility/facility_list.do">- 시설 목록</a></li>
+               <li class="<c:if test="${facility_history_list ne -1 || facility_history_detail ne -1}">active</c:if>"><a href="/facility/facility_history_list.do">- 시설대여 관리대장</a></li>
           	   <li><span>교육 관리</span></li>
                <li class="<c:if test="${manage_education ne -1}">active</c:if>"><a href="/education/manage_education.do">- 신청 목록</a></li>
            </ul>
@@ -81,8 +83,8 @@
            </div>
            <ul class="depth2">
           	   <li><span>알림마당</span></li>
-               <li class="<c:if test="${board_list ne -1}">active</c:if>"><a href="/board/board_list.do">- 공지사항</a></li>
-               <li class="<c:if test="${biz_list ne -1}">active</c:if>"><a href="/biz_post/biz_list.do">- 사업공고</a></li>
+               <li class="<c:if test="${board_list ne -1 || board_register ne -1}">active</c:if>"><a href="/board/board_list.do">- 공지사항</a></li>
+               <li class="<c:if test="${biz_list ne -1 || biz_register ne -1}">active</c:if>"><a href="/biz_post/biz_list.do">- 사업공고</a></li>
            </ul>
            
            <div class="depth1 <c:if test="${settings ne -1}">active</c:if>">

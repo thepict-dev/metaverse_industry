@@ -58,7 +58,7 @@
                 <ul class="locationInfo">
                     <li>
                         <p><img src="/img/user_img/location.png" alt="">주소</p>
-                        <p>강원특별자치도 춘천시 서면 박사로 854 강원정보문화산업진흥원 문화지원센터</p>
+                        <p>강원특별자치도 춘천시 서면 박사로 854 창작발전소(뒷 건물) 1층</p>
                     </li>
                     <li>
                         <p><img src="/img/user_img/call.png" alt="">대표전화</p>
@@ -70,35 +70,37 @@
     </div>
 	<%@ include file="./include/footer.jsp" %>
 	<script src="/js/sub.js"></script>
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=51d7fd4e7b0bd7c529c193b8c780e97f"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=51d7fd4e7b0bd7c529c193b8c780e97f&libraries=services"></script>
 	<script>
-		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-		mapOption = { 
-			center: new kakao.maps.LatLng('37.526702140168055', '126.9164705322456'), // 지도의 중심좌표
-			level: 3 // 지도의 확대 레벨
-		};
-		var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+        kakao.maps.load(function() {
+                var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+                mapOption = { 
+                    center: new kakao.maps.LatLng('37.89391096390124', '127.69067115850844'), // 지도의 중심좌표
+                    level: 3 // 지도의 확대 레벨
+                };
+                var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
-		// 마커가 표시될 위치입니다 
-		var markerPosition  = new kakao.maps.LatLng('37.526702140168055', '126.9164705322456'); 
-		// 마커를 생성합니다
-		var marker = new kakao.maps.Marker({
-		    position: markerPosition
-		});
-		
-		// 마커가 지도 위에 표시되도록 설정합니다
-		marker.setMap(map);
-		
-		var iwContent = '<div style="line-height:30px; width:230px; text-align:center">' + '메타버스 지원 센터' +'</div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                // 마커가 표시될 위치입니다 
+                var markerPosition  = new kakao.maps.LatLng('37.89391096390124', '127.69067115850844'); 
+                // 마커를 생성합니다
+                var marker = new kakao.maps.Marker({
+                    position: markerPosition
+                });
+                
+                // 마커가 지도 위에 표시되도록 설정합니다
+                marker.setMap(map);
+                
+                var iwContent = '<div style="line-height:30px; width:230px; text-align:center">' + '메타버스 지원 센터' +'</div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
 
-		// 인포윈도우를 생성합니다
-		var infowindow = new kakao.maps.InfoWindow({
-		    content : iwContent
-		});
-		kakao.maps.event.addListener(marker, 'mouseover', function() {
-		  // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
-		    infowindow.open(map, marker);
-		});
+                // 인포윈도우를 생성합니다
+                var infowindow = new kakao.maps.InfoWindow({
+                    content : iwContent
+                });
+                kakao.maps.event.addListener(marker, 'mouseover', function() {
+                // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+                    infowindow.open(map, marker);
+                });
+            });
 	</script>
 </body>
 </html>

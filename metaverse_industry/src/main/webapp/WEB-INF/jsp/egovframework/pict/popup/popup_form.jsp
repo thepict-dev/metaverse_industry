@@ -50,8 +50,11 @@
 	                                <p></p>
 	                                <button><img src="/img/admin/close2.png" alt=""></button>
 	                            </div>
-	                            <p class="fileCaption">첨부 파일은 10MB 아래의 확장자 파일만 가능합니다.<br>
-	                                (jpeg, png, gif, bmp, tif)</p>
+	                            <p class="fileCaption">
+	                            	이미지 사이즈 : 548px * 548px<br>
+	                            	첨부 파일은 10MB 아래의 확장자 파일만 가능합니다.<br>
+	                                (jpeg, png, gif, bmp, tif)
+                                </p>
 	                        </div>
 	                    </div>
 	                    <div class="btnContainer">
