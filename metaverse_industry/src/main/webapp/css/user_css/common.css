@@ -35,11 +35,11 @@ body.no-scroll {
 }
 
 button {
-    font-family: var(--fn-suit);
+    font-family: 'SUIT', sans-serif;
 }
 
 textarea {
-    font-family: var(--fn-suit);
+    font-family: 'SUIT', sans-serif;
     width: 100%;
     padding: 24px 12px;
     color: #000;
