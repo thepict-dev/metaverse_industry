@@ -13,6 +13,7 @@
     <title>메타버스지원센터</title>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/static/woff2/SUIT.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/user_css/reset.css">
     <link rel="stylesheet" href="/css/user_css/common.css">
     <link rel="stylesheet" href="/css/user_css/header.css">
