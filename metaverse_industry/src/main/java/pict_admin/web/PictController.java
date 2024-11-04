@@ -66,6 +66,9 @@ import org.json.JSONObject;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import com.security.UserRole;
+
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
@@ -149,6 +152,7 @@ public class PictController {
 			if (enpassword.equals(UserVO.getPassword())) {
 				request.getSession().setAttribute("id", user_id);
 				request.getSession().setAttribute("name", UserVO.getName());
+				request.getSession().setAttribute("role", UserRole.MEMBER);
 
 				String ip = request.getRemoteAddr();
 				DateFormat format2 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -652,7 +656,7 @@ public class PictController {
 			MultipartHttpServletRequest request, @RequestParam("document_file") MultipartFile document_file)
 			throws Exception {
 		String sessions = (String) request.getSession().getAttribute("id");
-		if (sessions == null || sessions == "null") {
+		if (sessions == null || sessions == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/user_login.do";
 		}
 		pictVO.setUser_id(sessions);
@@ -764,7 +768,7 @@ public class PictController {
 			MultipartHttpServletRequest request, @RequestParam("document_file") MultipartFile document_file)
 			throws Exception {
 		String sessions = (String) request.getSession().getAttribute("id");
-		if (sessions == null || sessions == "null") {
+		if (sessions == null || sessions == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/user_login.do";
 		}
 		pictVO.setUser_id(sessions);
@@ -822,7 +826,7 @@ public class PictController {
 		}
 
 		System.out.println(sessions);
-		if (sessions == null || sessions == "null") {
+		if (sessions == null || sessions == "null" || !UserRole.adminValidation(request)) {
 			return "pict/main/login";
 		} else {
 			// 나중에 여기 계정별로 리다이렉트 분기처리
@@ -844,7 +848,7 @@ public class PictController {
 			HttpSession session, RedirectAttributes rttr) throws Exception {
 		String sessions = (String) request.getSession().getAttribute("id");
 		System.out.println(sessions);
-		if (sessions == null || sessions == "null") {
+		if (sessions == null || sessions == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		} else {
 			String user_id = (String) request.getSession().getAttribute("id");
@@ -882,6 +886,7 @@ public class PictController {
 				request.getSession().setAttribute("id", adminVO.getId());
 				request.getSession().setAttribute("name", adminVO.getName());
 				request.getSession().setAttribute("depart", adminVO.getDepart());
+				request.getSession().setAttribute("role", UserRole.ADMIN);
 
 				String ip = request.getRemoteAddr();
 				DateFormat format2 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -895,7 +900,6 @@ public class PictController {
 				adminVO = adminService.get_user_info(adminVO);
 
 				return "redirect:/pict_main.do";
-
 			} else {
 				model.addAttribute("message", "입력하신 정보가 일치하지 않습니다.");
 				model.addAttribute("retType", ":location");
@@ -914,9 +918,10 @@ public class PictController {
 	public String user_list(@ModelAttribute("adminVO") PictVO pictVO, ModelMap model, HttpServletRequest request)
 			throws Exception {
 		String session = (String) request.getSession().getAttribute("id");
-		if (session == null || session == "null") {
+		if (session == null || session == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
+		
 		int limitNumber = 10;
 		pictVO.setLimit_cnt(limitNumber);
 		Integer pageNum = pictVO.getPageNumber();
@@ -954,7 +959,7 @@ public class PictController {
 	public String user_register(@ModelAttribute("adminVO") AdminVO adminVO, ModelMap model, HttpServletRequest request)
 			throws Exception {
 		String session = (String) request.getSession().getAttribute("id");
-		if (session == null || session == "null") {
+		if (session == null || session == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 
@@ -975,7 +980,7 @@ public class PictController {
 	public String user_reset(@ModelAttribute("adminVO") AdminVO adminVO, ModelMap model, HttpServletRequest request)
 			throws Exception {
 		String session = (String) request.getSession().getAttribute("id");
-		if (session == null || session == "null") {
+		if (session == null || session == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 
@@ -993,7 +998,7 @@ public class PictController {
 	public String user_delete(@ModelAttribute("adminVO") AdminVO adminVO, ModelMap model, HttpServletRequest request)
 			throws Exception {
 		String session = (String) request.getSession().getAttribute("id");
-		if (session == null || session == "null") {
+		if (session == null || session == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 		System.out.println(adminVO.getId());
@@ -1009,7 +1014,7 @@ public class PictController {
 	public String user_save(@ModelAttribute("searchVO") PictVO pictVO, @ModelAttribute("adminVO") AdminVO adminVO,
 			ModelMap model, HttpServletRequest request) throws Exception {
 		String session = (String) request.getSession().getAttribute("id");
-		if (session == null || session == "null") {
+		if (session == null || session == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 		System.out.println("::::::::::::::" + adminVO.getPassword());
@@ -1064,6 +1069,12 @@ public class PictController {
 	@RequestMapping(value = "/user_list/user_list.do")
 	public String user_lists(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request)
 			throws Exception {
+		
+		String session = (String) request.getSession().getAttribute("id");
+		if (session == null || session == "null" || !UserRole.adminValidation(request)) {
+			return "redirect:/pict_login.do";
+		}
+		
 		int limitNumber = 10;
 		pictVO.setLimit_cnt(limitNumber);
 		Integer pageNum = pictVO.getPageNumber();
@@ -1134,7 +1145,8 @@ public class PictController {
 	public String board_list(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request)
 			throws Exception {
 		String session = (String) request.getSession().getAttribute("id");
-		if (session == null || session == "null") {
+		
+		if (session == null || session == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 
@@ -1181,7 +1193,7 @@ public class PictController {
 	public String board_register(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request)
 			throws Exception {
 		String session = (String) request.getSession().getAttribute("id");
-		if (session == null || session == "null") {
+		if (session == null || session == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 		pictVO.setUser_id(session);
@@ -1208,7 +1220,7 @@ public class PictController {
 			throws Exception {
 		String sessions = (String) request.getSession().getAttribute("id");
 		String depart = (String) request.getSession().getAttribute("depart");
-		if (sessions == null || sessions == "null") {
+		if (sessions == null || sessions == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 
@@ -1253,7 +1265,7 @@ public class PictController {
 	public String board_delete(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request)
 			throws Exception {
 		String session = (String) request.getSession().getAttribute("id");
-		if (session == null || session == "null") {
+		if (session == null || session == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 
@@ -1270,7 +1282,7 @@ public class PictController {
 	public String video_file_delete(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
 			HttpServletRequest request) throws Exception {
 		String session = (String) request.getSession().getAttribute("id");
-		if (session == null || session == "null") {
+		if (session == null || session == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 		String idx = pictVO.getIdx() + "";
@@ -1289,7 +1301,7 @@ public class PictController {
 	public String biz_list(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request)
 			throws Exception {
 		String session = (String) request.getSession().getAttribute("id");
-		if (session == null || session == "null") {
+		if (session == null || session == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 
@@ -1336,7 +1348,7 @@ public class PictController {
 	public String biz_register(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request)
 			throws Exception {
 		String session = (String) request.getSession().getAttribute("id");
-		if (session == null || session == "null") {
+		if (session == null || session == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 		pictVO.setUser_id(session);
@@ -1359,7 +1371,7 @@ public class PictController {
 			MultipartHttpServletRequest request, @RequestParam("attach_file") MultipartFile attach_file)
 			throws Exception {
 		String sessions = (String) request.getSession().getAttribute("id");
-		if (sessions == null || sessions == "null") {
+		if (sessions == null || sessions == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 
@@ -1394,7 +1406,7 @@ public class PictController {
 	public String biz_delete(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request)
 			throws Exception {
 		String session = (String) request.getSession().getAttribute("id");
-		if (session == null || session == "null") {
+		if (session == null || session == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 
@@ -1411,7 +1423,7 @@ public class PictController {
 	public String biz_file_delete(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request)
 			throws Exception {
 		String session = (String) request.getSession().getAttribute("id");
-		if (session == null || session == "null") {
+		if (session == null || session == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 		String idx = pictVO.getIdx() + "";
@@ -1430,7 +1442,7 @@ public class PictController {
 	public String equipment_list(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request)
 			throws Exception {
 		String session = (String) request.getSession().getAttribute("id");
-		if (session == null || session == "null") {
+		if (session == null || session == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 
@@ -1482,7 +1494,7 @@ public class PictController {
 	public String equipment_register(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
 			HttpServletRequest request) throws Exception {
 		String session = (String) request.getSession().getAttribute("id");
-		if (session == null || session == "null") {
+		if (session == null || session == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 		pictVO.setUser_id(session);
@@ -1511,7 +1523,7 @@ public class PictController {
 			throws Exception {
 		String sessions = (String) request.getSession().getAttribute("id");
 		String depart = (String) request.getSession().getAttribute("depart");
-		if (sessions == null || sessions == "null") {
+		if (sessions == null || sessions == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 
@@ -1548,7 +1560,7 @@ public class PictController {
 	public String equipment_cnt_register(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
 			HttpServletRequest request) throws Exception {
 		String session = (String) request.getSession().getAttribute("id");
-		if (session == null || session == "null") {
+		if (session == null || session == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 		pictVO.setUser_id(session);
@@ -1589,7 +1601,7 @@ public class PictController {
 	public String equipment_cnt_save(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
 			MultipartHttpServletRequest request) throws Exception {
 		String sessions = (String) request.getSession().getAttribute("id");
-		if (sessions == null || sessions == "null") {
+		if (sessions == null || sessions == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 
@@ -1719,7 +1731,7 @@ public class PictController {
 	public String history_list(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request)
 			throws Exception {
 		String session = (String) request.getSession().getAttribute("id");
-		if (session == null || session == "null") {
+		if (session == null || session == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 		System.out.println("get Idx @@@@@@" + pictVO.getIdx());
@@ -1770,7 +1782,7 @@ public class PictController {
 	public String facility_list(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request)
 			throws Exception {
 		String session = (String) request.getSession().getAttribute("id");
-		if (session == null || session == "null") {
+		if (session == null || session == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 
@@ -1820,7 +1832,7 @@ public class PictController {
 			HttpServletRequest request) throws Exception {
 
 		String session = (String) request.getSession().getAttribute("id");
-		if (session == null || session == "null") {
+		if (session == null || session == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 		pictVO.setUser_id(session);
@@ -1848,7 +1860,7 @@ public class PictController {
 			MultipartHttpServletRequest request, @RequestParam("attach_file") MultipartFile attach_file)
 			throws Exception {
 		String sessions = (String) request.getSession().getAttribute("id");
-		if (sessions == null || sessions == "null") {
+		if (sessions == null || sessions == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 
@@ -1938,7 +1950,7 @@ public class PictController {
 	public String facility_history_list(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
 			HttpServletRequest request) throws Exception {
 		String session = (String) request.getSession().getAttribute("id");
-		if (session == null || session == "null") {
+		if (session == null || session == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 		System.out.println("get Idx @@@@@@" + pictVO.getIdx());
@@ -1988,7 +2000,7 @@ public class PictController {
 	public String facility_history_detail(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
 			HttpServletRequest request) throws Exception {
 		String sessions = (String) request.getSession().getAttribute("id");
-		if (sessions == null || sessions == "null") {
+		if (sessions == null || sessions == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 		if (pictVO.getIdx() == 0) {
@@ -2009,7 +2021,7 @@ public class PictController {
 	public String manage_rental(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request)
 			throws Exception {
 		String sessions = (String) request.getSession().getAttribute("id");
-		if (sessions == null || sessions == "null") {
+		if (sessions == null || sessions == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 		System.out.println("get Idx @@@@@@" + pictVO.getIdx());
@@ -2081,7 +2093,7 @@ public class PictController {
 	public String history_detail(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request)
 			throws Exception {
 		String sessions = (String) request.getSession().getAttribute("id");
-		if (sessions == null || sessions == "null") {
+		if (sessions == null || sessions == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 		if (pictVO.getIdx() == 0) {
@@ -2103,7 +2115,7 @@ public class PictController {
 	public String update_request(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request)
 			throws Exception {
 		String sessions = (String) request.getSession().getAttribute("id");
-		if (sessions == null || sessions == "null") {
+		if (sessions == null || sessions == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 
@@ -2155,7 +2167,7 @@ public class PictController {
 	public String update_facility_request(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
 			HttpServletRequest request) throws Exception {
 		String sessions = (String) request.getSession().getAttribute("id");
-		if (sessions == null || sessions == "null") {
+		if (sessions == null || sessions == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 
@@ -2207,7 +2219,7 @@ public class PictController {
 	public String manage_education(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
 			HttpServletRequest request) throws Exception {
 		String sessions = (String) request.getSession().getAttribute("id");
-		if (sessions == null || sessions == "null") {
+		if (sessions == null || sessions == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 
@@ -2250,7 +2262,7 @@ public class PictController {
 	public String manage_education_detail(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
 			HttpServletRequest request) throws Exception {
 		String sessions = (String) request.getSession().getAttribute("id");
-		if (sessions == null || sessions == "null") {
+		if (sessions == null || sessions == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 
@@ -2269,7 +2281,7 @@ public class PictController {
 	public String update_education_request(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
 			HttpServletRequest request) throws Exception {
 		String sessions = (String) request.getSession().getAttribute("id");
-		if (sessions == null || sessions == "null") {
+		if (sessions == null || sessions == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 
@@ -2307,7 +2319,7 @@ public class PictController {
 	public String popup_list(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request)
 			throws Exception {
 		String session = (String) request.getSession().getAttribute("id");
-		if (session == null || session == "null") {
+		if (session == null || session == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 
@@ -2355,7 +2367,7 @@ public class PictController {
 	public String popup_delete(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request)
 			throws Exception {
 		String session = (String) request.getSession().getAttribute("id");
-		if (session == null || session == "null") {
+		if (session == null || session == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 
@@ -2372,7 +2384,7 @@ public class PictController {
 	public String popup_form(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request)
 			throws Exception {
 		String session = (String) request.getSession().getAttribute("id");
-		if (session == null || session == "null") {
+		if (session == null || session == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 		pictVO.setUser_id(session);
@@ -2395,7 +2407,7 @@ public class PictController {
 			MultipartHttpServletRequest request, @RequestParam("attach_file") MultipartFile attach_file)
 			throws Exception {
 		String sessions = (String) request.getSession().getAttribute("id");
-		if (sessions == null || sessions == "null") {
+		if (sessions == null || sessions == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 
@@ -2431,7 +2443,7 @@ public class PictController {
 	public String settings(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request)
 			throws Exception {
 		String session = (String) request.getSession().getAttribute("id");
-		if (session == null || session == "null") {
+		if (session == null || session == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 		pictVO.setUser_id(session);
@@ -2463,7 +2475,7 @@ public class PictController {
 			MultipartHttpServletRequest request, @RequestParam("attach_file") MultipartFile attach_file)
 			throws Exception {
 		String sessions = (String) request.getSession().getAttribute("id");
-		if (sessions == null || sessions == "null") {
+		if (sessions == null || sessions == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 
