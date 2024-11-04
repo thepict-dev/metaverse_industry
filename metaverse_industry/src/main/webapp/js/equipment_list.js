@@ -90,7 +90,8 @@ $('.listBody.equipList > li').click(function (e) {
 						console.log(item.serial_number);
 						e.preventDefault();
 						new QRCode(document.querySelector("#qr-img"), {
-							text: item.serial_number
+							text: item.serial_number,
+					        correctLevel : QRCode.CorrectLevel.L
 						});
 						document.querySelector(".label-type").textContent = type;
 						document.querySelector(".label-name").textContent = name;

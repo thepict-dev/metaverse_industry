@@ -129,7 +129,11 @@
 								$( document ).ready(function() {
 								    var serial_number = '${pictVO.serial_number}'
 								    console.log(serial_number);
-								    var qrcode = new QRCode(document.getElementById("qr_img"), {text: serial_number});
+								    var qrcode = new QRCode(document.getElementById("qr_img"), {
+								    	text: serial_number,
+								        correctLevel : QRCode.CorrectLevel.L
+								    });
+								    
 								    console.log(qrcode);
 								});
 								$('.toggle').change(function (e) {
