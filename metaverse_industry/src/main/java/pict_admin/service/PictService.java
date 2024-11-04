@@ -110,6 +110,8 @@ public interface PictService {
 	
 	PictVO equipment_item_one(PictVO pictVO) throws Exception;
 	
+	List<PictVO> daily_mail_list() throws Exception;
+	
 	List<Map<String, Object>> get_overdue_list() throws Exception;
 	
 	void equipment_cnt_insert(PictVO pictVO) throws Exception;

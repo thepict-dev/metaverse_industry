@@ -319,6 +319,12 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 	
 	
 	@Override
+	public List<PictVO> daily_mail_list() throws Exception {
+		return pictMapper.daily_mail_list();
+	}
+	
+	
+	@Override
 	public List<Map<String, Object>> get_overdue_list() throws Exception {
 		return pictMapper.get_overdue_list();
 	}

@@ -433,47 +433,46 @@
 	    </where>
 	</select>
 	
-	<select id="get_overdue_list" resultType="map">
+	<select id="daily_mail_list" resultType="pictVO">
 		SELECT 
-		    err.id AS rental_request_id,
-		    DATE_FORMAT(err.rental_start_date, '%Y-%m-%d') AS rental_start_date,
-		    DATE_FORMAT(err.rental_end_date, '%Y-%m-%d') AS rental_end_date,
-		    DATEDIFF(CURRENT_DATE, err.rental_end_date) AS overdue_days,
-		    DATE_FORMAT(err.request_date, '%Y-%m-%d %H:%i') AS request_date,
-		    DATE_FORMAT(err.last_updated, '%Y-%m-%d %H:%i') AS last_updated,
-		    
-		    ut.name AS user_name,
-		    ut.mobile AS user_mobile,
-		    ut.email AS user_email,
-		    ut.company_nm AS user_company,
-		    ut.position AS user_position,
-		    ut.sa_eob_no AS user_business_number,
-		    ut.company_address1 AS user_company_address1,
-		    ut.company_address2 AS user_company_address2,
-		    
-		    ei.id AS equipment_item_id,
-		    ei.serial_number,
-		    et.name AS equipment_name,
-		    et.type AS equipment_type,
-		    et.description AS equipment_description,
-		    
-		    err.company_nm AS rental_company_name,
-		    err.position AS rental_position,
-		    err.sa_eob_no AS rental_business_number,
-		    err.company_address1 AS rental_company_address1,
-		    err.company_address2 AS rental_company_address2,
-		    err.equipment_plan,
-		    err.file_path
+		    err.request_status,
+			err.id AS rental_request_id,
+			DATE_FORMAT(err.rental_start_date, '%Y-%m-%d') AS rental_start_date,
+			DATE_FORMAT(err.rental_end_date, '%Y-%m-%d') AS rental_end_date,
+			DATE_FORMAT(err.request_date, '%Y-%m-%d %H:%i') AS request_date,
+			DATE_FORMAT(err.last_updated, '%Y-%m-%d %H:%i') AS last_updated,
+			ut.name AS user_name,
+			ut.mobile AS user_mobile,
+			ut.email AS user_email,
+			ut.company_nm AS user_company,
+			ut.position AS user_position,
+			ut.sa_eob_no AS user_business_number,
+			ut.company_address1 AS user_company_address1,
+			ut.company_address2 AS user_company_address2,
+			ei.id AS equipment_item_id,
+			ei.serial_number,
+			et.name AS equipment_name,
+			et.type AS equipment_type,
+			et.description AS equipment_description,
+			err.company_nm AS rental_company_name,
+			err.position AS rental_position,
+			err.sa_eob_no AS rental_business_number,
+			err.company_address1 AS rental_company_address1,
+			err.company_address2 AS rental_company_address2,
+			err.equipment_plan,
+			err.file_path
 		FROM 
-		    equipment_rental_request err
-		    JOIN user_table ut ON err.user_id = ut.user_id
-		    JOIN equipment_item_table ei ON err.equipment_id = ei.id
-		    JOIN equipment_type_table et ON ei.equipment_type_id = et.id
+			equipment_rental_request err
+			JOIN user_table ut ON err.user_id = ut.user_id
+			JOIN equipment_item_table ei ON err.equipment_id = ei.id
+			JOIN equipment_type_table et ON ei.equipment_type_id = et.id
 		WHERE 
-		    err.request_status = 'overdue'
+			1=1
+		    and (err.request_status = 'rental' and err.rental_end_date = date_format(now(), "%Y-%m-%d"))
+		    or (err.request_status = 'approved' and err.rental_start_date = date_format(now(), "%Y-%m-%d"))
+		    or (err.request_status = 'overdue')
 		ORDER BY 
-		    err.rental_end_date ASC,
-		    overdue_days DESC;
+			err.request_status asc
 	</select>
 	
 	<insert id="equipment_insert" parameterType="pictVO">

@@ -82,7 +82,7 @@ import javax.mail.Transport;
 
 
 @Controller
-public class pictController {
+public class PictController {
 	PasswordAuthentication pa;
 
 	@Resource(name = "pictService")
@@ -2141,7 +2141,7 @@ public class pictController {
 				msg += "거절처리 되었습니다. 마이페이지에서 거절사유를 확인해주세요.";
 			}
 			
-			send_sms(msg ,(String) user.get("mobile"));
+			// send_sms(msg ,(String) user.get("mobile"));
 			
 		}
 		model.addAttribute("message", "정상적으로 수정되었습니다.");
@@ -2193,7 +2193,7 @@ public class pictController {
 				msg += "거절처리 되었습니다. 마이페이지에서 거절사유를 확인해주세요.";
 			}
 			
-			send_sms(msg ,(String) user.get("mobile"));
+			// send_sms(msg ,(String) user.get("mobile"));
 			
 		}
 		model.addAttribute("message", "정상적으로 수정되었습니다.");

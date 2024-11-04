@@ -1,31 +1,25 @@
 package pict_admin.web;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
-
 import javax.annotation.Resource;
-
 import org.springframework.context.annotation.Configuration;
-import org.springframework.mail.MailMessage;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 
+import com.utill.html.HtmlStructure;
+
 import pict_admin.service.PictService;
 import pict_admin.service.PictVO;
-
 import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
-
-import javax.mail.Authenticator;
 import javax.mail.internet.MimeMessage;
-
 import javax.mail.MessagingException;
+
 @Controller
 @EnableScheduling
 @Configuration
@@ -35,38 +29,35 @@ public class Scheduler {
 	
 	//도메인 만료일에 따른 잔디 웹훅 발송
 	
-    @Scheduled(cron = "0 28 13 * * *")//매일 오전 9시
-	//@Scheduled(cron = "0/5 * * * * *")
+    @Scheduled(cron = "0 0 9 * * *")//매일 오전 9시
     public void jandi() throws Exception{
-    	/*
-    	PictVO pictVO = null;
-    	List<Map<String, Object>> jandiList = pictService.get_overdue_list();
-    	String html = "";
-		html += "연체 내역 리스트 \n";
-    	for(int i=0; i<jandiList.size(); i++) {
-    		String equip_type = "";
-    		String equip_num = "";
-    		String equip_name = "";
-    		String per_name = "";
-    		String per_mobile = "";
-    		
-    		equip_type = jandiList.get(i).get("equipment_type") != null ? (String) jandiList.get(i).get("equipment_type") : "";
-    		equip_num = jandiList.get(i).get("serial_number") != null ? (String) jandiList.get(i).get("serial_number") : "";
-    		equip_name = jandiList.get(i).get("equipment_name") != null ? (String) jandiList.get(i).get("equipment_name") : "";
-    		per_name = jandiList.get(i).get("user_name") != null ? (String) jandiList.get(i).get("user_name") : "";
-    		per_mobile = jandiList.get(i).get("user_mobile") != null ? (String) jandiList.get(i).get("user_mobile") : "";
-    		
-    		
-    		html += "장비 종류: " + equip_type + " 장비 시리얼넘버 : " + equip_num + " 장비 명칭 :" + equip_name + " 대여자 성명 : " + per_name + "대여자 연락처 : " + per_mobile;
-    		
-    	}
-    	
-    	mailsend("연체 내역리스트 이메일발송 ", html);
-    	
-    	
-    	System.out.println("서비스가 돌고있으면 탈것");
-    	*/
-    	
+		StringBuffer sb = new StringBuffer();
+    	List<PictVO> dailyMailList = pictService.daily_mail_list();
+
+		sb.append(HtmlStructure.divOpen("infoTable", "", "width: 100%; max-width: 1200px;"));
+		sb.append(HtmlStructure.tableOpen("width: 100%; border-collapse: collapse;"));
+		sb.append(HtmlStructure.colgroup("15", "15", "15", "15", "30", "10"));
+		sb.append(HtmlStructure.theadOpen());
+		sb.append(HtmlStructure.trOpen());
+		sb.append(HtmlStructure.th("vertical-align: middle; background-color: #171c61; text-align: center; padding: 16px 0; color: #fff; font-size: 16px; font-weight: 500; line-height: 100%; letter-spacing: -1px;"
+				, "대여자", "대여형태", "대여일자", "반납일자", "대여장비명", "시리얼 넘버"));
+		sb.append(HtmlStructure.trClose());
+		sb.append(HtmlStructure.theadClose());
+		sb.append(HtmlStructure.tbodyOpen());
+		
+		for(PictVO vo : dailyMailList) {
+			sb.append(HtmlStructure.trOpen());
+			sb.append(HtmlStructure.td(
+					"padding: 16px 0; text-align: center; font-size: 16px; font-weight: 500; line-height: 140%; letter-spacing: -1px; background-color: #fff; vertical-align: middle; border-bottom: 1px solid #dbdee2;"
+					, vo.getUser_name(), vo.getType() == "1" ? "개인" : "법인", vo.getRental_start_date(), vo.getRental_end_date(), vo.getEquipment_type(), vo.getSerial_number()));
+			sb.append(HtmlStructure.trClose());
+		}
+
+		sb.append(HtmlStructure.tbodyClose());
+		sb.append(HtmlStructure.tableClose());
+		sb.append(HtmlStructure.divClose());
+
+    	mailsend("연체 내역리스트 이메일발송 ", sb.toString());
     }
   	public void mailsend(String subejct, String body) throws Exception{
   		String host = "smtp.naver.com";
@@ -85,18 +76,17 @@ public class Scheduler {
 				return new PasswordAuthentication(user, password);
 			}
 		});
+		
 		try {
 			MimeMessage message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(user));
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress("lovefinecom@naver.com"));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress("vrar@gica.co.kr"));
 			message.setSubject(subejct);
-			message.setText(body);
+			message.setText(body, "UTF-8", "html");
 			Transport.send(message);
 			System.out.println("Success Message Send");
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
-  	} 
-
-	
+  	}
 }
