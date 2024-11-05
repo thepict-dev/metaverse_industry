@@ -648,6 +648,7 @@
 		    err.request_status,
 		    date_format(err.request_date, '%Y-%m-%d') as request_date,
 		    err.type,
+		    err.reject_msg,
 		    err.equipment_plan,
 		    err.sa_eob_no,
 		    err.company_nm,
