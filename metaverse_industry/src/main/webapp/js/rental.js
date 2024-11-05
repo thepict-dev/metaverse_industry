@@ -280,54 +280,20 @@ window.onload = function () {
     initDatepicker();
  });
  
- // 장비 리스트의 체크박스와 아이템 클릭 이벤트 처리
-document.querySelector(".equipList").addEventListener("click", (e) => {
-    // 삭제 버튼(이미지) 클릭 확인
-    if (e.target.matches('.equipList li a img')) {
-        const listItem = e.target.closest('li');
-        const equipItemId = listItem.dataset.id;
-        const equipItemName = listItem.querySelector(".itemTitles > p > span:first-child").textContent;
-        
-        if (confirm(`'${equipItemName}' 장비를 삭제하시겠습니까?`)) {
-            console.log("삭제 전 selectedEquipment:", selectedEquipment);
-            
-            if (selectedEquipment.some(equip => equip.id === equipItemId)) {
-                selectedEquipment = selectedEquipment.filter(equip => equip.id !== equipItemId);
-                console.log("삭제 후 selectedEquipment:", selectedEquipment);
-                
-                const dateResultItem = document.querySelector(`.dateResultLists li[data-id="${equipItemId}"]`);
-                if (dateResultItem) {
-                    dateResultItem.remove();
-                }
-                
-                if (selectedEquipment.length === 0) {
-                    if (document.querySelector(".disable-calendar")) {
-                        document.querySelector(".disable-calendar").style.display = "flex";
-                    }
-                    document.querySelector(".step-02").classList.add("blind");
-                    document.querySelector(".step-03").classList.add("blind");
-                }
-            }
-            listItem.remove();
-        }
-        return;
-    }
-
-    // checkBox나 checkItem 클릭 시에만 장비 선택 처리
-    if (e.target.matches('.checkBox') || e.target.closest('.checkItem')) {
-        const listItem = e.target.closest('li');
-        const equipItemId = listItem.dataset.id;
-        const isAlreadySelected = selectedEquipment.some(equip => equip.id === equipItemId);
+ document.querySelectorAll(".checkItem").forEach(el => {
+    el.addEventListener("click", () => {
+        const facilityId = el.parentElement.dataset.id;
+        const isAlreadySelected = selectedEquipment.some(equip => equip.id === facilityId);
         
         if (!isAlreadySelected) {
             resetCheckedEquip();
-            listItem.classList.add("checked");
-            getEquipmentAvailableDate(equipItemId);
+            el.parentElement.classList.add("checked");
+            getEquipmentAvailableDate(facilityId);
         } else {
-            alert("이미 선택된 장비입니다. 다른 장비를 선택해주세요.");
+            alert("이미 선택된 시설입니다. 다른 시설을 선택해주세요.");
         }
-    }
-});
+    })
+ });
  
  const resetCheckedEquip = () => {
     document.querySelectorAll(".equipList li").forEach(el => {
@@ -588,14 +554,14 @@ document.querySelector(".equipList").addEventListener("click", (e) => {
          console.log("개인 예약");
  
          formData.append("rental_type", rental_type);
-         formData.append("facility_list", JSON.stringify(selectedEquipment));
-         formData.append("facility_plan", document.querySelector(".equipment-plan").value);
+         formData.append("equipment_list", JSON.stringify(selectedEquipment));
+         formData.append("equipment_plan", document.querySelector(".equipment-plan").value);
          formData.append("attach_file", document.querySelector("#file1").files[0]);
          console.log(formData);
      } else if (rental_type === "company") {
          console.log("법인 예약");
          formData.append("rental_type", rental_type);
-         formData.append("facility_list", JSON.stringify(selectedEquipment));
+         formData.append("equipment_list", JSON.stringify(selectedEquipment));
          formData.append("company_nm", document.querySelector("#company_nm").value);
          formData.append("sa_eob_no", document.querySelector("#sa_eob_no").value);
          formData.append("position", document.querySelector("#position").value);
@@ -605,7 +571,7 @@ document.querySelector(".equipList").addEventListener("click", (e) => {
          console.log(formData);
      }
      $.ajax({
-         url: '/api/booking_facility.do'
+         url: '/api/booking.do'
          , type: "POST"
          , data: formData
          , processData: false

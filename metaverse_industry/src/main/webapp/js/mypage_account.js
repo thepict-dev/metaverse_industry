@@ -45,6 +45,7 @@
 	    
 	    const formData = new FormData();
 	    formData.append("name", $('#name').val());
+	    formData.append("email", $('#email').val());
 	    formData.append("mobile", $('#mobile').val());
 	    formData.append("birthday", $('#birthday').val());
 	    formData.append("user_address1", $('#user_address1').val());
