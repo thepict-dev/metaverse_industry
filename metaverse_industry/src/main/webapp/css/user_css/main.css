@@ -1076,6 +1076,9 @@ main{
 	width: 100%;
  height: 100%;
 }
+.mainPopupInner .swiper-wrapper .swiper-slide img {
+	width : 100%;
+}
 .mainPopupInner .swiper-wrapper a{
 	display: block;
  width: 100%;
