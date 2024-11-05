@@ -65,7 +65,7 @@
                     <ul class="eduPosText">
                         <li>
                             <p><img src="/img/user_img/location.png" alt="">장소안내</p>
-                            <span>강원VRAR제작거점센터(강원특별자치도 춘천시 박사로 854 창작발전소 1층)</span>
+                            <span>강원 메타버스 지원센터(강원특별자치도 춘천시 박사로 854 창작발전소 1층)</span>
                         </li>
                         <li>
                             <p><img src="/img/user_img/user.png" alt="">신청대상</p>
@@ -130,12 +130,12 @@
                         <ul class="bookingLinks">
                             <li>
                                 <a href="/facility.do">
-                                    <p><span>시설예약</span>바로가기</p>
+                                    <p><span>시설사용</span>바로가기</p>
                                 </a>
                             </li>
                             <li>
                                 <a href="/equipment.do">
-                                    <p><span>장비대여</span>바로가기</p>
+                                    <p><span>장비사용</span>바로가기</p>
                                 </a>
                             </li>
                         </ul>
