@@ -88,7 +88,7 @@
 
 											<c:forEach var="i" begin="${pictVO.startPage}" end="${pictVO.endPage}">
 												<c:if test="${i eq pictVO.pageNumber}">
-													<li class="active"><a
+													<li ><a class="active"
 															href="/education/manage_education.do?search_text=${param.search_text}&pageNumber=${i}">${i}</a>
 													</li>
 												</c:if>
