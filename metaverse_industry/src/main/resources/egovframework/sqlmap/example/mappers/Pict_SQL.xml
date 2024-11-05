@@ -1058,6 +1058,7 @@
 		    err.rental_start_date,
 		    err.rental_end_date,
 		    err.request_status,
+    		err.reject_msg,
 		    date_format(err.request_date, '%Y-%m-%d') as request_date,
 		    err.type,
 		    err.facility_plan,

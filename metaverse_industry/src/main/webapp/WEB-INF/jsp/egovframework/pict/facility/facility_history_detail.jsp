@@ -163,7 +163,7 @@
 												<div class="inputBox" style="width:100%">
 													<p class="inputCaption reason_title">서류보완 요청 사유</p>
 													<textarea name="reject_msg" id="reject_msg" cols="50" rows="10"
-														class="txt" style="width:100%;">${pictVO.reject_msg}</textarea>
+														class="txt" style="width:100%;">${history_detail.reject_msg}</textarea>
 												</div>
 											</div>
 										</div>
