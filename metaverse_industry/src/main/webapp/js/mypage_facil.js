@@ -52,7 +52,7 @@ $('.check').click(function () {
         container.innerHTML = `
             <ul class="bookingInfolists">
                 <li>
-                    <p>장비명</p>
+                    <p>시설명</p>
                     <span>${equip_name}</span>
                 </li>
                 <li>
@@ -77,7 +77,7 @@ $('.check').click(function () {
         container.innerHTML = `
             <ul class="bookingInfolists">
                 <li>
-                    <p>장비명</p>
+                    <p>시설명</p>
                     <span>${equip_name}</span>
                 </li>
                 <li>

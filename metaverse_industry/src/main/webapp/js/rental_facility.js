@@ -253,19 +253,53 @@ document.addEventListener('DOMContentLoaded', function () {
    initDatepicker();
 });
 
-document.querySelectorAll(".checkItem").forEach(el => {
-   el.addEventListener("click", () => {
-       const facilityId = el.parentElement.dataset.id;
-       const isAlreadySelected = selectedEquipment.some(equip => equip.id === facilityId);
-       
-       if (!isAlreadySelected) {
-           resetCheckedEquip();
-           el.parentElement.classList.add("checked");
-           getEquipmentAvailableDate(facilityId);
-       } else {
-           alert("이미 선택된 시설입니다. 다른 시설을 선택해주세요.");
-       }
-   })
+// 장비 리스트의 체크박스와 아이템 클릭 이벤트 처리
+document.querySelector(".equipList").addEventListener("click", (e) => {
+    // 삭제 버튼(이미지) 클릭 확인
+    if (e.target.matches('.equipList li a img')) {
+        const listItem = e.target.closest('li');
+        const facilityId = listItem.dataset.id;
+        const facilityItemName = listItem.querySelector(".itemTitles > p > span:first-child").textContent;
+        
+        if (confirm(`'${facilityItemName}' 시설을 삭제하시겠습니까?`)) {
+            console.log("삭제 전 selectedEquipment:", selectedEquipment);
+            
+            if (selectedEquipment.some(equip => equip.id === facilityId)) {
+                selectedEquipment = selectedEquipment.filter(equip => equip.id !== facilityId);
+                console.log("삭제 후 selectedEquipment:", selectedEquipment);
+                
+                const dateResultItem = document.querySelector(`.dateResultLists li[data-id="${facilityId}"]`);
+                if (dateResultItem) {
+                    dateResultItem.remove();
+                }
+                
+                if (selectedEquipment.length === 0) {
+                    if (document.querySelector(".disable-calendar")) {
+                        document.querySelector(".disable-calendar").style.display = "flex";
+                    }
+                    document.querySelector(".step-02").classList.add("blind");
+                    document.querySelector(".step-03").classList.add("blind");
+                }
+            }
+            listItem.remove();
+        }
+        return;
+    }
+
+    // checkBox나 checkItem 클릭 시에만 장비 선택 처리
+    if (e.target.matches('.checkBox') || e.target.closest('.checkItem')) {
+        const listItem = e.target.closest('li');
+        const facilityId = listItem.dataset.id;
+        const isAlreadySelected = selectedEquipment.some(equip => equip.id === facilityId);
+        
+        if (!isAlreadySelected) {
+            resetCheckedEquip();
+            listItem.classList.add("checked");
+            getEquipmentAvailableDate(facilityId);
+        } else {
+            alert("이미 선택된 시설입니다. 다른 시설을 선택해주세요.");
+        }
+    }
 });
 
 const resetCheckedEquip = () => {

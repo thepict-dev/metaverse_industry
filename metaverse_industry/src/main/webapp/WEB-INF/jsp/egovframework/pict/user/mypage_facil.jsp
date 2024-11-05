@@ -302,7 +302,7 @@
             </div>
         </div>
     </div>
-    <div class="modalContainer" id="infoCheckModal">
+    <div class="modalContainer" id="bookingInfoModal">
         <div class="modalInner">
             <button type="button"><img src="/img/user_img/close-modal.png" alt=""></button>
             <div class="modalContents">
