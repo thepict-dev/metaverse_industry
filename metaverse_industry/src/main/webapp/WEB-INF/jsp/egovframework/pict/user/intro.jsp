@@ -70,7 +70,7 @@
     </div>
 	<%@ include file="./include/footer.jsp" %>
 	<script src="/js/sub.js"></script>
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=51d7fd4e7b0bd7c529c193b8c780e97f&libraries=services"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1066a83bf5ee02ca0e84dd88546b4c42&libraries=services"></script>
 	<script>
         kakao.maps.load(function() {
                 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 

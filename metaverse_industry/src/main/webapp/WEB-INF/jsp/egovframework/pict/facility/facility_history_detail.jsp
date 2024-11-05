@@ -129,13 +129,28 @@
 																			승인
 																		</c:when>
 																		<c:when test="${history_detail.request_status eq 'rejected'}">
-																			승인보완요청
+																			서류보완요청
+																		</c:when>
+																		<c:when test="${history_detail.request_status eq 'retry'}">
+																			재신청
+																		</c:when>
+																		<c:when test="${history_detail.request_status eq 'overdue'}">
+																			연체중
+																		</c:when>
+																		<c:when test="${history_detail.request_status eq 'returned'}">
+																			반납완료
+																		</c:when>
+																		<c:when test="${history_detail.request_status eq 'rental'}">
+																			대여중
 																		</c:when>
 																		<c:when test="${history_detail.request_status eq 'cancelled'}">
 																			신청취소
 																		</c:when>
 																		<c:when test="${history_detail.request_status eq 'refusal'}">
 																			거절
+																		</c:when>
+																		<c:when test="${history_detail.request_status eq 'cancelled'}">
+																			취소
 																		</c:when>
 																	</c:choose>
 																</span>
