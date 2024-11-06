@@ -1,32 +1,23 @@
 package pict_admin.web;
-import java.io.PrintWriter;
-import java.net.URLEncoder;
 import java.security.MessageDigest;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 import pict_admin.service.PictService;
 import pict_admin.service.PictVO;
 import pict_admin.service.AdminService;
-import pict_admin.service.AdminVO;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import net.sf.json.JSONArray;
 
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.security.UserRole;
+import com.utill.excel.Excel;
 
 
 @Controller
@@ -52,6 +43,14 @@ public class apiController {
 		return new String(Base64.encodeBase64(hashValue));
     }
 
+	@RequestMapping(name = "history_list_excel.do")
+	public void excelDownload(HttpServletRequest request, HttpServletResponse response, @RequestParam("flag") String flag) throws Exception {
+		Optional.of(request.getSession().getAttribute("id"))
+				.filter(id -> UserRole.adminValidation(request))
+				.orElseThrow(() -> new IllegalArgumentException());
+		
+		Excel.download(response, flag.equalsIgnoreCase("eq") ? pictService.findEquipmentRequest() : pictService.findFacilityRequest(), flag);
+	}
 	
 	/*
 	 * //qr코드

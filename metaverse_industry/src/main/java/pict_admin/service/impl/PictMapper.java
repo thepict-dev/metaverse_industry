@@ -128,6 +128,8 @@ public interface PictMapper {
 	
 	void update_equipment_item(PictVO pictVO) throws Exception;
 	
+	List<PictVO> findEquipmentRequest() throws Exception;
+	
 	List<?> get_request_list(PictVO pictVO) throws Exception;
 	
 	
@@ -174,6 +176,8 @@ public interface PictMapper {
 	void submit_facility_request(PictVO pictVO) throws Exception;
 	
 	void update_facility_item(PictVO pictVO) throws Exception;
+	
+	List<PictVO> findFacilityRequest() throws Exception;
 	
 	List<?> get_facility_request_list(PictVO pictVO) throws Exception;
 	

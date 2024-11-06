@@ -287,6 +287,11 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 	}
 	
 	@Override
+	public List<PictVO> findEquipmentRequest() throws Exception {
+		return pictMapper.findEquipmentRequest();
+	}
+	
+	@Override
 	public List<?> get_request_list(PictVO pictVO) throws Exception {
 		return pictMapper.get_request_list(pictVO);
 	}
@@ -405,6 +410,11 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 	public void submit_facility_request(PictVO pictVO) throws Exception {
 		pictMapper.submit_facility_request(pictVO);
 		// pictMapper.update_equipment_item(pictVO);	
+	}
+	
+	@Override
+	public List<PictVO> findFacilityRequest() throws Exception {
+		return pictMapper.findFacilityRequest();
 	}
 	
 	@Override

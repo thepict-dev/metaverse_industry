@@ -573,6 +573,37 @@
 		where id = '${id}'
 	</update>
 	
+	<select id="findEquipmentRequest" resultType="pictVO">
+		SELECT 
+		    err.idx,
+		    err.id,
+		    err.equipment_id,
+		    err.user_id,
+		    err.rental_start_date,
+		    err.rental_end_date,
+		    err.request_status,
+		    date_format(err.request_date, '%Y-%m-%d') as request_date,
+		    err.type,
+		    err.equipment_plan,
+		    err.sa_eob_no,
+		    err.company_nm,
+		    err.position,
+		    err.company_address1,
+		    err.company_address2,
+		    err.file_path,
+		    et.name,
+		    et.type AS equipment_type,
+		    ut.name AS user_name
+		FROM 
+		    equipment_rental_request err
+		JOIN 
+		    equipment_item_table eit ON err.equipment_id = eit.id
+		JOIN 
+		    equipment_type_table et ON eit.equipment_type_id = et.id
+		JOIN 
+		    user_table ut ON ut.user_id = err.user_id
+	</select>
+	
 	<select id="get_request_list" resultType="map">
 		SELECT 
 		    err.idx,
@@ -1002,6 +1033,39 @@
 		set status = 'applied'
 		where id = '${id}'
 	</update>
+	
+	<select id="findFacilityRequest" resultType="pictVO">
+		SELECT 
+		    err.idx,
+		    err.id,
+		    err.facility_id,
+		    err.user_id,
+		    err.rental_start_date,
+		    err.rental_end_date,
+		    err.request_status,
+		    date_format(err.request_date, '%Y-%m-%d') as request_date,
+		    err.type,
+		    err.facility_plan,
+		    err.sa_eob_no,
+		    err.company_nm,
+		    err.position,
+		    err.company_address1,
+		    err.company_address2,
+		    err.file_path,
+		    et.name,
+		    et.type AS facility_type,
+		    ut.name AS user_name
+		FROM 
+		    facility_rental_request err
+		JOIN 
+		    facility_item_table eit ON err.facility_id = eit.id
+		JOIN 
+		    facility_type_table et ON eit.facility_type_id = et.id
+		JOIN 
+		    user_table ut ON ut.user_id = err.user_id
+		ORDER BY
+			err.idx
+	</select>
 	
 	<select id="get_facility_request_list" resultType="map">
 		SELECT 

@@ -21,6 +21,7 @@
 							<div class="listContainer">
 								<div class="listInner">
 									<form action="" class="countList" id="search_fm" name="search_fm" method="get">
+										<input type="hidden" name="flag" value="eq">
 										<p>총 <span>${totalCnt}</span>개</p>
 										<div class="inputsContainer">
 											<div class="inputBox listSearch">

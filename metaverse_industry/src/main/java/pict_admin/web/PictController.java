@@ -2038,7 +2038,7 @@ public class PictController {
 		String sessions = (String) request.getSession().getAttribute("id");
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		if (sessions == null || sessions == "") {
+		if (sessions == null || sessions == "" || !UserRole.adminValidation(request)) {
 			map.put("msg", "fail");
 			return map;
 		}

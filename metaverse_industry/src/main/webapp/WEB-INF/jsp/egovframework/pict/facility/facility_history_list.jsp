@@ -21,6 +21,7 @@
 							<div class="listContainer">
 								<div class="listInner">
 									<form action="" class="countList" id="search_fm" name="search_fm" method="get">
+										<input type="hidden" name="flag" value="fc">
 										<p>총 <span>${size}</span>개</p>
 										<div class="inputsContainer">
 											<div class="inputBox listSearch">
@@ -42,9 +43,9 @@
 											</div>
 										</div>
 									</form>
-					                <div class="buttons">
-					                    <a href="" class="smButton"><img src="/img/admin/excel.png" alt="">엑셀 다운로드</a>
-					                </div>
+									<div class="buttons">
+										<a href="#lnk" class="smButton" onclick="history_list_excel('eq')"><img src="/img/admin/excel.png" alt="">엑셀 다운로드</a>
+									</div>
 									<div class="ListWrpper">
 										<ul class="listHead setFacilHead">
 											<li>선택</li>
@@ -168,6 +169,14 @@
 							function search() {
 								$("#search_fm").attr("action", "/facility/facility_history_list.do");
 								$("#search_fm").submit();
+							}
+							
+							function history_list_excel(){
+								if(confirm("해당 리스트를 엑셀파일로 다운로드 하시겠습니까?")){
+									$('#flag').val("refuse");
+									$("#search_fm").attr("action", "/history/history_list_excel.do");
+									$("#search_fm").submit();
+								}
 							}
 							
 							$("#status").change(function(e){

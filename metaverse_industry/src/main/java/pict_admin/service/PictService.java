@@ -123,6 +123,8 @@ public interface PictService {
 
 	void submit_rental_request(PictVO pictVO) throws Exception;
 	
+	List<PictVO> findEquipmentRequest() throws Exception;
+	
 	List<?> get_request_list(PictVO pictVO) throws Exception;
 	
 	Integer request_total_cnt(PictVO pictVO) throws Exception;
@@ -167,6 +169,8 @@ public interface PictService {
 
 
 	void submit_facility_request(PictVO pictVO) throws Exception;
+	
+	List<PictVO> findFacilityRequest() throws Exception;
 	
 	List<?> get_facility_request_list(PictVO pictVO) throws Exception;
 	
