@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.security.UserRole;
+import com.utill.FileManagement;
 
 import pict_admin.service.UserService;
 import pict_admin.service.PictService;
@@ -20,6 +21,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
 
@@ -393,7 +395,9 @@ public class UserController {
 	@RequestMapping("/booking.do")
 	@ResponseBody
 	public HashMap<String, Object> submitBooking(@ModelAttribute PictVO pictVO, 
-            @RequestParam(value = "attach_file", required = false) MultipartFile attach_file,
+            @RequestParam(value = "attach_file1", required = false) MultipartFile attach_file1,
+            @RequestParam(value = "attach_file2", required = false) MultipartFile attach_file2,
+            @RequestParam(value = "attach_file3", required = false) MultipartFile attach_file3,
             HttpServletRequest request) throws Exception {
 		
 		String sessions = (String) request.getSession().getAttribute("id");
@@ -403,16 +407,9 @@ public class UserController {
 			return map;
 		}
 		
-		if (attach_file.getSize() != 0) {
-			UUID uuid = UUID.randomUUID();
-			String uploadPath = upload_file(request, attach_file,
-					(String) request.getSession().getAttribute("id"), uuid);
-			// String filepath = "~/Desktop/upload_file/";
-			String filepath = "/user1/upload_file/metaverse_industry/";
-			String filename = uuid + uploadPath.split("#####")[1];
-			pictVO.setFile_url1(filename);
-		}
-
+		pictVO.setFile_url1(FileManagement.upload(attach_file1, sessions));
+		pictVO.setFile_url2(FileManagement.upload(attach_file2, sessions));
+		pictVO.setFile_url3(FileManagement.upload(attach_file3, sessions));
 		
 		List<Map<String, Object>> equipment_list = pictVO.getEquipmentListObject();
 		String rental_type = pictVO.getRental_type();
@@ -481,26 +478,22 @@ public class UserController {
 	// 파일업로드쪽 수정해야되는지 체크하기
 	@RequestMapping("/booking_facility.do")
 	@ResponseBody
-	public HashMap<String, Object> booking_facility(@ModelAttribute PictVO pictVO, @RequestParam(value = "attach_file", required = false) MultipartFile attach_file, HttpServletRequest request
-			// 장비, 시설 구분을 위함
-			, @RequestParam(value="flag") String flag) throws Exception {
+	public HashMap<String, Object> booking_facility(@ModelAttribute PictVO pictVO
+			, @RequestParam(value = "attach_file1", required = false) MultipartFile attach_file1
+			, @RequestParam(value = "attach_file2", required = false) MultipartFile attach_file2
+			, @RequestParam(value = "attach_file3", required = false) MultipartFile attach_file3
+			, HttpServletRequest request) throws Exception {
 		
 		String sessions = (String) request.getSession().getAttribute("id");
-		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		if (sessions == null || sessions == "") {
 			map.put("msg", "fail");
 			return map;
 		}
 		
-		if (attach_file.getSize() != 0) {
-			UUID uuid = UUID.randomUUID();
-			String uploadPath = upload_file(request, attach_file,
-					(String) request.getSession().getAttribute("id"), uuid);
-			String filepath = "/user1/upload_file/metaverse_industry/";
-			String filename = uuid + uploadPath.split("#####")[1];
-			pictVO.setFile_url1(filename);
-		}
+		pictVO.setFile_url1(FileManagement.upload(attach_file1, sessions));
+		pictVO.setFile_url2(FileManagement.upload(attach_file2, sessions));
+		pictVO.setFile_url3(FileManagement.upload(attach_file3, sessions));
 		
 		List<Map<String, Object>> facility_list = pictVO.getFacilityListObject();
 		String rental_type = pictVO.getRental_type();

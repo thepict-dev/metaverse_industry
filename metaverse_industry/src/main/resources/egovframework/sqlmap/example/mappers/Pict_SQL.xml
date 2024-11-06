@@ -460,7 +460,9 @@
 			err.company_address1 AS rental_company_address1,
 			err.company_address2 AS rental_company_address2,
 			err.equipment_plan,
-			err.file_path
+			err.file_path,
+	        err.file_path2,
+	        err.file_path3
 		FROM 
 			equipment_rental_request err
 			JOIN user_table ut ON err.user_id = ut.user_id
@@ -561,9 +563,9 @@
 	
 	<insert id="submit_rental_request" parameterType="pictVO">
 		INSERT INTO equipment_rental_request
-			(id, equipment_id, user_id, rental_start_date, rental_end_date, type, equipment_plan, sa_eob_no, company_nm, position, company_address1, company_address2, file_path)
+			(id, equipment_id, user_id, rental_start_date, rental_end_date, type, equipment_plan, sa_eob_no, company_nm, position, company_address1, company_address2, file_path, file_path2, file_path3)
 		VALUES (
-			 UUID(), #{id}, #{user_id} , #{rental_start_date}, #{rental_end_date}, #{type}, #{equipment_plan}, #{sa_eob_no}, #{company_nm}, #{position}, #{company_address1}, #{company_address2}, #{file_url1} 
+			 UUID(), #{id}, #{user_id} , #{rental_start_date}, #{rental_end_date}, #{type}, #{equipment_plan}, #{sa_eob_no}, #{company_nm}, #{position}, #{company_address1}, #{company_address2}, #{file_url1}, #{file_url2}, #{file_url3} 
 			  )
 	</insert>
 	
@@ -591,6 +593,8 @@
 		    err.company_address1,
 		    err.company_address2,
 		    err.file_path,
+		    err.file_path2,
+		    err.file_path3,
 		    et.name,
 		    et.type AS equipment_type,
 		    ut.name AS user_name
@@ -622,6 +626,8 @@
 		    err.company_address1,
 		    err.company_address2,
 		    err.file_path,
+		    err.file_path2,
+		    err.file_path3,
 		    et.name,
 		    et.type AS equipment_type,
 		    ut.name AS user_name
@@ -687,6 +693,8 @@
 		    err.company_address1,
 		    err.company_address2,
 		    err.file_path,
+		    err.file_path2,
+		    err.file_path3,
 		    et.name,
 		    et.type AS equipment_type,
 		    ut.name AS user_name,
@@ -755,6 +763,8 @@
 	        err.company_address1,
 	        err.company_address2,
 	        err.file_path,
+	        err.file_path2,
+	        err.file_path3,
 	        err.reject_msg,
 	        
 	        ut.name AS user_name,
@@ -1021,9 +1031,9 @@
 	
 	<insert id="submit_facility_request" parameterType="pictVO">
 		INSERT INTO facility_rental_request
-			(id, facility_id, user_id, rental_start_date, rental_end_date, type, facility_plan, sa_eob_no, company_nm, position, company_address1, company_address2, file_path)
+			(id, facility_id, user_id, rental_start_date, rental_end_date, type, facility_plan, sa_eob_no, company_nm, position, company_address1, company_address2, file_path, file_path2, file_path3)
 		VALUES (
-			 UUID(), #{id}, #{user_id} , #{rental_start_date}, #{rental_end_date}, #{type}, #{facility_plan}, #{sa_eob_no}, #{company_nm}, #{position}, #{company_address1}, #{company_address2}, #{file_url1} 
+			 UUID(), #{id}, #{user_id} , #{rental_start_date}, #{rental_end_date}, #{type}, #{facility_plan}, #{sa_eob_no}, #{company_nm}, #{position}, #{company_address1}, #{company_address2}, #{file_url1}, #{file_url2}, #{file_url3}
 			  )
 	</insert>
 	
@@ -1085,6 +1095,8 @@
 		    err.company_address1,
 		    err.company_address2,
 		    err.file_path,
+			err.file_path2,
+			err.file_path3,
 		    et.name,
 		    et.type AS facility_type,
 		    ut.name AS user_name
@@ -1132,6 +1144,8 @@
 		    err.company_address1,
 		    err.company_address2,
 		    err.file_path,
+		    err.file_path2,
+		    err.file_path3,
 		    et.name,
 		    et.type AS facility_type,
 		    ut.name AS user_name,
