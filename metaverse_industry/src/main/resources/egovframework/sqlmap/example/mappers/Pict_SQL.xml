@@ -1132,6 +1132,21 @@
 		</if>
 	</select>
 	
+	<select id="get_facility_request_total_cnt" resultType="int">
+		select count(*) as totalCnt from facility_rental_request err 
+		JOIN 
+	    	facility_item_table eit ON err.facility_id = eit.id
+		JOIN 
+	    	facility_type_table et ON eit.facility_type_id = et.id
+		where 1=1
+		<if test="request_status != null and request_status != ''">
+            AND request_status = #{request_status}
+        </if>
+        <if test="category != null and category != ''">
+			and et.type = #{category}
+		</if> 
+	</select>
+	
 	<select id="get_facility_request_detail" resultType="map">
 		SELECT 
 		    err.idx,
