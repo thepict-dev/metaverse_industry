@@ -140,6 +140,8 @@ public interface PictService {
 	Map<String, Object> get_user_by_faility_request(PictVO pictVO) throws Exception; 
 
 	
+	PictVO findEquipmentRequestById(String id, String userId) throws Exception;
+	
 	Map<String, Object> get_qr_code(String serial_number) throws Exception;
 	
 	// 시설물 관련
@@ -181,6 +183,8 @@ public interface PictService {
 	Map<String, Object>  get_facility_request_detail(Integer idx) throws Exception;
 	
 	void update_facility_request_status(PictVO pictVO) throws Exception;
+	
+	PictVO findFacilityRequestById(String id, String userId) throws Exception;
 	
 	//장바구니
 	

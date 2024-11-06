@@ -512,6 +512,47 @@
 	<select id="get_user_by_faility_request" resultType="map">
 		select ut.mobile, ut.name, ut.email from facility_rental_request err left join user_table ut on ut.user_id = err.user_id where err.idx = #{idx};
 	</select>
+	
+	<select id="findEquipmentRequestById" resultType="pictVO">
+		select
+			  idx
+		    , id
+		    , user_id
+		    , equipment_id
+		    , rental_start_date
+		    , rental_end_date
+		    , type
+		    , file_path as file_url1
+		    , file_path2 as file_url2
+		    , file_path3 as file_url3
+		from
+			equipment_rental_request
+		where
+			1=1
+			AND user_id = #{user_id}
+			AND id = #{id}
+	</select>
+	
+	<select id="findFacilityRequestById" resultType="pictVO">
+		select
+			  idx
+		    , id
+		    , user_id
+		    , facility_id
+		    , rental_start_date
+		    , rental_end_date
+		    , type
+		    , file_path as file_url1
+		    , file_path2 as file_url2
+		    , file_path3 as file_url3
+		from
+			facility_rental_request
+		where
+			1=1
+			AND user_id = #{user_id}
+			AND id = #{id}
+	</select>
+	
 	<!-- 장비 삭제 -->
 	<update id="equipment_delete" parameterType="int">
 	  UPDATE equipment_type_table

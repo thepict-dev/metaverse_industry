@@ -68,6 +68,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.security.UserRole;
+import com.utill.FileManagement;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -652,26 +653,20 @@ public class PictController {
 
 	// 장비 반려 재신청
 	@RequestMapping(value = "/retry_request.do", method = RequestMethod.POST)
-	public String retry_request(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
-			MultipartHttpServletRequest request, @RequestParam("document_file") MultipartFile document_file)
-			throws Exception {
+	public String retry_request(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, MultipartHttpServletRequest request,
+            @RequestParam(value = "document_file1", required = false) MultipartFile attach_file1,
+            @RequestParam(value = "document_file2", required = false) MultipartFile attach_file2,
+            @RequestParam(value = "document_file3", required = false) MultipartFile attach_file3) throws Exception {
 		String sessions = (String) request.getSession().getAttribute("id");
-		if (sessions == null || sessions == "null" || !UserRole.adminValidation(request)) {
+		if (sessions == null || sessions == "null") {
 			return "redirect:/user_login.do";
 		}
 		pictVO.setUser_id(sessions);
-		if (document_file.getSize() != 0) {
-			UUID uuid = UUID.randomUUID();
-			String uploadPath = fileUpload_board(request, document_file,
-					(String) request.getSession().getAttribute("id"), uuid);
-			String filepath = "/user1/upload_file/metaverse_industry/";
-
-			// String filepath = "~/Desktop/upload_file/";
-			// String filepath = "D:\\user1\\upload_file\\billconcert\\";
-			String filename = uuid + uploadPath.split("#####")[1];
-
-			pictVO.setFile_url(filepath + filename);
-		}
+		
+		pictVO = pictService.findEquipmentRequestById(pictVO.getId(), pictVO.getUser_id());
+		pictVO.setFile_url1(FileManagement.upload(attach_file1, sessions, pictVO.getFile_url1()));
+		pictVO.setFile_url2(FileManagement.upload(attach_file2, sessions, pictVO.getFile_url2()));
+		pictVO.setFile_url3(FileManagement.upload(attach_file3, sessions, pictVO.getFile_url3()));
 
 		userService.retryRequest(pictVO);
 		model.addAttribute("message", "정상적으로 수정되었습니다.");
@@ -764,26 +759,21 @@ public class PictController {
 
 	// 시설 재신청
 	@RequestMapping(value = "/retry_facility_request.do", method = RequestMethod.POST)
-	public String retry_facility_request(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
-			MultipartHttpServletRequest request, @RequestParam("document_file") MultipartFile document_file)
-			throws Exception {
+	public String retry_facility_request(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, MultipartHttpServletRequest request
+			, @RequestParam(value = "document_file1", required = false) MultipartFile attach_file1
+			, @RequestParam(value = "document_file2", required = false) MultipartFile attach_file2
+			, @RequestParam(value = "document_file3", required = false) MultipartFile attach_file3) throws Exception {
 		String sessions = (String) request.getSession().getAttribute("id");
-		if (sessions == null || sessions == "null" || !UserRole.adminValidation(request)) {
+		if (sessions == null || sessions == "null") {
 			return "redirect:/user_login.do";
 		}
 		pictVO.setUser_id(sessions);
-		if (document_file.getSize() != 0) {
-			UUID uuid = UUID.randomUUID();
-			String uploadPath = fileUpload_board(request, document_file,
-					(String) request.getSession().getAttribute("id"), uuid);
-			String filepath = "/user1/upload_file/metaverse_industry/";
 
-			// String filepath = "~/Desktop/upload_file/";
-
-			String filename = uuid + uploadPath.split("#####")[1];
-
-			pictVO.setFile_url(filepath + filename);
-		}
+		pictVO = pictService.findFacilityRequestById(pictVO.getId(), pictVO.getUser_id());
+		pictVO.setFile_url1(FileManagement.upload(attach_file1, sessions, pictVO.getFile_url1()));
+		pictVO.setFile_url2(FileManagement.upload(attach_file2, sessions, pictVO.getFile_url2()));
+		pictVO.setFile_url3(FileManagement.upload(attach_file3, sessions, pictVO.getFile_url3()));
+		
 		userService.retryFacilityRequest(pictVO);
 		model.addAttribute("message", "정상적으로 수정되었습니다.");
 		model.addAttribute("retType", ":location");

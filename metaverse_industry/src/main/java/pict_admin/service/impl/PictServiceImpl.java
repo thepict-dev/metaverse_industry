@@ -344,6 +344,11 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 		return pictMapper.get_qr_code(serial_number); 
 	}
 	
+	@Override
+	public PictVO findEquipmentRequestById(String id, String userId) throws Exception {
+		return pictMapper.findEquipmentRequestById(id, userId); 
+	}
+	
 	// 시설물 관려
 	
 	@Override
@@ -442,6 +447,11 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 	public void update_facility_request_status(PictVO pictVO) throws Exception {
 		pictMapper.update_facility_request_status(pictVO);
 		
+	}
+
+	@Override
+	public PictVO findFacilityRequestById(String id, String userId) throws Exception {
+		return pictMapper.findFacilityRequestById(id, userId);
 	}
 	
 	//장바구니

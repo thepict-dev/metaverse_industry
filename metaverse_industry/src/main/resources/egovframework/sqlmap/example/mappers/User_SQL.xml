@@ -159,7 +159,9 @@
 		UPDATE equipment_rental_request
 		SET
 			request_status = 'retry',
-			file_path = #{file_url}
+			file_path = #{file_url1},
+			file_path2 = #{file_url2},
+			file_path3 = #{file_url3}
 		WHERE user_id = #{user_id} and id = #{id} 
 	</update>
 	
@@ -223,7 +225,9 @@
 		UPDATE facility_rental_request
 		SET
 			request_status = 'retry',
-			file_path = #{file_url}
+			file_path = #{file_url1},
+			file_path2 = #{file_url2},
+			file_path3 = #{file_url3}
 		WHERE user_id = #{user_id} and id = #{id} 
 	</update>
 </mapper>

@@ -3,25 +3,22 @@ package com.utill;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.nio.file.Path;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
-
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 public class FileManagement {
-//	private final static String path = "/user1/upload_file/metaverse_industry/";
+//	private final static String PATH = "/user1/upload_file/metaverse_industry/";
 	private final static String PATH = "C:\\Users\\82105\\Desktop\\test\\";
 	
-	public static String upload(MultipartFile file, String sessions) {
-		if (file.getSize() != 0) {
+	public static String upload(MultipartFile file, String sessions, String remainFile) {
+		if (ObjectUtils.isEmpty(file)) {
+			return remainFile;
+		} else {
 			UUID uuid = UUID.randomUUID();
 			String uploadPath = upload_file(file, sessions, uuid);
 			return uuid + uploadPath.split("#####")[1];
-		} else {
-			return "";
 		}
 	}
 	

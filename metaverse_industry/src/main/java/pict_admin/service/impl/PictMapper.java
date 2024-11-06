@@ -149,6 +149,8 @@ public interface PictMapper {
 	Integer equipment_list_total_cnt(PictVO pictVO) throws Exception;
 	
 	Map<String, Object> get_qr_code(String serial_number) throws Exception;
+	
+	PictVO findEquipmentRequestById(@Param("id") String id, @Param("user_id") String userId) throws Exception;
 
 	
 	// 시설물 관리 매퍼
@@ -190,6 +192,8 @@ public interface PictMapper {
 	Map<String, Object> get_facility_request_detail(@Param("idx") Integer idx) throws Exception;
 	
 	void update_facility_request_status(PictVO pictVO) throws Exception;
+	
+	PictVO findFacilityRequestById(@Param("id") String id, @Param("user_id") String userId) throws Exception;
 	
 	Integer facility_list_total_cnt(PictVO pictVO) throws Exception;
 	
