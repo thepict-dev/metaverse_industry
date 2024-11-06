@@ -88,6 +88,13 @@
 		</if>
 	</select>
 	
+	<select id="usrCtn" resultType="int">
+		select
+			count(*)
+		from
+			user_table
+	</select>
+	
 	<delete id="delete_user" parameterType="int">
 		delete from user_table where idx = #{idx}
 	</delete>

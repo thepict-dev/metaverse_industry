@@ -21,7 +21,7 @@
 							<div class="listContainer">
 								<div class="listInner">
 									<form action="" class="countList" id="search_fm" name="search_fm" method="get">
-										<p>총 <span>${size}</span>개</p>
+										<p>총 <span>${totalCnt}</span>개</p>
 										<div class="inputsContainer">
 											<div class="inputBox listSearch">
 												<input type="text" name="search_text" id="search_text"

@@ -123,6 +123,11 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 	}
 	
 	@Override
+	public int usrCtn() throws Exception {
+		return pictMapper.usrCtn();
+	}
+	
+	@Override
 	public void delete_user(Integer idx) throws Exception {
 		pictMapper.delete_user(idx);
 		

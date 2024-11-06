@@ -1084,7 +1084,7 @@ public class PictController {
 		}
 		int startNum = (pageNum - 1) * limitNumber;
 		pictVO.setStartNumber(startNum);
-		Integer totalCnt = pictService.facility_list_total_cnt(pictVO);
+		Integer totalCnt = pictService.usrCtn();
 		int lastPageValue = (int) (Math.ceil(totalCnt * 1.0 / 10));
 		pictVO.setLastPage(lastPageValue);
 
@@ -1104,11 +1104,11 @@ public class PictController {
 		model.addAttribute("resultList", userList);
 		model.addAttribute("search_text", pictVO.getSearch_text());
 		model.addAttribute("totalCnt", totalCnt);
-		model.addAttribute("size", userList.size());
 		model.addAttribute("pictVO", pictVO);
 
 		return "pict/user_list/user_list";
 	}
+	
 	// 유저 삭제
 	@RequestMapping("/user_list/user_delete.do")
 	@ResponseBody
