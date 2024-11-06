@@ -28,7 +28,7 @@ function convertFormElements() {
 }
 
 // PDF 생성 및 다운로드
-function generatePDF() {
+function generatePDF(equipment_name, user_name, rental_start_date) {
     // PDF에 포함될 내용을 담을 컨테이너 생성
     const pdfContent = document.createElement('div');
     
@@ -44,7 +44,7 @@ function generatePDF() {
     // PDF 설정
     const opt = {
         margin: 15,
-        filename: '장비대여신청서.pdf',
+        filename: user_name + "_" + equipment_name + "_"+ rental_start_date +  "_" + '장비사용신청서.pdf',
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2 },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
@@ -55,13 +55,13 @@ function generatePDF() {
 }
 
 // PDF 다운로드 버튼 이벤트 리스너 설정
-function initPDFDownload() {
+function initPDFDownload(equipment_name, user_name, rental_start_date) {
     addHTML2PDFScript();
     const pdfButton = document.querySelector('.smButton');
     if (pdfButton) {
         pdfButton.addEventListener('click', function(e) {
             e.preventDefault();
-            generatePDF();
+            generatePDF(equipment_name, user_name, rental_start_date);
         });
     }
 }
@@ -69,5 +69,5 @@ function initPDFDownload() {
 // 페이지 로드 시 초기화
 document.addEventListener('DOMContentLoaded', () => {
     convertFormElements(); // 페이지 로드 시 form 요소들을 텍스트로 변환
-    initPDFDownload();
+    initPDFDownload(equipment_name, user_name, rental_start_date);
 });

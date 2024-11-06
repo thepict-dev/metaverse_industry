@@ -302,7 +302,9 @@
 								 -->
 						</div>
 						<script>
-
+							let equipment_name = '${history_detail.name}';
+							let user_name = '${history_detail.user_name}';
+							let rental_start_date = '${history_detail.rental_start_date}';
 							$("#request_status").change(function () {
 								$("#reject_msg").val("");
 								if ($("#request_status").val() === "rejected" || $("#request_status").val() === "refusal") {

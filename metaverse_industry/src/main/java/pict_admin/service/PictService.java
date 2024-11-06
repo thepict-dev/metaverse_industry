@@ -174,6 +174,8 @@ public interface PictService {
 	
 	List<?> get_facility_request_list(PictVO pictVO) throws Exception;
 	
+	Integer get_facility_request_total_cnt(PictVO pictVO) throws Exception;
+	
 	Map<String, Object>  get_facility_request_detail(Integer idx) throws Exception;
 	
 	void update_facility_request_status(PictVO pictVO) throws Exception;

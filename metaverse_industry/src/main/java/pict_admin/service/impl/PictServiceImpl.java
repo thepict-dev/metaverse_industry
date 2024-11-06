@@ -422,6 +422,12 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 		return pictMapper.get_facility_request_list(pictVO);
 	}
 	
+	
+	@Override
+	public Integer get_facility_request_total_cnt(PictVO pictVO) throws Exception {
+		return pictMapper.get_facility_request_total_cnt(pictVO);
+	}
+	
 	@Override
 	public Map<String, Object>  get_facility_request_detail(Integer idx) throws Exception {
 		return pictMapper.get_facility_request_detail(idx);

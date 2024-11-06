@@ -22,7 +22,7 @@
 								<div class="listInner">
 									<form action="" class="countList" id="search_fm" name="search_fm" method="get">
 										<input type="hidden" name="flag" value="fc">
-										<p>총 <span>${size}</span>개</p>
+										<p>총 <span>${totalCnt}</span>개</p>
 										<div class="inputsContainer">
 											<div class="inputBox listSearch">
 												<select name="request_status" id="status" class="lgThinInput" >
@@ -47,7 +47,7 @@
 										<a href="#lnk" class="smButton" onclick="history_list_excel('eq')"><img src="/img/admin/excel.png" alt="">엑셀 다운로드</a>
 									</div>
 									<div class="ListWrpper">
-										<ul class="listHead setFacilHead">
+										<ul class="listHead setList">
 											<li>선택</li>
 											<li>순서</li>
 											<li>대여 상태</li>
@@ -57,13 +57,13 @@
 											<li>대여자 성명</li>
 											<li>시설명</li>
 											<li>대여형태</li>
-											<li>삭제</li>
+											
 										</ul>
-										<ul class="listBody setFacilHead">
+										<ul class="listBody setList">
 											<c:forEach var="resultList" items="${resultList}" varStatus="status">
 												<li>
 						                            <div class="checkBox">
-						                                <input type="checkbox" id="selection"><label for="selection" class="lableOnly"></label>
+						                                <input type="checkbox" id="selection_${resultList.idx}"><label for="selection_${resultList.idx}" class="lableOnly"></label>
 						                            </div>
 													<!-- 기존 내용 -->
 													<p>${resultList.idx}</p>
@@ -110,7 +110,7 @@
 															</c:when>
 														</c:choose>
 													</p>
-					                				<p class="delete"><a href="#lnk" onclick="board_delete('${resultList.idx}')"></a></p>
+					                				<%-- <p class="delete"><a href="#lnk" onclick="board_delete('${resultList.idx}')"></a></p> --%>
 												</li>
 											</c:forEach>
 										</ul>
@@ -124,7 +124,7 @@
 
 											<c:forEach var="i" begin="${pictVO.startPage}" end="${pictVO.endPage}">
 												<c:if test="${i eq pictVO.pageNumber}">
-													<li class="active"><a
+													<li><a class="active"
 															href="/facility/facility_history_list.do?search_text=${param.search_text}&pageNumber=${i}">${i}</a>
 													</li>
 												</c:if>
@@ -188,7 +188,7 @@
 						<script src="../../../../../js/scripts.js"></script>
 						<script src="../../../../../js/Chart.min.js" crossorigin="anonymous"></script>
 						<script src="../../../../../js/simple-datatables@latest.js" crossorigin="anonymous"></script>
-						<script src="/js/list_js.js"></script>
+						<!-- <script src="/js/list_js.js"></script> -->
 						</body>
 
 					</html>

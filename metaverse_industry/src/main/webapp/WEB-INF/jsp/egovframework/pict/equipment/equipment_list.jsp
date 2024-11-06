@@ -86,7 +86,7 @@
 													<p class="modify"><a href="#lnk"
 															onclick="board_mod('${resultList.idx}');">수정</a></p>
 													<p class="delete"><button
-															onclick="board_delete('${resultList.idx}')"></button></p>
+															onclick="board_delete(${resultList.idx})"></button></p>
 												</li>
 											</c:forEach>
 										</ul>
