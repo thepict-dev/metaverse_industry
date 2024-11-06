@@ -9,7 +9,74 @@
                     <html>
                     <meta charset="ko">
                     <%@ include file="./include/head.jsp" %>
-
+						<style>
+					        #dropZone {
+					        	margin-top: 20px;
+					            width: 350px;
+					            height: 200px;
+					            border: 2px dashed #ccc;
+					            text-align: center;
+					            padding: 20px;
+					        }
+					        #dropZone.dragover {
+					            background-color: #e1e1e1;
+					            border-color: #999;
+					        }
+					        .file-list {
+					            margin: 20px 0 0 0;
+					            width: 400px;
+					            display: flex;
+							    flex-direction: column;
+							    row-gap: 10px;
+							    align-items: baseline;
+					        }
+					        .file-item {
+					        	width : 100%;
+					            display: flex;
+					            justify-content: space-between;
+					            align-items: center;
+					            padding: 10px 20px;
+					            border-bottom: 1px solid #eee;
+					            border: 1px solid var(--grey-grey-100, #DBDEE2);
+								background: var(--wh, #FFF);
+								column-gap : 5px;
+					        }
+					        .file-item > p {
+						        white-space: nowrap;
+							    width: 100%;
+							    overflow: hidden;
+							    text-overflow: ellipsis;
+					        }
+					        .remove-file {
+					            color: red;
+					            cursor: pointer;
+					        }
+					        .progress {
+					            width: 300px;
+					            height: 20px;
+					            background-color: #f0f0f0;
+					            margin: 10px 20px;
+					        }
+					        .progress-bar {
+					            height: 100%;
+					            background-color: #4CAF50;
+					            width: 0%;
+					            transition: width 0.3s ease-in-out;
+					        }
+					        #uploadButton {
+					            margin: 20px;
+					            padding: 10px 20px;
+					            background-color: #4CAF50;
+					            color: white;
+					            border: none;
+					            border-radius: 4px;
+					            cursor: pointer;
+					        }
+					        #uploadButton:disabled {
+					            background-color: #cccccc;
+					            cursor: not-allowed;
+					        }
+					    </style>
                         <body>
                             <%@ include file="./include/header.jsp" %>
                                 <div class="loginTitle book">
@@ -94,13 +161,13 @@
                                                     <p class="bookingTitle">추가정보 입력</p>
                                                     <div class="joinFormWrapper">
                                                         <div class="inputContainer">
-                                                            <p class="inputCaption">장비사용계획</p>
-                                                            <textarea class="equipment-plan" name="" id=""
+                                                            <p class="inputCaption">장비사용계획*</p>
+                                                            <textarea class="equipment-plan-individual" name="" id=""
                                                                 placeholder="사용목적/기간/인원/세부내용 등 장비사용계획을 상세히 적어주세요. "></textarea>
                                                         </div>
                                                         <div class="inputContainer">
-                                                            <p class="inputCaption">증빙서류 첨부</p>
-                                                            <div class="flexInputs file">
+                                                            <p class="inputCaption">증빙서류 첨부*</p>
+                                                            <!-- <div class="flexInputs file">
                                                                 <p class="fileName1"></p>
                                                                 <label for="file1" id="attach_file1">파일추가</label>
                                                                 <input type="file" id="file1" style="display: none;">
@@ -108,8 +175,14 @@
                                                                     style="display: none;">
                                                                     <img src="/img/user_img/del-file.png" alt="" />
                                                                 </button>
-                                                            </div>
-                                                            <p class="fileSub">신분증 사본 등 필요서류를 한 파일로 통합하여 제출해주세요.</p>
+                                                            </div> -->
+                                                            <p class="fileSub">신분증 사본을 제출해주세요.</p>
+                                                            <div id="dropZone" class="dropzone_individual">
+														        파일을 여기에 드래그하세요
+														        <br>또는<br>
+														        <input type="file" id="fileInput" class="fileInput_individual" multiple style="margin-top: 10px;">
+														    </div>
+														    <div class="file-list file_list_individual" id="fileList"></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -122,17 +195,17 @@
                                                     <p class="bookingTitle">추가정보 입력</p>
                                                     <div class="joinFormWrapper">
                                                         <div class="inputContainer">
-                                                            <p class="inputCaption">회사명</p>
+                                                            <p class="inputCaption">회사명*</p>
                                                             <input type="text" name="company_nm" id="company_nm"
                                                                 placeholder="회사명을 입력하세요" />
                                                         </div>
                                                         <div class="inputContainer">
-                                                            <p class="inputCaption">사업자등록번호</p>
+                                                            <p class="inputCaption">사업자등록번호*</p>
                                                             <input type="text" name="sa_eob_no" id="sa_eob_no"
                                                                 placeholder="사업자등록번호를 입력하세요" />
                                                         </div>
                                                         <div class="inputContainer">
-                                                            <p class="inputCaption">직책</p>
+                                                            <p class="inputCaption">직책*</p>
                                                             <input type="text" name="position" id="position"
                                                                 placeholder="직책을 입력하세요" />
                                                         </div>
@@ -148,13 +221,13 @@
                                                                 id="company_address2">
                                                         </div>
                                                         <div class="inputContainer">
-                                                            <p class="inputCaption">장비사용계획</p>
+                                                            <p class="inputCaption">장비사용계획*</p>
                                                             <textarea class="equipment-plan-company" name="" id=""
                                                                 placeholder="사용목적/기간/인원/세부내용 등 장비사용계획을 상세히 적어주세요. "></textarea>
                                                         </div>
                                                         <div class="inputContainer">
-                                                            <p class="inputCaption">증빙서류 첨부</p>
-                                                            <div class="flexInputs file">
+                                                            <p class="inputCaption">증빙서류 첨부*</p>
+                                                            <!-- <div class="flexInputs file">
                                                                 <p class="fileName2"></p>
                                                                 <label for="file2" id="attach_file2">파일추가</label>
                                                                 <input type="file" id="file2" style="display: none;" />
@@ -162,8 +235,15 @@
                                                                     style="display: none;"><img
                                                                         src="/img/user_img/del-file.png"
                                                                         alt="" /></button>
-                                                            </div>
-                                                            <p class="fileSub">사업자 등록증, 재직증명서 등 필요서류를 한 파일로 통합하여 제출해주세요.</p>
+                                                            </div> -->
+                                                            <p class="fileSub">사업자 등록증, 재직증명서 등 필요서류를 제출해주세요.</p>
+                                                            <div id="dropZone" class="dropzone_company">
+														        파일을 여기에 드래그하세요
+														        <br>또는<br>
+														        <input type="file" id="fileInput" class="fileInput_company" multiple style="margin-top: 10px;">
+														    </div>
+														    <div class="file-list file_list_company" id="fileList"></div>
+														    
                                                         </div>
                                                     </div>
                                                 </div>

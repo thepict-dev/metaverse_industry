@@ -20,9 +20,9 @@ const updateContainerClasses = (e) => {
 	const checked = e.target.checked;
 	if (checked) {
 		const currentSelected = document.querySelectorAll('.rentalCountItem').length;
-		if (currentSelected >= 4) {
+		if (currentSelected >= 2) {
 			e.target.checked = false;
-			window.alert("최대 4개까지 선택 가능합니다.");
+			window.alert("최대 2개까지 선택 가능합니다.");
 			return;
 		}
 		

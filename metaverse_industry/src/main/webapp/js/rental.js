@@ -1,16 +1,6 @@
-window.onload = function () {
-    document.getElementById("search_add2")?.addEventListener("click", function () {
-        new daum.Postcode({
-            oncomplete: function (data) {
-                document.getElementById("company_address1").value = data.address;
-                $('#company_address2').css("display", "block");
-                document.getElementById("company_address2").focus();
-            }
-        }).open();
-    });
- }
+
  
- 
+ let selectedFiles = new Map(); // 선택된 파일들을 저장할 Map
  let selectedEquipment = [];
  let rental_type = "";
  
@@ -24,6 +14,179 @@ window.onload = function () {
  // 오늘 날짜를 기준으로 설정 (시간은 00:00:00으로 설정)
  var today = new Date();
  today.setHours(0, 0, 0, 0);
+ 
+ 
+ document.addEventListener('DOMContentLoaded', function () {
+	 document.getElementById("search_add2")?.addEventListener("click", function () {
+        new daum.Postcode({
+            oncomplete: function (data) {
+                document.getElementById("company_address1").value = data.address;
+                $('#company_address2').css("display", "block");
+                document.getElementById("company_address2").focus();
+            }
+        }).open();
+    });
+    initDatepicker();
+    
+    const companydropZone = $('#dropZone.dropzone_company');
+    const companyfileInput = $('#fileInput.fileInput_company');
+    const companyfileList = $('#fileList.file_list_company');
+    
+    const MAX_FILES = 3; // 최대 파일 개수 제한
+
+    // 드래그 앤 드롭 이벤트 처리
+    companydropZone.on('dragover', function(e) {
+        e.preventDefault();
+       	console.log("파일 드롭")
+        $(this).addClass('dragover');
+    });
+
+    companydropZone.on('dragleave', function(e) {
+        e.preventDefault();
+        $(this).removeClass('dragover');
+    });
+
+    companydropZone.on('drop', function(e) {
+        e.preventDefault();
+        $(this).removeClass('dragover');
+        const files = e.originalEvent.dataTransfer.files;
+		console.log("파일을 내려놓을 때");
+        handleFiles(files);
+    });
+
+    companyfileInput.on('change', function(e) {
+		console.log(e.target.files);
+        const files = e.target.files;
+        handleFiles(files);
+    });
+
+    function handleFiles(files) {
+        // 현재 선택된 파일 수와 새로 추가할 파일 수 확인
+        const remainingSlots = MAX_FILES - selectedFiles.size;
+        const filesToAdd = Array.from(files).slice(0, remainingSlots);
+        
+        if (selectedFiles.size >= MAX_FILES) {
+            alert(`최대 ${MAX_FILES}개의 파일만 업로드할 수 있습니다.`);
+            return;
+        }
+        
+        if (files.length > remainingSlots) {
+            alert(`앞의 ${remainingSlots}개 파일만 추가됩니다. (최대 ${MAX_FILES}개)`);
+        }
+        
+        filesToAdd.forEach(file => {
+            // 파일을 Map에 추가하고 목록에 표시
+            const fileId = Date.now() + Math.random(); // 고유 ID 생성
+            selectedFiles.set(fileId, file);
+            
+            const fileItem = $(`
+                <div class="file-item" data-file-id="${fileId}">
+                    <p>${file.name} (${formatFileSize(file.size)})</p>
+                    <span class="remove-file">×</span>
+                </div>
+            `);
+            
+            companyfileList.append(fileItem);
+        });
+        // 입력 필드 초기화 (같은 파일을 다시 선택할 수 있도록)
+        companyfileInput.val('');
+    }
+
+    // 파일 크기 포맷팅 함수
+    function formatFileSize(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+
+    // 파일 제거 이벤트
+    companyfileList.on('click', '.remove-file', function() {
+        const fileId = $(this).parent().data('file-id');
+        selectedFiles.delete(fileId);
+        $(this).parent().remove();
+    });
+    
+    
+    // 개인
+    const individualdropZone = $('#dropZone.dropzone_individual');
+    const individualfileInput = $('#fileInput.fileInput_individual');
+    const individualfileList = $('#fileList.file_list_individual');
+    
+    
+
+    // 드래그 앤 드롭 이벤트 처리
+    individualdropZone.on('dragover', function(e) {
+        e.preventDefault();
+       	console.log("파일 드롭")
+        $(this).addClass('dragover');
+    });
+
+    individualdropZone.on('dragleave', function(e) {
+        e.preventDefault();
+        $(this).removeClass('dragover');
+    });
+
+    individualdropZone.on('drop', function(e) {
+        e.preventDefault();
+        $(this).removeClass('dragover');
+        const files = e.originalEvent.dataTransfer.files;
+		console.log("파일을 내려놓을 때");
+        handleFiles_indidual(files);
+    });
+
+    individualfileInput.on('change', function(e) {
+		console.log(e.target.files);
+        const files = e.target.files;
+        handleFiles_indidual(files);
+    });
+
+    function handleFiles_indidual(files) {
+        // 현재 선택된 파일 수와 새로 추가할 파일 수 확인
+        const remainingSlots = MAX_FILES - selectedFiles.size;
+        const filesToAdd = Array.from(files).slice(0, remainingSlots);
+        
+        if (selectedFiles.size >= MAX_FILES) {
+            alert(`최대 ${MAX_FILES}개의 파일만 업로드할 수 있습니다.`);
+            return;
+        }
+        
+        if (files.length > remainingSlots) {
+            alert(`앞의 ${remainingSlots}개 파일만 추가됩니다. (최대 ${MAX_FILES}개)`);
+        }
+        
+        filesToAdd.forEach(file => {
+            // 파일을 Map에 추가하고 목록에 표시
+            const fileId = Date.now() + Math.random(); // 고유 ID 생성
+            selectedFiles.set(fileId, file);
+            
+            const fileItem = $(`
+                <div class="file-item" data-file-id="${fileId}">
+                    <p>${file.name} (${formatFileSize(file.size)})</p>
+                    <span class="remove-file">×</span>
+                </div>
+            `);
+            
+            individualfileList.append(fileItem);
+        });
+        // 입력 필드 초기화 (같은 파일을 다시 선택할 수 있도록)
+        individualfileInput.val('');
+    }
+
+    // 파일 제거 이벤트
+    individualfileList.on('click', '.remove-file', function() {
+        const fileId = $(this).parent().data('file-id');
+        selectedFiles.delete(fileId);
+        $(this).parent().remove();
+    });
+    
+    
+ });
+ 
+ 
+ 
+ 
  
  function initDatepicker() {
      $("#datepicker").datepicker({
@@ -244,91 +407,21 @@ window.onload = function () {
         rental_type = "individual";
         $('.addIndiv').show();
         $('.addCompany').hide();
+        selectedFiles = new Map(); // 선택된 파일들을 저장할 Map
+        $(".file-item").remove()
     } else if ($(this).attr('id') === 'company') {
         rental_type = "company";
         $('.addCompany').show();
         $('.addIndiv').hide();
- 
-        // 회사정보 입력 필드 동적 생성
-        const companyForm = `
-            <div class="bookingTitle">추가정보 입력</div>
-            <div class="joinFormWrapper">
-                <div class="inputContainer">
-                    <p class="inputCaption">회사명</p>
-                    <input type="text" name="company_nm" id="company_nm" placeholder="회사명을 입력하세요">
-                </div>
-                <div class="inputContainer">
-                    <p class="inputCaption">사업자등록번호</p>
-                    <input type="text" name="sa_eob_no" id="sa_eob_no" placeholder="사업자등록번호를 입력하세요">
-                </div>
-                <div class="inputContainer">
-                    <p class="inputCaption">직책</p>
-                    <input type="text" name="position" id="position" placeholder="직책을 입력하세요">
-                </div>
-                <div class="inputContainer">
-                    <p class="inputCaption">사업장주소*</p>
-                    <div class="flexInputs">
-                        <input type="text" name="company_address1" id="company_address1" readonly placeholder="주소를 입력하세요">
-                        <a href="#lnk" id="search_add2">주소검색</a>
-                    </div>
-                    <input type="text" name="company_address2" id="company_address2">
-                </div>
-                <div class="inputContainer">
-                    <p class="inputCaption">증빙서류 첨부</p>
-                    <div class="flexInputs file">
-                        <p class="fileName2"></p>
-                        <label for="file2" id="attach_file2">파일추가</label>
-                        <input type="file" id="file2" style="display: none;">
-                        <button type="button" id="deleteButton2" style="display: none;"><img src="/img/user_img/del-file.png" alt=""></button>
-                    </div>
-                    <p class="fileSub">사업자등록증을 제출하세요</p>
-                </div>
-            </div>
-        `;
- 
-        // 기존 내용을 지우고 새로운 폼 추가
-        $('.addCompany .bookingInner').html(companyForm);
- 
-        // 파일 입력 이벤트 다시 설정
-        setupFileInput('file2', 'fileName2', 'deleteButton2');
- 
-        // 주소검색 이벤트 다시 설정
-        document.getElementById("search_add2").addEventListener("click", function () {
-            new daum.Postcode({
-                oncomplete: function (data) {
-                    document.getElementById("company_address1").value = data.address;
-                    $('#company_address2').css("display", "block");
-                    document.getElementById("company_address2").focus();
-                }
-            }).open();
-        });
+ 		selectedFiles = new Map(); // 선택된 파일들을 저장할 Map
+ 		$(".file-item").remove()
     }
  });
  
- function setupFileInput(fileInputId, fileNameClass, deleteButtonId) {
-    const fileInput = document.getElementById(fileInputId);
-    const fileName = document.querySelector("." + fileNameClass);
-    const deleteButton = document.getElementById(deleteButtonId);
  
-    fileInput.addEventListener('change', function () {
-        if (this.files[0]) {
-            fileName.textContent = this.files[0].name;
-            deleteButton.style.display = 'inline-block';
-        }
-    });
  
-    deleteButton.addEventListener('click', function () {
-        fileInput.value = '';
-        fileName.textContent = '';
-        this.style.display = 'none';
-    });
- }
  
- document.addEventListener('DOMContentLoaded', function () {
-    setupFileInput('file1', 'fileName1', 'deleteButton1');
-    setupFileInput('file2', 'fileName2', 'deleteButton2');
-    initDatepicker();
- });
+ 
  
  document.querySelectorAll(".checkItem").forEach(el => {
     el.addEventListener("click", () => {
@@ -409,11 +502,11 @@ window.onload = function () {
      }
  
      if (rental_type === "individual") {
-         if (document.querySelector(".equipment-plan").value === "") {
+         if (document.querySelector(".equipment-plan-individual").value === "") {
              alert("시설 사용 계획을 작성해주세요.");
              return;
          }
-         if (!document.querySelector("#file1").files[0]) {
+         if (selectedFiles.size === 0) {
              alert("증빙서류를 첨부해주세요.");
              return;
          }
@@ -435,11 +528,15 @@ window.onload = function () {
              alert("직책을 입력주세요.");
              return;
          }
+         if (document.querySelector(".equipment-plan-company").value === "") {
+             alert("시설 사용 계획을 작성해주세요.");
+             return;
+         }
          if (!company_address1 || company_address1.value === "") {
              alert("사업장 주소를 입력해주세요.");
              return;
          }
-         if (!document.querySelector("#file2").files[0]) {
+         if (selectedFiles.size === 0) {
              alert("증빙서류를 첨부해주세요.");
              return;
          }
@@ -456,7 +553,7 @@ window.onload = function () {
          let slideHtml = `
              <ul class="bookingInfolists">
                  <li>
-                     <p>시설명</p>
+                     <p>장비명</p>
                      <span>${equipment.name}</span>
                  </li>
                  <li>
@@ -605,20 +702,33 @@ window.onload = function () {
  
          formData.append("rental_type", rental_type);
          formData.append("equipment_list", JSON.stringify(selectedEquipment));
-         formData.append("equipment_plan", document.querySelector(".equipment-plan").value);
-         formData.append("attach_file", document.querySelector("#file1").files[0]);
-         console.log(formData);
+         formData.append("equipment_plan", document.querySelector(".equipment-plan-individual").value);
+         let indexArray = [];
+         selectedFiles.forEach((file, i) => {
+			
+			indexArray.push(file);
+        });
+        indexArray.map((file , i) => {
+         formData.append(`attach_file${i + 1}`, file);
+		})
      } else if (rental_type === "company") {
          console.log("법인 예약");
          formData.append("rental_type", rental_type);
          formData.append("equipment_list", JSON.stringify(selectedEquipment));
+         formData.append("equipment_plan", document.querySelector(".equipment-plan-company").value);
          formData.append("company_nm", document.querySelector("#company_nm").value);
          formData.append("sa_eob_no", document.querySelector("#sa_eob_no").value);
          formData.append("position", document.querySelector("#position").value);
          formData.append("company_address1", document.querySelector("#company_address1").value);
          formData.append("company_address2", document.querySelector("#company_address2").value);
-         formData.append("attach_file", document.querySelector("#file2").files[0]);
-         console.log(formData);
+         let indexArray = [];
+         selectedFiles.forEach((file, i) => {
+			
+			indexArray.push(file);
+         });
+         indexArray.map((file , i) => {
+           formData.append(`attach_file${i + 1}`, file);
+		 })
      }
      $.ajax({
          url: '/api/booking.do'
@@ -628,8 +738,8 @@ window.onload = function () {
          , contentType: false
          , async: true,
          success: function (response) {
-             console.log(response);
              if (response.msg === "ok") {
+				 selectedFiles = new Map();
                  const lastModal = document.querySelector("#checkModal");
                  const slide = lastModal.querySelector(".infoSlides");
                  let totalCnt = selectedEquipment.length;
@@ -686,7 +796,7 @@ window.onload = function () {
                      slide.innerHTML = `
                      <ul class="bookingInfolists">
                          <li>
-                             <p>시설명</p>
+                             <p>장비명</p>
                              <span>${selectedEquipment[0].name} 외 ${totalCnt - 1}건</span>
                          </li>
                          <li>
@@ -711,7 +821,7 @@ window.onload = function () {
                      slide.innerHTML = `
                      <ul class="bookingInfolists">
                          <li>
-                             <p>시설명</p>
+                             <p>장비명</p>
                              <span>${selectedEquipment[0].name} 외 ${totalCnt - 1}건</span>
                          </li>
                          <li>
