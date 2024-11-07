@@ -423,7 +423,7 @@
  
  
  
- document.querySelectorAll(".checkItem").forEach(el => {
+ document.querySelectorAll(".checkItem, .checkBox").forEach(el => {
     el.addEventListener("click", () => {
         const facilityId = el.parentElement.dataset.id;
         const isAlreadySelected = selectedEquipment.some(equip => equip.id === facilityId);

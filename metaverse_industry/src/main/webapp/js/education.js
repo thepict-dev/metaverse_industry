@@ -8,7 +8,38 @@ document.getElementById("search_add1").addEventListener("click", function () {
     }).open();
 });
 
+$("#tel").keyup(function() {
+    var replace_text = $(this).val().replace(/[^0-9]/g, '');
+    $(this).val(replace_text);
+});
 
+$("#mobile").keyup(function() {
+    var replace_text = $(this).val().replace(/[^0-9]/g, '');
+    $(this).val(replace_text);
+});
+
+$("#email").keyup(function() {
+    var replace_text = $(this).val().replace(/[^a-zA-Z0-9@.]/g, '');
+    $(this).val(replace_text);
+});
+
+$("#email").blur(function() {
+    var email = $(this).val();
+
+    // '@'가 포함되어 있는지 확인
+    if (!email.includes('@')) {
+        alert("이메일에 '@' 기호가 필요합니다.");
+    }
+});
+
+$("#totalCnt").on("input", function() {
+    var number = $(this).val();
+    if (number < 1 || number > 12) {
+        $(this).val(""); // 범위 밖의 값은 비워두기
+    }
+    var replace_text = $(this).val().replace(/[^0-9]/g, '');
+    $(this).val(replace_text);
+});
 
 const callBookingApi = () => {
     const formData = new FormData();

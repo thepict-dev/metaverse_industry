@@ -26,6 +26,53 @@
 	$('.closeModalAdd').click(function () {
 	    $('#modefyAdd').removeClass('active');
 	});
+	
+	$("#mobile").keyup(function() {
+	    var replace_text = $(this).val().replace(/[^0-9]/g, '');
+	    $(this).val(replace_text);
+	});
+	
+	$("#email").keyup(function() {
+	    var replace_text = $(this).val().replace(/[^a-zA-Z0-9@.]/g, '');
+	    $(this).val(replace_text);
+	});
+	
+	$("#email").blur(function() {
+	    var email = $(this).val();
+	    if (!email.includes('@')) {
+	        alert("이메일에 '@' 기호가 필요합니다.");
+	    }
+	});
+	
+	$("#birthday").keyup(function() {
+	    var replace_text = $(this).val().replace(/[^0-9]/g, '');
+        var inputValue = $(this).val();
+        
+	    $(this).val(replace_text);
+	    
+        if (inputValue.length > 8) {
+            $(this).val(inputValue.substring(0, 8));
+        }
+	});
+	
+	$("#birthday").blur(function() {
+        var dob = $("#birthday").val();
+        var dobPattern = /^\d{8}$/;
+        if (!dobPattern.test(dob)) {
+            alert("생년월일은 8자리 숫자로 입력해야 합니다.");
+            return false;
+        }
+	});
+	
+	$("#totalCnt").on("input", function() {
+	    var number = $(this).val();
+	    if (number < 1 || number > 12) {
+	        $(this).val(""); // 범위 밖의 값은 비워두기
+	    }
+	    var replace_text = $(this).val().replace(/[^0-9]/g, '');
+	    $(this).val(replace_text);
+	});
+	
 	$('.updateBasic').click(function () {
 	    if ($('#name').val() == '') {
 	        return window.alert('이름을 입력하세요.');
@@ -91,6 +138,17 @@
 	
 	    // $('#modifyBasic').removeClass('active');
 	});
+	
+    $("#file").change(function(event) {
+        // 파일이 선택되었을 때
+        var fileInput = event.target;
+        var files = fileInput.files;
+
+        if (files.length > 0) {
+            $('.fileName').text(files[0].name);
+        }
+    });
+	
 	$('.updateAdd').click(function () {
 	    const formData = new FormData();
 	    formData.append("company_nm", $('#company_nm').val());

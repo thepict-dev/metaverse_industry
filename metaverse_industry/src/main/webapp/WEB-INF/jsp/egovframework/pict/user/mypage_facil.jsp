@@ -25,7 +25,7 @@
             <ul class="infoTabNav">
                <li class="<c:if test="${pictVO.request_status eq null ||
                    pictVO.request_status eq '' || pictVO.request_status eq undefined }">active</c:if>"><a
-                       href="/mypage_equip.do">전체보기</a>
+                       href="/mypage_facil.do">전체보기</a>
                </li>
                <li class="<c:if test="${pictVO.request_status eq 'pendding'}">active
                    </c:if>"><a href="/mypage_facil.do?request_status=pendding">승인대기

@@ -298,6 +298,9 @@
 	<select id="equipment_list" resultType="pictVO">
 	    SELECT * FROM (
 	        SELECT 
+	        	<if test="user_id == null or user_id == ''">
+	        		distinct 
+	            </if>
 	            et.idx,
 	            et.id,
 	            et.type,

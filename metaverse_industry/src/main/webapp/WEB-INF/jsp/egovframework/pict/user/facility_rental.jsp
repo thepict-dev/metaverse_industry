@@ -183,15 +183,15 @@
                         <div class="joinFormWrapper">
                             <div class="inputContainer">
                                 <p class="inputCaption">회사명</p>
-                                <input type="text" name="" id="" placeholder="회사명을 입력하세요">
+                                <input type="text" name="company_nm" id="company_nm" placeholder="회사명을 입력하세요">
                             </div>
                             <div class="inputContainer">
                                 <p class="inputCaption">사업자등록번호</p>
-                                <input type="text" name="" id="" placeholder="사업자등록번호를 입력하세요">
+                                <input type="text" name="sa_eob_no" id="sa_eob_no" placeholder="사업자등록번호를 입력하세요">
                             </div>
                             <div class="inputContainer">
                                 <p class="inputCaption">직책</p>
-                                <input type="text" name="" id="" placeholder="직책을 입력하세요">
+                                <input type="text" name="position" id="position" placeholder="직책을 입력하세요">
                             </div>
                             <div class="inputContainer">
                                 <p class="inputCaption">사업장주소*</p>

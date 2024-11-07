@@ -43,22 +43,22 @@
                                                 </div>
                                                 <div class="inputContainer">
                                                     <p class="inputCaption">이름*</p>
-                                                    <input type="text" name="name" id="" placeholder="이름을 입력하세요"
+                                                    <input type="text" name="name" id="name" placeholder="이름을 입력하세요"
                                                         value="${userVO.name}">
                                                 </div>
                                                 <div class="inputContainer">
                                                     <p class="inputCaption">연락처*</p>
-                                                    <input type="text" name="mobile" id="" placeholder="연락처를 입력하세요"
+                                                    <input type="text" name="mobile" id="mobile" placeholder="연락처를 입력하세요"
                                                         value="${userVO.mobile}">
                                                 </div>
                                                 <div class="inputContainer">
                                                     <p class="inputCaption">이메일*</p>
-                                                    <input type="text" name="email" id="" placeholder="이메일을 입력하세요"
+                                                    <input type="text" name="email" id="email" placeholder="이메일을 입력하세요"
                                                         value="${userVO.email}">
                                                 </div>
                                                 <div class="inputContainer">
                                                     <p class="inputCaption">생년월일*</p>
-                                                    <input type="text" name="birthday" id="" placeholder="생년월일을 입력하세요"
+                                                    <input type="text" name="birthday" id="birthday" placeholder="생년월일을 입력하세요"
                                                         value="${userVO.birthday}">
                                                 </div>
                                                 <div class="inputContainer">
@@ -271,6 +271,45 @@
 
                                         });
 
+                                        $("#mobile").keyup(function() {
+                                            var replace_text = $(this).val().replace(/[^0-9]/g, '');
+                                            $(this).val(replace_text);
+                                        });
+
+                                        $("#email").keyup(function() {
+                                            var replace_text = $(this).val().replace(/[^a-zA-Z0-9@.]/g, '');
+                                            $(this).val(replace_text);
+                                        });
+
+                                        $("#email").blur(function() {
+                                            var email = $(this).val();
+
+                                            // '@'가 포함되어 있는지 확인
+                                            if (!email.includes('@')) {
+                                                alert("이메일에 '@' 기호가 필요합니다.");
+                                            }
+                                        });
+
+                                    	$("#birthday").keyup(function() {
+                                    	    var replace_text = $(this).val().replace(/[^0-9]/g, '');
+                                            var inputValue = $(this).val();
+                                            
+                                    	    $(this).val(replace_text);
+                                    	    
+                                            if (inputValue.length > 8) {
+                                                $(this).val(inputValue.substring(0, 8));
+                                            }
+                                    	});
+                                    	
+                                    	$("#birthday").blur(function() {
+                                            var dob = $("#birthday").val();
+                                            var dobPattern = /^\d{8}$/;
+                                            if (!dobPattern.test(dob)) {
+                                                alert("생년월일은 8자리 숫자로 입력해야 합니다.");
+                                                return false;
+                                            }
+                                    	});
+                                        
                                         function onSubmit() {
                                             if (!validation.userId) {
                                                 $("#id").focus();

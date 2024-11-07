@@ -172,7 +172,7 @@
                                                 <div class="inputContainer">
                                                     <p class="inputCaption">증빙서류 첨부</p>
                                                     <div class="flexInputs file">
-                                                        <p class="fileName"></p>
+                                                        <p class="fileName">${user_info.document_url}</p>
                                                         <label for="file" id="attach_file">파일추가</label>
                                                         <input type="file" id="file" style="display: none;">
                                                         <button type="button" id="deleteButton"
