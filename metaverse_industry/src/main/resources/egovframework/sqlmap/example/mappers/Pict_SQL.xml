@@ -214,7 +214,7 @@
 	<update id="biz_update" parameterType="pictVO">
 	  UPDATE board_table
 	  SET 
-	  	category = #{category},
+	  	category = '5',
 	    title = #{title},
 	    text = #{text}, 
 	    reg_date = NOW()

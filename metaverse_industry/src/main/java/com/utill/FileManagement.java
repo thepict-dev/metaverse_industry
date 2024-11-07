@@ -9,7 +9,8 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 public class FileManagement {
-	private final static String PATH = "/user1/upload_file/metaverse_industry/";
+//	private final static String PATH = "/user1/upload_file/metaverse_industry/";
+	private final static String PATH = "C:\\Users\\82105\\Desktop\\test\\";
 	
 	public String upload(MultipartFile file, String sessions) {
 		UUID uuid = UUID.randomUUID();

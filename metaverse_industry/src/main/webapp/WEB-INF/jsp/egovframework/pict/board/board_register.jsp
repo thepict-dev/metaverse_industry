@@ -70,6 +70,7 @@
 	                            </div>
 	                            <p class="fileCaption">첨부 파일은 10MB 아래의 확장자 파일만 가능합니다.<br>
 	                                (jpeg, png, gif, bmp, tif)</p>
+	                            <span class="fileText">${pictVO.file_url1}</span>
 	                        </div>
 	                    </div>
 	                    
@@ -85,6 +86,7 @@
 	                            </div>
 	                            <p class="fileCaption">첨부 파일은 10MB 아래의 확장자 파일만 가능합니다.<br>
 	                                (jpeg, png, gif, bmp, tif)</p>
+	                            <span class="fileText">${pictVO.file_url2}</span>
 	                        </div>
 	                    </div>
 	                    
@@ -100,6 +102,7 @@
 	                            </div>
 	                            <p class="fileCaption">첨부 파일은 10MB 아래의 확장자 파일만 가능합니다.<br>
 	                                (jpeg, png, gif, bmp, tif)</p>
+	                            <span class="fileText">${pictVO.file_url3}</span>
 	                        </div>
 	                    </div>
 	                    

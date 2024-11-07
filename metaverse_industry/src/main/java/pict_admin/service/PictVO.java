@@ -317,6 +317,10 @@ public class PictVO extends PictDefaultVO {
 		this.file_url1 = file_url1;
 	}
 
+	public void saveFileNameToFile_url1(String filePath) {
+		this.file_url1 = filePath.substring(filePath.lastIndexOf("/")+1);
+	}
+
 	public String getFile_url2() {
 		return file_url2;
 	}
@@ -325,12 +329,20 @@ public class PictVO extends PictDefaultVO {
 		this.file_url2 = file_url2;
 	}
 
+	public void saveFileNameToFile_url2(String filePath) {
+		this.file_url2 = filePath.substring(filePath.lastIndexOf("/")+1);
+	}
+
 	public String getFile_url3() {
 		return file_url3;
 	}
 
 	public void setFile_url3(String file_url3) {
 		this.file_url3 = file_url3;
+	}
+
+	public void saveFileNameToFile_url3(String filePath) {
+		this.file_url3 = filePath.substring(filePath.lastIndexOf("/")+1);
 	}
 
 	public String getOpen_date() {

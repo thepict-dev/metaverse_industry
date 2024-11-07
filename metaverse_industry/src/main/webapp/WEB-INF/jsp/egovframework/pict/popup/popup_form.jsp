@@ -55,6 +55,7 @@
 	                            	첨부 파일은 10MB 아래의 확장자 파일만 가능합니다.<br>
 	                                (jpeg, png, gif, bmp, tif)
                                 </p>
+							    <p>${pictVO.file}</p>
 	                        </div>
 	                    </div>
 	                    <div class="btnContainer">

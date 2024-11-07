@@ -1195,8 +1195,12 @@ public class PictController {
 		if (pictVO.getIdx() != 0) {
 			// 수정
 			pictVO = pictService.board_list_one(pictVO);
+			// 파일 이름만 담아서 화면 출력
+			Optional.ofNullable(pictVO.getFile_url1()).ifPresent(pictVO::saveFileNameToFile_url1);
+			Optional.ofNullable(pictVO.getFile_url2()).ifPresent(pictVO::saveFileNameToFile_url2);
+			Optional.ofNullable(pictVO.getFile_url3()).ifPresent(pictVO::saveFileNameToFile_url3);
+			
 			pictVO.setSaveType("update");
-
 		} else {
 			pictVO.setSaveType("insert");
 		}
@@ -1350,6 +1354,10 @@ public class PictController {
 		if (pictVO.getIdx() != 0) {
 			// 수정
 			pictVO = pictService.biz_list_one(pictVO);
+			// 파일 이름만 담아서 화면 출력
+			Optional.ofNullable(pictVO.getFile_url1()).ifPresent(pictVO::saveFileNameToFile_url1);
+			Optional.ofNullable(pictVO.getFile_url2()).ifPresent(pictVO::saveFileNameToFile_url2);
+			Optional.ofNullable(pictVO.getFile_url3()).ifPresent(pictVO::saveFileNameToFile_url3);
 			pictVO.setSaveType("update");
 
 		} else {
@@ -1361,26 +1369,38 @@ public class PictController {
 	}
 
 	@RequestMapping(value = "/biz_post/biz_save.do", method = RequestMethod.POST)
-	public String biz_save(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
-			MultipartHttpServletRequest request, @RequestParam("attach_file") MultipartFile attach_file)
-			throws Exception {
+	public String biz_save(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, MultipartHttpServletRequest request
+			, @RequestParam(value="attach_file1", required=false) MultipartFile attach_file1
+			, @RequestParam(value="attach_file2", required=false) MultipartFile attach_file2
+			, @RequestParam(value="attach_file3", required=false) MultipartFile attach_file3
+			) throws Exception {
 		String sessions = (String) request.getSession().getAttribute("id");
 		if (sessions == null || sessions == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
 
-		if (attach_file.getSize() != 0) {
+		if(attach_file1.getSize() != 0) {
 			UUID uuid = UUID.randomUUID();
-			String uploadPath = fileUpload_board(request, attach_file, (String) request.getSession().getAttribute("id"),
-					uuid);
+			String uploadPath = fileUpload_board(request, attach_file1, (String)request.getSession().getAttribute("id"), uuid);
 			String filepath = "/user1/upload_file/metaverse_industry/";
-			// String filepath = "D:\\user1\\upload_file\\billconcert\\";
-			String filename = uuid + uploadPath.split("#####")[1];
-
-			pictVO.setImg_url(filepath + filename);
+			String filename = uuid+uploadPath.split("#####")[1];
+			pictVO.setFile_url1(filepath+filename);
+		}
+		if(attach_file2.getSize() != 0) {
+			UUID uuid = UUID.randomUUID();
+			String uploadPath = fileUpload_board(request, attach_file2, (String)request.getSession().getAttribute("id"), uuid);
+			String filepath = "/user1/upload_file/metaverse_industry/";
+			String filename = uuid+uploadPath.split("#####")[1];
+			pictVO.setFile_url2(filepath+filename);
+		}
+		if(attach_file3.getSize() != 0) {
+			UUID uuid = UUID.randomUUID();
+			String uploadPath = fileUpload_board(request, attach_file3, (String)request.getSession().getAttribute("id"), uuid);
+			String filepath = "/user1/upload_file/metaverse_industry/";
+			String filename = uuid+uploadPath.split("#####")[1];
+			pictVO.setFile_url3(filepath+filename);
 		}
 
-		System.out.println("::::::::::::::::::::::::::::::::::::::::::" + pictVO.getImg_url());
 		if (pictVO.getSaveType() != null && pictVO.getSaveType().equals("update")) {
 			pictService.biz_update(pictVO);
 			model.addAttribute("message", "정상적으로 수정되었습니다.");
@@ -2387,6 +2407,7 @@ public class PictController {
 		if (pictVO.getIdx() != 0) {
 			// 수정
 			pictVO = pictService.popup_list_one(pictVO);
+			pictVO.setFile(pictVO.getImage_url().substring(pictVO.getImage_url().lastIndexOf("/")+1));
 			pictVO.setSaveType("update");
 
 		} else {

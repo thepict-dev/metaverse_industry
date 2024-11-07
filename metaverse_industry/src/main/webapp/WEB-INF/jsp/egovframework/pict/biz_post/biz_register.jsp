@@ -59,7 +59,7 @@
 	                        <div class="inputBox">
 	                            <p class="inputCaption">첨부파일
 	                                <label for="attach_file">파일추가</label>
-	                                <input type="file" id="attach_file" name="attach_file" multiple style="display: none;">
+	                                <input type="file" id="attach_file" name="attach_file1" multiple style="display: none;">
 	                            </p>
 	                            <div class="fileList">
 	                                <p></p>
@@ -67,6 +67,7 @@
 	                            </div>
 	                            <p class="fileCaption">첨부 파일은 10MB 아래의 확장자 파일만 가능합니다.<br>
 	                                (jpeg, png, gif, bmp, tif)</p>
+							    <p>${pictVO.file_url1}</p>
 	                        </div>
 	                    </div>
 	                    
@@ -74,7 +75,7 @@
 	                        <div class="inputBox">
 	                            <p class="inputCaption">첨부파일
 	                                <label for="attach_file1">파일추가</label>
-	                                <input type="file" id="attach_file1" name="attach_file1" multiple style="display: none;">
+	                                <input type="file" id="attach_file1" name="attach_file2" multiple style="display: none;">
 	                            </p>
 	                            <div class="fileList">
 	                                <p></p>
@@ -82,6 +83,7 @@
 	                            </div>
 	                            <p class="fileCaption">첨부 파일은 10MB 아래의 확장자 파일만 가능합니다.<br>
 	                                (jpeg, png, gif, bmp, tif)</p>
+							    <p>${pictVO.file_url2}</p>
 	                        </div>
 	                    </div>
 	                    
@@ -89,7 +91,7 @@
 	                        <div class="inputBox">
 	                            <p class="inputCaption">첨부파일
 	                                <label for="attach_file2">파일추가</label>
-	                                <input type="file" id="attach_file2" name="attach_file2" multiple style="display: none;">
+	                                <input type="file" id="attach_file2" name="attach_file3" multiple style="display: none;">
 	                            </p>
 	                            <div class="fileList">
 	                                <p></p>
@@ -97,6 +99,7 @@
 	                            </div>
 	                            <p class="fileCaption">첨부 파일은 10MB 아래의 확장자 파일만 가능합니다.<br>
 	                                (jpeg, png, gif, bmp, tif)</p>
+							    <p>${pictVO.file_url3}</p>
 	                        </div>
 	                    </div>
 	                    
