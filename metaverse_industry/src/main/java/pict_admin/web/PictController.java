@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.UUID;
 
@@ -664,9 +665,9 @@ public class PictController {
 		pictVO.setUser_id(sessions);
 		
 		pictVO = pictService.findEquipmentRequestById(pictVO.getId(), pictVO.getUser_id());
-		pictVO.setFile_url1(FileManagement.upload(attach_file1, sessions, pictVO.getFile_url1()));
-		pictVO.setFile_url2(FileManagement.upload(attach_file2, sessions, pictVO.getFile_url2()));
-		pictVO.setFile_url3(FileManagement.upload(attach_file3, sessions, pictVO.getFile_url3()));
+		pictVO.setFile_url1(new FileManagement().upload(attach_file1, sessions, pictVO.getFile_url1()));
+		pictVO.setFile_url2(new FileManagement().upload(attach_file2, sessions, pictVO.getFile_url2()));
+		pictVO.setFile_url3(new FileManagement().upload(attach_file3, sessions, pictVO.getFile_url3()));
 
 		userService.retryRequest(pictVO);
 		model.addAttribute("message", "정상적으로 수정되었습니다.");
@@ -770,9 +771,9 @@ public class PictController {
 		pictVO.setUser_id(sessions);
 
 		pictVO = pictService.findFacilityRequestById(pictVO.getId(), pictVO.getUser_id());
-		pictVO.setFile_url1(FileManagement.upload(attach_file1, sessions, pictVO.getFile_url1()));
-		pictVO.setFile_url2(FileManagement.upload(attach_file2, sessions, pictVO.getFile_url2()));
-		pictVO.setFile_url3(FileManagement.upload(attach_file3, sessions, pictVO.getFile_url3()));
+		pictVO.setFile_url1(new FileManagement().upload(attach_file1, sessions, pictVO.getFile_url1()));
+		pictVO.setFile_url2(new FileManagement().upload(attach_file2, sessions, pictVO.getFile_url2()));
+		pictVO.setFile_url3(new FileManagement().upload(attach_file3, sessions, pictVO.getFile_url3()));
 		
 		userService.retryFacilityRequest(pictVO);
 		model.addAttribute("message", "정상적으로 수정되었습니다.");

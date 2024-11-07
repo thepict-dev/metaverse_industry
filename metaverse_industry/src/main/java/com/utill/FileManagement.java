@@ -9,20 +9,25 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 public class FileManagement {
-//	private final static String PATH = "/user1/upload_file/metaverse_industry/";
-	private final static String PATH = "C:\\Users\\82105\\Desktop\\test\\";
+	private final static String PATH = "/user1/upload_file/metaverse_industry/";
 	
-	public static String upload(MultipartFile file, String sessions, String remainFile) {
+	public String upload(MultipartFile file, String sessions) {
+		UUID uuid = UUID.randomUUID();
+		String uploadPath = createFile(file, sessions, uuid);
+		return uuid + uploadPath.split("#####")[1];
+	}
+	
+	public String upload(MultipartFile file, String sessions, String remainFile) {
 		if (ObjectUtils.isEmpty(file)) {
 			return remainFile;
 		} else {
 			UUID uuid = UUID.randomUUID();
-			String uploadPath = upload_file(file, sessions, uuid);
+			String uploadPath = createFile(file, sessions, uuid);
 			return uuid + uploadPath.split("#####")[1];
 		}
 	}
 	
-	private static String upload_file(MultipartFile uploadFile, String target, UUID uuid) {
+	private String createFile(MultipartFile uploadFile, String target, UUID uuid) {
     	String fileName = "";
     	OutputStream out = null;
     	try {

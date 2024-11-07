@@ -407,10 +407,9 @@ public class UserController {
 			return map;
 		}
 
-		PictVO equipmentRequest = pictService.findEquipmentRequestById(pictVO.getId(), pictVO.getUser_id());
-		pictVO.setFile_url1(FileManagement.upload(attach_file1, sessions, equipmentRequest.getFile_url1()));
-		pictVO.setFile_url2(FileManagement.upload(attach_file2, sessions, equipmentRequest.getFile_url2()));
-		pictVO.setFile_url3(FileManagement.upload(attach_file3, sessions, equipmentRequest.getFile_url3()));
+		Optional.ofNullable(attach_file1).ifPresent(file -> pictVO.setFile_url1(new FileManagement().upload(file, sessions)));
+		Optional.ofNullable(attach_file2).ifPresent(file -> pictVO.setFile_url2(new FileManagement().upload(file, sessions)));
+		Optional.ofNullable(attach_file3).ifPresent(file -> pictVO.setFile_url3(new FileManagement().upload(file, sessions)));
 		
 		List<Map<String, Object>> equipment_list = pictVO.getEquipmentListObject();
 		String rental_type = pictVO.getRental_type();
@@ -492,10 +491,13 @@ public class UserController {
 			return map;
 		}
 
-		PictVO facilityRequest = pictService.findFacilityRequestById(pictVO.getId(), pictVO.getUser_id());
-		pictVO.setFile_url1(FileManagement.upload(attach_file1, sessions, facilityRequest.getFile_url1()));
-		pictVO.setFile_url2(FileManagement.upload(attach_file2, sessions, facilityRequest.getFile_url2()));
-		pictVO.setFile_url3(FileManagement.upload(attach_file3, sessions, facilityRequest.getFile_url3()));
+		Optional.ofNullable(attach_file1).ifPresent(file -> pictVO.setFile_url1(new FileManagement().upload(file, sessions)));
+		Optional.ofNullable(attach_file2).ifPresent(file -> pictVO.setFile_url2(new FileManagement().upload(file, sessions)));
+		Optional.ofNullable(attach_file3).ifPresent(file -> pictVO.setFile_url3(new FileManagement().upload(file, sessions)));
+		
+//		pictVO.setFile_url1(FileManagement.upload(attach_file1, sessions));
+//		pictVO.setFile_url2(FileManagement.upload(attach_file2, sessions));
+//		pictVO.setFile_url3(FileManagement.upload(attach_file3, sessions));
 		
 		List<Map<String, Object>> facility_list = pictVO.getFacilityListObject();
 		String rental_type = pictVO.getRental_type();

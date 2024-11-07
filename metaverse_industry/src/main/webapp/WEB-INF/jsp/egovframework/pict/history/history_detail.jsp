@@ -145,6 +145,22 @@
 													</a>
 												</c:if>
 											</div>
+											<div class="inputBox">
+												<p class="inputCaption">첨부파일</p>
+												<c:if test="${not empty history_detail.file_path2}">
+													<a href="${history_detail.file_path2}" class="fileList binding hisDetail" download>
+														<p>${history_detail.file_path2}</p>
+													</a>
+												</c:if>
+											</div>
+											<div class="inputBox">
+												<p class="inputCaption">첨부파일</p>
+												<c:if test="${not empty history_detail.file_path3}">
+													<a href="${history_detail.file_path3}" class="fileList binding hisDetail" download>
+														<p>${history_detail.file_path3}</p>
+													</a>
+												</c:if>
+											</div>
 										</div>
 									</div>
 								</div>

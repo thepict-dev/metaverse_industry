@@ -105,6 +105,18 @@
 						                                <p>${history_detail.file_path}</p>
 						                            </div>
 												</div>
+												<div class="inputBox">
+													<p class="inputCaption">첨부파일</p>
+						                            <div class="fileList binding">
+						                                <p>${history_detail.file_path2}</p>
+						                            </div>
+												</div>
+												<div class="inputBox">
+													<p class="inputCaption">첨부파일</p>
+						                            <div class="fileList binding">
+						                                <p>${history_detail.file_path3}</p>
+						                            </div>
+												</div>
 											</div>
 										</div>
 									</div>
