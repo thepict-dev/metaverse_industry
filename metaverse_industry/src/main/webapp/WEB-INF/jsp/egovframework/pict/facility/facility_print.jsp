@@ -106,16 +106,6 @@
 	                                    <p>사용기간</p>
 	                                    <span>${pdf.rentalStartDate} - ${pdf.rentalEndDate}</span>
 	                                </div>
-	                                <div class="row">
-	                                    <p>사용인원</p>
-	                                    <span>이유리</span>
-	                                </div>
-	                            </li>
-	                            <li>
-	                                <div class="row">
-	                                    <p>요청사항</p>
-	                                    <span>더픽ㅍ트</span>
-	                                </div>
 	                            </li>
 	                        </ul>
 	                    </div>
