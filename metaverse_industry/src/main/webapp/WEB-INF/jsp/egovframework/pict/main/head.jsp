@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="/css/admin/nice-select.css">
     <link rel="stylesheet" href="/css/admin/reset.css">
     <link rel="stylesheet" href="/css/admin/common.css">
+    <link rel="stylesheet" href="/css/admin/print.css">
     <link rel="stylesheet" href="/css/admin/modal.css">
     <link rel="stylesheet" href="/css/admin/header.css">
     <link rel="stylesheet" href="/css/admin/lnb.css">
@@ -29,6 +30,9 @@
     <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="/js/jquery.nice-select.js"></script>
     <script src="/js/admin_script.js" defer></script>
 </head>     

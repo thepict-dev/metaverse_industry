@@ -227,7 +227,7 @@
 								<div class="listWrapper">
 									<div class="listInner set">
 										<div class="buttons">
-											<a href="#lnk" class="smButton"><img src="/img/admin/pdf.png" alt="">PDF
+											<a href="#lnk" class="smButton" onclick="printPage()"><img src="/img/admin/pdf.png" alt="">PDF
 												다운로드</a>
 										</div>
 									</div>
@@ -247,76 +247,8 @@
 									</div>
 								</div>
 							</div>
-
-							<!-- 
-								
-								<div class="listInner">
-									<div class="ListWrpper">
-									<c:choose>
-										<c:when test="${history_detail.type eq '1'}">
-											<p>사용자 아이디 : ${history_detail.user_name}</p>
-											<p>사용자 이름 : ${history_detail.user_name}</p>
-											<p>사용자 연락처 : ${history_detail.user_name}</p>
-											<p>사용자 이메일 : ${history_detail.user_name}</p>
-											<p>사용자 생년월일 : ${history_detail.user_name}</p>
-											<p>사용자 주소 : ${history_detail.user_name}</p>
-											<p>대여 형태 : 개인</p>
-										</c:when>
-										<c:when test="${history_detail.type eq '2'}">
-											<p>대여 형태 : 기</p>
-											<p>사용자 아이디 : ${history_detail.user_name}</p>
-											<p>사용자 이름 : ${history_detail.user_name}</p>
-											<p>사용자 연락처 : ${history_detail.user_name}</p>
-											<p>사용자 이메일 : ${history_detail.user_name}</p>
-											<p>사용자 생년월일 : ${history_detail.user_name}</p>
-											<p>사용자 주소 : ${history_detail.user_name}</p>
-											<p>대여 형태 : 개인</p>
-											<p>구분 : ${history_detail.equipment_type}</p>
-											<p>장비명 : ${history_detail.name}</p>
-											<p>수량 : ${history_detail.name}</p>
-											
-										</c:when>
-									</c:choose>
-										<p>신청 상태 :
-											<c:choose>
-												<c:when test="${history_detail.request_status eq 'pendding'}">
-													대여신청
-												</c:when>
-												<c:when test="${history_detail.request_status eq 'approved'}">
-													승인
-												</c:when>
-												<c:when test="${history_detail.request_status eq 'rejected'}">
-													서류보안요청
-												</c:when>
-												<c:when test="${history_detail.request_status eq 'retry'}">
-													재신청
-												</c:when>
-												<c:when test="${history_detail.request_status eq 'cancelled'}">
-													취소
-												</c:when>
-												<c:when test="${history_detail.request_status eq 'refusal'}">
-													거절
-												</c:when>
-												<c:when test="${history_detail.request_status eq 'rental'}">
-													대여중
-												</c:when>
-												<c:when test="${history_detail.request_status eq 'returned'}">
-													반납완료
-
-												</c:when>
-											</c:choose>
-
-										</p>
-										<p>대여 신청일 : ${history_detail.request_date}</p>
-										<p>대여일 :${history_detail.rental_start_date}</p>
-										<p>반납일 : ${history_detail.rental_end_date}</p>
-										<p>${history_detail.equipment_type}</p>
-										<p>${history_detail.name}</p>
-
-									</div>
-								</div>
-								 -->
 						</div>
+						<%@include file="./equipment_print.jsp" %>
 						<script>
 							let equipment_name = '${history_detail.name}';
 							let user_name = '${history_detail.user_name}';
