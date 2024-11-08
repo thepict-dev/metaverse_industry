@@ -137,30 +137,30 @@
 											</div>
 										</c:if>
 										<div class="inputsContainer">
-											<div class="inputBox">
-												<p class="inputCaption">첨부파일</p>
-												<c:if test="${not empty history_detail.file_path}">
+											<c:if test="${not empty history_detail.file_path}">
+												<div class="inputBox">
+													<p class="inputCaption">첨부파일</p>
 													<a href="${history_detail.file_path}" class="fileList binding hisDetail" download>
 														<p>${history_detail.file_path}</p>
 													</a>
-												</c:if>
-											</div>
-											<div class="inputBox">
-												<p class="inputCaption">첨부파일</p>
-												<c:if test="${not empty history_detail.file_path2}">
+												</div>
+											</c:if>
+											<c:if test="${not empty history_detail.file_path2}">
+												<div class="inputBox">
+													<p class="inputCaption">첨부파일</p>
 													<a href="${history_detail.file_path2}" class="fileList binding hisDetail" download>
 														<p>${history_detail.file_path2}</p>
 													</a>
-												</c:if>
-											</div>
-											<div class="inputBox">
-												<p class="inputCaption">첨부파일</p>
-												<c:if test="${not empty history_detail.file_path3}">
+												</div>
+											</c:if>
+											<c:if test="${not empty history_detail.file_path3}">
+												<div class="inputBox">
+													<p class="inputCaption">첨부파일</p>
 													<a href="${history_detail.file_path3}" class="fileList binding hisDetail" download>
 														<p>${history_detail.file_path3}</p>
 													</a>
-												</c:if>
-											</div>
+												</div>
+											</c:if>
 										</div>
 									</div>
 								</div>

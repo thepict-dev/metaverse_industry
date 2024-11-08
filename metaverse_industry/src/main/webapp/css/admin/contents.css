@@ -373,7 +373,7 @@
 
 .fileList{
     position: relative;
-    display: none;
+    display: flex;
     align-items: center;
     column-gap: 10px;
     width: 190px;
@@ -381,6 +381,9 @@
     border: 1px solid var(--grey-100);
     background: var(--grey-50);
     margin-bottom: 10px;
+}
+.fileList.show{
+    display: flex !important;
 }
 .fileList.binding{
     display: flex;

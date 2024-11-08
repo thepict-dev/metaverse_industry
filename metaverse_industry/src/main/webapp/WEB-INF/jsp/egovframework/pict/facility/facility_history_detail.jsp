@@ -99,24 +99,30 @@
 												</div>
 											</c:if>
 											<div class="inputsContainer">
-												<div class="inputBox">
-													<p class="inputCaption">첨부파일</p>
-						                            <div class="fileList binding">
-						                                <p>${history_detail.file_path}</p>
-						                            </div>
-												</div>
-												<div class="inputBox">
-													<p class="inputCaption">첨부파일</p>
-						                            <div class="fileList binding">
-						                                <p>${history_detail.file_path2}</p>
-						                            </div>
-												</div>
-												<div class="inputBox">
-													<p class="inputCaption">첨부파일</p>
-						                            <div class="fileList binding">
-						                                <p>${history_detail.file_path3}</p>
-						                            </div>
-												</div>
+												<c:if test="${not empty history_detail.file_path}">
+													<div class="inputBox">
+														<p class="inputCaption">첨부파일</p>
+							                            <div class="fileList binding hisDetail">
+							                                <p>${history_detail.file_path}</p>
+							                            </div>
+													</div>
+												</c:if>
+												<c:if test="${not empty history_detail.file_path2}">
+													<div class="inputBox">
+														<p class="inputCaption">첨부파일</p>
+							                            <div class="fileList binding hisDetail">
+							                                <p>${history_detail.file_path2}</p>
+							                            </div>
+													</div>
+												</c:if>
+												<c:if test="${not empty history_detail.file_path2}">
+													<div class="inputBox">
+														<p class="inputCaption">첨부파일</p>
+							                            <div class="fileList binding hisDetail">
+							                                <p>${history_detail.file_path3}</p>
+							                            </div>
+													</div>
+												</c:if>
 											</div>
 										</div>
 									</div>

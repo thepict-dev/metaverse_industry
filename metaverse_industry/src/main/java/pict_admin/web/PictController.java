@@ -1216,34 +1216,34 @@ public class PictController {
 	@RequestMapping(value = "/board/board_save.do", method = RequestMethod.POST)
 	public String board_save(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
 			MultipartHttpServletRequest request,
-			@RequestParam("attach_file") MultipartFile attach_file,
-			@RequestParam("attach_file1") MultipartFile attach_file1,
-			@RequestParam("attach_file2") MultipartFile attach_file2)
+			@RequestParam("file_1") MultipartFile attach_file1,
+			@RequestParam("file_2") MultipartFile attach_file2,
+			@RequestParam("file_3") MultipartFile attach_file3)
 			throws Exception {
 		String sessions = (String) request.getSession().getAttribute("id");
-		String depart = (String) request.getSession().getAttribute("depart");
 		if (sessions == null || sessions == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
+		String file_dir = "/user1/upload_file/metaverse_industry/";
 
-		if(attach_file.getSize() != 0) {
-			UUID uuid = UUID.randomUUID();
-			String uploadPath = fileUpload_board(request, attach_file, (String)request.getSession().getAttribute("id"), uuid);
-			String filepath = "/user1/upload_file/metaverse_industry/";
-			String filename = uuid+uploadPath.split("#####")[1];
-			pictVO.setFile_url1(filepath+filename);
-		}
 		if(attach_file1.getSize() != 0) {
 			UUID uuid = UUID.randomUUID();
 			String uploadPath = fileUpload_board(request, attach_file1, (String)request.getSession().getAttribute("id"), uuid);
-			String filepath = "/user1/upload_file/metaverse_industry/";
+			String filepath = file_dir + pictVO + "/";
 			String filename = uuid+uploadPath.split("#####")[1];
-			pictVO.setFile_url2(filepath+filename);
+			pictVO.setFile_url1(filepath+filename);
 		}
 		if(attach_file2.getSize() != 0) {
 			UUID uuid = UUID.randomUUID();
 			String uploadPath = fileUpload_board(request, attach_file2, (String)request.getSession().getAttribute("id"), uuid);
-			String filepath = "/user1/upload_file/metaverse_industry/";
+			String filepath = file_dir + pictVO + "/";
+			String filename = uuid+uploadPath.split("#####")[1];
+			pictVO.setFile_url2(filepath+filename);
+		}
+		if(attach_file3.getSize() != 0) {
+			UUID uuid = UUID.randomUUID();
+			String uploadPath = fileUpload_board(request, attach_file3, (String)request.getSession().getAttribute("id"), uuid);
+			String filepath = file_dir + pictVO + "/";
 			String filename = uuid+uploadPath.split("#####")[1];
 			pictVO.setFile_url3(filepath+filename);
 		}
