@@ -41,10 +41,10 @@
 	                    	<c:forEach var="resultList" items="${resultList}" varStatus="status">
 		                        <li>
 		                            <c:if test="${pictVO.pageNumber eq 1}">
-										<p>${board_cnt - status.index}</p>					
+										<p>${status.count}</p>					
 									</c:if>
 									<c:if test="${pictVO.pageNumber ne 1}">
-										<p>${board_cnt - (status.index +  ((pictVO.pageNumber - 1) * 20))}</p>
+										<p>${(status.count +  ((pictVO.pageNumber) * 10))}</p>
 									</c:if>
 		                            <a href="/biz_post/biz_register.do?idx=${resultList.idx}"><p>${resultList.title}</p></a>
 		                            <p>${resultList.reg_date}</p>
