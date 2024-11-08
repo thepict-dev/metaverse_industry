@@ -1216,34 +1216,34 @@ public class PictController {
 	@RequestMapping(value = "/board/board_save.do", method = RequestMethod.POST)
 	public String board_save(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
 			MultipartHttpServletRequest request,
-			@RequestParam("file_1") MultipartFile attach_file1,
-			@RequestParam("file_2") MultipartFile attach_file2,
-			@RequestParam("file_3") MultipartFile attach_file3)
+			@RequestParam(value = "file_1", required=false) MultipartFile attach_file1,
+			@RequestParam(value = "file_2", required=false) MultipartFile attach_file2,
+			@RequestParam(value = "file_3", required=false) MultipartFile attach_file3)
 			throws Exception {
 		String sessions = (String) request.getSession().getAttribute("id");
 		if (sessions == null || sessions == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
-		String file_dir = "/user1/upload_file/metaverse_industry/";
+		String file_dir = "C:\\Users\\82105\\Desktop\\test";
 
 		if(attach_file1.getSize() != 0) {
 			UUID uuid = UUID.randomUUID();
 			String uploadPath = fileUpload_board(request, attach_file1, (String)request.getSession().getAttribute("id"), uuid);
-			String filepath = file_dir + pictVO + "/";
+			String filepath = file_dir;
 			String filename = uuid+uploadPath.split("#####")[1];
 			pictVO.setFile_url1(filepath+filename);
 		}
 		if(attach_file2.getSize() != 0) {
 			UUID uuid = UUID.randomUUID();
 			String uploadPath = fileUpload_board(request, attach_file2, (String)request.getSession().getAttribute("id"), uuid);
-			String filepath = file_dir + pictVO + "/";
+			String filepath = file_dir;
 			String filename = uuid+uploadPath.split("#####")[1];
 			pictVO.setFile_url2(filepath+filename);
 		}
 		if(attach_file3.getSize() != 0) {
 			UUID uuid = UUID.randomUUID();
 			String uploadPath = fileUpload_board(request, attach_file3, (String)request.getSession().getAttribute("id"), uuid);
-			String filepath = file_dir + pictVO + "/";
+			String filepath = file_dir;
 			String filename = uuid+uploadPath.split("#####")[1];
 			pictVO.setFile_url3(filepath+filename);
 		}
@@ -1282,13 +1282,28 @@ public class PictController {
 
 	@RequestMapping(value = "/board/board_file_delete.do")
 	public String video_file_delete(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
+			@RequestParam(value="fileidx") int fileNum,
 			HttpServletRequest request) throws Exception {
 		String session = (String) request.getSession().getAttribute("id");
 		if (session == null || session == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
-		String idx = pictVO.getIdx() + "";
-		System.out.println(pictVO.getIdx());
+		int idx = pictVO.getIdx();
+		
+		pictVO = pictService.board_list_one(pictVO);
+		
+		switch(fileNum) {
+			case 1 :
+				pictVO.setFile_url1(null);
+				break;
+			case 2 :
+				pictVO.setFile_url2(null);
+				break;
+			case 3 :
+				pictVO.setFile_url3(null);
+				break;
+		}
+		
 		pictService.board_file_delete(pictVO);
 
 		model.addAttribute("message", "정상적으로 삭제되었습니다.");

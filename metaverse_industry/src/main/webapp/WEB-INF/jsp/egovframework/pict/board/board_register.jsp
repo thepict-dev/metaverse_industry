@@ -65,7 +65,7 @@
 	                                <input type="file" id="file_1" name="file_1" multiple style="display: none;" class="jy_input">
 	                            </p>
 	                            <div class="fileList">
-	                                <p id="file_name_1"></p>
+	                                <p id="file_name_1">${pictVO.file_url1}</p>
 	                                <button onclick="fn_file_delete('1')"><img src="/img/admin/close2.png" alt=""></button>
 	                            </div>
 	                            <p class="fileCaption">첨부 파일은 10MB 아래의 확장자 파일만 가능합니다.<br>
@@ -80,7 +80,7 @@
 	                                <input type="file" id="file_2" name="file_2" multiple style="display: none;" class="jy_input">
 	                            </p>
 	                            <div class="fileList">
-	                                <p id="file_name_2"></p>
+	                                <p id="file_name_2">${pictVO.file_url2}</p>
 	                                <button onclick="fn_file_delete('2')"><img src="/img/admin/close2.png" alt=""></button>
 	                            </div>
 	                            <p class="fileCaption">첨부 파일은 10MB 아래의 확장자 파일만 가능합니다.<br>
@@ -95,7 +95,7 @@
 	                                <input type="file" id="file_3" name="file_3" multiple style="display: none;" class="jy_input">
 	                            </p>
 	                            <div class="fileList">
-	                                <p id="file_name_3"></p>
+	                                <p id="file_name_3">${pictVO.file_url3}</p>
 	                                <button onclick="fn_file_delete('3')"><img src="/img/admin/close2.png" alt=""></button>
 	                            </div>
 	                            <p class="fileCaption">첨부 파일은 10MB 아래의 확장자 파일만 가능합니다.<br>

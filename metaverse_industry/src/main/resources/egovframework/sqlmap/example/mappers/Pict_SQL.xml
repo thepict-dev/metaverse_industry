@@ -170,8 +170,10 @@
 	</delete>
 	
 	<update id="board_file_delete" parameterType="pictVO">
-		update board_master
-		set img_url=NULL
+		update board_table
+		set file_url1 = #{file_url1}
+	      , file_url2 = #{file_url2}
+	      , file_url3 = #{file_url3}
 		where idx = #{idx}
 	</update>
 	
