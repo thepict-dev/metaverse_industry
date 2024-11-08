@@ -132,6 +132,8 @@ public interface PictService {
 	Integer request_total_cnt(PictVO pictVO) throws Exception;
 	
 	Map<String, Object>  get_request_detail(Integer idx) throws Exception;
+
+	Map<String, Integer> equipmentApproveNum(int idx) throws Exception;
 	
 	void update_request_status(PictVO pictVO) throws Exception;
 	
@@ -181,6 +183,8 @@ public interface PictService {
 	Integer get_facility_request_total_cnt(PictVO pictVO) throws Exception;
 	
 	Map<String, Object>  get_facility_request_detail(Integer idx) throws Exception;
+
+	Map<String, Integer> facilityApproveNum(int idx) throws Exception;
 	
 	void update_facility_request_status(PictVO pictVO) throws Exception;
 	

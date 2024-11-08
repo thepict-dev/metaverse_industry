@@ -25,6 +25,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -40,6 +41,8 @@ import pict_admin.service.UserService;
 import pict_admin.service.UserVO;
 import pict_admin.service.AdminService;
 import pict_admin.service.AdminVO;
+import pict_admin.service.PdfDownVO;
+
 import javax.annotation.Resource;
 
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -72,6 +75,7 @@ import org.w3c.dom.NodeList;
 
 import com.security.UserRole;
 import com.utill.FileManagement;
+import com.utill.CustomDateTime;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -2023,9 +2027,23 @@ public class PictController {
 		}
 		Integer idx = pictVO.getIdx();
 		Map<String, Object> history_detail = pictService.get_facility_request_detail(idx);
-
-		System.out.println("get history_detail @@@@@@@@@@@@" + history_detail);
-		System.out.println("get status@@@@@@@@@" + pictVO.getStatus());
+		
+		// for PDF
+		if("approved".equals(history_detail.get("request_status"))) {
+			Map<String, Integer> approveNum = pictService.facilityApproveNum(idx.intValue());
+	        CustomDateTime.formatFromString("yyyy-MM-dd", (String) history_detail.get("request_date"), "yyyy년 MM월 dd일 E");
+	        model.addAttribute("pdf",
+	        		PdfDownVO.of(
+			        		  approveNum.get("year") + "-" + approveNum.get("year_order_num")
+			        		, CustomDateTime.dateFormat("yyyy.MM.dd. ") + CustomDateTime.timeFormat("HH:mm")
+			        		, CustomDateTime.formatFromDate("yyyy년 MM월 dd일 E", (Date) history_detail.get("rental_start_date"))
+			        		, CustomDateTime.formatFromDate("yyyy년 MM월 dd일 E", (Date) history_detail.get("rental_end_date"))
+			        		, CustomDateTime.formatFromDate("yyyy년 MM월 dd일", (Date) history_detail.get("rental_start_date"))
+			        		, CustomDateTime.formatFromDate("yyyy년 MM월 dd일", (Date) history_detail.get("rental_end_date"))
+			        		, CustomDateTime.formatFromString("yyyy-MM-dd", (String) history_detail.get("request_date"), "yyyy년 MM월 dd일")
+			        		)
+	        		);
+		}
 		model.addAttribute("history_detail", history_detail);
 		model.addAttribute("pictVO", pictVO);
 		return "pict/facility/facility_history_detail";
@@ -2115,11 +2133,25 @@ public class PictController {
 			return "redirect:/history/history_list.do";
 		}
 		Integer idx = pictVO.getIdx();
-		System.out.println("get idx @@@@@@@@@@@@" + idx);
 		Map<String, Object> history_detail = pictService.get_request_detail(idx);
 
-		System.out.println("get history_detail @@@@@@@@@@@@" + history_detail);
-		System.out.println("get status@@@@@@@@@" + pictVO.getStatus());
+		// for PDF
+		// for PDF
+		if("approved".equals(history_detail.get("request_status"))) {
+			Map<String, Integer> approveNum = pictService.equipmentApproveNum(idx.intValue());
+	        CustomDateTime.formatFromString("yyyy-MM-dd", (String) history_detail.get("request_date"), "yyyy년 MM월 dd일 E");
+	        model.addAttribute("pdf",
+	        		PdfDownVO.of(
+			        		  approveNum.get("year") + "-" + approveNum.get("year_order_num")
+			        		, CustomDateTime.dateFormat("yyyy.MM.dd. ") + CustomDateTime.timeFormat("HH:mm")
+			        		, CustomDateTime.formatFromDate("yyyy년 MM월 dd일 E", (Date) history_detail.get("rental_start_date"))
+			        		, CustomDateTime.formatFromDate("yyyy년 MM월 dd일 E", (Date) history_detail.get("rental_end_date"))
+			        		, CustomDateTime.formatFromDate("yyyy년 MM월 dd일", (Date) history_detail.get("rental_start_date"))
+			        		, CustomDateTime.formatFromDate("yyyy년 MM월 dd일", (Date) history_detail.get("rental_end_date"))
+			        		, CustomDateTime.formatFromString("yyyy-MM-dd", (String) history_detail.get("request_date"), "yyyy년 MM월 dd일")
+			        		)
+	        		);
+		}
 		model.addAttribute("history_detail", history_detail);
 		model.addAttribute("pictVO", pictVO);
 		return "pict/history/history_detail";

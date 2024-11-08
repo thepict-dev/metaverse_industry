@@ -139,6 +139,8 @@ public interface PictMapper {
 	
 	Map<String, Object> get_request_detail(@Param("idx") Integer idx) throws Exception;
 	
+	Map<String, Integer> equipment_approve_num(@Param("idx") int idx) throws Exception;
+	
 	
 	void update_request_status(PictVO pictVO) throws Exception;
 	
@@ -190,6 +192,8 @@ public interface PictMapper {
 
 	
 	Map<String, Object> get_facility_request_detail(@Param("idx") Integer idx) throws Exception;
+	
+	Map<String, Integer> facility_approve_num(@Param("idx") int idx) throws Exception;
 	
 	void update_facility_request_status(PictVO pictVO) throws Exception;
 	

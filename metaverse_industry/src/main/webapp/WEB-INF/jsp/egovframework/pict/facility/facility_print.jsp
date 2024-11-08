@@ -16,8 +16,8 @@
 	<body>
 	    <div class="printWrapper">
 	        <div class="printTop">
-	            <p>2024.11.08. 12:40</p>
-	            <p>2024-011_강원 메타버스 지원센터 시설•장비 사용신청서</p>
+	            <p>${pdf.nowDate}</p>
+	            <p>${pdf.title}_강원 메타버스 지원센터 시설•장비 사용신청서</p>
 	        </div>
 	        <h1>강원 메타버스 지원센터 시설 사용신청서</h1>
 	        <div class="printBottom">
@@ -28,37 +28,46 @@
 	                        <li class="half">
 	                            <div class="row">
 	                                <p>대 표(단체명)</p>
-	                                <span>더픽ㅍ트</span>
+	                                <span>${history_detail.company_nm}</span>
 	                            </div>
 	                            <div class="row">
 	                                <p>성명</p>
-	                                <span>이유리</span>
+	                                <span>${history_detail.user_name}</span>
 	                            </div>
 	                        </li>
 	                        <li class="half">
 	                            <div class="row">
 	                                <p>생년월일</p>
-	                                <span>더픽ㅍ트</span>
+	                                <span>${history_detail.birthday}</span>
 	                            </div>
 	                            <div class="row">
 	                                <p>전화번호</p>
-	                                <span>이유리</span>
+	                                <span>${history_detail.mobile}</span>
 	                            </div>
 	                        </li>
 	                        <li class="half">
 	                            <div class="row">
 	                                <p>사업자등록번호</p>
-	                                <span>더픽ㅍ트</span>
+	                                <span>${history_detail.sa_eob_no}</span>
 	                            </div>
 	                            <div class="row">
 	                                <p>E-mail</p>
-	                                <span>이유리</span>
+	                                <span>${history_detail.email}</span>
 	                            </div>
 	                        </li>
 	                        <li>
 	                            <div class="row">
 	                                <p>주소</p>
-	                                <span>더픽ㅍ트</span>
+	                                <span>
+										<c:choose>
+										    <c:when test = "${empty history_detail.company_address1}">
+										    	${history_detail.address1} ${not empty history_detail.address2 ? history_detail.address2 : ''}
+										    </c:when>
+										    <c:otherwise>
+										    	${history_detail.company_address1} ${not empty history_detail.address2 ? history_detail.company_address2 : ''}
+											</c:otherwise>
+										</c:choose>
+									</span>
 	                            </div>
 	                        </li>
 	                    </ul>
@@ -70,8 +79,8 @@
 	                    <ul class="sectionsInfo">
 	                        <li>
 	                            <div class="row">
-	                                <p><img src="/img/admin/print-check.png" alt=""><span>01</span></p>
-	                                <span>더픽ㅍ트</span>
+	                                <p><img src="/img/admin/print-check.png" alt=""><!-- <span>01</span> --></p>
+	                                <span>${history_detail.name}</span>
 	                            </div>
 	                        </li>
 	                    </ul>
@@ -81,7 +90,7 @@
 	                    <ul class="sectionsInfo">
 	                        <li>
 	                            <div class="row">
-	                                <span>Lorem</span>
+	                                <span>${history_detail.facility_plan}</span>
 	                            </div>
 	                        </li>
 	                    </ul>
@@ -95,7 +104,7 @@
 	                            <li>
 	                                <div class="row">
 	                                    <p>사용기간</p>
-	                                    <span>더픽ㅍ트</span>
+	                                    <span>${pdf.rentalStartDate} - ${pdf.rentalEndDate}</span>
 	                                </div>
 	                                <div class="row">
 	                                    <p>사용인원</p>
@@ -177,8 +186,8 @@
 	                    </div>
 	                    <div class="signTexts sign">
 	                        <p>
-	                            <span>2024년 10월 31일</span>
-	                            <span>신청인<span>이유리<span>(인)</span></span></span>
+	                            <span>${pdf.requestDate}</span>
+	                            <span>신청인<span>${history_detail.user_name}<span>(인)</span></span></span>
 	                            <span>강원 메타버스 지원센터 귀하</span>
 	                        </p>
 	                    </div>
@@ -193,16 +202,16 @@
 	                <div class="cuttingContainer">
 	                    <div class="sectionsInfoWrapper half">
 	                        <div class="printSection">
-	                            <p class="sectionTitle dates"><span>대여일</span><span>2024년</span><span>월</span><span>일</span></p>
+	                            <p class="sectionTitle dates"><span>대여일</span>${pdf.rentalOnlyStartDate}</p>
 	                            <ul class="sectionsInfo">
 	                                <li>
-	                                    <div class="row">
+	                                    <div class="row dates">
 	                                        <p>이용자</p>
 	                                        <span>(인)</span>
 	                                    </div>
 	                                </li>
 	                                <li>
-	                                    <div class="row">
+	                                    <div class="row dates">
 	                                        <p>확인자</p>
 	                                        <span>(인)</span>
 	                                    </div>
@@ -210,7 +219,7 @@
 	                            </ul>
 	                        </div>
 	                        <div class="printSection">
-	                            <p class="sectionTitle dates"><span>대여일</span><span>2024년</span><span>월</span><span>일</span></p>
+	                            <p class="sectionTitle dates"><span>대여일</span>${pdf.rentalOnlyEndDate}</p>
 	                            <ul class="sectionsInfo">
 	                                <li>
 	                                    <div class="row dates">

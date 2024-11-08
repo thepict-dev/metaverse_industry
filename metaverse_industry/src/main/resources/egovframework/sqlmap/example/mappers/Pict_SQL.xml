@@ -725,6 +725,25 @@
 		</if> 
 	</select>
 	
+	<select id="equipment_approve_num" resultType="map">
+		WITH ranked_requests AS (
+		    SELECT 
+		        YEAR(err.last_updated) as year,
+		        LPAD(
+					ROW_NUMBER() OVER (
+						PARTITION BY YEAR(err.last_updated) 
+						ORDER BY err.last_updated ASC
+					)
+				, 3, '0')as year_order_num,
+		        err.idx
+		    FROM equipment_rental_request err
+		    WHERE err.request_status = 'approved'
+		)
+		SELECT *
+		FROM ranked_requests
+		WHERE idx = #{idx};
+	</select>
+	
 	<select id="get_request_detail" resultType="map">
 		SELECT 
 		    err.idx,
@@ -1189,6 +1208,27 @@
         <if test="category != null and category != ''">
 			and et.type = #{category}
 		</if> 
+	</select>
+	
+	<select id="facility_approve_num" resultType="map">
+		WITH ranked_requests AS (
+			SELECT 
+				YEAR(err.last_updated) as year,
+				LPAD(
+					ROW_NUMBER() OVER (
+						PARTITION BY YEAR(err.last_updated) 
+						ORDER BY err.last_updated ASC
+					)
+				, 3, '0')as year_order_num,
+				err.idx
+			FROM facility_rental_request err
+			WHERE err.request_status = 'approved'
+		)
+		SELECT *
+		FROM ranked_requests
+		WHERE
+			1=1
+			AND idx = #{idx}
 	</select>
 	
 	<select id="get_facility_request_detail" resultType="map">

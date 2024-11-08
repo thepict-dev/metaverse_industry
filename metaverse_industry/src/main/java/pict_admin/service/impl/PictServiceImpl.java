@@ -310,6 +310,11 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 	public Map<String, Object>  get_request_detail(Integer idx) throws Exception {
 		return pictMapper.get_request_detail(idx);
 	}
+	
+	@Override
+	public Map<String, Integer> equipmentApproveNum(int idx) throws Exception {
+		return pictMapper.equipment_approve_num(idx);
+	}
 
 	@Override
 	public void update_request_status(PictVO pictVO) throws Exception {
@@ -443,6 +448,11 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 		return pictMapper.get_facility_request_detail(idx);
 	}
 
+	@Override
+	public Map<String, Integer> facilityApproveNum(int idx) throws Exception {
+		return pictMapper.facility_approve_num(idx);
+	}
+	
 	@Override
 	public void update_facility_request_status(PictVO pictVO) throws Exception {
 		pictMapper.update_facility_request_status(pictVO);
