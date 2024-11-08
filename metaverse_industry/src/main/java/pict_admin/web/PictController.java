@@ -1308,7 +1308,7 @@ public class PictController {
 
 		model.addAttribute("message", "정상적으로 삭제되었습니다.");
 		model.addAttribute("retType", ":location");
-		model.addAttribute("retUrl", "/board/board_register.do?idx=" + idx);
+		model.addAttribute("retUrl", "/biz_post/biz_register.do?idx=" + idx);
 		return "pict/main/message";
 
 	}

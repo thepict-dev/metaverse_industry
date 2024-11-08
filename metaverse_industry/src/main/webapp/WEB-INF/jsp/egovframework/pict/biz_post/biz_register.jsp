@@ -108,8 +108,9 @@
 	                        <a href="#lnk" onclick="button1_click()" class="basicButton blue"><img src="/img/admin/add2.png" alt="완료">완료</a>
 	                    </div>
 	                    
-	                    <input type='hidden' name="saveType" id="saveType" value='${pictVO.saveType}' /> 
-						<input type='hidden' name="idx" id="idx" value='${pictVO.idx}' /> 
+	                    <input type='hidden' name="saveType" id="saveType" value='${pictVO.saveType}' />
+						<input type='hidden' name="idx" id="idx" value='${pictVO.idx}' />
+    					<input type='hidden' name="fileidx" id="fileidx"/> 
 	                </form>
 	            </div>
 	        </div>
