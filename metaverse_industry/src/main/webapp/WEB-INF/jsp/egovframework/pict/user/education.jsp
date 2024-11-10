@@ -14,7 +14,7 @@
     <div class="subTop meta">
         <div class="subColor">
             <h2>현장체험교육</h2>
-            <p>보호자와 아이가 함께 하는<br>무료 체험 교육입니다</p>
+            <p> 메타버스 산업의 이해를 높이기 위한<br>무료 체험 교육입니다</p>
         </div>
     </div>
     <div class="subContents">
@@ -24,20 +24,21 @@
                 <h4 class="textTitle">사용자 범위</h4>
                 <div class="textsContent">
                     <!-- <p class="textsContentTitle">누구나 신청가능(보호자1인+아동1인, 2인1조로 체험)</p> -->
-                    <p class="textsContentTitle">사용 대상자</p>
+                    <p class="textsContentTitle">강원지역 초·중·고등학생(초등학생 4학년 이상 가능)</p>
                 </div>
             </div>
             <div class="subTextContents">
                 <h4 class="textTitle">교육 내용</h4>
                 <div class="textsContent">
-                    <p><span>버츄얼유튜버 체험</span></p>
-                    <p><span>모션캡쳐 체험</span></p>
+                	<p><span>시설·장비 시연 (1시간)</span></p>
+                    <p><span>버츄얼유튜버 체험 (2시간)</span></p>
+                    <p><span>모션캡쳐 체험 (2시간)</span></p>
                 </div>
             </div>
             <div class="subTextContents">
                 <h4 class="textTitle">운영시간</h4>
                 <div class="textsContent">
-                    <p class="textsContentTitle">수시(신청 시 진행)</p>
+                    <p class="textsContentTitle">교육기관을 통한 일정협의</p>
                 </div>
             </div>
             <div class="subTextContents">

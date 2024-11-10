@@ -119,6 +119,8 @@
 		    err.company_address1,
 		    err.company_address2,
 		    err.file_path,
+		    err.file_path2,
+		    err.file_path3,
 		    err.reject_msg,
 		    et.name,
 		    et.type AS equipment_type,

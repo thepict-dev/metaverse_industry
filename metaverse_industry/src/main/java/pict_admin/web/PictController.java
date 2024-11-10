@@ -2042,7 +2042,9 @@ public class PictController {
 		}
 		Integer idx = pictVO.getIdx();
 		Map<String, Object> history_detail = pictService.get_facility_request_detail(idx);
-		
+		System.out.println("history_detail file_path @@@@" + history_detail.get("file_path"));
+		System.out.println("history_detail file_path2 @@@@" + history_detail.get("file_path2"));
+		System.out.println("history_detail file_path3 @@@@" + history_detail.get("file_path3"));
 		// for PDF
 		if("approved".equals(history_detail.get("request_status"))) {
 			Map<String, Integer> approveNum = pictService.facilityApproveNum(idx.intValue());
@@ -2568,6 +2570,7 @@ public class PictController {
 			return "pict/main/message";
 		}
 	}
+	
   	
   	//문자
 	public void send_sms(String msg, String receiver) throws Exception {

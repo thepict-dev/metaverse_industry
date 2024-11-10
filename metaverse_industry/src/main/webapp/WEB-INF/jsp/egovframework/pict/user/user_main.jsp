@@ -56,11 +56,11 @@
     
         <div class="section1" id="section1">
             <div class="eduSection">
-                <span><img src="/img/user_img/edu-poster.png" alt=""></span>
+                <span><img src="/img/user_img/edu-poster.jpeg" alt=""></span>
                 <div class="eduPosTexts">
                     <div class="eduPosTitle">
                         <p>메타버스 체험교육</p>
-                        <span>메타버스, 아이와 놀이로 무료 체험하세요! 강원VRAR제작거점센터에서 무료로 진행하는 메타버스 체험 교육입니다.</span>
+                        <span>강원지역 초·중·고등학생 대상 VR·AR 현장체험교육을 통한 메타버스 산업의 이해를 높이기 위한 체험교육입니다</span>
                     </div>
                     <ul class="eduPosText">
                         <li>
@@ -69,11 +69,11 @@
                         </li>
                         <li>
                             <p><img src="/img/user_img/user.png" alt="">신청대상</p>
-                            <span>누구나 신청가능(보호자1인+아동1인)</span>
+                            <span>강원지역 초·중·고등학생(초등학생 4학년 이상 가능)</span>
                         </li>
                         <li>
                             <p><img src="/img/user_img/calendar.png" alt="">교육일정</p>
-                            <span>매주 금요일 15시</span>
+                            <span>일주일 전 신청필수</span>
                         </li>
                     </ul>
                     <a href="/education.do" class="blueButton dot">신청하기</a>

@@ -102,25 +102,25 @@
 												<c:if test="${not empty history_detail.file_path}">
 													<div class="inputBox">
 														<p class="inputCaption">첨부파일</p>
-							                            <div class="fileList binding hisDetail">
-							                                <p>${history_detail.file_path}</p>
-							                            </div>
+							                            <a href="/user1/upload_file/metaverse_industry/${history_detail.file_path}" class="fileList binding hisDetail" download>
+															<p>${history_detail.file_path}</p>
+														</a>
 													</div>
 												</c:if>
 												<c:if test="${not empty history_detail.file_path2}">
 													<div class="inputBox">
 														<p class="inputCaption">첨부파일</p>
-							                            <div class="fileList binding hisDetail">
-							                                <p>${history_detail.file_path2}</p>
-							                            </div>
+							                            <a href="/user1/upload_file/metaverse_industry/${history_detail.file_path2}" class="fileList binding hisDetail" download>
+															<p>${history_detail.file_path2}</p>
+														</a>
 													</div>
 												</c:if>
 												<c:if test="${not empty history_detail.file_path2}">
 													<div class="inputBox">
 														<p class="inputCaption">첨부파일</p>
-							                            <div class="fileList binding hisDetail">
-							                                <p>${history_detail.file_path3}</p>
-							                            </div>
+							                            <a href="/user1/upload_file/metaverse_industry/${history_detail.file_path3}" class="fileList binding hisDetail" download>
+															<p>${history_detail.file_path3}</p>
+														</a>
 													</div>
 												</c:if>
 											</div>
@@ -150,8 +150,8 @@
 																		<c:when test="${history_detail.request_status eq 'rejected'}">
 																			서류보완요청
 																		</c:when>
-																		<c:when test="${history_detail.request_status eq 'retry'}">
-																			재신청
+																		<c:when test="${history_detail.request_status eq 'returned'}">
+																			반납완료
 																		</c:when>
 																		<c:when test="${history_detail.request_status eq 'overdue'}">
 																			연체중
@@ -187,13 +187,15 @@
 											</div>
 										</div>
 									</div>
-									<div class="listWrapper">
-										<div class="listInner set">
-							                <div class="buttons">
-							                    <a href="#lnk" class="smButton" onclick="printPage()"><img src="/img/admin/pdf.png" alt="">PDF 다운로드</a>
-							                </div>
+									<c:if test="${history_detail.request_status eq 'approved' or history_detail.request_status eq 'rental' or history_detail.request_status eq 'rental' or history_detail.request_status eq 'returned'}">
+										<div class="listWrapper">
+											<div class="listInner set">
+								                <div class="buttons">
+								                    <a href="#lnk" class="smButton" onclick="printPage()"><img src="/img/admin/pdf.png" alt="">PDF 다운로드</a>
+								                </div>
+											</div>
 										</div>
-									</div>
+									</c:if>
 									<form class="hidden_form" action="/facility/update_request.do" method="post">
 										<input type="hidden" name="idx" value="${history_detail.idx}">
 										<input type="hidden" name="request_status" class="hidden_request_status">
