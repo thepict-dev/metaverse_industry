@@ -425,6 +425,8 @@ public class PictController {
 		try {
 			pictService.request_education(pictVO);
 			map.put("msg", "ok");
+			String subject = "[교육신청알림]" + pictVO.getTeam() + "에서 신청서를 작성했습니다."; 
+			mailsend(subject, "관리자 페이지에서 신청서를 확인하세요.");
 		} catch (Exception e) {
 			map.put("msg", "fail");
 			e.printStackTrace();
@@ -443,6 +445,37 @@ public class PictController {
 //          return map;
 //      }
 	}
+	
+	public void mailsend(String subejct, String body) throws Exception{
+  		String host = "smtp.naver.com";
+		String user = "gica_@naver.com";
+		String password = "wlsgmddnjs-24";
+		Properties props = new Properties();
+		props.put("mail.smtp.host", host);
+		props.put("mail.smtp.port", 465);
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.ssl.enable", "true"); 
+		props.put("mail.smtp.ssl.trust", "smtp.naver.com");
+		props.put("mail.smtp.ssl.protocols", "TLSv1.2");
+		
+		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(user, password);
+			}
+		});
+		
+		try {
+			MimeMessage message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(user));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress("vrar@gica.co.kr"));
+			message.setSubject(subejct);
+			message.setText(body, "UTF-8", "html");
+			Transport.send(message);
+			System.out.println("Success Message Send");
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+  	}
 
 	// 공지사항
 	@RequestMapping(value = "/notice.do")
@@ -2217,7 +2250,7 @@ public class PictController {
 				msg += "거절처리 되었습니다. 마이페이지에서 거절사유를 확인해주세요.";
 			}
 			
-			// send_sms(msg ,(String) user.get("mobile"));
+			send_sms(msg ,(String) user.get("mobile"));
 			
 		}
 		model.addAttribute("message", "정상적으로 수정되었습니다.");
@@ -2269,7 +2302,7 @@ public class PictController {
 				msg += "거절처리 되었습니다. 마이페이지에서 거절사유를 확인해주세요.";
 			}
 			
-			// send_sms(msg ,(String) user.get("mobile"));
+			send_sms(msg ,(String) user.get("mobile"));
 			
 		}
 		model.addAttribute("message", "정상적으로 수정되었습니다.");
