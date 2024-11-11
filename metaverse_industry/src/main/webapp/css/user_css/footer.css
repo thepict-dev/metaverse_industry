@@ -37,7 +37,7 @@ footer{
     width: 100%;
     padding: 12px 32px;
     border: 1px solid var(--grey-100);
-    font-family: var(--fn-suit);
+    font-family: 'SUIT', sans-serif;
     font-size: 16px;
     font-weight: 500;
     line-height: 100%; /* 16px */
@@ -74,6 +74,7 @@ footer{
     text-align: center;
     width: 100%;
     transition: all .2s;
+    font-family: 'SUIT', sans-serif;
 }
 .famLists li a span{
     display: inline-block;
