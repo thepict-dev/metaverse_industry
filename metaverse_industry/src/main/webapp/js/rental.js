@@ -1,23 +1,18 @@
+let selectedFiles = new Map(); // 선택된 파일들을 저장할 Map
+let selectedEquipment = [];
+let rental_type = "";
 
- 
- let selectedFiles = new Map(); // 선택된 파일들을 저장할 Map
- let selectedEquipment = [];
- let rental_type = "";
- 
- 
- 
- var dateFormat = "yy-mm-dd";
- 
- // 예약 불가 더미
- let disabledDates = [];
- 
- // 오늘 날짜를 기준으로 설정 (시간은 00:00:00으로 설정)
- var today = new Date();
- today.setHours(0, 0, 0, 0);
- 
- 
- document.addEventListener('DOMContentLoaded', function () {
-	 document.getElementById("search_add2")?.addEventListener("click", function () {
+var dateFormat = "yy-mm-dd";
+
+// 예약 불가 더미
+let disabledDates = [];
+
+// 오늘 날짜를 기준으로 설정 (시간은 00:00:00으로 설정)
+var today = new Date();
+today.setHours(0, 0, 0, 0);
+
+document.addEventListener('DOMContentLoaded', function () {
+	document.getElementById("search_add2")?.addEventListener("click", function () {
         new daum.Postcode({
             oncomplete: function (data) {
                 document.getElementById("company_address1").value = data.address;
@@ -188,6 +183,8 @@
  
  
  
+ 
+ 
  function initDatepicker() {
      $("#datepicker").datepicker({
          numberOfMonths: getNumberOfMonths(),
@@ -203,61 +200,67 @@
              var isDisabled = disabledDates.indexOf(stringDate) !== -1;
              var startDate = $("#datepicker").data("startDate");
              var endDate = $("#datepicker").data("endDate");
-			var classes = [];
- 			// 현재 달이 아닌 날짜 체크
-            var currentDate = new Date();
-            if (date.getMonth() < currentDate.getMonth()) {
-                return [false, "user-disabled"];
-            }
- 
- 			// 오늘과 내일 날짜 체크
-            var today = new Date();
-            var tomorrow = new Date();
-            tomorrow.setDate(today.getDate() + 1);
-            
-            // 한 달 후 날짜 계산
-            var oneMonthLater = new Date();
-            oneMonthLater.setDate(today.getDate());
-            oneMonthLater.setMonth(today.getMonth() + 1);
+             var classes = [];
 
-            // 날짜 비교를 위해 시간 정보 제거
-            today.setHours(0, 0, 0, 0);
-            tomorrow.setHours(0, 0, 0, 0);
-            date.setHours(0, 0, 0, 0);
-            oneMonthLater.setHours(0, 0, 0, 0);
+             // 현재 시간 체크
+             var now = new Date();
+             var currentHour = now.getHours();
+             var tomorrow = new Date();
+             tomorrow.setDate(now.getDate() + 1);
 
-			// 오늘, 내일 날짜 체크
-            if (date.getTime() === today.getTime() || date.getTime() === tomorrow.getTime()) {
-                return [false, "user-disabled"];
-            }
-            
-            // 한 달 이후 날짜 체크
-            if (date > oneMonthLater) {
-                return [false, "user-disabled"];
-            }
-            
-            // 오늘 이전 날짜
-            if (date < today) {
-                return [false, "past-date"];
-            }
- 
- 
-             
+             // 시간 정보 제거 (비교용)
+             var compareDate = new Date(date.getTime());
+             compareDate.setHours(0, 0, 0, 0);
+             var compareNow = new Date(now.getTime());
+             compareNow.setHours(0, 0, 0, 0);
+             var compareTomorrow = new Date(tomorrow.getTime());
+             compareTomorrow.setHours(0, 0, 0, 0);
+
+             // 오늘 이전 날짜는 선택 불가
+             if (compareDate < compareNow) {
+                 return [false, "past-date"];
+             }
+
+             // 오늘과 같은 날짜는 선택 불가
+             if (compareDate.getTime() === compareNow.getTime()) {
+                 return [false, "user-disabled"];
+             }
+
+             // 내일 날짜에 대한 처리
+             if (compareDate.getTime() === compareTomorrow.getTime()) {
+                 // 17시 이후면 내일 선택 불가
+                 if (currentHour >= 17) {
+                     return [false, "user-disabled"];
+                 }
+             }
+
+             // 현재 달이 아닌 날짜 체크
+             var currentDate = new Date();
+             if (date.getMonth() < currentDate.getMonth()) {
+                 return [false, "user-disabled"];
+             }
+
+             // 한 달 후 날짜 계산
+             var oneMonthLater = new Date();
+             oneMonthLater.setDate(today.getDate());
+             oneMonthLater.setMonth(today.getMonth() + 1);
+             oneMonthLater.setHours(0, 0, 0, 0);
+
+             // 한 달 이후 날짜 체크
+             if (date > oneMonthLater) {
+                 return [false, "user-disabled"];
+             }
+
              // 예약 불가능한 날짜
              if (isDisabled) {
                  return [false, "user-disabled"];
              }
- 
-             // 오늘 이전 날짜
-             if (date < today) {
-                 return [false, "past-date"];
-             }
- 
-             // 선택된 날짜 범위 표시
+
+             // 선택된 날짜 범위 표시 
              if (startDate && endDate && date > startDate && date < endDate) {
                  classes.push("selected-range");
              }
- 
+
              // 시작일과 종료일 강조 표시
              if (startDate && endDate && date >= startDate && date <= endDate) {
                  if (date.getTime() === startDate.getTime()) {
@@ -274,35 +277,66 @@
              var startDate = $("#datepicker").data("startDate");
              var endDate = $("#datepicker").data("endDate");
  
+             // 주말 체크 (0: 일요일, 6: 토요일)
+             var isWeekend = selectedDate.getDay() === 0 || selectedDate.getDay() === 6;
+
              // 시작일 선택 또는 새로운 범위 선택 시작
              if (!startDate || endDate) {
+                 if (isWeekend) {
+                     alert("대여일은 주말로 할 수 없습니다.");
+                     $("#datepicker").data("startDate", null);
+                     $("#datepicker").data("endDate", null);
+                     $(this).datepicker("refresh");
+                     return;
+                 }
                  $("#datepicker").data("startDate", selectedDate);
                  $("#datepicker").data("endDate", null);
              }
              // 종료일 선택 (선택된 날짜가 시작일 이후인 경우)
              else if (selectedDate >= startDate) {
-				 // 15일 이내 체크
-                var dayDiff = Math.ceil((selectedDate - startDate) / (1000 * 60 * 60 * 24));
-                if (dayDiff > 15) {
-					alert("최대 15일까지만 선택 가능합니다. 장기 대여의 경우 관리자에게 문의하세요.");
-                    return;
-                }
+                 if (isWeekend) {
+                     alert("반납일은 주말로 할 수 없습니다.");
+                     $("#datepicker").data("startDate", null);
+                     $("#datepicker").data("endDate", null);
+                     $(this).datepicker("refresh");
+                     return;
+                 }
+                 // 15일 이내 체크
+                 var dayDiff = Math.ceil((selectedDate - startDate) / (1000 * 60 * 60 * 24));
+                 if (dayDiff > 15) {
+                     alert("최대 15일까지만 선택 가능합니다. 장기 대여의 경우 관리자에게 문의하세요.");
+                     $("#datepicker").data("startDate", null);
+                     $("#datepicker").data("endDate", null);
+                     $(this).datepicker("refresh");
+                     return;
+                 }
                  if (isRangeValid(startDate, selectedDate)) {
                      $("#datepicker").data("endDate", selectedDate);
                  } else {
                      alert("선택한 기간 내에 예약 불가능한 날짜가 포함되어 있습니다. 다시 선택해주세요.");
                      $("#datepicker").data("startDate", null);
                      $("#datepicker").data("endDate", null);
+                     $(this).datepicker("refresh");
                  }
              }
              // 종료일 선택 (선택된 날짜가 시작일 이전인 경우 - 역순 선택)
              else {
-				 // 15일 이내 체크
-                var dayDiff = Math.ceil((startDate - selectedDate) / (1000 * 60 * 60 * 24));
-                if (dayDiff > 15) {
-                    alert("최대 15일까지만 선택 가능합니다. 장기 대여의 경우 관리자에게 문의하세요.");
-                    return;
-                }
+                 if (isWeekend) {
+                     alert("대여일은 주말로 할 수 없습니다.");
+                     $("#datepicker").data("startDate", null);
+                     $("#datepicker").data("endDate", null);  
+                     $(this).datepicker("refresh");
+                     return;
+                 }
+                 // 15일 이내 체크
+                 var dayDiff = Math.ceil((startDate - selectedDate) / (1000 * 60 * 60 * 24));
+                 if (dayDiff > 15) {
+                     alert("최대 15일까지만 선택 가능합니다. 장기 대여의 경우 관리자에게 문의하세요.");
+                     $("#datepicker").data("startDate", null);
+                     $("#datepicker").data("endDate", null);
+                     $(this).datepicker("refresh");
+                     return;
+                 }
                  if (isRangeValid(selectedDate, startDate)) {
                      $("#datepicker").data("endDate", startDate);
                      $("#datepicker").data("startDate", selectedDate);
@@ -310,6 +344,7 @@
                      alert("선택한 기간 내에 예약 불가능한 날짜가 포함되어 있습니다. 다시 선택해주세요.");
                      $("#datepicker").data("startDate", null);
                      $("#datepicker").data("endDate", null);
+                     $(this).datepicker("refresh");
                  }
              }
  

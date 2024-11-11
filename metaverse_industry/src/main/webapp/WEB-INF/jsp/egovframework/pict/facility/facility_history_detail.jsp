@@ -86,7 +86,7 @@
 												<div class="inputBox">
 													<p class="inputCaption">반납일</p>
 													<input type="date" id="reg_date" name="reg_date" class="lgThinInput"
-														disabled value="${history_detail.rental_end_date}">
+													 value="${history_detail.rental_end_date}">
 												</div>
 											</div>
 											<c:if test="${history_detail.type eq '1'}">
@@ -131,51 +131,16 @@
 											<div class="inputsContainer">
 												<div class="inputBox">
 													<p class="inputCaption">대여상태*</p>
-													<c:choose>
-															<c:when test="${history_detail.request_status eq 'pendding' or history_detail.request_status eq 'retry'}">
-																<select name="request_status" id="request_status" class="lgThinInput"
-																	value="${pictVO.request_status}">
-																	<option value="">선택하세요</option>
-																	<option value="approved">승인</option>
-																	<option value="rejected">서류보완요청</option>
-																	<option value="refusal">거절</option>
-																</select>
-															</c:when>
-															<c:when test="${history_detail.request_status ne 'pendding' and history_detail.request_status ne 'retry'}">
-																<span class="bindingText disable">
-																	<c:choose>
-																		<c:when test="${history_detail.request_status eq 'approved'}">
-																			승인
-																		</c:when>
-																		<c:when test="${history_detail.request_status eq 'rejected'}">
-																			서류보완요청
-																		</c:when>
-																		<c:when test="${history_detail.request_status eq 'returned'}">
-																			반납완료
-																		</c:when>
-																		<c:when test="${history_detail.request_status eq 'overdue'}">
-																			연체중
-																		</c:when>
-																		<c:when test="${history_detail.request_status eq 'returned'}">
-																			반납완료
-																		</c:when>
-																		<c:when test="${history_detail.request_status eq 'rental'}">
-																			대여중
-																		</c:when>
-																		<c:when test="${history_detail.request_status eq 'cancelled'}">
-																			신청취소
-																		</c:when>
-																		<c:when test="${history_detail.request_status eq 'refusal'}">
-																			거절
-																		</c:when>
-																		<c:when test="${history_detail.request_status eq 'cancelled'}">
-																			취소
-																		</c:when>
-																	</c:choose>
-																</span>
-															</c:when>
-													</c:choose>
-													
+													<select name="request_status" id="request_status" class="lgThinInput">
+														<option value="">선택하세요</option>
+														<option value="approved" ${history_detail.request_status eq 'approved' ? 'selected' : ''}>승인</option>
+														<option value="rejected" ${history_detail.request_status eq 'rejected' ? 'selected' : ''}>서류보완요청</option>
+														<option value="returned" ${history_detail.request_status eq 'returned' ? 'selected' : ''}>반납완료</option>
+														<option value="overdue" ${history_detail.request_status eq 'overdue' ? 'selected' : ''}>연체중</option>
+														<option value="rental" ${history_detail.request_status eq 'rental' ? 'selected' : ''}>대여중</option>
+														<option value="cancelled" ${history_detail.request_status eq 'cancelled' ? 'selected' : ''}>신청취소</option>
+														<option value="refusal" ${history_detail.request_status eq 'refusal' ? 'selected' : ''}>거절</option>
+													</select>
 												</div>
 											</div>
 											<div class="inputsContainer reason" style="display: none;">
