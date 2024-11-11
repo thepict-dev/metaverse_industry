@@ -203,9 +203,8 @@
 										return;
 									} else {
 										$(".hidden_request_status").val($("#request_status").val());
-										console.log($(".hidden_request_status").val());
 										$(".hidden_reject_msg").val($("#reject_msg").val());
-										console.log($(".hidden_reject_msg").val());
+										$(".hidden_rental_end_date").val($("#rental_end_date").val());
 										$(".hidden_form").submit();
 									}
 								})

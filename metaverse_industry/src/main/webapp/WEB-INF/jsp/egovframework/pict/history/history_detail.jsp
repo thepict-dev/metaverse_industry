@@ -231,11 +231,16 @@
 							})
 
 							$(".update_status").click(function () {
-								$(".hidden_request_status").val($("#request_status").val());
-								$(".hidden_reject_msg").val($("#reject_msg").val());
-								$(".hidden_rental_end_date").val($("#rental_end_date").val());
-								$(".hidden_form").submit();
-							});
+								if ($("#request_status").val() === "") {
+									alert("대여상태를 선택해주세요.");
+									return;
+								} else {
+									$(".hidden_request_status").val($("#request_status").val());
+									$(".hidden_reject_msg").val($("#reject_msg").val());
+									$(".hidden_rental_end_date").val($("#rental_end_date").val());
+									$(".hidden_form").submit();
+								}
+							})
 						</script>
 						<script src="../../../../../js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 						<script src="../../../../../js/scripts.js"></script>
