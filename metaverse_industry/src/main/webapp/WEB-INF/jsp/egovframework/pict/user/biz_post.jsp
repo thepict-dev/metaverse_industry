@@ -15,6 +15,7 @@
         <div class="subColor">
             <h2>사업공고</h2>
             <p>창의적 도전을 위한<br>다양한 사업을 진행합니다</p>
+           	<div class="scroll">Scroll Down<img src="/img/user_img/down.png" alt=""></div>
         </div>
     </div>
     <div class="subContents">

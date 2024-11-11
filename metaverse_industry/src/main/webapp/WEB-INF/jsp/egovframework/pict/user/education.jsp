@@ -15,6 +15,7 @@
         <div class="subColor">
             <h2>현장체험교육</h2>
             <p> 메타버스 산업의 이해를 높이기 위한<br>무료 체험 교육입니다</p>
+           	<div class="scroll">Scroll Down<img src="/img/user_img/down.png" alt=""></div>
         </div>
     </div>
     <div class="subContents">

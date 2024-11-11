@@ -15,6 +15,7 @@
         <div class="subColor">
             <h2>이용안내</h2>
             <p>강원메타버스지원센터,<br>모두에게 열린 창의와 혁신의 공간입니다.</p>
+           	<div class="scroll">Scroll Down<img src="/img/user_img/down.png" alt=""></div>
         </div>
     </div>
     <div class="subContents etcTab">

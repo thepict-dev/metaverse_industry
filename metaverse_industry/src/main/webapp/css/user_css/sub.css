@@ -23,6 +23,41 @@
     background-color: rgba(0, 0, 0, 0.20);
 }
 
+.subColor .scroll{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 10px;
+    padding: 10px;
+    color: var(--wh, #FFF);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 100%; /* 20px */
+    letter-spacing: 1px;
+}
+.subColor .scroll img{
+    animation: scroll 1s infinite ease-in-out;
+}
+@keyframes scroll {
+    0%{
+        transform: translateY(0);
+    }
+    50%{
+        transform: translateY(5px);
+    }
+    100%{
+        transform: translateY(0);
+    }
+}
+@media all and (max-width : 1024px){
+	.subColor .scroll{
+	    column-gap: 6px;
+	    padding: 4px;
+	    font-size: 16px;
+	}
+	
+}
+
 .subTop.notice1 {
     background-image: url(/img/user_img/sub-notice1.jpeg);
 }

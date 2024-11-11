@@ -15,6 +15,7 @@
         <div class="subColor">
             <h2>공지사항</h2>
             <p>새로운 소식을 안내드립니다</p>
+           	<div class="scroll">Scroll Down<img src="/img/user_img/down.png" alt=""></div>
         </div>
     </div>
     <div class="subContents">

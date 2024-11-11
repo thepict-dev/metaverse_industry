@@ -15,6 +15,7 @@
        <div class="subColor">
            <h2>센터소개</h2>
            <p>온택트시대의 메타버스 콘텐츠,<br>강원 메타버스 지원센터가 그 중심이 되겠습니다.</p>
+           <div class="scroll">Scroll Down<img src="/img/user_img/down.png" alt=""></div>
        </div>
     </div>
     <div class="subContents intro">

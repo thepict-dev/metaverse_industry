@@ -55,6 +55,7 @@
 											<div class="subColor">
 												<h2>장비대여</h2>
 												<p>누구나 이용할 수 있는<br>장비 대여 서비스입니다</p>
+           										<div class="scroll">Scroll Down<img src="/img/user_img/down.png" alt=""></div>
 											</div>
 										</div>
 										<div class="subContents rental">
