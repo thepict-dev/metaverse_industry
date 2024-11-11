@@ -19,15 +19,15 @@
             <span><img src="/img/user_img/logo.png" alt=""></span>
             <form id="loginForm" action="" method="post">
                 <div class="inputContainer login">
-                    <input type="text" name="user_id" id="id" placeholder="아이디를 입력하세요">
-                    <input type="password" name="password" id="password" placeholder="비밀번호를 입력하세요">
+                    <input type="text" name="user_id" id="id" placeholder="아이디를 입력하세요" onkeypress="if(event.keyCode == 13){fn_login();}" autocomplete="off">
+                    <input type="password" name="password" id="password" placeholder="비밀번호를 입력하세요" onkeypress="if(event.keyCode == 13){fn_login();}" autocomplete="off">
                 </div>
                	<div class="findButtonContainer">
                 	<button type="button" class="findID">아이디 찾기</button>
                 	<button type="button" class="findPW">비밀번호 찾기</button>
                	</div>
                 <div class="fullButtonContainer">
-                    <a href="#lnk" class="bl" onclick="fn_login()">로그인</a>
+                    <a href="#lnk" class="bl" onclick="javascript:fn_login();">로그인</a>
                     <a href="/join.do" class="wt">회원가입</a>
                 </div>
             </form>

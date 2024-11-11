@@ -37,7 +37,7 @@ footer{
     width: 100%;
     padding: 12px 32px;
     border: 1px solid var(--grey-100);
-    font-family: 'SUIT', sans-serif;
+    font-family: 'SUIT', sans-serif; 
     font-size: 16px;
     font-weight: 500;
     line-height: 100%; /* 16px */

@@ -117,8 +117,8 @@
 											</div>
 											<div class="inputBox">
 												<p class="inputCaption">반납일</p>
-												<input type="date" id="reg_date" name="reg_date" class="lgThinInput"
-												 value="${history_detail.rental_end_date}">
+												<input type="date" id="rental_end_date" name="rental_end_date" class="lgThinInput"
+													value="${history_detail.rental_end_date}">
 											</div>
 										</div>
 										<c:if test="${history_detail.type eq '1'}">
@@ -197,6 +197,7 @@
 									<input type="hidden" name="idx" value="${history_detail.idx}">
 									<input type="hidden" name="request_status" class="hidden_request_status">
 									<input type="hidden" name="reject_msg" class="hidden_reject_msg">
+									<input type="hidden" name="rental_end_date" class="hidden_rental_end_date">
 								</form>
 								<div class="listWrapper">
 									<div class="listInner set">
@@ -230,18 +231,11 @@
 							})
 
 							$(".update_status").click(function () {
-								if ($("#request_status").val() === "") {
-									alert("대여상태를 선택해주세요.");
-									return;
-								} else {
-									$(".hidden_request_status").val($("#request_status").val());
-									console.log($(".hidden_request_status").val());
-									$(".hidden_reject_msg").val($("#reject_msg").val());
-									console.log($(".hidden_reject_msg").val());
-									$(".hidden_form").submit();
-								}
-								console.log("완료");
-							})
+								$(".hidden_request_status").val($("#request_status").val());
+								$(".hidden_reject_msg").val($("#reject_msg").val());
+								$(".hidden_rental_end_date").val($("#rental_end_date").val());
+								$(".hidden_form").submit();
+							});
 						</script>
 						<script src="../../../../../js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 						<script src="../../../../../js/scripts.js"></script>
