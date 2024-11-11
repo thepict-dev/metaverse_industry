@@ -5,12 +5,10 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.UUID;
 
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 public class FileManagement {
-//	private final static String PATH = "/user1/upload_file/metaverse_industry/";
-	private final static String PATH = "C:\\Users\\82105\\Desktop\\test\\";
+	private final static String PATH = "/user1/upload_file/metaverse_industry/";
 	
 	public String upload(MultipartFile file, String sessions) {
 		UUID uuid = UUID.randomUUID();
@@ -19,7 +17,7 @@ public class FileManagement {
 	}
 	
 	public String upload(MultipartFile file, String sessions, String remainFile) {
-		if (ObjectUtils.isEmpty(file)) {
+		if (file.isEmpty()) {
 			return remainFile;
 		} else {
 			UUID uuid = UUID.randomUUID();
