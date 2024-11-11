@@ -85,7 +85,7 @@
 												</div>
 												<div class="inputBox">
 													<p class="inputCaption">반납일</p>
-													<input type="date" id="reg_date" name="reg_date" class="lgThinInput"
+													<input type="date" id="rental_end_date" name="rental_end_date" class="lgThinInput"
 													 value="${history_detail.rental_end_date}">
 												</div>
 											</div>
@@ -165,6 +165,7 @@
 										<input type="hidden" name="idx" value="${history_detail.idx}">
 										<input type="hidden" name="request_status" class="hidden_request_status">
 										<input type="hidden" name="reject_msg" class="hidden_reject_msg">
+										<input type="hidden" name="rental_end_date" class="hidden_rental_end_date">
 									</form>
 									<div class="listWrapper">
 										<div class="listInner set">
