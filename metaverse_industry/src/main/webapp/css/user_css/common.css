@@ -70,7 +70,7 @@ textarea {
 .validation-msg {
     padding-top: 7px;
     padding-left: 10px;
-    font-family: SUIT;
+    font-family: 'SUIT', sans-serif;
     letter-spacing: -0.5px;
     font-weight: 500;
 }
@@ -322,7 +322,7 @@ input[type=password] {
     width: 100%;
     padding: 24px 12px;
     color: #000;
-    font-family: var(--fn-suit);
+    font-family: 'SUIT', sans-serif;
     font-size: 18px;
     font-weight: 500;
     line-height: 100%;
