@@ -205,6 +205,18 @@
 					$("#register").submit();
 				}
 			}
+			
+			document.getElementById('attach_file').addEventListener('change', function(event) {
+			    $('.file_name_1').text(event.target.files[0].name)
+			});
+			
+			document.getElementById('attach_file1').addEventListener('change', function(event) {
+			    $('.file_name_2').text(event.target.files[0].name)
+			});
+			
+			document.getElementById('attach_file2').addEventListener('change', function(event) {
+			    $('.file_name_3').text(event.target.files[0].name)
+			});
 		</script>
 	</body>
 	

@@ -798,6 +798,9 @@
 			<if test="reject_msg != null and reject_msg != ''">
 			, reject_msg = #{reject_msg}
 			</if>
+			<if test="rental_end_date != null and rental_end_date != ''">
+			, rental_end_date = #{rental_end_date}
+			</if>
 		WHERE idx = #{idx} 
 	</update>
 	
@@ -1283,6 +1286,9 @@
 		SET
 			request_status = #{request_status},
 			reject_msg = #{reject_msg}
+			<if test="rental_end_date != null and rental_end_date != ''">
+			, rental_end_date = #{rental_end_date}
+			</if>
 		WHERE idx = #{idx} 
 	</update>
 	

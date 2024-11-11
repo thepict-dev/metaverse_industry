@@ -117,7 +117,7 @@
 											</div>
 											<div class="inputBox">
 												<p class="inputCaption">반납일</p>
-												<input type="date" id="reg_date" name="reg_date" class="lgThinInput"
+												<input type="date" id="end_date" name="end_date" class="lgThinInput"
 												 value="${history_detail.rental_end_date}">
 											</div>
 										</div>
@@ -128,7 +128,7 @@
 													<span
 														class="bindingText plan">${history_detail.equipment_plan}</span>
 												</div>
-											</div>
+											</div> 
 										</c:if>
 										<div class="inputsContainer">
 											<c:if test="${not empty history_detail.file_path}">
@@ -197,6 +197,7 @@
 									<input type="hidden" name="idx" value="${history_detail.idx}">
 									<input type="hidden" name="request_status" class="hidden_request_status">
 									<input type="hidden" name="reject_msg" class="hidden_reject_msg">
+									<input type="hidden" name="rental_end_date" class="hidden_rental_end_date">
 								</form>
 								<div class="listWrapper">
 									<div class="listInner set">
@@ -238,10 +239,16 @@
 									console.log($(".hidden_request_status").val());
 									$(".hidden_reject_msg").val($("#reject_msg").val());
 									console.log($(".hidden_reject_msg").val());
+									$(".hidden_rental_end_date").val($('#end_date').val());
 									$(".hidden_form").submit();
 								}
 								console.log("완료");
 							})
+							
+						    document.getElementById('end_date').addEventListener('change', function(event) {
+						        // 변경된 날짜 값을 가져오기
+						        const newDate = event.target.value;
+						    });
 						</script>
 						<script src="../../../../../js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 						<script src="../../../../../js/scripts.js"></script>
