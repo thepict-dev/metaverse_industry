@@ -185,6 +185,8 @@ document.addEventListener('DOMContentLoaded', function () {
  
  
  
+ 
+ 
  function initDatepicker() {
      $("#datepicker").datepicker({
          numberOfMonths: getNumberOfMonths(),
@@ -738,6 +740,16 @@ document.addEventListener('DOMContentLoaded', function () {
          formData.append("rental_type", rental_type);
          formData.append("equipment_list", JSON.stringify(selectedEquipment));
          formData.append("equipment_plan", document.querySelector(".equipment-plan-individual").value);
+         
+         // 각 장비의 수량 정보를 hidden으로 추가하면서 로그 출력
+         selectedEquipment.forEach(equipment => {
+             const countName = `equipment_count_${equipment.id}`;
+             console.log("장비 ID:", equipment.id);
+             console.log("Count name:", countName);
+             console.log("Count value:", equipment.cnt);
+             formData.append(countName, equipment.cnt);
+         });
+
          let indexArray = [];
          selectedFiles.forEach((file, i) => {
 			
@@ -746,11 +758,21 @@ document.addEventListener('DOMContentLoaded', function () {
         indexArray.map((file , i) => {
          formData.append(`attach_file${i + 1}`, file);
 		})
+
+         // FormData 내용 확인
+         console.log("=== FormData 내용 확인 ===");
+         for (let pair of formData.entries()) {
+             console.log(pair[0] + ': ' + pair[1]);
+         }
+
      } else if (rental_type === "company") {
          console.log("법인 예약");
          formData.append("rental_type", rental_type);
          formData.append("equipment_list", JSON.stringify(selectedEquipment));
          formData.append("equipment_plan", document.querySelector(".equipment-plan-company").value);
+         selectedEquipment.forEach(equipment => {
+             formData.append(`equipment_count_${equipment.id}`, equipment.cnt);
+         });
          formData.append("company_nm", document.querySelector("#company_nm").value);
          formData.append("sa_eob_no", document.querySelector("#sa_eob_no").value);
          formData.append("position", document.querySelector("#position").value);
@@ -764,6 +786,12 @@ document.addEventListener('DOMContentLoaded', function () {
          indexArray.map((file , i) => {
            formData.append(`attach_file${i + 1}`, file);
 		 })
+
+         // FormData 내용 확인
+         console.log("=== FormData 내용 확인 ===");
+         for (let pair of formData.entries()) {
+             console.log(pair[0] + ': ' + pair[1]);
+         }
      }
      $.ajax({
          url: '/api/booking.do'
