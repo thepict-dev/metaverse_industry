@@ -234,19 +234,13 @@ public class UserController {
 	@ResponseBody
 	public HashMap<String, Object> getEquipmentAvailableDate(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
 			HttpServletRequest request, @RequestBody Map<String, Object> param) throws Exception {
-		System.out.println("param @@@@" + param);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		if (param.get("id") != null) {
-			String equipmentId = param.get("id").toString();
-			System.out.println(equipmentId + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-
-			pictVO.setId(equipmentId);
-			System.out.println("id @@@@" + pictVO.getId());
+			pictVO.setId(param.get("id").toString());
+			pictVO.setCount(param.get("count").toString());
 			List<Map<String, Object>> unavailable_date_list = pictService.equipment_unavailable_date_list(pictVO);
-			System.out.println("available_date_list@@@@@@@@@@@ " + unavailable_date_list);
 			map.put("msg", "ok");
 			if (unavailable_date_list.isEmpty()) {
-				System.out.println("모두 가능할때@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ " + unavailable_date_list);
 				List<Map<String, Object>> allAvailable = new ArrayList<>();
 				map.put("data", allAvailable);
 			} else {
@@ -288,19 +282,12 @@ public class UserController {
 	@ResponseBody
 	public HashMap<String, Object> getFacilityAvailableDate(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
 			HttpServletRequest request, @RequestBody Map<String, Object> param) throws Exception {
-		System.out.println("param @@@@" + param);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		if (param.get("id") != null) {
-			String facilityId = param.get("id").toString();
-			System.out.println(facilityId + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-
-			pictVO.setId(facilityId);
-			System.out.println("id @@@@" + pictVO.getId());
+			pictVO.setId(param.get("id").toString());
 			List<Map<String, Object>> unavailable_date_list = pictService.facility_unavailable_date_list(pictVO);
-			System.out.println("available_date_list@@@@@@@@@@@ " + unavailable_date_list);
 			map.put("msg", "ok");
 			if (unavailable_date_list.isEmpty()) {
-				System.out.println("모두 가능할때@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ " + unavailable_date_list);
 				List<Map<String, Object>> allAvailable = new ArrayList<>();
 				map.put("data", allAvailable);
 			} else {

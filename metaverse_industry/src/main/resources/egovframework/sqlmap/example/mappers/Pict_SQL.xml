@@ -411,24 +411,35 @@
 		    SELECT 
 		        dr.date,
 		        et.id AS equipment_type_id,
-		        COUNT(ei.id) AS total_count,
-		        SUM(CASE WHEN ei.status = 'available' THEN 1 ELSE 0 END) -
-		        COALESCE(SUM(CASE 
-		            WHEN r.request_status IN ('approved', 'pendding') 
-		            AND dr.date BETWEEN r.rental_start_date AND r.rental_end_date 
-		            THEN 1 ELSE 0 END), 0) AS available_count
-		    FROM date_range dr
-		    CROSS JOIN equipment_type_table et
-		    JOIN equipment_item_table ei ON et.id = ei.equipment_type_id
-		    LEFT JOIN equipment_rental_request r ON ei.id = r.equipment_id
-		    WHERE et.id = #{id}
-		    GROUP BY dr.date, et.id
+		        -- 전체 사용 가능한 장비 수
+		        COUNT(DISTINCT CASE WHEN ei.status = 'available' THEN ei.id END) AS total_available,
+		        -- 해당 날짜에 실제 대여 가능한 장비 수
+		        COUNT(DISTINCT CASE WHEN ei.status = 'available' THEN ei.id END) - 
+		        COUNT(DISTINCT CASE 
+		            WHEN ei.status = 'available' 
+		                AND r.request_status IN ('approved', 'pendding', "rental", "overdue")
+		                AND dr.date BETWEEN r.rental_start_date AND r.rental_end_date 
+		            THEN ei.id 
+		        END) AS available_count
+		    FROM 
+		        date_range dr
+		        CROSS JOIN equipment_type_table et
+		        LEFT JOIN equipment_item_table ei ON et.id = ei.equipment_type_id
+		        LEFT JOIN equipment_rental_request r ON ei.id = r.equipment_id
+		    WHERE 
+		        et.id = #{id}  -- 파라미터로 받을 장비 타입 ID
+		        AND et.use_ny = 'Y'         -- 사용 가능한 장비 타입만
+		    GROUP BY 
+		        dr.date, et.id
 		)
 		SELECT 
 		    DATE_FORMAT(date, '%Y-%m-%d') AS unavailable_date
-		FROM equipment_availability
-		WHERE available_count = 0
-		ORDER BY date
+		FROM 
+		    equipment_availability
+		WHERE 
+		    available_count < #{count}  -- 파라미터로 받을 필요한 수량
+		ORDER BY 
+		    date
 		]]>
 	</select>
 	
@@ -960,36 +971,46 @@
 	
 	<select id="facility_unavailable_date_list" resultType="map">
 		<![CDATA[
-		WITH RECURSIVE
-		date_range AS (
-		    SELECT DATE_ADD(CURDATE(), INTERVAL 1 DAY) AS date
-		    UNION ALL
-		    SELECT date + INTERVAL 1 DAY
-		    FROM date_range
-		    WHERE date < LAST_DAY(DATE_ADD(CURDATE(), INTERVAL 1 MONTH))
-		),
-		facility_availability AS (
-		    SELECT 
-		        dr.date,
-		        et.id AS facility_type_id,
-		        COUNT(ei.id) AS total_count,
-		        SUM(CASE WHEN ei.status = 'available' THEN 1 ELSE 0 END) -
-		        COALESCE(SUM(CASE 
-		            WHEN r.request_status IN ('approved', 'pendding') 
-		            AND dr.date BETWEEN r.rental_start_date AND r.rental_end_date 
-		            THEN 1 ELSE 0 END), 0) AS available_count
-		    FROM date_range dr
-		    CROSS JOIN facility_type_table et
-		    JOIN facility_item_table ei ON et.id = ei.facility_type_id
-		    LEFT JOIN facility_rental_request r ON ei.id = r.facility_id
-		    WHERE et.id = #{id}
-		    GROUP BY dr.date, et.id
-		)
-		SELECT 
-		    DATE_FORMAT(date, '%Y-%m-%d') AS unavailable_date
-		FROM facility_availability
-		WHERE available_count = 0
-		ORDER BY date
+			WITH RECURSIVE
+			date_range AS (
+			    SELECT DATE_ADD(CURDATE(), INTERVAL 1 DAY) AS date
+			    UNION ALL
+			    SELECT date + INTERVAL 1 DAY
+			    FROM date_range
+			    WHERE date < LAST_DAY(DATE_ADD(CURDATE(), INTERVAL 1 MONTH))
+			),
+			facility_availability AS (
+			    SELECT 
+			        dr.date,
+			        et.id AS facility_type_id,
+			        -- 전체 사용 가능한 장비 수
+			        COUNT(DISTINCT CASE WHEN ei.status = 'available' THEN ei.id END) AS total_available,
+			        -- 해당 날짜에 실제 대여 가능한 장비 수
+			        COUNT(DISTINCT CASE WHEN ei.status = 'available' THEN ei.id END) - 
+			        COUNT(DISTINCT CASE 
+			            WHEN ei.status = 'available' 
+			                AND r.request_status IN ('approved', 'pendding', "rental", "overdue")
+			                AND dr.date BETWEEN r.rental_start_date AND r.rental_end_date 
+			            THEN ei.id 
+			        END) AS available_count
+			    FROM 
+			        date_range dr
+			        CROSS JOIN facility_type_table et
+			        LEFT JOIN facility_item_table ei ON et.id = ei.facility_type_id
+			        LEFT JOIN facility_rental_request r ON ei.id = r.facility_id
+			    WHERE 
+			        et.id = #{id}  -- 파라미터로 받을 장비 타입 ID
+			        AND et.use_ny = 'Y'         -- 사용 가능한 장비 타입만
+			    GROUP BY 
+			        dr.date, et.id
+			)
+			SELECT 
+			    DATE_FORMAT(date, '%Y-%m-%d') AS unavailable_date
+			FROM 
+			    facility_availability
+			WHERE 
+			    available_count < 1  -- 파라미터로 받을 필요한 수량
+			ORDER BY date
 		]]>
 	</select>
 	

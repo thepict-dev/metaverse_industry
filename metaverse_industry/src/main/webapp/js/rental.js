@@ -463,12 +463,13 @@ document.addEventListener('DOMContentLoaded', function () {
  document.querySelectorAll(".checkItem, .checkBox").forEach(el => {
     el.addEventListener("click", () => {
         const facilityId = el.parentElement.dataset.id;
+        const cnt = el.parentElement.dataset.cnt;
         const isAlreadySelected = selectedEquipment.some(equip => equip.id === facilityId);
         
         if (!isAlreadySelected) {
             resetCheckedEquip();
             el.parentElement.classList.add("checked");
-            getEquipmentAvailableDate(facilityId);
+            getEquipmentAvailableDate(facilityId , cnt);
         } else {
             alert("이미 선택된 시설입니다. 다른 시설을 선택해주세요.");
         }
@@ -481,10 +482,13 @@ document.addEventListener('DOMContentLoaded', function () {
     })
  }
  
- const getEquipmentAvailableDate = (id) => {
-    const param = { id: id }
+ const getEquipmentAvailableDate = (id, cnt) => {
+    const param = { 
+    	id: id,
+    	count : cnt
+	}
     $.ajax({
-        url: '/api/checkFacilityAvailableDate.do',
+        url: '/api/checkEquipmentAvailableDate.do',
         type: "POST",
         data: JSON.stringify(param),
         contentType: "application/json",

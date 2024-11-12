@@ -137,6 +137,9 @@
                                       	<a href="#lnk" data-id="${item.id}" class="clickable docAdd">서류보완요청</a>
                                       	<input type="hidden" value="${item.reject_msg}"
                                           class="reject_msg" />
+                                        <input type="hidden" id="document_url1" value="${item.file_path}" />
+                                        <input type="hidden" id="document_url2" value="${item.file_path2}" />
+                                        <input type="hidden" id="document_url3" value="${item.file_path3}" />
                                       </td>
                                      
                                   </c:if>
@@ -269,12 +272,13 @@
                     <input type="hidden" name="id" id="id" />
                     <div class="inputContainer">
                         <p class="inputCaption">증빙서류 첨부</p>
-                        <div class="flexInputs file">
+						<div class="file_list"></div>
+                        <!-- <div class="flexInputs file">
                             <p class="fileName"></p>
                             <label for="document_file" id="attach_file">파일추가</label>
                             <input type="file" name="document_file" id="document_file" style="display: none;">
                             <button type="button" id="deleteButton" style="display: none;"><img src="/img/user_img/del-file.png" alt=""></button>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="fullButtonContainer my">

@@ -112,6 +112,7 @@ public class PictVO extends PictDefaultVO {
 	private String campus_id;
 	private String week_cha;
 	private String week_count;
+	private String count;
 	private String zoom_no;
 	private String zoom_pw;
 	private String time;
@@ -2004,5 +2005,13 @@ public class PictVO extends PictDefaultVO {
 
 	public void setInventoryCnt(Integer inventoryCnt) {
 		this.inventoryCnt = inventoryCnt;
+	}
+
+	public String getCount() {
+		return count;
+	}
+
+	public void setCount(String count) {
+		this.count = count;
 	}
 }

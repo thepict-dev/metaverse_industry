@@ -1257,7 +1257,7 @@ public class PictController {
 		if (sessions == null || sessions == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
-		String file_dir = "C:\\Users\\82105\\Desktop\\test";
+		String file_dir = "/user1/upload_file/metaverse_industry/";
 
 		if(attach_file1.getSize() != 0) {
 			UUID uuid = UUID.randomUUID();

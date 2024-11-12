@@ -54,8 +54,8 @@
 	                                               	</c:if>
                                                 </a>
                                             </li>
-                                            <li class="<c:if test="${pictVO.request_status eq 'refused'}">active
-                                                </c:if>"><a href="/mypage_equip.do?request_status=refused">승인거절
+                                            <li class="<c:if test="${pictVO.request_status eq 'refusal'}">active
+                                                </c:if>"><a href="/mypage_equip.do?request_status=refusal">승인거절
                                                 	<c:if test="${refusalCnt ne 0 }">
 	                                                    	<span>${refusalCnt}</span>
 	                                               	</c:if>
