@@ -58,7 +58,7 @@ $("#serial_number").change(function(e) {
 				$(".file_name").val(data.file_path)
 				
 				$(".wtButtonContainer").show();
-				
+				/*
 				if (data.file_path) {
 					const Container = document.createElement("div");
 					Container.classList.add("inputsContainer");
@@ -98,6 +98,7 @@ $("#serial_number").change(function(e) {
 					`
 					document.querySelector(".uploaded_files").appendChild(Container);
 				}
+				*/
 			} else {
 				$(".wtButtonContainer").hide();
 				$('.user_type').text("")
@@ -155,7 +156,7 @@ $("#idx").change(function(e) {
 				$(".submit").attr("data-status", data.request_status);
 				$(".submit").attr("data-request_idx", data.request_idx);
 
-
+				
 				if (data.request_status === "approved") {
 					request_status = "승인완료";
 					$(".submit").text("대여처리");
@@ -180,6 +181,7 @@ $("#idx").change(function(e) {
 				$("#bujajae").text(data.item_text);
 				
 				$(".wtButtonContainer").show();
+				/*
 				if (data.file_path) {
 					const Container = document.createElement("div");
 					Container.classList.add("inputsContainer");
@@ -219,6 +221,7 @@ $("#idx").change(function(e) {
 					`
 					document.querySelector(".uploaded_files").appendChild(Container);
 				}
+				*/
 			} else {
 				$(".wtButtonContainer").hide();
 				$('.user_type').text("")
