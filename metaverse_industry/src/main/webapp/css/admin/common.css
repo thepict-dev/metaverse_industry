@@ -640,8 +640,12 @@ select:disabled{
     font-weight: 400;
     line-height: 100%; /* 14px */
     letter-spacing: -0.7px;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
-.bindingText span{
+.bindingText span,.bindingText a{
     color: var(--text-color);
     font-family: SUIT;
     font-size: 14px;
@@ -649,7 +653,6 @@ select:disabled{
     font-weight: 400;
     line-height: 100%; /* 14px */
     letter-spacing: -0.7px;
-	
 }
 .bindingText.per{
 	width: 100%;
