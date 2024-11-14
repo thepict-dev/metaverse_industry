@@ -2128,13 +2128,39 @@ public class PictController {
 		if (param.get("serial_number") != null) {
 			String serial_number = param.get("serial_number").toString(); 
 			System.out.println("serial_number @@@@" + serial_number);
-			Map<String, Object> rental = pictService.get_qr_code(serial_number);
-			if (rental.get("request_idx") != null) {
-				System.out.println("rental @@@@" + rental);
-				map.put("msg", "ok");
-				map.put("data", rental);
-			} else {
+			pictVO.setSerial_number(serial_number);
+			pictVO.setIdx(0);
+			System.out.println("serial_number@@@@@@@@@@@@@@@@@@@2"+ pictVO.getSerial_number());
+			Map<String, Object> rental = pictService.get_qr_code(pictVO);
+			if (rental == null) {
 				map.put("msg", "fail");
+			} else {				
+				if (rental.get("request_idx") != null) {
+					System.out.println("rental @@@@" + rental);
+					map.put("msg", "ok");
+					map.put("data", rental);
+				} else {
+					map.put("msg", "fail");
+				}
+			}
+		}
+		
+		if (param.get("idx") != null) {
+			Integer idx = Integer.parseInt((String) param.get("idx"));
+			pictVO.setIdx(idx);
+			pictVO.setSerial_number("");
+			System.out.println("idx@@@@@@@@@@@@@@@@@@@2"+ pictVO.getIdx());
+			Map<String, Object> rental = pictService.get_qr_code(pictVO);
+			if (rental == null) {
+				map.put("msg", "fail");
+			} else {				
+				if (rental.get("request_idx") != null) {
+					System.out.println("rental @@@@" + rental);
+					map.put("msg", "ok");
+					map.put("data", rental);
+				} else {
+					map.put("msg", "fail");
+				}
 			}
 		}
 

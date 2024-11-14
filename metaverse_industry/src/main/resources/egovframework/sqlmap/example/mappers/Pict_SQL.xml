@@ -816,7 +816,7 @@
 	</update>
 	
 	<!-- QR코드 -->
-	<select id="get_qr_code" parameterType="string" resultType="map">
+	<select id="get_qr_code" parameterType="pictVO" resultType="map">
 	    SELECT 
 	        eit.idx AS item_idx,
 	        eit.id AS item_id,
@@ -824,6 +824,7 @@
 	        eit.status AS item_status,
 	        eit.image_url AS item_image,
 	        eit.text AS item_text,
+             eit.serial_number,
 	        
      	   	date_format(eit.reg_date, '%Y-%m-%d') as equipment_reg_date,
 	        ett.id AS type_id,
@@ -880,10 +881,14 @@
 	        )
 	    LEFT JOIN 
 	        user_table ut ON err.user_id = ut.user_id
-	    WHERE 
-	        eit.serial_number = #{serial_number}
-	    ORDER BY 
-	        err.rental_start_date ASC
+	    WHERE
+	    	1=1
+	    	<if test="serial_number != null and serial_number != ''">
+		        and eit.serial_number = #{serial_number}
+	    	</if>
+	    	<if test="idx != null and idx != 0">
+		        and eit.idx = #{idx}
+	    	</if>
 	</select>
 	
 	

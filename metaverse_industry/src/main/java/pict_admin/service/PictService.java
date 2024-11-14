@@ -144,7 +144,7 @@ public interface PictService {
 	
 	PictVO findEquipmentRequestById(String id, String userId) throws Exception;
 	
-	Map<String, Object> get_qr_code(String serial_number) throws Exception;
+	Map<String, Object> get_qr_code(PictVO pictVO) throws Exception;
 	
 	// 시설물 관련
 	List<?> facility_list(PictVO pictVO) throws Exception;

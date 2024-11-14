@@ -150,7 +150,7 @@ public interface PictMapper {
 	
 	Integer equipment_list_total_cnt(PictVO pictVO) throws Exception;
 	
-	Map<String, Object> get_qr_code(String serial_number) throws Exception;
+	Map<String, Object> get_qr_code(PictVO pictVO) throws Exception;
 	
 	PictVO findEquipmentRequestById(@Param("id") String id, @Param("user_id") String userId) throws Exception;
 

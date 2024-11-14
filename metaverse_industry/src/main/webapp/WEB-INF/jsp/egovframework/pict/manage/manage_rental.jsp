@@ -22,8 +22,12 @@
 								<div class="barcodeContainer">
 									<div class="inputsContainer">
 										<div class="inputBox">
+											<p class="inputCaption">QR코드 스캔</p>
+											<input type="text" name="idx" id="idx" placeholder="QRcode를 스캔해주세요." >
+										</div>
+										<div class="inputBox">
 											<p class="inputCaption">시리얼 넘버</p>
-											<input type="text" name="idx" id="idx" placeholder="QR코드를 찍어주세요." value="${pictVO.serial_number}">
+											<input type="text" name="serial_number" id="serial_number" placeholder="시리얼 넘버를 입력해주세요." value="${pictVO.serial_number}">
 										</div>
 									</div>
 								</div>
@@ -74,14 +78,9 @@
 														<span class="bindingText plan"></span>
 													</div>
 												</div>
-												<div class="inputsContainer">
-													<div class="inputBox">
-														<p class="inputCaption">첨부파일</p>
-														<div class="fileList binding">
-															<p class="file_name"></p>
-														</div>
-													</div>
+												<div class="uploaded_files">
 												</div>
+												
 											</div>
 										</div>
 										<div class="listWrapper">
