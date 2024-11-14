@@ -513,12 +513,12 @@ public class UserController {
 					// 재고가 있을 때
 					int cnt = Integer.parseInt(facility.get("cnt").toString());
 					for (int j = 0; j < cnt; j++) {
-						Map<String, Object> randomItem = items.get(new Random().nextInt(items.size()));
-						// Map<String, Object> randomItem = items.get(new
-						// Random().nextInt(items.size()));
-
-						String facility_item_id = randomItem.get("id").toString();
-						pictVO.setId(facility_item_id);
+						
+						for(Map<String, Object> item : items) {
+							if(item.get("facility_type_id").equals(facility.get("id").toString())) {
+								pictVO.setId(item.get("id").toString());
+							}
+						}
 
 						String startDateStr = (String) facility.get("rental_start_date");
 						String endDateStr = (String) facility.get("rental_end_date");
