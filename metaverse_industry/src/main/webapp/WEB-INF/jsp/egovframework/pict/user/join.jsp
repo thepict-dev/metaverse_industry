@@ -120,7 +120,7 @@
                                                             <p class="fileName"></p>
                                                             <label for="file" id="attach_file">파일추가</label>
                                                             <input type="file" id="file" style="display: none;"
-                                                                name="attach_file">
+                                                                name="attach_file" accept=".pdf, .jpg, .jpeg, .png, .hwp">
                                                             <button type="button" id="deleteButton"
                                                                 style="display: none;"><img
                                                                     src="/img/user_img/del-file.png" alt=""></button>
@@ -170,8 +170,18 @@
                                         const deleteButton = document.getElementById('deleteButton');
 
                                         fileInput.addEventListener('change', function (e) {
+                                            const allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png', 'hwp'];
+                                            const fileName = this.files[0]?.name;
+                                            const fileExtension = fileName?.split('.').pop().toLowerCase();
+                                            
                                             if (this.files[0]) {
-                                                fileName.textContent = this.files[0].name;
+                                                if (!allowedExtensions.includes(fileExtension)) {
+                                                    alert('PDF, JPG, PNG, HWP 파일만 업로드 가능합니다.');
+                                                    this.value = '';
+                                                    return;
+                                                }
+                                                
+                                                document.querySelector('.fileName').textContent = fileName;
                                                 deleteButton.style.display = 'inline-block';
                                             }
                                         });

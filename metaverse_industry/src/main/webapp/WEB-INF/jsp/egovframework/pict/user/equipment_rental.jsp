@@ -180,7 +180,7 @@
                                                             <div id="dropZone" class="dropzone_individual">
 														        파일을 여기에 드래그하세요
 														        <br>또는<br>
-														        <input type="file" id="fileInput" class="fileInput_individual" multiple style="margin-top: 10px;">
+														        <input type="file" id="fileInput" class="fileInput_individual" multiple style="margin-top: 10px;" accept=".jpg, .jpeg, .png, .pdf, .hwp">
 														    </div>
 														    <div class="file-list file_list_individual" id="fileList"></div>
                                                         </div>
@@ -240,7 +240,7 @@
                                                             <div id="dropZone" class="dropzone_company">
 														        파일을 여기에 드래그하세요
 														        <br>또는<br>
-														        <input type="file" id="fileInput" class="fileInput_company" multiple style="margin-top: 10px;">
+														        <input type="file" id="fileInput" class="fileInput_company" multiple style="margin-top: 10px;" accept=".jpg, .jpeg, .png, .pdf, .hwp">
 														    </div>
 														    <div class="file-list file_list_company" id="fileList"></div>
 														    
