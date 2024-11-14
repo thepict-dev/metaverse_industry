@@ -15,6 +15,7 @@ $('.listBody.userList > li > .title').click(function () {
 	$('.equipDetails').find("._sa_eob_no").text(sa_eob_no);
 	$('.equipDetails').find("._position").text(position);
 	$('.equipDetails').find("._document_url").text(document_url);
+	$('.equipDetails').find("._document_url").attr('href', document_url);
 	
 	$('.equipDetails').addClass('active');
 });

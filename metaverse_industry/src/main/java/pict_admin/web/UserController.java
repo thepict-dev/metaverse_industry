@@ -217,9 +217,10 @@ public class UserController {
 			String uploadPath = upload_file(request, attach_file,
 					(String) request.getSession().getAttribute("id"), uuid);
 			// String filepath = "~/Desktop/upload_file/";
-			String filepath = "/user1/upload_file/metaverse_industry/";
+			String filepath = "C:\\Users\\82105\\Desktop\\test\\";
+//			String filepath = "/user1/upload_file/metaverse_industry/";
 			String filename = uuid + uploadPath.split("#####")[1];
-			userVO.setDocument_url(filename);
+			userVO.setDocument_url(filepath + filename);
 		}
 		
 		// 수정된 유저 데이터 업데이트
@@ -656,7 +657,8 @@ public class UserController {
     
     private String getSaveLocation(HttpServletRequest request, MultipartFile uploadFile) {
 		//서버
-    	String uploadPath = "/user1/upload_file/metaverse_industry/";
+//    	String uploadPath = "/user1/upload_file/metaverse_industry/";
+    	String uploadPath = "C:\\Users\\82105\\Desktop\\test\\";
     	
     	//로컬
     	// String uploadPath = "~/Desktop/upload_file/";

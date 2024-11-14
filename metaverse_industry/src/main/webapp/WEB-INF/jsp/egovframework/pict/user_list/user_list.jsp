@@ -124,13 +124,13 @@
 											<div class="inputsContainer">
 												<div class="inputBox per">
 													<p class="inputCaption">사업장 주소</p>
-													<span class="bindingText per _company_address"></span>
+													<span class="bindingText _company_address"></span>
 												</div>
 											</div>
 											<div class="inputsContainer">
 												<div class="inputBox per">
 													<p class="inputCaption">증빙서류</p>
-													<a href="#lnk" download class="bindingText per _document_url"></a>
+													<a href="#lnk" download class="bindingText _document_url"></a>
 												</div>
 											</div>
 										</div>
