@@ -46,16 +46,14 @@
 	                                <label for="attach_file">파일추가</label>
 	                                <input type="file" id="attach_file" name="attach_file" multiple style="display: none;">
 	                            </p>
-	                            <div class="fileList">
-	                                <p></p>
-	                                <button><img src="/img/admin/close2.png" alt=""></button>
+	                            <div class="fileList hisDetail">
+	                                <p id="file_name">${pictVO.file}</p>
 	                            </div>
 	                            <p class="fileCaption">
 	                            	이미지 사이즈 : 548px * 548px<br>
 	                            	첨부 파일은 10MB 아래의 확장자 파일만 가능합니다.<br>
 	                                (jpeg, png, gif, bmp, tif)
                                 </p>
-							    <p>${pictVO.file}</p>
 	                        </div>
 	                    </div>
 	                    <div class="btnContainer">
@@ -79,7 +77,6 @@
 		            var $fileInput = $('#' + inputId);
 		            var $fileList = $fileInput.closest('.inputBox').find('.fileList');
 		            var $fileName = $fileList.find('p');
-		            var $deleteButton = $fileList.find('button');
 	
 		            $fileInput.on('change', function() {
 		                if (this.files.length > 0) {
@@ -88,16 +85,6 @@
 		                    $fileList.css('display', 'flex');
 		                }
 		            });
-	
-		            $deleteButton.on('click', function(e) {
-		                e.preventDefault();
-		                $fileName.text('');
-		                $fileInput.val('');
-		                $fileList.hide();
-		            });
-	
-		            // 초기 상태에서 fileList 숨김
-		            $fileList.hide();
 		        });
 		    });
 		    
