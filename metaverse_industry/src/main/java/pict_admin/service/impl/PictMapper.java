@@ -100,7 +100,7 @@ public interface PictMapper {
 	
 	// 장비 관련 매
 	
-	List<?> equipment_list(PictVO pictVO) throws Exception;
+	List<PictVO> equipment_list(PictVO pictVO) throws Exception;
 	
 	List<Map<String, Object>> equipment_item_list(PictVO pictVO) throws Exception;
 	
@@ -151,6 +151,8 @@ public interface PictMapper {
 	Integer equipment_list_total_cnt(PictVO pictVO) throws Exception;
 	
 	Map<String, Object> get_qr_code(PictVO pictVO) throws Exception;
+	
+	List<PictVO> rentalApprovedList();
 	
 	PictVO findEquipmentRequestById(@Param("id") String id, @Param("user_id") String userId) throws Exception;
 

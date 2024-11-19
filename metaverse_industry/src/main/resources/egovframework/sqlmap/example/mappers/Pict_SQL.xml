@@ -77,7 +77,7 @@
 		where 1=1
 		<if test="search_text != null and search_text != '' ">
 			and (
-				id LIKE CONCAT('%', #{search_text}, '%') or
+				user_id LIKE CONCAT('%', #{search_text}, '%') or
 				name LIKE CONCAT('%', #{search_text}, '%') or
 				mobile LIKE CONCAT('%', #{search_text}, '%')
 			) 
@@ -376,30 +376,32 @@
 	</select>
 	
 	<select id="equipment_item_list" resultType="map">
-	    SELECT 
-	    ei.idx,
-	    ei.id,
-	    ei.equipment_type_id,
-	    ei.serial_number,
-	    ei.status,
-	    date_format(reg_date, '%Y-%m-%d') as reg_date
-	     FROM equipment_item_table as ei
-        <where>
+		SELECT DISTINCT 
+		      ei.equipment_type_id
+		    , ei.idx
+		    , ei.id
+		    , ei.serial_number
+		    , ei.status
+		    , date_format(reg_date, '%Y-%m-%d') as reg_date
+		FROM
+			equipment_item_table as ei
+		    LEFT JOIN equipment_rental_request er ON ei.id = er.equipment_id
+		WHERE 1=1
 	        <if test="equipment_id != null and equipment_id != ''">
-	            equipment_type_id = #{equipment_id}
-	        </if>
+				AND equipment_type_id = #{equipment_id}
+			</if>
 	        <if test="isAll != true">
-	            AND status = 'available'
-	        </if>
-	    </where>
+				AND status = 'available'
+			</if>
+	        <if test="rental_start_date != null and rental_start_date != '' and rental_end_date != null and rental_end_date != ''">
+				AND (rental_start_date NOT BETWEEN #{rental_start_date} and #{rental_end_date} OR rental_start_date IS NULL)
+				AND (rental_end_date NOT BETWEEN #{rental_start_date} and #{rental_end_date} OR rental_end_date IS NULL)
+			</if>
 	</select>
-	
-	
-	
 	
 	<select id="equipment_unavailable_date_list" resultType="map">
 		<![CDATA[
-		WITH RECURSIVE
+		(WITH RECURSIVE
 		date_range AS (
 		    SELECT DATE_ADD(CURDATE(), INTERVAL 1 DAY) AS date
 		    UNION ALL
@@ -438,8 +440,18 @@
 		    equipment_availability
 		WHERE 
 		    available_count < #{count}  -- 파라미터로 받을 필요한 수량
+		)
+	    UNION
+			(
+				SELECT
+					DATE_FORMAT(closed_date, '%Y-%m-%d')
+				FROM
+					closed_date
+				WHERE 1=1
+					AND DATE(closed_date) BETWEEN DATE_SUB(CURDATE(), INTERVAL 15 DAY) AND DATE_ADD(CURDATE(), INTERVAL 15 DAY)
+			)
 		ORDER BY 
-		    date
+		    unavailable_date
 		]]>
 	</select>
 	
@@ -694,7 +706,8 @@
 		    err.file_path3,
 		    et.name,
 		    et.type AS equipment_type,
-		    ut.name AS user_name
+		    ut.name AS user_name,
+    		eit.serial_number
 		FROM 
 		    equipment_rental_request err
 		JOIN 
@@ -891,6 +904,27 @@
 	    	</if>
 	</select>
 	
+	<select id="rentalApprovedList" parameterType="String" resultType="pictVO">
+		SELECT
+		      err.idx AS idx
+		    , err.request_status
+		    , eit.serial_number
+			, ett.name AS name
+		    , ut.name AS user_name
+		    , date_format(err.rental_start_date, '%Y-%m-%d') as rental_start_date
+		    , date_format(err.rental_end_date, '%Y-%m-%d') as rental_end_date
+		    , date_format(err.request_date, '%Y-%m-%d') as request_date
+		FROM 
+		    equipment_item_table eit
+		JOIN equipment_type_table ett ON eit.equipment_type_id = ett.id
+		LEFT JOIN equipment_rental_request err ON eit.id = err.equipment_id
+		    AND err.request_status = 'approved'
+		    AND (CURDATE() BETWEEN err.rental_start_date AND err.rental_end_date OR err.rental_start_date >= CURDATE())
+		LEFT JOIN user_table ut ON err.user_id = ut.user_id
+		WHERE
+			1=1
+			AND err.request_status in ('approved', 'rental')
+	</select>
 	
 	<!-- 시설물 관리 -->
 	<select id="facility_list" resultType="pictVO">

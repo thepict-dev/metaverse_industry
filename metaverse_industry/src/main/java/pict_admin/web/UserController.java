@@ -1,23 +1,23 @@
 package pict_admin.web;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.security.UserRole;
 import com.utill.FileManagement;
+import com.utill.ResultReturn;
+import com.utill.SessionHandler;
 
 import pict_admin.service.UserService;
+import pict_admin.service.CalendarVo;
 import pict_admin.service.PictService;
 import pict_admin.service.PictVO;
 import pict_admin.service.UserVO;
+import pict_admin.service.impl.CalendarServiceImpl;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,20 +25,17 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
 
+import javax.security.sasl.AuthenticationException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.MessageDigest;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
@@ -50,11 +47,17 @@ public class UserController {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-	@Autowired
 	private UserService userService;
-	@Autowired
 	private PictService pictService;
+	private CalendarServiceImpl calendarService;
 
+	public UserController(UserService userService, PictService pictService, CalendarServiceImpl calendarService) {
+		super();
+		this.userService = userService;
+		this.pictService = pictService;
+		this.calendarService = calendarService;
+	}
+	
 	@RequestMapping("/checkUserId.do")
 	@ResponseBody
 	public HashMap<String, Object> isUseableUserId(@ModelAttribute("searchVO") UserVO userVO, ModelMap model,
@@ -267,6 +270,7 @@ public class UserController {
 			pictVO.setEquipment_id(equipmentId);
 			pictVO.setAll(true);
 			System.out.println("id @@@@" + pictVO.getId());
+			// equipment_item_list 쿼리 수정으로 확인 필요
 			List<Map<String, Object>> item_list = pictService.equipment_item_list(pictVO);
 			System.out.println("available_date_list@@@@@@@@@@@ " + item_list);
 			map.put("msg", "ok");
@@ -377,8 +381,6 @@ public class UserController {
 
 	}
 	
-	
-	
 	// 파일업로드쪽 수정해야되는지 체크하기
 	@RequestMapping("/booking.do")
 	@ResponseBody
@@ -395,75 +397,53 @@ public class UserController {
 			return map;
 		}
 
+		switch(pictVO.getRental_type()) {
+			case "individual" :
+				pictVO.setType("1");
+				break;
+			case "company" :
+				pictVO.setType("2");
+				break;
+		}
+
+		// 유저 세팅 - 유저가 직접 신청하면 세션 값에서 세팅, 관리자에서 대여해주면 파라미터값 사용
+		if(!UserRole.adminValidation(request)) pictVO.setUser_id(sessions);
+		
+		for(Map<String, Object> data : pictVO.getEquipmentListObject()) {
+			/**
+			 * 재고 조회 세팅
+			 * 장비 ID, ITEM ID, 렌탈 시작 날짜, 렌탈 마지막 날짜
+			 */
+			pictVO.setEquipment_id(data.get("id").toString());
+			pictVO.setRental_start_date(data.get("rental_start_date").toString());
+			pictVO.setRental_end_date(data.get("rental_end_date").toString());
+			// 재고 조회
+			Optional<List<Map<String, Object>>> itemsOptional = Optional.ofNullable(pictService.equipment_item_list(pictVO));
+			// 신청 재고
+			int cnt = Integer.parseInt(data.get("cnt").toString());
+			// 재고 여부 및 신청 수량과 재고 수량 체크
+			if(itemsOptional.isPresent() && itemsOptional.get().size() >= cnt) {
+				List<Map<String, Object>> items = itemsOptional.get();
+				// 신청 재고 수량만큼 렌탈
+				for (int i = 0; i < cnt; i++) {
+					pictVO.setId(items.get(i).get("id").toString());
+					// 렌탈 신청
+					pictService.submit_rental_request(pictVO);
+				}
+			} else {
+				map.put("msg", "fail");
+				break;
+			}
+		}
+		
 		Optional.ofNullable(attach_file1).ifPresent(file -> pictVO.setFile_url1(new FileManagement().upload(file, sessions)));
 		Optional.ofNullable(attach_file2).ifPresent(file -> pictVO.setFile_url2(new FileManagement().upload(file, sessions)));
 		Optional.ofNullable(attach_file3).ifPresent(file -> pictVO.setFile_url3(new FileManagement().upload(file, sessions)));
 		
-		List<Map<String, Object>> equipment_list = pictVO.getEquipmentListObject();
-		String rental_type = pictVO.getRental_type();
-		
-		if (rental_type.equals("individual")) {
-			pictVO.setType("1");
-			// 개인 렌탈 신청
-
-		} else if (rental_type.equals("company")) {
-			pictVO.setType("2");
-		}
-		
-			for(int i = 0; i < equipment_list.size(); i++ ) {
-				Map<String, Object> equipment = equipment_list.get(i);
-				String equipment_id = equipment.get("id").toString();
-				System.out.println("type_id @@@@@@@@@@@@@@" + equipment_id);
-				pictVO.setEquipment_id(equipment_id);
-
-				try {
-					List<Map<String, Object>> items = pictService.equipment_item_list(pictVO);
-					System.out.println("items @@@@@@@@@@@@@@" + items);
-					if (items.isEmpty()) {
-						// 재고가 없을 때
-						map.put("msg", "fail");
-						break;
-					} else {
-						// 재고가 있을 때
-						int cnt = Integer.parseInt(equipment.get("cnt").toString());
-						System.out.println("cnt @@@@@@@@@@@@@@" + cnt);
-						for (int j = 0; j < cnt; j++) {
-							Map<String, Object> randomItem = items.get(new Random().nextInt(items.size()));
-							// Map<String, Object> randomItem = items.get(new
-							// Random().nextInt(items.size()));
-							System.out.println("randomItem @@@@@@@@@@@@@@" + randomItem);
-
-							String equipment_item_id = randomItem.get("id").toString();
-							System.out.println("equipment_item_id @@@@@@@@@@@@@@" + equipment_item_id);
-							System.out.println("user_id @@@@@@@@@@@@@@" + sessions);
-							pictVO.setId(equipment_item_id);
-
-							String startDateStr = (String) equipment.get("rental_start_date");
-							String endDateStr = (String) equipment.get("rental_end_date");
-
-							pictVO.setRental_start_date(startDateStr);
-							pictVO.setRental_end_date(endDateStr);
-
-							pictVO.setUser_id(sessions);
-							
-							// 렌탈 신청
-							pictService.submit_rental_request(pictVO);
-							// 관리자로 메일 보내기
-						}
-
-						map.put("msg", "ok");
-					}
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			
+		map.put("msg", "ok");
 		return map;
-
 	}
 	
-	// 파일업로드쪽 수정해야되는지 체크하기
 	@RequestMapping("/booking_facility.do")
 	@ResponseBody
 	public HashMap<String, Object> booking_facility(@ModelAttribute PictVO pictVO
@@ -483,27 +463,20 @@ public class UserController {
 		Optional.ofNullable(attach_file2).ifPresent(file -> pictVO.setFile_url2(new FileManagement().upload(file, sessions)));
 		Optional.ofNullable(attach_file3).ifPresent(file -> pictVO.setFile_url3(new FileManagement().upload(file, sessions)));
 		
-//		pictVO.setFile_url1(FileManagement.upload(attach_file1, sessions));
-//		pictVO.setFile_url2(FileManagement.upload(attach_file2, sessions));
-//		pictVO.setFile_url3(FileManagement.upload(attach_file3, sessions));
-		
 		List<Map<String, Object>> facility_list = pictVO.getFacilityListObject();
 		String rental_type = pictVO.getRental_type();
 		
 		if (rental_type.equals("individual")) {
 			pictVO.setType("1");
 			// 개인 렌탈 신청
-
 		} else if (rental_type.equals("company")) {
 			pictVO.setType("2");
 		}
-		
 		
 		for(int i = 0; i < facility_list.size(); i++ ) {
 			Map<String, Object> facility = facility_list.get(i);
 			String facility_id = facility.get("id").toString();
 			pictVO.setEquipment_id(facility_id);
-
 			try {
 				List<Map<String, Object>> items = pictService.facility_item_list(pictVO);
 				if (items.isEmpty()) {
@@ -514,26 +487,22 @@ public class UserController {
 					// 재고가 있을 때
 					int cnt = Integer.parseInt(facility.get("cnt").toString());
 					for (int j = 0; j < cnt; j++) {
-						
 						for(Map<String, Object> item : items) {
 							if(item.get("facility_type_id").equals(facility.get("id").toString())) {
 								pictVO.setId(item.get("id").toString());
 							}
 						}
-
-						String startDateStr = (String) facility.get("rental_start_date");
-						String endDateStr = (String) facility.get("rental_end_date");
-
-						pictVO.setRental_start_date(startDateStr);
-						pictVO.setRental_end_date(endDateStr);
-
-						pictVO.setUser_id(sessions);
-						
+						pictVO.setRental_start_date((String) facility.get("rental_start_date"));
+						pictVO.setRental_end_date((String) facility.get("rental_end_date"));
+						// 관리자가 해당 유저에게 대여할 때는 유저 데이터를 전송하기에 필요 없음
+						if(!UserRole.adminValidation(request)) {
+							// 유저가 접속해서 대여할 때
+							pictVO.setUser_id(sessions);
+						}
 						// 렌탈 신청
 						pictService.submit_facility_request(pictVO);
 						// 관리자로 메일 보내기
 					}
-
 					map.put("msg", "ok");
 				}
 			} catch (Exception e) {
@@ -542,7 +511,6 @@ public class UserController {
 			}
 		}
 		return map;
-
 	}
 
 	@RequestMapping("/toggle_bag.do")
@@ -589,8 +557,56 @@ public class UserController {
 		}
 		return map;
 	}
+
+	@GetMapping("/corporationInfo.do")
+	public UserVO corporationInfo(HttpSession session) throws Exception {
+		return Optional.of(session.getAttribute("id"))
+				.map(id -> userService.isUserIdAvailable(UserVO.of((String) id)))
+				.orElseThrow(() -> new AuthenticationException());
+	}
+
+	@GetMapping("/rentalApprovedList.do")
+	public List<PictVO> rentalApprovedList(HttpServletRequest request) {
+		return Optional.of(request)
+				.filter(req -> UserRole.adminValidation(req))
+				.map(req -> pictService.rentalApprovedList())
+				.orElseGet(() -> new ArrayList<PictVO>());
+	}
+
+	// 장비대여
+	@GetMapping(value = "/equipmentList.do")
+	public ResultReturn<?> equipmentList(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request
+			, HttpSession session, Map<String, Object> result) throws Exception {
+		// ADMIN 계정이면 세션 삭제
+		SessionHandler.deleteAdmin(request);
 		
+		pictVO.setOnlyAvailable(true);
+		if(StringUtils.hasText((String) session.getAttribute("id"))) pictVO.setUser_id((String) session.getAttribute("id"));
 		
+		switch(pictVO.getType()) {
+			case "hmd":
+				pictVO.setType("HMD");
+				break;
+			case "ar":
+				pictVO.setType("AR글래스");
+				break;
+			case "motion":
+				pictVO.setType("모션캡처");
+				break;
+			case "camera":
+				pictVO.setType("360카메라");
+				break;
+			case "scanner":
+				pictVO.setType("3D스캐너");
+				break;
+			default :
+		        pictVO.setType("기타");
+		}
+		
+		List<?> equipment_list = pictService.equipment_list(pictVO);
+		return new ResultReturn<>(equipment_list.size(), equipment_list);
+	}
+	
 	public String upload_file(HttpServletRequest request, MultipartFile uploadFile, String target, UUID uuid) {
     	String path = "";
     	String fileName = "";

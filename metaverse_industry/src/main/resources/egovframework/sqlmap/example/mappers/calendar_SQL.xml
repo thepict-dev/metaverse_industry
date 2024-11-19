@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pict_admin.service.impl.CalendarMapper">
+	<resultMap type="calendarVo" id="calendarVoMapping">
+		<result property="id" column="closed_id"/>
+		<result property="title" column="title"/>
+		<result property="date" column="closed_date"/>
+	</resultMap>
+	
+	<select id="findClosedDate" resultType="calendarVo" resultMap="calendarVoMapping">
+		SELECT
+			closed_id
+			, title
+			, closed_date
+		FROM
+			closed_date
+	</select>
+	
+	<select id="findClosedDateByDate" resultType="calendarVo" resultMap="calendarVoMapping">
+		SELECT
+			closed_id
+			, title
+			, closed_date
+		FROM
+			closed_date
+		WHERE 1=1
+	    	<if test="date != null and date != ''">
+				AND closed_date = #{date}
+			</if>
+	</select>
+	
+	<insert id="saveClosedDate" parameterType="calendarVo">
+		INSERT INTO 
+			closed_date
+			(title, closed_date)
+		VALUE
+			(#{title}, #{date})
+	</insert>
+</mapper>

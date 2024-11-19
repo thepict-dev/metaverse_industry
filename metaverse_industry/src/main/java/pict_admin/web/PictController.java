@@ -33,6 +33,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.UUID;
+import java.util.stream.IntStream;
 
 import javax.mail.PasswordAuthentication;
 import pict_admin.service.PictService;
@@ -50,6 +51,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -75,7 +77,8 @@ import org.w3c.dom.NodeList;
 
 import com.security.UserRole;
 import com.utill.FileManagement;
-import com.utill.CustomDateTime;
+import com.utill.SessionHandler;
+import com.utill.date.CustomDateTime;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -110,6 +113,9 @@ public class PictController {
 	@RequestMapping(value = "/lending.do")
 	public String lending(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model,
 			HttpSession session, RedirectAttributes rttr) throws Exception {
+		// ADMIN 계정이면 세션 삭제
+		SessionHandler.deleteAdmin(request);
+		
 		pictVO.setLimit_cnt(3);
 		List<?> notice_list = pictService.board_list(pictVO);
 		model.addAttribute("noticeList", notice_list);
@@ -123,9 +129,10 @@ public class PictController {
 	}
 
 	@RequestMapping(value = "/user_login.do")
-
 	public String user_login_page(@ModelAttribute("searchVO") UserVO UserVO, HttpServletRequest request, ModelMap model,
 			HttpSession session, RedirectAttributes rttr) throws Exception {
+		// ADMIN 계정이면 세션 삭제
+		SessionHandler.deleteAdmin(request);
 
 		return "pict/user/user_login";
 	}
@@ -135,6 +142,7 @@ public class PictController {
 			throws Exception {
 		request.getSession().setAttribute("id", null);
 		request.getSession().setAttribute("name", null);
+		request.getSession().setAttribute("role", null);
 
 		return "redirect:/";
 
@@ -232,7 +240,7 @@ public class PictController {
 	@RequestMapping(value = "/login_done.do")
 	public String login_done(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model,
 			HttpSession session, RedirectAttributes rttr) throws Exception {
-
+		
 		return "pict/user/login_done";
 	}
 
@@ -240,7 +248,9 @@ public class PictController {
 	@RequestMapping(value = "/intro.do")
 	public String intro(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model,
 			HttpSession session, RedirectAttributes rttr) throws Exception {
-
+		// ADMIN 계정이면 세션 삭제
+		SessionHandler.deleteAdmin(request);
+		
 		return "pict/user/intro";
 	}
 
@@ -248,6 +258,9 @@ public class PictController {
 	@RequestMapping(value = "/support.do")
 	public String support(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model,
 			HttpSession session, RedirectAttributes rttr) throws Exception {
+		// ADMIN 계정이면 세션 삭제
+		SessionHandler.deleteAdmin(request);
+		
 		Map<String, Object> setting = pictService.get_url_settings(pictVO);
 		model.addAttribute("setting", setting);
 
@@ -258,6 +271,9 @@ public class PictController {
 	@RequestMapping(value = "/equipment.do")
 	public String equipment(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model,
 			HttpSession session, RedirectAttributes rttr) throws Exception {
+		// ADMIN 계정이면 세션 삭제
+		SessionHandler.deleteAdmin(request);
+		
 		pictVO.setOnlyAvailable(true);
 		if(StringUtils.hasText((String) session.getAttribute("id"))) pictVO.setUser_id((String) session.getAttribute("id"));
 		
@@ -293,7 +309,7 @@ public class PictController {
 		        System.out.println("isA@@@" + pictVO.getType());
 		    }
 		}
-		List<?> equipment_list = pictService.equipment_list(pictVO);
+		List<PictVO> equipment_list = pictService.equipment_list(pictVO);
 		model.addAttribute("resultList", equipment_list);
 		model.addAttribute("size", equipment_list.size());
 		model.addAttribute("pictVO", pictVO);
@@ -305,9 +321,18 @@ public class PictController {
 	public String equipment_rental(@ModelAttribute("searchVO") PictVO pictVO,
 			@RequestParam Map<String, String> allParams, HttpServletRequest request, ModelMap model,
 			HttpSession session, RedirectAttributes rttr) throws Exception {
+		// ADMIN 계정이면 세션 삭제
+		SessionHandler.deleteAdmin(request);
+		
 		String sessions = (String) request.getSession().getAttribute("id");
 		if (sessions == null || sessions == "") {
 			return "redirect:/user_login.do";
+		}
+		
+		if(UserRole.adminValidation(request)) {
+			request.getSession().setAttribute("id", null);
+			request.getSession().setAttribute("name", null);
+			request.getSession().setAttribute("role", null);
 		}
 
 		List<Map<String, Object>> equipmentList = new ArrayList<>();
@@ -343,6 +368,9 @@ public class PictController {
 	@RequestMapping(value = "/facility.do")
 	public String facility(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model,
 			HttpSession session, RedirectAttributes rttr) throws Exception {
+		// ADMIN 계정이면 세션 삭제
+		SessionHandler.deleteAdmin(request);
+		
 		pictVO.setOnlyAvailable(true);
 		List<?> facility_list = pictService.facility_list(pictVO);
 		model.addAttribute("resultList", facility_list);
@@ -357,6 +385,9 @@ public class PictController {
 	public String facility_rental(@ModelAttribute("searchVO") PictVO pictVO,
 			@RequestParam Map<String, String> allParams, HttpServletRequest request, ModelMap model,
 			HttpSession session, RedirectAttributes rttr) throws Exception {
+		// ADMIN 계정이면 세션 삭제
+		SessionHandler.deleteAdmin(request);
+		
 		String sessions = (String) request.getSession().getAttribute("id");
 		if (sessions == null || sessions == "") {
 			return "redirect:/user_login.do";
@@ -393,6 +424,9 @@ public class PictController {
 	@RequestMapping(value = "/education.do")
 	public String education(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model,
 			HttpSession session, RedirectAttributes rttr) throws Exception {
+		// ADMIN 계정이면 세션 삭제
+		SessionHandler.deleteAdmin(request);
+		
 		model.addAttribute("pictVO", pictVO);
 
 		return "pict/user/education";
@@ -481,8 +515,10 @@ public class PictController {
 	@RequestMapping(value = "/notice.do")
 	public String notice(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model,
 			HttpSession session, RedirectAttributes rttr) throws Exception {
+		// ADMIN 계정이면 세션 삭제
+		SessionHandler.deleteAdmin(request);
 
-		int limitNumber = 10;
+		int limitNumber = 20;
 		pictVO.setLimit_cnt(limitNumber);
 		Integer pageNum = pictVO.getPageNumber();
 		if (pageNum == 0) {
@@ -523,6 +559,9 @@ public class PictController {
 	@RequestMapping(value = "/notice_view.do")
 	public String notice_view(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model,
 			HttpSession session, RedirectAttributes rttr) throws Exception {
+		// ADMIN 계정이면 세션 삭제
+		SessionHandler.deleteAdmin(request);
+		
 		if (pictVO.getIdx() == 0) {
 			return "redirect:/notice.do";
 		}
@@ -538,7 +577,10 @@ public class PictController {
 	@RequestMapping(value = "/biz_post.do")
 	public String biz_post(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model,
 			HttpSession session, RedirectAttributes rttr) throws Exception {
-		int limitNumber = 10;
+		// ADMIN 계정이면 세션 삭제
+		SessionHandler.deleteAdmin(request);
+		
+		int limitNumber = 20;
 		pictVO.setLimit_cnt(limitNumber);
 		Integer pageNum = pictVO.getPageNumber();
 		if (pageNum == 0) {
@@ -579,6 +621,9 @@ public class PictController {
 	@RequestMapping(value = "/biz_post_view.do")
 	public String biz_post_view(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model,
 			HttpSession session, RedirectAttributes rttr) throws Exception {
+		// ADMIN 계정이면 세션 삭제
+		SessionHandler.deleteAdmin(request);
+		
 		if (pictVO.getIdx() == 0) {
 			return "redirect:/biz_post.do";
 		}
@@ -600,6 +645,9 @@ public class PictController {
 	@RequestMapping(value = "/mypage_account.do")
 	public String mypage_account(@ModelAttribute("searchVO") UserVO userVO, HttpServletRequest request, ModelMap model,
 			HttpSession session, RedirectAttributes rttr) throws Exception {
+		// ADMIN 계정이면 세션 삭제
+		SessionHandler.deleteAdmin(request);
+		
 		String sessions = (String) request.getSession().getAttribute("id");
 		if (sessions == null || sessions == "") {
 			return "redirect:/user_login.do";
@@ -614,13 +662,16 @@ public class PictController {
 	@RequestMapping(value = "/mypage_equip.do")
 	public String mypage_equip(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model,
 			HttpSession session, RedirectAttributes rttr) throws Exception {
+		// ADMIN 계정이면 세션 삭제
+		SessionHandler.deleteAdmin(request);
+		
 		String sessions = (String) request.getSession().getAttribute("id");
 		if (sessions == null || sessions == "") {
 			return "redirect:/user_login.do";
 		}
 		pictVO.setUser_id(sessions);
 
-		int limitNumber = 10;
+		int limitNumber = 20;
 		pictVO.setLimit_cnt(limitNumber);
 		Integer pageNum = pictVO.getPageNumber();
 		if (pageNum == 0) {
@@ -720,13 +771,16 @@ public class PictController {
 	@RequestMapping(value = "/mypage_facil.do")
 	public String mypage_facil(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model,
 			HttpSession session, RedirectAttributes rttr) throws Exception {
+		// ADMIN 계정이면 세션 삭제
+		SessionHandler.deleteAdmin(request);
+		
 		String sessions = (String) request.getSession().getAttribute("id");
 		if (sessions == null || sessions == "") {
 			return "redirect:/user_login.do";
 		}
 		pictVO.setUser_id(sessions);
 
-		int limitNumber = 10;
+		int limitNumber = 20;
 		pictVO.setLimit_cnt(limitNumber);
 		Integer pageNum = pictVO.getPageNumber();
 		if (pageNum == 0) {
@@ -826,6 +880,9 @@ public class PictController {
 	@RequestMapping(value = "/mypage_bag.do")
 	public String mypage_bag(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model,
 			HttpSession session, RedirectAttributes rttr) throws Exception {
+		// ADMIN 계정이면 세션 삭제
+		SessionHandler.deleteAdmin(request);
+		
 		String sessions = (String) request.getSession().getAttribute("id");
 		if (sessions == null || sessions == "null") {
 			return "redirect:/user_login.do";
@@ -953,7 +1010,7 @@ public class PictController {
 			return "redirect:/pict_login.do";
 		}
 		
-		int limitNumber = 10;
+		int limitNumber = 20;
 		pictVO.setLimit_cnt(limitNumber);
 		Integer pageNum = pictVO.getPageNumber();
 		if (pageNum == 0) {
@@ -1106,7 +1163,7 @@ public class PictController {
 			return "redirect:/pict_login.do";
 		}
 		
-		int limitNumber = 10;
+		int limitNumber = 20;
 		pictVO.setLimit_cnt(limitNumber);
 		Integer pageNum = pictVO.getPageNumber();
 		if (pageNum == 0) {
@@ -1181,7 +1238,7 @@ public class PictController {
 			return "redirect:/pict_login.do";
 		}
 
-		int limitNumber = 10;
+		int limitNumber = 20;
 		pictVO.setLimit_cnt(limitNumber);
 		Integer pageNum = pictVO.getPageNumber();
 		if (pageNum == 0) {
@@ -1355,7 +1412,7 @@ public class PictController {
 			return "redirect:/pict_login.do";
 		}
 
-		int limitNumber = 10;
+		int limitNumber = 20;
 		pictVO.setLimit_cnt(limitNumber);
 		Integer pageNum = pictVO.getPageNumber();
 		if (pageNum == 0) {
@@ -1512,7 +1569,7 @@ public class PictController {
 			return "redirect:/pict_login.do";
 		}
 
-		int limitNumber = 10;
+		int limitNumber = 20;
 		pictVO.setLimit_cnt(limitNumber);
 		Integer pageNum = pictVO.getPageNumber();
 		if (pageNum == 0) {
@@ -1802,7 +1859,7 @@ public class PictController {
 		}
 		System.out.println("get Idx @@@@@@" + pictVO.getIdx());
 
-		int limitNumber = 10;
+		int limitNumber = 20;
 		pictVO.setLimit_cnt(limitNumber);
 		Integer pageNum = pictVO.getPageNumber();
 		if (pageNum == 0) {
@@ -1852,7 +1909,7 @@ public class PictController {
 			return "redirect:/pict_login.do";
 		}
 
-		int limitNumber = 10;
+		int limitNumber = 20;
 		pictVO.setLimit_cnt(limitNumber);
 		Integer pageNum = pictVO.getPageNumber();
 		if (pageNum == 0) {
@@ -2021,7 +2078,7 @@ public class PictController {
 		}
 		System.out.println("get Idx @@@@@@" + pictVO.getIdx());
 
-		int limitNumber = 10;
+		int limitNumber = 20;
 		pictVO.setLimit_cnt(limitNumber);
 		Integer pageNum = pictVO.getPageNumber();
 		if (pageNum == 0) {
@@ -2117,7 +2174,6 @@ public class PictController {
 	@ResponseBody
 	public HashMap<String, Object> get_qr_code(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
 			HttpServletRequest request, @RequestBody Map<String, Object> param) throws Exception {
-		System.out.println("param @@@@" + param);
 		String sessions = (String) request.getSession().getAttribute("id");
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -2125,18 +2181,17 @@ public class PictController {
 			map.put("msg", "fail");
 			return map;
 		}
+		
 		if (param.get("serial_number") != null) {
 			String serial_number = param.get("serial_number").toString(); 
-			System.out.println("serial_number @@@@" + serial_number);
 			pictVO.setSerial_number(serial_number);
+			
 			pictVO.setIdx(0);
-			System.out.println("serial_number@@@@@@@@@@@@@@@@@@@2"+ pictVO.getSerial_number());
 			Map<String, Object> rental = pictService.get_qr_code(pictVO);
 			if (rental == null) {
 				map.put("msg", "fail");
 			} else {				
 				if (rental.get("request_idx") != null) {
-					System.out.println("rental @@@@" + rental);
 					map.put("msg", "ok");
 					map.put("data", rental);
 				} else {
@@ -2149,13 +2204,11 @@ public class PictController {
 			Integer idx = Integer.parseInt((String) param.get("idx"));
 			pictVO.setIdx(idx);
 			pictVO.setSerial_number("");
-			System.out.println("idx@@@@@@@@@@@@@@@@@@@2"+ pictVO.getIdx());
 			Map<String, Object> rental = pictService.get_qr_code(pictVO);
 			if (rental == null) {
 				map.put("msg", "fail");
 			} else {				
 				if (rental.get("request_idx") != null) {
-					System.out.println("rental @@@@" + rental);
 					map.put("msg", "ok");
 					map.put("data", rental);
 				} else {
@@ -2346,7 +2399,7 @@ public class PictController {
 			return "redirect:/pict_login.do";
 		}
 
-		int limitNumber = 10;
+		int limitNumber = 20;
 		pictVO.setLimit_cnt(limitNumber);
 		Integer pageNum = pictVO.getPageNumber();
 		if (pageNum == 0) {
@@ -2446,7 +2499,7 @@ public class PictController {
 			return "redirect:/pict_login.do";
 		}
 
-		int limitNumber = 10;
+		int limitNumber = 20;
 		pictVO.setLimit_cnt(limitNumber);
 		Integer pageNum = pictVO.getPageNumber();
 		if (pageNum == 0) {

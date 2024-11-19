@@ -10,5 +10,6 @@
 		<typeAlias alias="pictsearchVO" type="pict_admin.service.PictDefaultVO"/>
 		<typeAlias alias="adminVO" type="pict_admin.service.AdminVO"/>
 		<typeAlias alias="userVO" type="pict_admin.service.UserVO"/>
+		<typeAlias alias="calendarVo" type="pict_admin.service.CalendarVo"/>
     </typeAliases>
 </configuration>

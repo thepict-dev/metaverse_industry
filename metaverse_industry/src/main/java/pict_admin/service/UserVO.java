@@ -16,6 +16,13 @@ public class UserVO {
 	private String sa_eob_no;
 	private String position;
 	private String document_url;
+
+	private UserVO() {
+	}
+
+	private UserVO(String user_id) {
+		this.user_id = user_id;
+	}
 	
 	public String getMobile() {
 		return mobile;
@@ -72,6 +79,9 @@ public class UserVO {
 	}
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
+	}
+	public static UserVO of(String user_id) {
+		return new UserVO(user_id);
 	}
 	public String getPassword() {
 		return password;

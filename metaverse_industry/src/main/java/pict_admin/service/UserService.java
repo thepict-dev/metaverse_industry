@@ -5,7 +5,7 @@ import java.util.Map;
 
 public interface UserService {
 
-	UserVO isUserIdAvailable(UserVO userVO) throws Exception;
+	UserVO isUserIdAvailable(UserVO userVO);
 	
 	Map<String, Object> find_id_pwd(UserVO userVO) throws Exception;
 	

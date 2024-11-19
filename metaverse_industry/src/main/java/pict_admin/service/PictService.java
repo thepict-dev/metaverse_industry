@@ -92,7 +92,7 @@ public interface PictService {
 	void biz_file_delete(PictVO pictVO) throws Exception;
 	//장비 관련
 	
-	List<?> equipment_list(PictVO pictVO) throws Exception;
+	List<PictVO> equipment_list(PictVO pictVO) throws Exception;
 	
 	Integer equipment_list_total_cnt(PictVO pictVO) throws Exception;
 	
@@ -145,6 +145,8 @@ public interface PictService {
 	PictVO findEquipmentRequestById(String id, String userId) throws Exception;
 	
 	Map<String, Object> get_qr_code(PictVO pictVO) throws Exception;
+
+	List<PictVO> rentalApprovedList();
 	
 	// 시설물 관련
 	List<?> facility_list(PictVO pictVO) throws Exception;

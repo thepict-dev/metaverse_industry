@@ -46,7 +46,7 @@ public class UserServiceImpl extends EgovAbstractServiceImpl implements UserServ
 	private EgovIdGnrService egovIdGnrService;
 	
 	@Override
-	public UserVO isUserIdAvailable(UserVO userVO) throws Exception {
+	public UserVO isUserIdAvailable(UserVO userVO) {
 		return userMapper.isUserIdAvailable(userVO);
 	}
 	

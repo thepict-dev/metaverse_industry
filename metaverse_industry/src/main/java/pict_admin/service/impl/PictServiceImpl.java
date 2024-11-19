@@ -220,7 +220,7 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 	// 장비 관련	
 	
 	@Override
-	public List<?> equipment_list(PictVO pictVO) throws Exception {
+	public List<PictVO> equipment_list(PictVO pictVO) throws Exception {
 		return pictMapper.equipment_list(pictVO);
 	}
 	
@@ -347,6 +347,11 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 	@Override
 	public Map<String, Object>  get_qr_code(PictVO pictVO) throws Exception {
 		return pictMapper.get_qr_code(pictVO); 
+	}
+	
+	@Override
+	public List<PictVO> rentalApprovedList() {
+		return pictMapper.rentalApprovedList(); 
 	}
 	
 	@Override

@@ -1639,7 +1639,7 @@ public class PictVO extends PictDefaultVO {
 	}
 
 	public boolean isOnlyAvailable() {
-		return isOnlyAvailable;
+		return isOnlyAvailable != null ? isOnlyAvailable : false;
 	}
 
 	public void setOnlyAvailable(Boolean isOnlyAvailable) {
