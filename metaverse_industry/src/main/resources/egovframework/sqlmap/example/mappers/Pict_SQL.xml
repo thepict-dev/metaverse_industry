@@ -12,7 +12,8 @@
 	    content_url = #{content_url},
 	    professional_url = #{professional_url},
 	    infra_url = #{infra_url},
-	    video_url = #{video_url}
+	    video_url = #{video_url},
+	    channel_url = #{channel_url}
 	    <if test="video_thumb != null and video_thumb != ''">
 	    , video_thumb = #{video_thumb}
 	    </if>

@@ -285,6 +285,7 @@ public class PictVO extends PictDefaultVO {
     private String video_thumb;
     private Integer inventoryCnt;
     
+    private String channel_url;
     
 	public String getDescription() {
 		return description;
@@ -2013,5 +2014,13 @@ public class PictVO extends PictDefaultVO {
 
 	public void setCount(String count) {
 		this.count = count;
+	}
+
+	public String getChannel_url() {
+		return channel_url;
+	}
+
+	public void setChannel_url(String channel_url) {
+		this.channel_url = channel_url;
 	}
 }

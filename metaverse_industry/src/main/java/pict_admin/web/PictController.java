@@ -2641,6 +2641,9 @@ public class PictController {
 		if (setting.get("video_thumb") != null) {
 			pictVO.setVideo_thumb((String)setting.get("video_thumb"));
 		}
+		if (setting.get("channel_url") != null) {
+			pictVO.setVideo_thumb((String)setting.get("channel_url"));
+		}
 		pictVO.setSaveType("update");
 		model.addAttribute("pictVO", pictVO);
 		return "pict/setting/settings";
