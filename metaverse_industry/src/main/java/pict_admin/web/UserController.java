@@ -406,8 +406,10 @@ public class UserController {
 				break;
 		}
 
-		// 유저 세팅 - 유저가 직접 신청하면 세션 값에서 세팅, 관리자에서 대여해주면 파라미터값 사용
-		if(!UserRole.adminValidation(request)) pictVO.setUser_id(sessions);
+		// 유저가 직접 신청 시, UserId 값 세팅
+		if(!UserRole.adminValidation(request)) {
+			pictVO.setUser_id(sessions);
+		}
 		
 		for(Map<String, Object> data : pictVO.getEquipmentListObject()) {
 			/**
@@ -429,6 +431,11 @@ public class UserController {
 					pictVO.setId(items.get(i).get("id").toString());
 					// 렌탈 신청
 					pictService.submit_rental_request(pictVO);
+					// 관리자가 신청 시, 대여처리
+					if(UserRole.adminValidation(request)) {
+						pictVO.setRequest_status("rental");
+						userService.updateRequestStatus(pictVO);
+					}
 				}
 			} else {
 				map.put("msg", "fail");
@@ -506,7 +513,6 @@ public class UserController {
 					map.put("msg", "ok");
 				}
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
