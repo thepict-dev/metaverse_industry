@@ -333,8 +333,14 @@ public class PictController {
 			request.getSession().setAttribute("id", null);
 			request.getSession().setAttribute("name", null);
 			request.getSession().setAttribute("role", null);
-		}
+		}       
 
+	    // 사용자 정보 조회 추가
+	    UserVO userVO = new UserVO();
+	    userVO.setUser_id(sessions);
+	    UserVO userInfo = userService.getUserInfo(userVO);
+	    model.addAttribute("user_info", userInfo);  // 모델에 사용자 정보 추가
+	    
 		List<Map<String, Object>> equipmentList = new ArrayList<>();
 		System.out.println("ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ" + equipmentList);
 		for (int i = 0;; i++) {
@@ -392,6 +398,11 @@ public class PictController {
 		if (sessions == null || sessions == "") {
 			return "redirect:/user_login.do";
 		}
+	    // 사용자 정보 조회 추가
+	    UserVO userVO = new UserVO();
+	    userVO.setUser_id(sessions);
+	    UserVO userInfo = userService.getUserInfo(userVO);
+	    model.addAttribute("user_info", userInfo);  // 모델에 사용자 정보 추가
 
 		List<Map<String, Object>> facilityList = new ArrayList<>();
 
@@ -515,7 +526,7 @@ public class PictController {
 	@RequestMapping(value = "/notice.do")
 	public String notice(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model,
 			HttpSession session, RedirectAttributes rttr) throws Exception {
-		// ADMIN 계정이면 세션 삭제
+		// ADMIN 계��이면 세션 삭제
 		SessionHandler.deleteAdmin(request);
 
 		int limitNumber = 20;
@@ -897,6 +908,28 @@ public class PictController {
 		return "pict/user/mypage_bag";
 	}
 
+	// 약관1
+	@RequestMapping(value = "/terms1.do")
+	public String terms1(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model,
+			HttpSession session, RedirectAttributes rttr) throws Exception {
+
+		return "pict/user/terms1";
+	}
+	// 약관2
+	@RequestMapping(value = "/terms2.do")
+	public String terms2(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model,
+			HttpSession session, RedirectAttributes rttr) throws Exception {
+
+		return "pict/user/terms2";
+	}
+	// 약관3
+	@RequestMapping(value = "/terms3.do")
+	public String terms3(@ModelAttribute("searchVO") PictVO pictVO, HttpServletRequest request, ModelMap model,
+			HttpSession session, RedirectAttributes rttr) throws Exception {
+
+		return "pict/user/terms3";
+	}
+	
 	@RequestMapping(value = "/pict_login.do")
 	public String login_main(@ModelAttribute("searchVO") AdminVO adminVO, HttpServletRequest request, ModelMap model,
 			HttpServletResponse response) throws Exception {
@@ -1900,6 +1933,58 @@ public class PictController {
 		return "pict/history/history_list";
 	}
 
+	//장비 임의 대여
+	@RequestMapping(value = "/equipment/admin_rental.do")
+	public String admin_rental(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request)
+			throws Exception {
+		String session = (String) request.getSession().getAttribute("id");
+		if (session == null || session == "null" || !UserRole.adminValidation(request)) {
+			return "redirect:/pict_login.do";
+		}
+
+		// 페이지네이션 설정
+		int limitNumber = 20;
+		pictVO.setLimit_cnt(limitNumber);
+		Integer pageNum = pictVO.getPageNumber();
+		if (pageNum == 0) {
+			pictVO.setPageNumber(1);
+			pageNum = 1;
+		}
+		
+		// 시작 인덱스 계산
+		int startNum = (pageNum - 1) * limitNumber;
+		pictVO.setStartNumber(startNum);
+		
+		// 전체 데이터 수 조회
+		Integer totalCnt = pictService.usrCtn();
+		
+		// 마지막 페이지 계산
+		int lastPageValue = (int) Math.ceil((double)totalCnt / limitNumber);
+		pictVO.setLastPage(lastPageValue);
+
+		// 페이지 그룹 계산
+		Integer s_page = ((pageNum - 1) / 10) * 10 + 1;
+		Integer e_page = Math.min(s_page + 9, lastPageValue);
+		
+		pictVO.setStartPage(s_page);
+		pictVO.setEndPage(e_page);
+
+		// 데이터 조회
+		List<?> userList = pictService.get_user_list(pictVO);
+		
+		// 모델에 데이터 추가
+		model.addAttribute("resultList", userList);
+		model.addAttribute("search_text", pictVO.getSearch_text());
+		model.addAttribute("totalCnt", totalCnt);
+		model.addAttribute("pictVO", pictVO);
+
+		// 장비 목록 조회
+		List<PictVO> equipmentList = pictService.equipment_list(pictVO);
+		model.addAttribute("equipmentList", equipmentList);
+
+		return "pict/equipment/admin_rental";
+	}
+	
 	// 시설물 리스트
 	@RequestMapping(value = "/facility/facility_list.do")
 	public String facility_list(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request)
@@ -2642,7 +2727,7 @@ public class PictController {
 			pictVO.setVideo_thumb((String)setting.get("video_thumb"));
 		}
 		if (setting.get("channel_url") != null) {
-			pictVO.setVideo_thumb((String)setting.get("channel_url"));
+			pictVO.setChannel_url((String)setting.get("channel_url"));
 		}
 		pictVO.setSaveType("update");
 		model.addAttribute("pictVO", pictVO);
@@ -2880,6 +2965,52 @@ public class PictController {
 		if (nValue == null)
 			return null;
 		return nValue.getNodeValue();
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/api/equipment/list.do", produces = "application/json; charset=utf-8")
+	public Map<String, Object> getEquipmentList(@RequestParam(required = false) String type, HttpSession session) throws Exception {
+		Map<String, Object> response = new HashMap<>();
+		
+		PictVO pictVO = new PictVO();
+		pictVO.setOnlyAvailable(true);
+		
+		// 로그인한 사용자 ID 설정
+		if(StringUtils.hasText((String) session.getAttribute("id"))) {
+			pictVO.setUser_id((String) session.getAttribute("id"));
+		}
+		
+		// 타입 변환 로직
+		if (type != null) {
+			switch (type) {
+				case "hmd":
+					pictVO.setType("HMD");
+					break;
+				case "ar":
+					pictVO.setType("AR글래스");
+					break;
+				case "motion":
+					pictVO.setType("모션캡처");
+					break;
+				case "camera":
+					pictVO.setType("360카메라");
+					break;
+				case "scanner":
+					pictVO.setType("3D스캐너");
+					break;
+				case "else":
+					pictVO.setType("기타");
+					break;
+			}
+		}
+		
+		List<PictVO> equipment_list = pictService.equipment_list(pictVO);
+		
+		response.put("success", true);
+		response.put("resultList", equipment_list);
+		response.put("size", equipment_list.size());
+		
+		return response;
 	}
 
 }
