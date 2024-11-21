@@ -74,6 +74,13 @@ function initDatepicker() {
                      classes.push("dp-highlight-end");
                  }
              }
+
+             // 주말 체크 (0: 일요일, 6: 토요일)
+             var isWeekend = date.getDay() === 0 || date.getDay() === 6;
+             if (isWeekend) {
+                 return [false, "user-disabled weekend"];  // weekend 클래스 추가
+             }
+
              return [true, classes.join(" ")];
          },
          onSelect: function (dateText, inst) {
@@ -156,7 +163,7 @@ function isRangeValid(start, end) {
 
 function getWeekDay(date) {
    const days = ['일', '월', '화', '수', '목', '금', '토'];
-   return days[date.getUTCDay()];
+   return days[date.getDay()];
 }
 
 function updateDateRangeInfo() {
@@ -166,70 +173,141 @@ function updateDateRangeInfo() {
    if (startDate && endDate) {
        const targetEquipment = document.querySelector(".equipList li.checked");
        if (targetEquipment) {
-           let id = targetEquipment.dataset.id;
-           let cnt = targetEquipment.dataset.cnt;
-           const equipment = {
-               id: id,
-               name: targetEquipment.querySelector(".itemTitles > p > span:first-child").textContent,
-               cnt: cnt,
-               original_rental_start_date: startDate,
-               original_rental_end_date: endDate,
-               rental_start_date: $.datepicker.formatDate("yy.mm.dd", startDate),
-               rental_end_date: $.datepicker.formatDate("yy.mm.dd", endDate),
-           }
-           selectedEquipment.push(equipment);
-           targetEquipment.classList.remove("checked");
-           targetEquipment.classList.add("success");
-
-           const selectedSuccessEquipment = document.createElement("li");
-           selectedSuccessEquipment.dataset.id = targetEquipment.dataset.id;
-           selectedSuccessEquipment.innerHTML = `
-               <div class="eqDate">
-                   <div class="eq">
-                       <p class="eqDateTitle">시설</p>
-                       <p class="eqDateItem"><span>${equipment.name}</span></p>
-                   </div>
-                   <div class="datesWrapper">
-                       <div class="dates">
-                           <p class="eqDateTitle">대여일</p>
-                           <p class="eqDateItem">${equipment.rental_start_date}.${getWeekDay(startDate)}</p>
+           // 캘린더 UI가 업데이트된 후 확인 모달 표시를 위해 setTimeout 사용
+           setTimeout(() => {
+               if (confirm(`선택하신 날짜가 다음과 같습니다.\n\n대여일: ${$.datepicker.formatDate("yy.mm.dd", startDate)}.${getWeekDay(startDate)}\n반납일: ${$.datepicker.formatDate("yy.mm.dd", endDate)}.${getWeekDay(endDate)}\n\n해당 날짜로 예약하시겠습니까?`)) {
+                   let id = targetEquipment.dataset.id;
+                   let cnt = targetEquipment.dataset.cnt;
+                   const equipment = {
+                       id: id,
+                       name: targetEquipment.querySelector(".itemTitles > p > span:first-child").textContent,
+                       cnt: cnt,
+                       original_rental_start_date: startDate,
+                       original_rental_end_date: endDate,
+                       rental_start_date: $.datepicker.formatDate("yy.mm.dd", startDate),
+                       rental_end_date: $.datepicker.formatDate("yy.mm.dd", endDate),
+                   }
+                   selectedEquipment.push(equipment);
+                   targetEquipment.classList.remove("checked");
+                   targetEquipment.classList.add("success");
+                   
+                   // 날짜 선택 완료 후 disable-calendar 다시 활성화
+                   if (document.querySelector(".disable-calendar")) {
+                       document.querySelector(".disable-calendar").style.display = "flex";
+                   }
+                   
+                   const selectedSuccessEquipment = document.createElement("li");
+                   selectedSuccessEquipment.dataset.id = targetEquipment.dataset.id;
+                   selectedSuccessEquipment.innerHTML = `
+                       <div class="eqDate">
+                           <div class="eq">
+                               <p class="eqDateTitle">시설</p>
+                               <p class="eqDateItem"><span>${equipment.name}</span></p>
+                           </div>
+                           <div class="datesWrapper">
+                               <div class="dates">
+                                   <p class="eqDateTitle">대여일</p>
+                                   <p class="eqDateItem">${equipment.rental_start_date}.${getWeekDay(startDate)}</p>
+                               </div>
+                               <img src="/img/user_img/date-arr.png" alt="">
+                               <div class="dates">
+                                   <p class="eqDateTitle">반납일</p>
+                                   <p class="eqDateItem">${equipment.rental_end_date}.${getWeekDay(endDate)}</p>
+                               </div>
+                           </div>
                        </div>
-                       <img src="/img/user_img/date-arr.png" alt="">
-                       <div class="dates">
-                           <p class="eqDateTitle">반납일</p>
-                           <p class="eqDateItem">${equipment.rental_end_date}.${getWeekDay(endDate)}</p>
-                       </div>
-                   </div>
-               </div>
-               <button class="resetSelectedDate">다시 선택</button>      
-           `;
-           
-           document.querySelector(".step-02").classList.remove("blind");
-           document.querySelector(".step-03").classList.remove("blind");
-           document.querySelector(".dateResultLists").appendChild(selectedSuccessEquipment);
-           selectedSuccessEquipment.querySelector(".resetSelectedDate").addEventListener("click", resetSelectedDate);
+                       <button class="resetSelectedDate">다시 선택</button>      
+                   `;
+                   
+                   document.querySelector(".step-02").classList.remove("blind");
+                   document.querySelector(".step-03").classList.remove("blind");
+                   document.querySelector(".dateResultLists").appendChild(selectedSuccessEquipment);
+                   selectedSuccessEquipment.querySelector(".resetSelectedDate").addEventListener("click", resetSelectedDate);
+               } else {
+                   // 취소 시 날짜 선택 초기화
+                   $("#datepicker").data("startDate", null);
+                   $("#datepicker").data("endDate", null);
+                   $("#datepicker").datepicker("refresh");
+               }
+           }, 100);
        }
    }
 }
 
-// 라디오 체크
-$('input[name="option"]').change(function () {
-   if ($(this).attr('id') === 'individual') {
-       rental_type = "individual";
-       $('.addIndiv').show();
-       $('.addCompany').hide();
-       selectedFiles = new Map(); // 선택된 파일들을 저장할 Map
-        $(".file-item").remove()
-   } else if ($(this).attr('id') === 'company') {
-       rental_type = "company";
-       $('.addCompany').show();
-       $('.addIndiv').hide();
-       selectedFiles = new Map(); // 선택된 파일들을 저장할 Map
-        $(".file-item").remove()
-   }
-});
+ 
+ // 라디오 체크 부분 수정
+ $('input[name="option"]').on('click', function () {
+    const selectedOption = $(this).attr('id');
+    
+    // 이미 선택된 라디오 버튼을 다시 클릭한 경우에도 동작하도록 처리
+    if (rental_type === selectedOption) {
+        if (selectedOption === 'company') {
+            showCompanyInfoConfirm();
+        }
+        return;
+    }
 
+    if (selectedOption === 'individual') {
+        rental_type = "individual";
+        $('.addIndiv').show();
+        $('.addCompany').hide();
+        selectedFiles = new Map();
+        $(".file-item").remove();
+    } else if (selectedOption === 'company') {
+        rental_type = "company";
+        $('.addCompany').show();
+        $('.addIndiv').hide();
+        selectedFiles = new Map();
+        $(".file-item").remove();
+        
+        // 회원정보 불러오기 컨펌
+        showCompanyInfoConfirm();
+    }
+ });
 
+ // 새로운 함수 추가
+ function showCompanyInfoConfirm() {
+    console.log('Showing company info confirm');
+    if (confirm("회원가입시 작성한 정보를 불러오시겠습니까?")) {
+        getCorporationInfo();
+    } else {
+        clearCompanyFields();
+    }
+ }
+
+ // 기업 정보 가져오기 함수
+ function getCorporationInfo() {
+    console.log('Fetching corporation info');
+    $.ajax({
+        url: '/api/corporationInfo.do',
+        type: 'GET',
+        success: function(response) {
+            console.log('API response:', response);
+            if(response) {  // response.rst 체크 제거
+                // 직접 response 객체 사용
+                $('#company_nm').val(response.company_nm || '');
+                $('#sa_eob_no').val(response.sa_eob_no || '');
+                $('#position').val(response.position || '');
+                $('#company_address1').val(response.company_address1 || '');
+                $('#company_address2').val(response.company_address2 || '');
+                console.log('Company info loaded successfully');
+            }
+        },
+        error: function(e) {
+            console.log('기업 정보 조회 실패:', e);
+            clearCompanyFields();
+        }
+    });
+ }
+
+// 입력 필드 초기화 함수
+function clearCompanyFields() {
+    $('#company_nm').val('');
+    $('#sa_eob_no').val('');
+    $('#position').val('');
+    $('#company_address1').val('');
+    $('#company_address2').val('');
+}
 
 document.addEventListener('DOMContentLoaded', function () {
    initDatepicker();
@@ -641,7 +719,7 @@ bookingBtn.addEventListener("click", () => {
 // 요일 반환 함수
 function getWeekDay(date) {
     const days = ['일', '월', '화', '수', '목', '금', '토'];
-    return days[date.getUTCDay()];
+    return days[date.getDay()];
 }
 
 //확인 모달 닫기
@@ -680,7 +758,7 @@ document.querySelector('#agreeModal button').addEventListener('click', function(
     $('body').removeClass("no-scroll");
 });
 
-// 동의���기 버튼
+// 동의기 버튼
 document.getElementById('agreeButton').addEventListener('click', function() {
     document.getElementById('agree').checked = true;
     $('#agreeModal').removeClass('active');
@@ -755,7 +833,7 @@ const callBookingApi = () => {
 
                 let startDay = '';
                 let endDay = '';
-                switch (selectedEquipment[0].original_rental_start_date.getUTCDay()) {
+                switch (selectedEquipment[0].original_rental_start_date.getDay()) {
                     case 0:
                         startDay = '일';
                         break;
@@ -778,7 +856,7 @@ const callBookingApi = () => {
                         startDay = '토';
                         break;
                 }
-                switch (selectedEquipment[0].original_rental_end_date.getUTCDay()) {
+                switch (selectedEquipment[0].original_rental_end_date.getDay()) {
                     case 0:
                         endDay = '일';
                         break;

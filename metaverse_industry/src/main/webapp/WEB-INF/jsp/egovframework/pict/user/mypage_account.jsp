@@ -75,10 +75,6 @@
                                                         <span class="bindingText">${user_info.company_address1}
                                                             ${user_info.company_address2}</span>
                                                     </div>
-                                                    <div class="inputContainer">
-                                                        <p class="inputCaption _document_url">증빙서류 첨부</p>
-                                                        <span class="fileText">${user_info.document_url}</span>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -168,17 +164,6 @@
                                                     </div>
                                                     <input type="text" name="company_address2" style="display: block;"
                                                         value="${user_info.company_address2}" id="company_address2">
-                                                </div>
-                                                <div class="inputContainer">
-                                                    <p class="inputCaption">증빙서류 첨부</p>
-                                                    <div class="flexInputs file">
-                                                        <p class="fileName">${user_info.document_url}</p>
-                                                        <label for="file" id="attach_file">파일추가</label>
-                                                        <input type="file" id="file" style="display: none;">
-                                                        <button type="button" id="deleteButton"
-                                                            style="display: none;"><img src="/img/user_img/del-file.png"
-                                                                alt=""></button>
-                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="fullButtonContainer my">

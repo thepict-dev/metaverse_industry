@@ -76,27 +76,27 @@ $(document).click(function(event) {
 });
 
 //탭
-const tabItem = document.querySelectorAll('.tabNav li');
-const tabInner = document.querySelectorAll('.tabInner');
+// const tabItem = document.querySelectorAll('.tabNav li');
+// const tabInner = document.querySelectorAll('.tabInner');
 
-function activateTab(items, index) {
-    tabInner.forEach((inner) => {
-        inner.classList.remove('active');
-    });
+// function activateTab(items, index) {
+//     tabInner.forEach((inner) => {
+//         inner.classList.remove('active');
+//     });
 
-    items.forEach((item) => {
-        item.classList.remove('active');
-    });
+//     items.forEach((item) => {
+//         item.classList.remove('active');
+//     });
 
-    items[index].classList.add('active');
-    tabInner[index].classList.add('active');
-}
+//     items[index].classList.add('active');
+//     tabInner[index].classList.add('active');
+// }
 
-tabItem.forEach((tab, idx) => {
-    tab.addEventListener('click', function() {
-        activateTab(tabItem, idx);
-    });
-});
+// tabItem.forEach((tab, idx) => {
+//     tab.addEventListener('click', function() {
+//         activateTab(tabItem, idx);
+//     });
+// });
 
 
 // 모바일 메뉴

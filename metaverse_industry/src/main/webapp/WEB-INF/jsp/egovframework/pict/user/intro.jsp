@@ -101,6 +101,18 @@
                 // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
                     infowindow.open(map, marker);
                 });
+
+                // 마우스가 지도 영역에 있을 때
+                mapContainer.addEventListener('mouseenter', function() {
+                    document.body.style.overflow = 'hidden'; // 페이지 스크롤 비활성화
+                    lenis.stop(); // Lenis 스크롤 비활성화
+                });
+
+                // 마우스가 지도 영역을 벗어날 때
+                mapContainer.addEventListener('mouseleave', function() {
+                    document.body.style.overflow = 'auto'; // 페이지 스크롤 다시 활성화
+                    lenis.start(); // Lenis 스크롤 다시 활성화
+                });
             });
 	</script>
 </body>

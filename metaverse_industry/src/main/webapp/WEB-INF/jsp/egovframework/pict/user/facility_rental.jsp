@@ -183,23 +183,23 @@
                         <div class="joinFormWrapper">
                             <div class="inputContainer">
                                 <p class="inputCaption">회사명</p>
-                                <input type="text" name="company_nm" id="company_nm" placeholder="회사명을 입력하세요">
+                                <input type="text" name="company_nm" id="company_nm" placeholder="회사명을 입력하세요" value="${user_info.company_nm}" />
                             </div>
                             <div class="inputContainer">
                                 <p class="inputCaption">사업자등록번호</p>
-                                <input type="text" name="sa_eob_no" id="sa_eob_no" placeholder="사업자등록번호를 입력하세요">
+                                <input type="text" name="sa_eob_no" id="sa_eob_no" placeholder="사업자등록번호를 입력하세요" value="${user_info.sa_eob_no}" />
                             </div>
                             <div class="inputContainer">
                                 <p class="inputCaption">직책</p>
-                                <input type="text" name="position" id="position" placeholder="직책을 입력하세요">
+                                <input type="text" name="position" id="position" placeholder="직책을 입력하세요" value="${user_info.position}" />
                             </div>
                             <div class="inputContainer">
                                 <p class="inputCaption">사업장주소*</p>
                                 <div class="flexInputs">
-                                    <input type="text" name="company_address1" id="company_address1" readonly placeholder="주소를 입력하세요">
+                                    <input type="text" name="company_address1" id="company_address1" readonly placeholder="주소를 입력하세요" value="${user_info.company_address1}">
                                     <a href="#lnk" id="search_add2">주소검색</a>
                                 </div>
-                                <input type="text" name="company_address2" id="company_address2">
+                                <input type="text" name="company_address2" id="company_address2" value="${user_info.company_address2}">
                             </div>
                             <div class="inputContainer">
                                <p class="inputCaption">시설사용계획*</p>
@@ -241,7 +241,7 @@
                                 <ul class="bookingInfolists">
                                     <li>
                                         <p>장비명</p>
-                                        <span>Oculus Quest2 / 1대</span>
+                                        <span>Oculus Quest / 1대</span>
                                     </li>
                                     <li>
                                         <p>대여자명</p>

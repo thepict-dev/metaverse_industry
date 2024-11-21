@@ -2055,7 +2055,8 @@
 
 .subContentsInner>a,
 .subContents.etc>a,
-.subContents>a {
+.subContents>a,
+.videoSection > a {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -2098,26 +2099,30 @@
 .subContentsInner>a::after,
 .subContents.etc>a::after,
 .subContents>a::after,
-.subContentsInner > ._buttons > a::after{
+.subContentsInner > ._buttons > a::after,
+.videoSection > a::after{
     display: none;
 }
 .subContentsInner>a:hover,
 .subContents.etc>a:hover,
 .subContents>a:hover,
-.subContentsInner > ._buttons > a:hover{
+.subContentsInner > ._buttons > a:hover,
+.videoSection > a:hover{
 	border: 1px solid var(--gold-color);
 	color: var(--gold-color); 
 }
 .subContentsInner>a:hover img,
 .subContents.etc>a:hover img,
 .subContents>a:hover img,
-.subContentsInner > ._buttons > a:hover img{
+.subContentsInner > ._buttons > a:hover img,
+.videoSection > a:hover img{
     display: none;
 }
 .subContentsInner>a:hover::after,
 .subContents.etc>a:hover::after,
 .subContents>a:hover::after,
-.subContentsInner > ._buttons > a:hover::after{
+.subContentsInner > ._buttons > a:hover::after,
+.videoSection > a:hover::after{
     display: block;
     content: "";
     width: 40px;

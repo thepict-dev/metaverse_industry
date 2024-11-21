@@ -71,7 +71,7 @@
 										<a href="#lnk" class="smButton" onclick="history_list_excel()"><img src="/img/admin/excel.png" alt="">엑셀 다운로드</a>
 									</div>
 									<div class="ListWrpper">
-										<ul class="listHead setList">
+										<ul class="listHead setList equip">
 											<!-- <li>선택</li> -->
 											<li>순서</li>
 											<li>대여 상태</li>
@@ -81,10 +81,11 @@
 											<li>대여자 성명</li>
 											<li>구분</li>
 											<li>장비명</li>
+											<li>시리얼넘버</li>
 											<li>대여형태</li>
 											<!-- <li>삭제</li> -->
 										</ul>
-										<ul class="listBody setList">
+										<ul class="listBody setList equip">
 											<c:forEach var="resultList" items="${resultList}" varStatus="status">
 												<li>
 													<!-- <div class="checkBox">
@@ -136,6 +137,7 @@
 													<p class="title"><a
 															href="/history/history_detail.do?idx=${resultList.idx}">${resultList.name}</a>
 													</p>
+													<p>${resultList.serial_number}</p>
 													<p>
 														<c:choose>
 															<c:when test="${resultList.type eq '1'}">
@@ -146,8 +148,6 @@
 															</c:when>
 														</c:choose>
 													</p>
-													<!-- <p class="delete"><a href="#lnk"
-															onclick="board_delete('${resultList.idx}')"></a></p> -->
 												</li>
 											</c:forEach>
 										</ul>

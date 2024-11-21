@@ -114,6 +114,7 @@
                                                         <input type="text" name="company_address2"
                                                             value="${userVO.company_address2}" id="company_address2">
                                                     </div>
+                                                    <!-- 
                                                     <div class="inputContainer">
                                                         <p class="inputCaption">증빙서류 첨부</p>
                                                         <div class="flexInputs file">
@@ -125,7 +126,8 @@
                                                                 style="display: none;"><img
                                                                     src="/img/user_img/del-file.png" alt=""></button>
                                                         </div>
-                                                    </div>
+                                                    </div> 
+                                                    -->
                                                 </div>
                                             </div>
                                         </div>
@@ -164,7 +166,7 @@
                                                 }).open();
                                             });
                                         }
-
+										/*
                                         const fileInput = document.getElementById('file');
                                         const fileName = document.querySelector('.fileName');
                                         const deleteButton = document.getElementById('deleteButton');
@@ -191,7 +193,7 @@
                                             fileName.textContent = '';
                                             this.style.display = 'none';
                                         });
-
+										*/
                                         const tooltipButtons = document.querySelectorAll('.tooltipBox button');
                                         const tooltipDescs = document.querySelectorAll('.tooltipDesc');
 

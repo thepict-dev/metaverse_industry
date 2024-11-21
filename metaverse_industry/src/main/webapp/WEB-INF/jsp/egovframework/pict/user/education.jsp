@@ -22,7 +22,7 @@
         <h3 class="subTextTitle">메타버스 현장체험교육</h3>
         <div class="textsContentWrapper">
             <div class="subTextContents">
-                <h4 class="textTitle">사용자 범위</h4>
+                <h4 class="textTitle">교육 대상</h4>
                 <div class="textsContent">
                     <!-- <p class="textsContentTitle">누구나 신청가능(보호자1인+아동1인, 2인1조로 체험)</p> -->
                     <p class="textsContentTitle">강원지역 초·중·고등학생(초등학생 4학년 이상 가능)</p>

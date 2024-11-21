@@ -59,7 +59,7 @@
                 <span><img src="/img/user_img/edu-poster.jpeg" alt=""></span>
                 <div class="eduPosTexts">
                     <div class="eduPosTitle">
-                        <p>메타버스 체험교육</p>
+                        <p>메타버스 현장 체험교육</p>
                         <span>강원지역 초·중·고등학생 대상 VR·AR 현장체험교육을 통한 메타버스 산업의 이해를 높이기 위한 체험교육입니다</span>
                     </div>
                     <ul class="eduPosText">
@@ -220,13 +220,10 @@
             </ul>
         </div>
         <div class="videoSection">
-            <div class="imgContainer">
-                <img src="${setting.video_thumb}" alt="">
-                <div class="overlay">
-                    <p>온택트시대의 메타버스 콘텐츠<br>강원 메타버스 지원센터가 그 중심이 되겠습니다</p>
-                    <a href="${setting.video_url}" target="_blank" title="새창이동" class="linkButton wt">홍보영상 보기<img src="/img/user_img/list-link-wt.png" alt=""></a>
-                </div>
-            </div>
+	        <div class="iframeContainer">
+			  <iframe src="${setting.video_url}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen ></iframe>
+			</div>
+          	<a href="${setting.channel_url}" target="blank" title="새창이동">채널 바로가기 <img src="/img/user_img/arrow-right.png" alt=""></a>
         </div>
     </main>
 	<%@ include file="./include/footer.jsp" %>

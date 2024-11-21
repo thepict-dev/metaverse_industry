@@ -292,3 +292,96 @@ rentalItemsContainer.addEventListener('wheel', function(e) {
 // 선택 가능한 최대 개수 표시 텍스트 수정
 const rentalSum = document.querySelector('.rentalSum');
 rentalSum.querySelector('p span:last-child').textContent = '/최대 4곳 선택 가능';
+
+// 탭 관련 기능 추가
+function initTabSystem() {
+    const tabItems = document.querySelectorAll('.tabNav.rental li');
+    
+    tabItems.forEach(tab => {
+        tab.addEventListener('click', async function(e) {
+            e.preventDefault();
+            
+            // 이전 활성 탭 제거
+            tabItems.forEach(item => item.classList.remove('active'));
+            this.classList.add('active');
+            
+            // URL에서 type 파라미터 추출
+            const href = this.querySelector('a').getAttribute('href');
+            const type = new URL(href, window.location.origin).searchParams.get('type') || 'all';
+            
+            try {
+                // Ajax로 해당 카테고리 장비 목록 가져오기
+                const response = await fetch(`/api/equipment/list.do?type=${type}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const data = await response.json();
+                
+                // 장비 목록 업데이트
+                updateEquipmentList(data.resultList);
+                
+                // URL 업데이트 (페이지 새로고침 없이)
+                window.history.pushState({}, '', href);
+                
+            } catch (error) {
+                console.error('장비 목록 로드 실패:', error);
+            }
+        });
+    });
+}
+
+// 장비 목록 업데이트 함수
+function updateEquipmentList(equipmentList) {
+    const listContainer = document.querySelector('.rentalItemList');
+    
+    const html = equipmentList.map(item => `
+        <li data-id="${item.id}" data-cnt="${item.avaliable_equipment_cnt}">
+            <input type="checkbox" name="equip" id="equip_${item.idx}">
+            <label for="equip_${item.idx}"></label>
+            <div class="checkItem">
+                <div class="itemImg">
+                    <img src="${item.image_url}" alt="">
+                    <span></span>
+                    <a href="#lnk" data-id="${item.id}" class="add_bag ${item.isLike === '1' ? 'active' : ''}">
+                        <img src="/img/user_img/bag.png" alt="">
+                    </a>
+                </div>
+                <div class="itemTitles">
+                    <span>${item.type}</span>
+                    <p>${item.name}</p>
+                </div>
+                <p>${item.description}</p>
+            </div>
+        </li>
+    `).join('');
+    
+    listContainer.innerHTML = html;
+    
+    // 이벤트 리스너 재설정
+    reinitializeEventListeners();
+}
+
+// 이벤트 리스너 재설정 함수
+function reinitializeEventListeners() {
+    // 체크박스 이벤트 리스너 재설정
+    const checkboxes = document.querySelectorAll('.rentalItemList input[type="checkbox"]');
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', updateContainerClasses);
+    });
+    
+    // 장바구니 버튼 이벤트 리스너 재설정
+    $('.add_bag').click(function() {
+        console.log("장바구니 추가");
+        const id = $(this).data('id');
+        const tag = $(this);
+        // ... 기존 장바구니 추가 로직 ...
+    });
+}
+
+// 페이지 로드 시 초기화
+document.addEventListener('DOMContentLoaded', function() {
+    initTabSystem();
+});

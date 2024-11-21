@@ -117,6 +117,7 @@ header.subHeader .nav > li:hover > a{
 }
 .sideButtons{
     display: flex;
+    align-items: center;
     column-gap: 16px;
 }
 .sideButtons a{
@@ -130,6 +131,11 @@ header.subHeader .nav > li:hover > a{
     letter-spacing: -0.7px;
     transition: all .2s;
 }
+.sideButtons a.bag{
+    padding: 4px;
+    border: none;
+	
+}
 header.subHeader .sideButtons a{
     color: #fff;
 }
@@ -142,6 +148,15 @@ header.subHeader:hover .sideButtons a{
 .headerInner > button{
     display: none;
     padding: 0;
+}
+.bkBag{
+	display: none;
+}
+header.subHeader:hover .bkBag{
+	display: block;
+}
+header.subHeader:hover .wtBag{
+	display: none;
 }
 
 .gnbBack{
@@ -251,6 +266,8 @@ header.subHeader:hover .sideButtons a{
         display: flex;
         flex-direction: column;
         row-gap: 20px;
+        overflow-y: auto;
+    	height: calc(100% - 149.64px);
     }
 
     .mobile-menu ul.depth>li {
@@ -276,6 +293,21 @@ header.subHeader:hover .sideButtons a{
         letter-spacing: -1.1px;
         font-weight: 500;
         line-height: 1.3;
+    }
+    
+    .mobile-menu ul.depth>li.infoButtons>a{
+	    width: 100%;
+	    height: 100%;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+        padding: 10px;
+        color: #fff;
+        font-size: 16px;
+        letter-spacing: -1.1px;
+        font-weight: 500;
+        line-height: 1.3;
+    
     }
 
     .mobile-menu ul.depth>li.active {

@@ -176,6 +176,55 @@
 								</div>
 							</div>
 						</div>
+						
+					    <div id="userListPopup" class="adminModalContainer">
+					        <div class="adminModalInner">
+					            <button type="button"><img src="/img/admin/close.png" alt=""></button>
+					            <div class="modalTit">
+					                <p>신청자 리스트</p>
+					            </div>
+					            <form action="">
+					                <div class="tableContainer">
+					                    <div class="tableWrapper" style="height: 500px;">
+					                        <table style="min-width: unset;">
+					                            <colgroup>
+					                                <col width="5%" />
+					                                <col width="5%" />
+					                                <col width="18%" />
+					                                <col width="10%" />
+					                                <col width="14%" />
+					                                <col width="14%" />
+					                                <col width="10%" />
+					                                <col width="10%" />
+					                                <col width="14%" />
+					                            </colgroup>
+					                            <thead>
+					                                <tr>
+					                                    <th>선택</th>
+					                                    <th>순서</th>
+					                                    <th>장비명</th>
+					                                    <th>시리얼넘버</th>
+					                                    <th>대여일</th>
+					                                    <th>반납일</th>
+					                                    <th>상태</th>
+					                                    <th>대여자</th>
+					                                    <th>신청일</th>
+					                                </tr>
+					                            </thead>
+					                            <tbody id="userEquipList">
+					                                
+					                            </tbody>
+					                        </table>
+					                    </div>
+					                </div>
+					                <div class="tableButtons" style="justify-content: flex-end; padding: 0 24px 60px 0;">
+					                    <div class="buttons">
+					                        <a href="#lnk" class="white normalButton" onclick="choose_user()">선택</a>
+					                    </div>
+					                </div>
+					            </form>
+					        </div>
+					    </div>
 						<form action="" id="register" name="register" method="post" enctype="multipart/form-data">
 							<input type='hidden' name="idx" id="idx" value='' />
 							<input type='hidden' name="use_at" id="use_at" value='' />

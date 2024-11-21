@@ -28,6 +28,12 @@
             <h3 class="subTextTitle">콘텐츠 제작 지원</h3>
             <div class="textsContentWrapper">
                 <div class="subTextContents">
+                    <h4 class="textTitle">사업명</h4>
+                    <div class="textsContent">
+                        <p><span>메타버스 융합콘텐츠 제작 지원 사업</span></p>
+                    </div>
+                </div>
+                <div class="subTextContents">
                     <h4 class="textTitle">사업목적</h4>
                     <div class="textsContent">
                         <p><span>도내 메타버스 관련 기업을 지원하여 높은 완성도를 가진 콘텐츠 제작</span></p>
@@ -79,9 +85,23 @@
             <h3 class="subTextTitle">전문인력 양성</h3>
             <div class="textsContentWrapper">
                 <div class="subTextContents">
+                    <h4 class="textTitle">사업명</h4>
+                    <div class="textsContent">
+                        <p><span>메타버스 전문인력 양성 교육 사업</span></p>
+                    </div>
+                </div>
+                <div class="subTextContents">
                     <h4 class="textTitle">사업목적</h4>
                     <div class="textsContent">
                         <p><span>강원지역 메타버스 관련 산업 요구사항을 반영한 메타버스 실무형 교육을 통해 산업 종사자 및 취업 희망자들의 직무능력향상 및 인재 발굴</span></p>
+                    </div>
+                </div>
+                <div class="subTextContents">
+                    <h4 class="textTitle">사업개요</h4>
+                    <div class="textsContent">
+                        <p><span>사업공고일</span></p>
+                        <p><span>지원대상(강원 소재 기업 재직자, 미취업자, 대학생)</span></p>
+                        <p><span>교육장소(추후 공지)</span></p>
                     </div>
                 </div>
                 <div class="subTextContents">
@@ -98,32 +118,34 @@
             <h3 class="subTextTitle">인프라 지원</h3>
             <div class="textsContentWrapper">
                 <div class="subTextContents">
+                    <h4 class="textTitle">사업명</h4>
+                    <div class="textsContent">
+                        <p><span>강원 메타버스 지원센터 인프라(시설·장비) 지원</span></p>
+                    </div>
+                </div>
+                <div class="subTextContents">
                     <h4 class="textTitle">사업목적</h4>
                     <div class="textsContent">
                         <p><span>메타버스 콘텐츠 제작에 필요한 인프라시설·장비 지원</span></p>
                     </div>
                 </div>
                 <div class="subTextContents">
-                    <h4 class="textTitle"></h4>
+                    <h4 class="textTitle">사업개요</h4>
                     <div class="textsContent">
+                    	<p><span>강원특별자치도 메타버스 기업에 인프라(시설·장비) 지원</span></p>
                         <p><span>평일(월~금) 10:00 ~ 17:00</span><span class="captions">※ 주말 및 공휴일 제외</span></p>
-                    </div>
-                </div>
-                <div class="subTextContents">
-                    <h4 class="textTitle"></h4>
-                    <div class="textsContent">
                         <p><span>홈페이지를 통한 예약신청 후 방문</span></p>
                     </div>
                 </div>
                 <div class="subTextContents">
-                    <h4 class="textTitle"></h4>
+                    <h4 class="textTitle">지원대상</h4>
                     <div class="textsContent">
                         <p><span>강원특별자치도 메타버스 관련 기업, 유관기관 임직원</span></p>
                         <p><span>강원특별자치도에 거주하는 메타버스 관련 창·취업 준비자</span></p>
                     </div>
                 </div>
                 <div class="subTextContents">
-                    <h4 class="textTitle"></h4>
+                    <h4 class="textTitle">시설종류</h4>
                     <div class="textsContent">
                         <p><span>모션캡처룸</span></p>
                         <p><span>브이튜버룸</span></p>
@@ -132,7 +154,7 @@
                     </div>
                 </div>
                 <div class="subTextContents">
-                    <h4 class="textTitle">추진절차</h4>
+                    <h4 class="textTitle">프로세스</h4>
                     <ul class="boxContent">
                         <li>홈페이지 로그인</li>
                         <li>온라인 예약신청</li>
@@ -156,5 +178,29 @@
     </div>
 	<%@ include file="./include/footer.jsp" %>
 	<script src="/js/sub.js"></script>
+	<script>
+		//탭
+		const tabItem = document.querySelectorAll('.tabNav li');
+		const tabInner = document.querySelectorAll('.tabInner');
+	
+		function activateTab(items, index) {
+		    tabInner.forEach((inner) => {
+		        inner.classList.remove('active');
+		    });
+	
+		    items.forEach((item) => {
+		        item.classList.remove('active');
+		    });
+	
+		    items[index].classList.add('active');
+		    tabInner[index].classList.add('active');
+		}
+	
+		tabItem.forEach((tab, idx) => {
+		    tab.addEventListener('click', function() {
+		        activateTab(tabItem, idx);
+		    });
+		});
+	</script>
 </body>
 </html>

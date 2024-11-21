@@ -128,12 +128,17 @@
 }
 /* 장비 관리대장 리스트 */
 .listHead.setList{
-    /* grid-template-columns: 5% 12% 10% 10% 10% 9% 5% 32% 7%; */
-    grid-template-columns: 5% 10% 10% 10% 10% 13% 12% 23% 7%;
+    grid-template-columns: 5% 7% 10% 10% 10% 13% 12% 26% 7%;
 }
 .listBody.setList > li{
-    /* grid-template-columns: 5% 12% 10% 10% 10% 9% 5% 32% 7%; */
-    grid-template-columns: 5% 10% 10% 10% 10% 13% 12% 23% 7%;
+    grid-template-columns: 5% 7% 10% 10% 10% 13% 12% 26% 7%;
+}
+/* 장비 관리대장 리스트 */
+.listHead.setList.equip{
+    grid-template-columns: 5% 7% 10% 10% 10% 13% 12% 13% 13% 7%;
+}
+.listBody.setList.equip > li{
+    grid-template-columns: 5% 7% 10% 10% 10% 13% 12% 13% 13% 7%;
 }
 /* 시설리스트 */
 .listHead.facilList{
@@ -179,6 +184,16 @@
     grid-template-columns: 10% 25% 35% 10% 10% 10%;
     cursor: pointer;
 }
+
+/* 임의 대여 리스트 */
+.listHead.rentalList{
+    grid-template-columns: 5% 10% 10% 15% 15% 45%;
+}
+.listBody.rentalList > li{
+    grid-template-columns: 5% 10% 10% 15% 15% 45%;
+    cursor: pointer;
+}
+
 
 /* 상세보기 버튼 스타일 */
 .listBody.boardlist li .details {
@@ -679,6 +694,13 @@
 	line-height: 140%; /* 19.6px */
 	letter-spacing: -0.7px;
 }
+.label-name{
+    overflow: visible !important;
+    white-space: pre-wrap !important;
+    text-overflow: unset !important;
+    word-break: keep-all !important;
+	line-height: 130% !important;
+}
 .detailCardImg{
 	width: 159px;
 	height: 95px;
@@ -772,4 +794,13 @@
 }
 .datailCardWrapper .detailCard{
 	position: unset;
+}
+
+.listInner > p{
+	color: var(--TEXT, #242A30);
+    font-family: SUIT;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%;
 }

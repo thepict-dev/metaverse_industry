@@ -1890,46 +1890,46 @@ public class PictController {
 		if (session == null || session == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
-		System.out.println("get Idx @@@@@@" + pictVO.getIdx());
-
+		
+		// 페이지당 표시할 항목 수 설정
 		int limitNumber = 20;
 		pictVO.setLimit_cnt(limitNumber);
+		
+		// 현재 페이지 번호 설정
 		Integer pageNum = pictVO.getPageNumber();
 		if (pageNum == 0) {
 			pictVO.setPageNumber(1);
 			pageNum = 1;
 		}
+		
+		// 시작 인덱스 계산
 		int startNum = (pageNum - 1) * limitNumber;
 		pictVO.setStartNumber(startNum);
+		
+		// 전체 데이터 수 조회
 		Integer totalCnt = pictService.request_total_cnt(pictVO);
-		int lastPageValue = (int) (Math.ceil(totalCnt * 1.0 / 10));
-		System.out.println("startNum @@@@@@@@@@@@@@@@@@ " + startNum);
-		System.out.println("totalCnt @@@@@@@@@@@@@@@@@@ " + totalCnt);
-		System.out.println("lastPageValue @@@@@@@@@@@@@@@@@@ " + lastPageValue);
+		
+		// 마지막 페이지 계산 수정 (10이 아닌 limitNumber로 나눔)
+		int lastPageValue = (int) Math.ceil((double)totalCnt / limitNumber);
 		pictVO.setLastPage(lastPageValue);
 
-		Integer s_page = pageNum - 4;
-		Integer e_page = pageNum + 5;
-		if (s_page <= 0) {
-			s_page = 1;
-			e_page = 10;
-		}
-		if (e_page > lastPageValue) {
-			e_page = lastPageValue;
-		}
+		// 페이지 그룹 계산
+		Integer s_page = ((pageNum - 1) / 10) * 10 + 1;  // 현재 페이지가 속한 그룹의 시작 페이지
+		Integer e_page = Math.min(s_page + 9, lastPageValue);  // 현재 페이지 그룹의 마지막 페이지
+		
 		pictVO.setStartPage(s_page);
-		System.out.println("s_page @@@@@@@@@@@@@@@@@@ " + s_page);
 		pictVO.setEndPage(e_page);
-		System.out.println("e_page @@@@@@@@@@@@@@@@@@ " + e_page);
 
+		// 데이터 조회
 		List<?> history_list = pictService.get_request_list(pictVO);
-		System.out.println("get history_list @@@@@@@@@@@@" + history_list);
-		System.out.println("get status@@@@@@@@@" + pictVO.getStatus());
+		
+		// 모델에 데이터 추가
 		model.addAttribute("resultList", history_list);
 		model.addAttribute("size", history_list.size());
 		model.addAttribute("pictVO", pictVO);
 		model.addAttribute("totalCnt", totalCnt);
 		model.addAttribute("search_text", pictVO.getSearch_text());
+		
 		return "pict/history/history_list";
 	}
 
@@ -2161,41 +2161,40 @@ public class PictController {
 		if (session == null || session == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
-		System.out.println("get Idx @@@@@@" + pictVO.getIdx());
-
+		
+		// 페이지당 표시할 항목 수 설정
 		int limitNumber = 20;
 		pictVO.setLimit_cnt(limitNumber);
+		
+		// 현재 페이지 번호 설정
 		Integer pageNum = pictVO.getPageNumber();
 		if (pageNum == 0) {
 			pictVO.setPageNumber(1);
 			pageNum = 1;
 		}
+		
+		// 시작 인덱스 계산
 		int startNum = (pageNum - 1) * limitNumber;
 		pictVO.setStartNumber(startNum);
+		
+		// 전체 데이터 수 조회
 		Integer totalCnt = pictService.get_facility_request_total_cnt(pictVO);
-		int lastPageValue = (int) (Math.ceil(totalCnt * 1.0 / 10));
-		System.out.println("startNum @@@@@@@@@@@@@@@@@@ " + startNum);
-		System.out.println("totalCnt @@@@@@@@@@@@@@@@@@ " + totalCnt);
-		System.out.println("lastPageValue @@@@@@@@@@@@@@@@@@ " + lastPageValue);
+		
+		// 마지막 페이지 계산 수정 (10이 아닌 limitNumber로 나눔)
+		int lastPageValue = (int) Math.ceil((double)totalCnt / limitNumber);
 		pictVO.setLastPage(lastPageValue);
 
-		Integer s_page = pageNum - 4;
-		Integer e_page = pageNum + 5;
-		if (s_page <= 0) {
-			s_page = 1;
-			e_page = 10;
-		}
-		if (e_page > lastPageValue) {
-			e_page = lastPageValue;
-		}
+		// 페이지 그룹 계산
+		Integer s_page = ((pageNum - 1) / 10) * 10 + 1;  // 현재 페이지가 속한 그룹의 시작 페이지
+		Integer e_page = Math.min(s_page + 9, lastPageValue);  // 현재 페이지 그룹의 마지막 페이지
+		
 		pictVO.setStartPage(s_page);
-		System.out.println("s_page @@@@@@@@@@@@@@@@@@ " + s_page);
 		pictVO.setEndPage(e_page);
-		System.out.println("e_page @@@@@@@@@@@@@@@@@@ " + e_page);
 
+		// 데이터 조회
 		List<?> history_list = pictService.get_facility_request_list(pictVO);
-		System.out.println("get history_list @@@@@@@@@@@@" + history_list);
-		System.out.println("get status@@@@@@@@@" + pictVO.getStatus());
+		
+		// 모델에 데이터 추가
 		model.addAttribute("resultList", history_list);
 		model.addAttribute("size", history_list.size());
 		model.addAttribute("totalCnt", totalCnt);
@@ -2233,14 +2232,66 @@ public class PictController {
 			        		, CustomDateTime.formatFromDate("yyyy년 MM월 dd일", (Date) history_detail.get("rental_start_date"))
 			        		, CustomDateTime.formatFromDate("yyyy년 MM월 dd일", (Date) history_detail.get("rental_end_date"))
 			        		, CustomDateTime.formatFromString("yyyy-MM-dd", (String) history_detail.get("request_date"), "yyyy년 MM월 dd일")
-			        		)
-	        		);
+			));
 		}
 		model.addAttribute("history_detail", history_detail);
 		model.addAttribute("pictVO", pictVO);
 		return "pict/facility/facility_history_detail";
 	}
 
+	//시설 임의 대여
+	@RequestMapping(value = "/facility/facility_admin_rental.do")
+	public String facility_admin_rental(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request)
+			throws Exception {
+		String session = (String) request.getSession().getAttribute("id");
+		if (session == null || session == "null" || !UserRole.adminValidation(request)) {
+			return "redirect:/pict_login.do";
+		}
+
+		// 페이지네이션 설정
+		int limitNumber = 20;
+		pictVO.setLimit_cnt(limitNumber);
+		Integer pageNum = pictVO.getPageNumber();
+		if (pageNum == 0) {
+			pictVO.setPageNumber(1);
+			pageNum = 1;
+		}
+		
+		// 시작 인덱스 계산
+		int startNum = (pageNum - 1) * limitNumber;
+		pictVO.setStartNumber(startNum);
+		
+		// 전체 데이터 수 조회
+		Integer totalCnt = pictService.usrCtn();
+		
+		// 마지막 페이지 계산
+		int lastPageValue = (int) Math.ceil((double)totalCnt / limitNumber);
+		pictVO.setLastPage(lastPageValue);
+
+		// 페이지 그룹 계산
+		Integer s_page = ((pageNum - 1) / 10) * 10 + 1;
+		Integer e_page = Math.min(s_page + 9, lastPageValue);
+		
+		pictVO.setStartPage(s_page);
+		pictVO.setEndPage(e_page);
+
+		// 데이터 조회
+		List<?> userList = pictService.get_user_list(pictVO);
+		
+		// 모델에 데이터 추가
+		model.addAttribute("resultList", userList);
+		model.addAttribute("search_text", pictVO.getSearch_text());
+		model.addAttribute("totalCnt", totalCnt);
+		model.addAttribute("pictVO", pictVO);
+
+		// 시설 목록 조회 (available한 시설만)
+		pictVO.setOnlyAvailable(true);
+		List<?> facilityList = pictService.facility_list(pictVO);
+		model.addAttribute("facilityList", facilityList);
+
+		return "pict/facility/facility_admin_rental";
+	}
+	
 	// 장비 대여/반납 관리
 	@RequestMapping(value = "/manage/manage_rental.do")
 	public String manage_rental(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request)
@@ -2794,7 +2845,7 @@ public class PictController {
     		
     		/******************** 인증정보 ********************/
     		
-    		/******************** 전송정보 ********************/
+    		/******************** ��송정보 ********************/
 
 //    		request.getAttribute("text").toString();
     		sms.put("msg", msg);

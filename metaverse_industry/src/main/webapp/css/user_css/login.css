@@ -226,7 +226,6 @@
     height: 100%;
 }
 .tooltipDesc{
-    /* display: none; */
     position: absolute;
     left: 50px;
     bottom: 51px;
@@ -235,7 +234,7 @@
     border-radius: 10px;
     background: var(--navy-color); 
     transition: all .3s;
-    opacity: 0;
+    opacity: 1;
 }
 .tooltipDesc::after{
     position: absolute;
@@ -465,4 +464,109 @@ label.custom>input:checked~.custom-radio::after {
     line-height: 100%;
     /* 18px */
     letter-spacing: -0.9px;
+}
+
+
+.loginTitle h2.terms{
+	flex-direction: column;
+    line-height: 150%;
+}
+.loginTitle h2.terms span{
+	color: var(--navy-color);
+}
+.loginWrapper.terms {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 40px 0 150px 0;
+    background-color: #fff;
+}
+.loginWrapper.terms .loginContainer {
+    display: flex;
+    flex-direction: column;
+	align-items: flex-start;
+    row-gap: 0;
+    width: 100%;
+    max-width: 1480px;
+    padding: 0;
+}
+.termsTitles{
+	width: 100%;
+	margin-bottom: 40px;
+	padding: 30px;
+	text-align: center;
+    color: var(--TEXT, #242A30);
+    font-family: SUIT;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%;
+    background-color: var(--grey-50);
+    line-height: 140%;
+}
+.termsContentsWrapper{
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
+    padding: 0 20px;
+}
+.loginWrapper.terms .loginContainer p{
+	word-break: keep-all;
+}
+.termsContents > p{
+    line-height: 160%;
+	margin-bottom: 5px;
+    color: var(--TEXT, #242A30);
+    font-size: 16px;
+}
+.termsContents > p.termsSubTitle{
+	margin-bottom: 5px;
+	color: var(--navy-color);
+    font-family: SUIT;
+    font-size: 18px;
+    font-weight: 700;
+}
+.termsDesc{
+	margin-left: 18px;
+    color: var(--TEXT, #242A30);
+    font-size: 16px;
+}
+.termsSubDesc{
+	margin-left: 28px;
+}
+
+.termsTable{
+	width: 100%;
+	margin-left: 18px;
+}
+.termsTable p{
+	margin-bottom: 10px;
+    color: var(--TEXT, #242A30);
+    font-size: 16px;
+}
+.termsTable ul{
+	display: grid;
+    grid-template-columns: repeat(5, 1fr);
+}
+.termsTable ul:last-child{
+	border-right: none;
+}
+.termsTHead{
+	width: 100%;
+    border-top: 2px solid var(--navy-color);
+}
+.termsTBody{
+	width: 100%;
+    border-bottom: 1px solid var(--grey-grey-100, #DBDEE2);
+}
+.termsTable ul li{
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border-right: 1px solid var(--grey-grey-100, #DBDEE2);
+    border-bottom: 1px solid var(--grey-grey-100, #DBDEE2);
+	text-align: center;
+    color: var(--TEXT, #242A30);
+    line-height: 160%;
 }

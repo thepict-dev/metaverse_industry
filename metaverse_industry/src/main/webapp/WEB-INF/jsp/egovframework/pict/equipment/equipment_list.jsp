@@ -183,10 +183,6 @@
 										
 									</div>
 								</div>
-								<!-- <div class="buttons">
-									<a href="" class="smButton"
-										style="margin-top: 8px; padding: 0 8px;">다운로드</a>
-								</div> -->
 							</div>
 						</div>
 						<script>

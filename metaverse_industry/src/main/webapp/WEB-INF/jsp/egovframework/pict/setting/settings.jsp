@@ -37,7 +37,13 @@
 	                    <div class="inputsContainer">
 	                        <div class="inputBox">
 	                            <p class="inputCaption">홍보영상 링크</p>
-	                            <input type="text" name="video_url" id="video_url" placeholder="홍보영상 링크 클릭시 이동한 URL을 입력해주세요." value="${pictVO.video_url}">
+	                            <input type="text" name="video_url" id="video_url" placeholder="페이지에 표출될 영상의 URL을 입력해주세요." value="${pictVO.video_url}">
+	                        </div>
+	                    </div>
+	                    <div class="inputsContainer">
+	                        <div class="inputBox">
+	                            <p class="inputCaption">채널 링크</p>
+	                            <input type="text" name="channel_url" id="channel_url" placeholder="채널 바로가기 클릭시 이동할 URL을 입력해주세요." value="${pictVO.channel_url}">
 	                        </div>
 	                    </div>
 	                    <div class="inputsContainer">
@@ -124,7 +130,7 @@
 		        value = value.replace(/[^0-9]/g, '');
 		        
 		        // 앞의 0들 제거
-		        value = value.replace(/^0+/, '');
+		        value = value.replace(/^0+/, ''); 
 		        $(this).val(value);
 
 		    })

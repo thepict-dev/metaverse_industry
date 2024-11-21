@@ -183,9 +183,6 @@
 	                if (data.company_address1 !== '') {
 	                    document.querySelector("._company_address ~ span").textContent = data.company_address1 + ' ' + data.company_address2;
 	                }
-	                if (data.document_url !== '') {
-	                    document.querySelector("._document_url ~ span").textContent = data.document_url;
-	                }
 	                $('#modefyAdd').removeClass('active');
 	                return window.alert('수정되었습니다.');
 	            } else {

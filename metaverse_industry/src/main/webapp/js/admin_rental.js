@@ -1,6 +1,7 @@
 $('.listBody.userList > li > .title').click(function () {
 	const li = $(this).parent();
 	console.log(li);
+	let user_id = li.find(".user_id").val();
 	let company_nm = li.find(".company_nm").val();
 	let company_address1 = li.find(".company_address1").val();
 	let company_address2 = li.find(".company_address2").val();
@@ -31,6 +32,8 @@ $('.listBody.userList > li > .title').click(function () {
 	$('.equipDetails').find("._position").text(position);
 	$('.equipDetails').find("._document_url").text(document_name);
 	$('.equipDetails').find("._document_url").attr('href', document_url);
+	
+	$('.equipDetails').data('selected-user-id', user_id);
 	
 	$('.equipDetails').addClass('active');
 });
@@ -101,3 +104,62 @@ $(".delete_user").click(function () {
 		})
 	}
 })
+
+function equip_rental() {
+	const selectedUserId = $('.equipDetails').data('selected-user-id');
+	const equipment = $('#category option:selected');
+	const rentalType = $('#rental_type').val();
+	const startDate = $('#rental_start_date').val();
+	const endDate = $('#rental_end_date').val();
+	const count = $('input[name="count"]').val();
+
+	// if (!equipment.val() || !startDate || !endDate || !count) {
+	// 	alert("장비, 대여일, 반납일, 수량을 모두 입력해주세요.");
+	// 	return;
+	// }
+
+	// 날짜 형식 변환
+	const originalStartDate = new Date(startDate);
+	const originalEndDate = new Date(endDate);
+	const formattedStartDate = startDate.replace(/-/g, '.');
+	const formattedEndDate = endDate.replace(/-/g, '.');
+
+	const formData = new FormData();
+	formData.append("rental_type", rentalType);
+	formData.append("equipment_list", JSON.stringify([{
+		id: equipment.data('id'),
+		name: equipment.text().trim(),
+		cnt: count,
+		original_rental_start_date: originalStartDate.toISOString(),
+		original_rental_end_date: originalEndDate.toISOString(),
+		rental_start_date: formattedStartDate,
+		rental_end_date: formattedEndDate,
+		request_status: 'approved'
+	}]));
+	formData.append("equipment_plan", "관리자 임의 대여");
+	formData.append("user_id", selectedUserId);
+
+	$.ajax({
+		url: '/api/booking.do',
+		type: 'POST',
+		data: formData,
+		processData: false,
+		contentType: false,
+		success: function(response) {
+			if (response.msg === "ok") {
+				alert("장비 대여가 완료되었습니다.");
+				location.reload();
+			} else {
+				alert("장비 대여에 실패했습니다.");
+			}
+		},
+		error: function() {
+			alert("장비 대여 중 오류가 발생했습니다.");
+		}
+	});
+}
+
+// rentalButton 클릭 이벤트 핸들러
+$('#rentalButton').click(function() {
+	equip_rental();
+});

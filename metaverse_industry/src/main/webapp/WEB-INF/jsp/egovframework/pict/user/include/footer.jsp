@@ -9,9 +9,7 @@
         <div class="footerTop">
             <div class="snsFam">
                 <ul class="sns">
-                    <li><a href="#lnk" target="_blank" title="새창이동"><img src="/img/user_img/youtube.png" alt=""></a></li>
-                    <li><a href="#lnk" target="_blank" title="새창이동"><img src="/img/user_img/instagram.png" alt=""></a></li>
-                    <li><a href="#lnk" target="_blank" title="새창이동"><img src="/img/user_img/facebook.png" alt=""></a></li>
+                    <li><a href="https://www.youtube.com/@chuncheon-TV" target="_blank" title="새창이동"><img src="/img/user_img/youtube.png" alt=""></a></li>
                 </ul>
                 <div class="famDrop">
                     <button type="button">강원디지털인프라</button>
@@ -37,9 +35,9 @@
             </div>
         </div>
         <ul class="footerInfo">
-            <li><a href="#lnk" target="_blank" title="새창이동">개인정보 처리 방침</a></li>
-            <li><a href="#lnk" target="_blank" title="새창이동">이용약관</a></li>
-            <li><a href="#lnk" target="_blank" title="새창이동">이메일 무단 수집거부</a></li>
+            <li><a href="/terms1.do">개인정보 처리 방침</a></li>
+            <li><a href="/terms2.do">이용약관</a></li>
+            <li><a href="/terms3.do">이메일 무단 수집거부</a></li>
         </ul>
     </div>
 </footer>

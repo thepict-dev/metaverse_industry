@@ -197,28 +197,28 @@
                                                         <div class="inputContainer">
                                                             <p class="inputCaption">회사명*</p>
                                                             <input type="text" name="company_nm" id="company_nm"
-                                                                placeholder="회사명을 입력하세요" />
+                                                                placeholder="회사명을 입력하세요" value="${user_info.company_nm}" />
                                                         </div>
                                                         <div class="inputContainer">
                                                             <p class="inputCaption">사업자등록번호*</p>
                                                             <input type="text" name="sa_eob_no" id="sa_eob_no"
-                                                                placeholder="사업자등록번호를 입력하세요" />
+                                                                placeholder="사업자등록번호를 입력하세요" value="${user_info.sa_eob_no}" />
                                                         </div>
                                                         <div class="inputContainer">
                                                             <p class="inputCaption">직책*</p>
                                                             <input type="text" name="position" id="position"
-                                                                placeholder="직책을 입력하세요" />
+                                                                placeholder="직책을 입력하세요" value="${user_info.position}" />
                                                         </div>
                                                         <div class="inputContainer">
                                                             <p class="inputCaption">사업장주소*</p>
                                                             <div class="flexInputs">
                                                                 <input type="text" name="company_address1"
                                                                     id="company_address1" readonly
-                                                                    placeholder="주소를 입력하세요">
+                                                                    placeholder="주소를 입력하세요" value="${user_info.company_address1}">
                                                                 <a href="#lnk" id="search_add2">주소검색</a>
                                                             </div>
                                                             <input type="text" name="company_address2"
-                                                                id="company_address2">
+                                                                id="company_address2" value="${user_info.company_address2}">
                                                         </div>
                                                         <div class="inputContainer">
                                                             <p class="inputCaption">장비사용계획*</p>
@@ -444,8 +444,8 @@
                                                 <div class="agreeContent">
                                                     <h3>제8조(사용 및 반납)</h3>
                                                     <p><span>①</span>사용과 반납은 사용자 신청 기간을 준수해야 한다. 예약 이후, 별도 연락 없이 사용하지 않을 경우, 센터 관리자는 사용을 취소할 수 있으며, 제10조(자격 제한)에 따라 주의 조치할 수 있다. (개정 2024. 03. 결재일.)</p>
-                                                    <p><span>②</span>사용과 반납은 신청자 본인이 원칙이며, 대리 사용과 반납은 불가하다. 다만, 센터 관리자로부터 합리적인 사유(질병, 사고 등)로 사전에 승인을 득했을 때는 가능하며, 추가 신분 확인이 진행된다. (개정 2024. 03. 결재일.)</p>
-                                                    <p><span>③</span>사용자는 인프라 사용 이후 반납 시 원상 복귀(SW 임의 설치, 정리 정돈 등)해야 한다. (신설 2024. 03. 결재일.)</p>
+                                                    <p><span>②</span>사용과 반납은 신청자 본인이 원칙이며, 대리 사용과 반���은 불가하다. 다만, 센터 관리자로부터 합리적인 사유(질병, 사고 등)로 사전에 승인을 득했을 때는 가능하며, 추가 신분 확인이 진행된다. (개정 2024. 03. 결재일.)</p>
+                                                    <p><span>③</span>사용자는 인프라 사용 이��� 반납 시 원상 복귀(SW 임의 설치, 정리 정돈 등)해야 한다. (신설 2024. 03. 결재일.)</p>
                                                     <p><span>④</span>사용과 반납 시, 센터 관리자는 인프라(시설·장비)의 정상 작동 여부를 확인하며, 사용자는 이에 적극적으로 임해야 한다. (개정 2024. 03. 결재일.)</p>
                                                     <p><span>⑤</span>사용자는 사용과 반납 시 신분 확인 절차에 응해야 한다. (개정 2024. 03. 결재일.)</p>
                                                     <p><span>⑥</span>사용자는 인프라(시설·장비)의 사용 완료 이후 만족도 조사, 사용 완료 서명 등을 작성해야 한다. (신설 2024. 03. 결재일.)</p>
@@ -506,13 +506,10 @@
                                             </div>
                                         </div>
                                     </div>
-
-
-
-                        </body>
                         <script>
-						    const user_name = "<%=session.getAttribute("name")%>";
-						</script>
+                            const user_name = "<%=session.getAttribute("name")%>";
+                        </script>
+                        </body>
                         <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
                         <script type="text/javascript" src="/js/rental.js"></script>
 
