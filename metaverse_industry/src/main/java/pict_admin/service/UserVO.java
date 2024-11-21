@@ -17,7 +17,7 @@ public class UserVO {
 	private String position;
 	private String document_url;
 
-	private UserVO() {
+	public UserVO() {
 	}
 
 	private UserVO(String user_id) {
