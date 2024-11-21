@@ -431,9 +431,9 @@ public class UserController {
 					pictVO.setId(items.get(i).get("id").toString());
 					// 렌탈 신청
 					pictService.submit_rental_request(pictVO);
-					// 관리자가 신청 시, 대여처리
+					// 관리자가 신청 시, 승인처리
 					if(UserRole.adminValidation(request)) {
-						pictVO.setRequest_status("rental");
+						pictVO.setRequest_status("approved");
 						userService.updateRequestStatus(pictVO);
 					}
 				}
