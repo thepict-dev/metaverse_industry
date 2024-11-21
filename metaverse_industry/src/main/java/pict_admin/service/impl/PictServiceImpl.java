@@ -350,8 +350,8 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 	}
 	
 	@Override
-	public List<PictVO> rentalApprovedList() {
-		return pictMapper.rentalApprovedList(); 
+	public List<PictVO> rentalApprovedList(String serial_number) {
+		return pictMapper.rentalApprovedList(serial_number); 
 	}
 	
 	@Override

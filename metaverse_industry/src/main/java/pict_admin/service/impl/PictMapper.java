@@ -152,7 +152,7 @@ public interface PictMapper {
 	
 	Map<String, Object> get_qr_code(PictVO pictVO) throws Exception;
 	
-	List<PictVO> rentalApprovedList();
+	List<PictVO> rentalApprovedList(String serial_number);
 	
 	PictVO findEquipmentRequestById(@Param("id") String id, @Param("user_id") String userId) throws Exception;
 

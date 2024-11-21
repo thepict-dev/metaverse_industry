@@ -925,6 +925,7 @@
 		WHERE
 			1=1
 			AND err.request_status in ('approved', 'rental')
+			AND eit.serial_number = #{serial_number}
 	</select>
 	
 	<!-- 시설물 관리 -->

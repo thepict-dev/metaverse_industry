@@ -146,7 +146,7 @@ public interface PictService {
 	
 	Map<String, Object> get_qr_code(PictVO pictVO) throws Exception;
 
-	List<PictVO> rentalApprovedList();
+	List<PictVO> rentalApprovedList(String serial_number);
 	
 	// 시설물 관련
 	List<?> facility_list(PictVO pictVO) throws Exception;

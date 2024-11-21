@@ -566,10 +566,10 @@ public class UserController {
 	}
 
 	@GetMapping("/rentalApprovedList.do")
-	public List<PictVO> rentalApprovedList(HttpServletRequest request) {
+	public List<PictVO> rentalApprovedList(HttpServletRequest request, @RequestParam(value="serial_number") String serial_number) {
 		return Optional.of(request)
 				.filter(req -> UserRole.adminValidation(req))
-				.map(req -> pictService.rentalApprovedList())
+				.map(req -> pictService.rentalApprovedList(serial_number))
 				.orElseGet(() -> new ArrayList<PictVO>());
 	}
 
