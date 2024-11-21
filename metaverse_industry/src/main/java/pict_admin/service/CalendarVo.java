@@ -13,6 +13,7 @@ public class CalendarVo {
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime date;
+    private String insertDate;
 	
 	public CalendarVo() {}
 	
@@ -42,5 +43,13 @@ public class CalendarVo {
 	public void setDate(LocalDateTime date) {
 		// 시간은 00:00 으로 저장
 		this.date = date.toLocalDate().atStartOfDay();
+	}
+
+	public String getInsertDate() {
+		return insertDate;
+	}
+
+	public void setInsertDate(String insertDate) {
+		this.insertDate = insertDate;
 	}
 }

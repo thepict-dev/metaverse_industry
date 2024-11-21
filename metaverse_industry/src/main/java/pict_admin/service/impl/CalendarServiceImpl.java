@@ -1,5 +1,7 @@
 package pict_admin.service.impl;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +31,7 @@ public class CalendarServiceImpl {
 	@Transactional
 	public void saveClosedDate(List<CalendarVo> vo) {
 		for(CalendarVo cv : vo) {
+			cv.setInsertDate(cv.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 			// 캘린더에 저장하려는 날짜가 있다면 저장하지 않고 넘어감.
 			if(Optional.ofNullable(calendarMapper.findClosedDateByDate(cv)).isPresent()) continue;
 			calendarMapper.saveClosedDate(cv);

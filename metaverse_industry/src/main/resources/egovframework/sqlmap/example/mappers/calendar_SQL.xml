@@ -24,8 +24,8 @@
 		FROM
 			closed_date
 		WHERE 1=1
-	    	<if test="date != null and date != ''">
-				AND closed_date = #{date}
+	    	<if test="insertDate != null and insertDate != ''">
+				AND closed_date = #{insertDate}
 			</if>
 	</select>
 	
@@ -34,6 +34,6 @@
 			closed_date
 			(title, closed_date)
 		VALUE
-			(#{title}, #{date})
+			(#{title}, #{insertDate})
 	</insert>
 </mapper>
