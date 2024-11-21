@@ -919,12 +919,11 @@
 		    equipment_item_table eit
 		JOIN equipment_type_table ett ON eit.equipment_type_id = ett.id
 		LEFT JOIN equipment_rental_request err ON eit.id = err.equipment_id
-		    AND err.request_status = 'approved'
 		    AND (CURDATE() BETWEEN err.rental_start_date AND err.rental_end_date OR err.rental_start_date >= CURDATE())
 		LEFT JOIN user_table ut ON err.user_id = ut.user_id
 		WHERE
 			1=1
-			AND err.request_status in ('approved', 'rental')
+		    AND err.request_status in ('approved', 'rental')
 			AND eit.serial_number = #{serial_number}
 	</select>
 	
