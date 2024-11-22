@@ -1186,6 +1186,12 @@ public class PictController {
 
 	}
 
+    @RequestMapping(value = "/schedule/schedule.do")
+	public String schedule(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request)
+			throws Exception {
+        return "/pict/schedule/schedule";
+    }
+    
 	// 사용자 리스트
 	@RequestMapping(value = "/user_list/user_list.do")
 	public String user_lists(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request)

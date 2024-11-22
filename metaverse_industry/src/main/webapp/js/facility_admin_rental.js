@@ -1,4 +1,4 @@
-$('.listBody.userList > li > .title').click(function () {
+$('.listBody.rentalList > li > .title').click(function () {
 	const li = $(this).parent();
 	console.log(li);
 	let user_id = li.find(".user_id").val();
@@ -8,7 +8,6 @@ $('.listBody.userList > li > .title').click(function () {
 	let sa_eob_no = li.find(".sa_eob_no").val();
 	let position = li.find(".position").val();
 	
-	console.log(company_nm, company_address1, company_address2, sa_eob_no, position);
 	$('.equipDetails').find("._company_nm").text(company_nm);
 	$('.equipDetails').find("._company_address").text(`${company_address1} ${company_address2}`);
 	$('.equipDetails').find("._sa_eob_no").text(sa_eob_no);
@@ -63,12 +62,10 @@ function facility_rental() {
 		original_rental_start_date: originalStartDate.toISOString(),
 		original_rental_end_date: originalEndDate.toISOString(),
 		rental_start_date: formattedStartDate,
-		rental_end_date: formattedEndDate,
-		request_status: 'approved'
+		rental_end_date: formattedEndDate
 	}]));
 	formData.append("facility_plan", "관리자 임의 대여");
 	formData.append("user_id", selectedUserId);
-	formData.append("status", "approved");
 
 	$.ajax({
 		url: '/api/booking_facility.do',
@@ -81,11 +78,14 @@ function facility_rental() {
 				alert("시설 대여가 완료되었습니다.");
 				location.reload();
 			} else {
+				
 				alert("시설 대여에 실패했습니다.");
+				console.log(response);
 			}
 		},
-		error: function() {
+		error: function(xhr, status, error) {
 			alert("시설 대여 중 오류가 발생했습니다.");
+			console.log(xhr.responseText);
 		}
 	});
 }

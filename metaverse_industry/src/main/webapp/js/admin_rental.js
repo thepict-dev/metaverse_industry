@@ -1,4 +1,4 @@
-$('.listBody.userList > li > .title').click(function () {
+$('.listBody.rentalList > li > .title').click(function () {
 	const li = $(this).parent();
 	console.log(li);
 	let user_id = li.find(".user_id").val();
@@ -7,31 +7,11 @@ $('.listBody.userList > li > .title').click(function () {
 	let company_address2 = li.find(".company_address2").val();
 	let sa_eob_no = li.find(".sa_eob_no").val();
 	let position = li.find(".position").val();
-	let document_url = li.find(".document_url").val();
 	
-	// 파일명만 추출하는 함수
-	function getFileNameFromPath(filePath) {
-		const parts = filePath.split('/');
-		let fileName = parts[parts.length - 1];
-		// UUID 패턴을 정규 표현식으로 제거
-		fileName = fileName.replace(/[a-f0-9-]{36}/, '').trim();
-		// 괄호와 숫자 제거
-		fileName = fileName.replace(/\(\d+\)/, '').trim();
-		return fileName;
-	}
-	
-	// 파일명 추출
-	let document_name = getFileNameFromPath(document_url);
-	
-	console.log(company_nm, company_address1, company_address2, sa_eob_no, position, document_url);
-	console.log($('.equipDetails').find("._company_nm"));
-	console.log($('.equipDetails').find("._company_address"));
 	$('.equipDetails').find("._company_nm").text(company_nm);
 	$('.equipDetails').find("._company_address").text(`${company_address1} ${company_address2}`);
 	$('.equipDetails').find("._sa_eob_no").text(sa_eob_no);
 	$('.equipDetails').find("._position").text(position);
-	$('.equipDetails').find("._document_url").text(document_name);
-	$('.equipDetails').find("._document_url").attr('href', document_url);
 	
 	$('.equipDetails').data('selected-user-id', user_id);
 	
@@ -133,8 +113,7 @@ function equip_rental() {
 		original_rental_start_date: originalStartDate.toISOString(),
 		original_rental_end_date: originalEndDate.toISOString(),
 		rental_start_date: formattedStartDate,
-		rental_end_date: formattedEndDate,
-		request_status: 'approved'
+		rental_end_date: formattedEndDate
 	}]));
 	formData.append("equipment_plan", "관리자 임의 대여");
 	formData.append("user_id", selectedUserId);
