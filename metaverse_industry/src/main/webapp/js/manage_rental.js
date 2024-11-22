@@ -81,6 +81,9 @@ function choose_user() {
 
 // 사용자 정보 바인딩 함수
 function bindUserData(data) {
+	console.log("bindUserData 호출됨. 전체 데이터:", data);
+	console.log("id 값:", data.id);
+	
 	$('.user_type').text(data.rental_type === "1" ? "개인" : "기업");
 	$('.equipment_type').text(data.type);
 	$('.equipment_name').text(data.name);
@@ -92,7 +95,8 @@ function bindUserData(data) {
 	$('.request_status').text(request_status);
 	
 	$(".submit").attr("data-status", data.request_status);
-	$(".submit").attr("data-request_idx", data.request_idx);
+	$(".submit").attr("data-id", data.id);
+	console.log("설정된 data-id 값:", $(".submit").attr("data-id"));
 	
 	updateSubmitButton(data.request_status);
 	
@@ -141,11 +145,10 @@ $("#idx").change(function(e) {
 		contentType: "application/json",
 		dataType: "json",
 		success: function (res) {
-			console.log(res.data)
-			$(".uploaded_files").empty();
+			console.log("QR 코드 응답 데이터:", res);
 			if (res.msg === "ok") {
-				
 				const data = res.data;
+				console.log("QR 코드 처리 - id 값:", data.id);
 				$('.user_type').text(data.rental_type === "1" ? "개인" :"기업")
 				$('.equipment_type').text(data.type);
 				$('.equipment_name').text(data.name);
@@ -154,7 +157,7 @@ $("#idx").change(function(e) {
 				$('#rental_end_date').val(data.rental_end_date);
 				let request_status = '';
 				$(".submit").attr("data-status", data.request_status);
-				$(".submit").attr("data-request_idx", data.request_idx);
+				$(".submit").attr("data-id", data.id);
 
 				
 				if (data.request_status === "approved") {
@@ -231,7 +234,7 @@ $("#idx").change(function(e) {
 				$('#rental_start_date').val("");
 				$('#rental_end_date').val("");
 				$(".submit").attr("data-status", "");
-				$(".submit").attr("data-request_idx", "");
+				$(".submit").attr("data-id", "");
 
 				$('.request_status').text("");
 				$(".plan").text("");
@@ -248,7 +251,11 @@ $("#idx").change(function(e) {
 
 $(".submit").click(function () {
 	const status = $(this).data("status");
-	console.log(status);
+	const id = $(this).data("id");
+	console.log("submit 버튼 클릭됨");
+	console.log("현재 상태:", status);
+	console.log("현재 ID:", id);
+	
 	if (status === "approved") {
 		if (window.confirm("대여처리 하시겠습니까?")) {
 			let param = {
