@@ -252,12 +252,12 @@ $(".submit").click(function () {
 	if (status === "approved") {
 		if (window.confirm("대여처리 하시겠습니까?")) {
 			let param = {
-				idx: $(".submit").data("request_idx"),
+				id: $(".submit").data("id"),
 				status: "rental",
 			};
 	
 			$.ajax({
-				url: "/update_request.do",
+				url: "/api/update_request.do",
 				method: "POST",
 				data: JSON.stringify(param),
 				contentType: "application/json",
@@ -276,12 +276,12 @@ $(".submit").click(function () {
 	if (status === "rental" || status === "overdue") {		
 		if (window.confirm("반납처리 하시겠습니까?")) {
 			let param = {
-				idx: $(this).data("request_idx"),
+				id: $(this).data("id"),
 				status: "returned",
 			};
 	
 			$.ajax({
-				url: "/update_request.do",
+				url: "/api/update_request.do",
 				method: "POST",
 				data: JSON.stringify(param),
 				contentType: "application/json",
