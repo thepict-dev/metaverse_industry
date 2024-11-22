@@ -62,9 +62,9 @@
 												<p class="inputCaption">대여형태*</p>
 												<select name="history_detail" id="history_detail" class="lgThinInput"
 													disabled>
-													<option value="1" <c:if test="${history_detail.type eq '1'}">seleted
+													<option value="1" <c:if test="${history_detail.type eq '1'}">selected
 														</c:if>>개인</option>
-													<option value="2" <c:if test="${history_detail.type eq '2'}">seleted
+													<option value="2" <c:if test="${history_detail.type eq '2'}">selected
 														</c:if>>기업</option>
 												</select>
 											</div>
