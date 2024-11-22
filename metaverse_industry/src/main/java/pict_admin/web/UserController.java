@@ -434,7 +434,13 @@ public class UserController {
 					// 관리자가 신청 시, 승인처리
 					if(UserRole.adminValidation(request)) {
 						pictVO.setRequest_status("approved");
-						pictVO.setEquipment_id(items.get(i).get("id").toString());
+						/**
+						 * request id 값 가져와서 바꿔줘야함
+						 * item id, 		user_id, 			rental start,end date
+						 * pictVO.getId(), pictVO.getUser_id(), pictVO.getRental_start_date(), pictVO.getRental_end_date()
+						 */
+						Map<String, String> requestData = userService.findEquipmentRequestId(pictVO.getId(), pictVO.getUser_id(), pictVO.getRental_start_date(), pictVO.getRental_end_date());
+						pictVO.setId(requestData.get("id"));
 						userService.updateRequestStatus(pictVO);
 					}
 				}
@@ -509,7 +515,19 @@ public class UserController {
 						}
 						// 렌탈 신청
 						pictService.submit_facility_request(pictVO);
-						// 관리자로 메일 보내기
+						
+						// 관리자가 신청 시, 승인처리
+						if(UserRole.adminValidation(request)) {
+							pictVO.setRequest_status("approved");
+							/**
+							 * request id 값 가져와서 바꿔줘야함
+							 * item id, 		user_id, 			rental start,end date
+							 * pictVO.getId(), pictVO.getUser_id(), pictVO.getRental_start_date(), pictVO.getRental_end_date()
+							 */
+							Map<String, String> requestData = userService.findFacilityRequestId(pictVO.getId(), pictVO.getUser_id(), pictVO.getRental_start_date(), pictVO.getRental_end_date());
+							pictVO.setId(requestData.get("id"));
+							userService.updateFacilityRequestStatus(pictVO);
+						}
 					}
 					map.put("msg", "ok");
 				}

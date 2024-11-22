@@ -3,6 +3,8 @@ package pict_admin.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
 import pict_admin.service.PictVO;
 import pict_admin.service.UserVO;
@@ -14,6 +16,10 @@ public interface UserMapper {
 	UserVO isUserIdAvailable(UserVO userVO);
 	
 	Map<String, Object> find_id_pwd(UserVO userVO) throws Exception;
+
+	Map<String, String> findEquipmentRequestId(@Param("itemId") String itemId, @Param("userId") String userId, @Param("satrtDate") String satrtDate, @Param("endDate") String endDate);
+
+	Map<String, String> findFacilityRequestId(@Param("itemId") String itemId, @Param("userId") String userId, @Param("satrtDate") String satrtDate, @Param("endDate") String endDate);
 	
 	void signUp(UserVO userVO) throws Exception;
 	

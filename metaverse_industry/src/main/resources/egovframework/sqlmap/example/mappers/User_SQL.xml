@@ -150,6 +150,42 @@
 			and request_status = #{request_status}
 		</if>
 	</select>
+	
+	<select id="findEquipmentRequestId" parameterType="String" resultType="map">
+		SELECT 
+		      err.idx
+		    , err.id
+		    , err.equipment_id
+		    , err.user_id
+		    , err.rental_start_date
+		    , err.rental_end_date
+		    , err.request_status
+		FROM 
+		    equipment_rental_request err
+		WHERE 1=1
+			AND equipment_id = #{itemId}
+			AND user_id = #{userId}
+			AND rental_start_date = #{satrtDate}
+			AND rental_end_date = #{endDate}
+	</select>
+	
+	<select id="findFacilityRequestId" parameterType="String" resultType="map">
+		SELECT 
+		      err.idx
+		    , err.id
+		    , err.facility_id
+		    , err.user_id
+		    , err.rental_start_date
+		    , err.rental_end_date
+		    , err.request_status
+		FROM 
+		    facility_rental_request err
+		WHERE 1=1
+			AND facility_id = #{itemId}
+			AND user_id = #{userId}
+			AND rental_start_date = #{satrtDate}
+			AND rental_end_date = #{endDate}
+	</select>
 
 	<update id="updateRequestStatus" parameterType="pictVO">
 		UPDATE equipment_rental_request

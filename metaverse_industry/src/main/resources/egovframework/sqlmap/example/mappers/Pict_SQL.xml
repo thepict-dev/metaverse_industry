@@ -442,7 +442,7 @@
 		WHERE 
 		    available_count < #{count}  -- 파라미터로 받을 필요한 수량
 		)
-	    UNION
+	    <!-- UNION
 			(
 				SELECT
 					DATE_FORMAT(closed_date, '%Y-%m-%d')
@@ -450,7 +450,7 @@
 					closed_date
 				WHERE 1=1
 					AND DATE(closed_date) BETWEEN DATE_SUB(CURDATE(), INTERVAL 15 DAY) AND DATE_ADD(CURDATE(), INTERVAL 15 DAY)
-			)
+			) -->
 		ORDER BY 
 		    unavailable_date
 		]]>

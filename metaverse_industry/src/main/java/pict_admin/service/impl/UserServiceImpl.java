@@ -50,12 +50,20 @@ public class UserServiceImpl extends EgovAbstractServiceImpl implements UserServ
 		return userMapper.isUserIdAvailable(userVO);
 	}
 	
-	 
 	@Override
 	public Map<String, Object> find_id_pwd(UserVO userVO) throws Exception {
 		return userMapper.find_id_pwd(userVO);
 	}
-	
+
+	@Override
+	public Map<String, String> findEquipmentRequestId(String itemId, String userId, String satrtDate, String endDate) {
+		return userMapper.findEquipmentRequestId(itemId, userId, satrtDate, endDate);
+	}
+
+	@Override
+	public Map<String, String> findFacilityRequestId(String itemId, String userId, String satrtDate, String endDate) {
+		return userMapper.findFacilityRequestId(itemId, userId, satrtDate, endDate);
+	}
 	
     @Override
     public void signUp(UserVO userVO) throws Exception {

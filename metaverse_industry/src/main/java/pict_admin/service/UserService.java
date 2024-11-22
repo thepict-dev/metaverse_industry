@@ -9,6 +9,10 @@ public interface UserService {
 	
 	Map<String, Object> find_id_pwd(UserVO userVO) throws Exception;
 	
+	Map<String, String> findEquipmentRequestId(String itemId, String userId, String satrtDate, String endDate);
+	
+	Map<String, String> findFacilityRequestId(String itemId, String userId, String satrtDate, String endDate);
+	
 	void signUp(UserVO userVO) throws Exception;
 	
 	UserVO getUserInfo(UserVO userVO) throws Exception;
