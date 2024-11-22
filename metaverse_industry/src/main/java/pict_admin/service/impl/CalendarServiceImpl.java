@@ -1,9 +1,6 @@
 package pict_admin.service.impl;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,17 +21,17 @@ public class CalendarServiceImpl {
 	}
 
 	@Transactional
-	public void saveClosedDateOnlyOne(CalendarVo vo) {
+	public CalendarVo findClosedDateById(int id) {
+		return calendarMapper.findClosedDateById(id);
+	}
+
+	@Transactional
+	public void saveClosedDate(CalendarVo vo) {
 		calendarMapper.saveClosedDate(vo);
 	}
 
 	@Transactional
-	public void saveClosedDate(List<CalendarVo> vo) {
-		for(CalendarVo cv : vo) {
-			cv.setInsertDate(cv.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-			// 캘린더에 저장하려는 날짜가 있다면 저장하지 않고 넘어감.
-			if(Optional.ofNullable(calendarMapper.findClosedDateByDate(cv)).isPresent()) continue;
-			calendarMapper.saveClosedDate(cv);
-		}
+	public void deleteClosedDate(int id) {
+		calendarMapper.deleteClosedDate(id);
 	}
 }

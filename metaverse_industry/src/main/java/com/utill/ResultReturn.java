@@ -4,6 +4,10 @@ public class ResultReturn<T> {
 	private int count;
 	private T data;
 	
+	public ResultReturn(T data) {
+		this.data = data;
+	}
+	
 	public ResultReturn(int count, T data) {
 		this.count = count;
 		this.data = data;

@@ -4,36 +4,44 @@
 	<resultMap type="calendarVo" id="calendarVoMapping">
 		<result property="id" column="closed_id"/>
 		<result property="title" column="title"/>
-		<result property="date" column="closed_date"/>
+		<result property="startDate" column="start_date"/>
+		<result property="endDate" column="end_date"/>
 	</resultMap>
 	
 	<select id="findClosedDate" resultType="calendarVo" resultMap="calendarVoMapping">
 		SELECT
 			closed_id
 			, title
-			, closed_date
+			, start_date
+			, end_date
 		FROM
 			closed_date
 	</select>
 	
-	<select id="findClosedDateByDate" resultType="calendarVo" resultMap="calendarVoMapping">
+	<select id="findClosedDateById" resultType="int" resultMap="calendarVoMapping">
 		SELECT
 			closed_id
 			, title
-			, closed_date
+			, start_date
+			, end_date
 		FROM
 			closed_date
 		WHERE 1=1
-	    	<if test="insertDate != null and insertDate != ''">
-				AND closed_date = #{insertDate}
-			</if>
+			AND closed_id = #{id}
 	</select>
 	
 	<insert id="saveClosedDate" parameterType="calendarVo">
 		INSERT INTO 
 			closed_date
-			(title, closed_date)
+			(title, start_date, end_date)
 		VALUE
-			(#{title}, #{insertDate})
+			(#{title}, #{startDate}, #{endDate})
 	</insert>
+	
+	<delete id="deleteClosedDate" parameterType="int">
+		DELETE FROM
+			closed_date
+		WHERE 1=1
+			AND closed_id = #{id}
+	</delete>
 </mapper>
