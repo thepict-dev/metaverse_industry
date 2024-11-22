@@ -386,7 +386,7 @@
 		    , date_format(reg_date, '%Y-%m-%d') as reg_date
 		FROM
 			equipment_item_table as ei
-		    LEFT JOIN equipment_rental_request er ON ei.id = er.equipment_id
+			LEFT JOIN equipment_rental_request er ON ei.id = er.equipment_id
 		WHERE 1=1
 	        <if test="equipment_id != null and equipment_id != ''">
 				AND equipment_type_id = #{equipment_id}
@@ -398,6 +398,16 @@
 				AND (rental_start_date NOT BETWEEN #{rental_start_date} and #{rental_end_date} OR rental_start_date IS NULL)
 				AND (rental_end_date NOT BETWEEN #{rental_start_date} and #{rental_end_date} OR rental_end_date IS NULL)
 			</if>
+			AND status = 'available'
+			AND ei.id NOT IN (
+				SELECT DISTINCT eit.id
+				FROM equipment_item_table as eit
+				JOIN equipment_rental_request err ON eit.id = err.equipment_id AND err.request_status IN ('pendding','approved','rejected','retry','rental','overdue')
+				WHERE 1=1
+					AND equipment_type_id = #{equipment_id}
+					AND (err.rental_start_date BETWEEN #{rental_start_date} AND #{rental_end_date} OR err.rental_start_date IS NULL) 
+					AND (err.rental_end_date BETWEEN #{rental_start_date} AND #{rental_end_date} OR err.rental_end_date IS NULL) 
+			)
 	</select>
 	
 	<select id="equipment_unavailable_date_list" resultType="map">
@@ -442,15 +452,23 @@
 		WHERE 
 		    available_count < #{count}  -- 파라미터로 받을 필요한 수량
 		)
-	    <!-- UNION
+		UNION
 			(
-				SELECT
-					DATE_FORMAT(closed_date, '%Y-%m-%d')
-				FROM
-					closed_date
-				WHERE 1=1
-					AND DATE(closed_date) BETWEEN DATE_SUB(CURDATE(), INTERVAL 15 DAY) AND DATE_ADD(CURDATE(), INTERVAL 15 DAY)
-			) -->
+				WITH RECURSIVE date_range AS (
+				    SELECT DATE(start_date) AS date_value, closed_id, title, start_date, end_date
+				    FROM closed_date
+				    WHERE 1 = 1
+				      AND (DATE(start_date) BETWEEN DATE_SUB(CURDATE(), INTERVAL 30 DAY) AND DATE_ADD(CURDATE(), INTERVAL 30 DAY))
+				      OR (DATE(end_date) BETWEEN DATE_SUB(CURDATE(), INTERVAL 30 DAY) AND DATE_ADD(CURDATE(), INTERVAL 30 DAY))
+				    UNION ALL
+				    SELECT DATE_ADD(date_value, INTERVAL 30 DAY), closed_id, title, start_date, end_date
+				    FROM date_range
+				    WHERE date_value < DATE(end_date)
+				)
+				SELECT DISTINCT date_value
+				FROM date_range
+				ORDER BY date_value
+			)
 		ORDER BY 
 		    unavailable_date
 		]]>
