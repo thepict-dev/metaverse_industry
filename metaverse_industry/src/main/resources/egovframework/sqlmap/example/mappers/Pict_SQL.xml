@@ -531,6 +531,10 @@
 			err.request_status asc
 	</select>
 	
+	<insert id="mailing_backup" parameterType="String">
+		INSERT INTO mailing_backup (data) VALUES (#{data})
+	</insert>
+	
 	<insert id="equipment_insert" parameterType="pictVO">
 		INSERT INTO equipment_type_table
 			(id, type, name, description, image_url, bujajae)
@@ -1027,12 +1031,9 @@
 	    </where>
 	</select>
 	
-	
-	
-	
 	<select id="facility_unavailable_date_list" resultType="map">
 		<![CDATA[
-			WITH RECURSIVE
+			(WITH RECURSIVE
 			date_range AS (
 			    SELECT DATE_ADD(CURDATE(), INTERVAL 1 DAY) AS date
 			    UNION ALL
@@ -1071,7 +1072,26 @@
 			    facility_availability
 			WHERE 
 			    available_count < 1  -- 파라미터로 받을 필요한 수량
-			ORDER BY date
+			)
+			UNION
+				(
+					WITH RECURSIVE date_range AS (
+					    SELECT DATE(start_date) AS date_value, closed_id, title, start_date, end_date
+					    FROM closed_date
+					    WHERE 1 = 1
+					      AND (DATE(start_date) BETWEEN DATE_SUB(CURDATE(), INTERVAL 30 DAY) AND DATE_ADD(CURDATE(), INTERVAL 30 DAY))
+					      OR (DATE(end_date) BETWEEN DATE_SUB(CURDATE(), INTERVAL 30 DAY) AND DATE_ADD(CURDATE(), INTERVAL 30 DAY))
+					    UNION ALL
+					    SELECT DATE_ADD(date_value, INTERVAL 1 DAY), closed_id, title, start_date, end_date
+					    FROM date_range
+					    WHERE date_value < DATE(end_date)
+					)
+					SELECT DISTINCT date_value
+					FROM date_range
+					ORDER BY date_value
+				)
+			ORDER BY 
+			    unavailable_date
 		]]>
 	</select>
 	

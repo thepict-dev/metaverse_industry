@@ -63,11 +63,6 @@
 											</c:forEach>
 										</ul>
 
-										<div class="listButton">
-											<button class="delete_user"><img src="/img/admin/delete.png"
-													alt="삭제버튼">삭제</button>
-										</div>
-
 										<div class="pagination">
 											<c:if test="${pictVO.pageNumber > 1}">
 												<li>

@@ -118,6 +118,8 @@ public interface PictMapper {
 	
 	List<PictVO> daily_mail_list() throws Exception;
 	
+	void mailing_backup(String data) throws Exception;
+	
 	List<Map<String, Object>> get_overdue_list() throws Exception;
 	
 	void equipment_cnt_update(PictVO pictVO) throws Exception;

@@ -114,6 +114,8 @@ public interface PictService {
 	
 	List<PictVO> daily_mail_list() throws Exception;
 	
+	void mailingBackup(String data) throws Exception;
+	
 	List<Map<String, Object>> get_overdue_list() throws Exception;
 	
 	void equipment_cnt_insert(PictVO pictVO) throws Exception;

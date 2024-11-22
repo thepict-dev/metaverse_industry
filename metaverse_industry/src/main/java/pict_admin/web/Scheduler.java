@@ -26,9 +26,8 @@ import javax.mail.MessagingException;
 public class Scheduler {
 	@Resource(name = "pictService")
 	private PictService pictService;
-	
+    
 	//도메인 만료일에 따른 잔디 웹훅 발송
-	
     @Scheduled(cron = "0 0 9 * * *")//매일 오전 9시
     public void jandi() throws Exception{
 		StringBuffer sb = new StringBuffer();
@@ -51,6 +50,9 @@ public class Scheduler {
 					"padding: 16px 0; text-align: center; font-size: 16px; font-weight: 500; line-height: 140%; letter-spacing: -1px; background-color: #fff; vertical-align: middle; border-bottom: 1px solid #dbdee2;"
 					, vo.getUser_name(), vo.getType() == "1" ? "개인" : "법인", vo.getRental_start_date(), vo.getRental_end_date(), vo.getEquipment_type(), vo.getSerial_number()));
 			sb.append(HtmlStructure.trClose());
+			
+			// 메일 보내는 데이터 백업
+			pictService.mailingBackup(vo.getUser_name().toString() + ", " + vo.getType() == "1" ? "개인" : "법인" + ", " + vo.getRental_start_date().toString() + ", " + vo.getRental_end_date().toString() + ", " + vo.getEquipment_type().toString() + ", " + vo.getSerial_number().toString());
 		}
 
 		sb.append(HtmlStructure.tbodyClose());
@@ -59,6 +61,7 @@ public class Scheduler {
 
     	mailsend("연체 내역리스트 이메일발송 ", sb.toString());
     }
+    
   	public void mailsend(String subejct, String body) throws Exception{
   		String host = "smtp.naver.com";
 		String user = "gica_@naver.com";

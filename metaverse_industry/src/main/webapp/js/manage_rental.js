@@ -287,7 +287,7 @@ $(".submit").click(function () {
 	if (status === "rental" || status === "overdue") {		
 		if (window.confirm("반납처리 하시겠습니까?")) {
 			let param = {
-				id: $(this).data("id"),
+				idx: $('#register').children('input[name="idx"]').val(),
 				status: "returned",
 			};
 	
