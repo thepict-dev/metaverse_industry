@@ -105,6 +105,10 @@ function bindUserData(data) {
 	$("#reg_date").val(data.equipment_reg_date);
 	$("#bujajae").text(data.item_text);
 	
+	$('#register').children('input[name="idx"]').val(data.idx)
+	$('input[name="idx"]').val(data.idx)
+	
+	
 	$(".wtButtonContainer").show();
 }
 
@@ -259,12 +263,12 @@ $(".submit").click(function () {
 	if (status === "approved") {
 		if (window.confirm("대여처리 하시겠습니까?")) {
 			let param = {
-				id: $(".submit").data("id"),
+				idx: $('#register').children('input[name="idx"]').val(),
 				status: "rental",
 			};
 	
 			$.ajax({
-				url: "/api/update_request.do",
+				url: "/update_request.do",
 				method: "POST",
 				data: JSON.stringify(param),
 				contentType: "application/json",
@@ -288,7 +292,7 @@ $(".submit").click(function () {
 			};
 	
 			$.ajax({
-				url: "/api/update_request.do",
+				url: "/update_request.do",
 				method: "POST",
 				data: JSON.stringify(param),
 				contentType: "application/json",
