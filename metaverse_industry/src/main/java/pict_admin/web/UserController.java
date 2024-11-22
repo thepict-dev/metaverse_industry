@@ -434,6 +434,7 @@ public class UserController {
 					// 관리자가 신청 시, 승인처리
 					if(UserRole.adminValidation(request)) {
 						pictVO.setRequest_status("approved");
+						pictVO.setEquipment_id(items.get(i).get("id").toString());
 						userService.updateRequestStatus(pictVO);
 					}
 				}
