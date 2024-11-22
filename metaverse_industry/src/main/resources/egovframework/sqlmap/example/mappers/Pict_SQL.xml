@@ -461,7 +461,7 @@
 				      AND (DATE(start_date) BETWEEN DATE_SUB(CURDATE(), INTERVAL 30 DAY) AND DATE_ADD(CURDATE(), INTERVAL 30 DAY))
 				      OR (DATE(end_date) BETWEEN DATE_SUB(CURDATE(), INTERVAL 30 DAY) AND DATE_ADD(CURDATE(), INTERVAL 30 DAY))
 				    UNION ALL
-				    SELECT DATE_ADD(date_value, INTERVAL 30 DAY), closed_id, title, start_date, end_date
+				    SELECT DATE_ADD(date_value, INTERVAL 1 DAY), closed_id, title, start_date, end_date
 				    FROM date_range
 				    WHERE date_value < DATE(end_date)
 				)
@@ -926,10 +926,13 @@
 	<select id="rentalApprovedList" parameterType="String" resultType="pictVO">
 		SELECT
 		      err.idx AS idx
+		    , err.id AS id
 		    , err.request_status
 		    , eit.serial_number
 			, ett.name AS name
 		    , ut.name AS user_name
+		    , err.equipment_plan
+		    , eit.`text` 
 		    , date_format(err.rental_start_date, '%Y-%m-%d') as rental_start_date
 		    , date_format(err.rental_end_date, '%Y-%m-%d') as rental_end_date
 		    , date_format(err.request_date, '%Y-%m-%d') as request_date
