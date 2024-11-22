@@ -26,6 +26,11 @@ public class CalendarServiceImpl {
 	}
 
 	@Transactional
+	public void updateClosedDate(CalendarVo vo) {
+		calendarMapper.updateClosedDate(vo);
+	}
+
+	@Transactional
 	public void saveClosedDate(CalendarVo vo) {
 		calendarMapper.saveClosedDate(vo);
 	}

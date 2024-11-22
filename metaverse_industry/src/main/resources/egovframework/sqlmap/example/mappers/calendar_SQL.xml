@@ -30,6 +30,23 @@
 			AND closed_id = #{id}
 	</select>
 	
+	<update id="updateClosedDate" parameterType="calendarVo">
+		UPDATE
+			closed_date
+		SET
+			<if test="title != null and title != '' ">
+				title = #{title}
+			</if>
+			<if test="startDate != null and startDate != '' ">
+				, start_date = #{startDate}
+			</if>
+			<if test="endDate != null and endDate != '' ">
+				, end_date = #{endDate}
+			</if>
+		WHERE 1=1
+			AND closed_id = #{id}
+	</update>
+	
 	<insert id="saveClosedDate" parameterType="calendarVo">
 		INSERT INTO 
 			closed_date

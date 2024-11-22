@@ -31,8 +31,13 @@ public class CalendarController {
 	}
 
 	@GetMapping(value = "closedDateById.do")
-	public CalendarVo findClosedDateByDate(@RequestParam(value="id") int id) {
+	public CalendarVo closedDateById(@RequestParam(value="id") int id) {
 		return calendarService.findClosedDateById(id);
+	}
+
+	@PostMapping(value = "updateClosedDate.do")
+	public void updateClosedDate(@RequestBody CalendarVo vo) {
+		calendarService.updateClosedDate(vo);
 	}
 	
 	@PostMapping(value = "saveClosedDate.do")

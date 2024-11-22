@@ -11,6 +11,8 @@ public interface CalendarMapper {
 	
 	CalendarVo findClosedDateById(int id);
 
+	void updateClosedDate(CalendarVo vo);
+
 	void saveClosedDate(CalendarVo vo);
 
 	void deleteClosedDate(int id);
