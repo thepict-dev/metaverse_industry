@@ -170,14 +170,17 @@ backBtn.addEventListener('click', () => {
 const deleteAll = () => {
 	document.querySelectorAll(".rentalCountItem").forEach(el => el.remove());
 	checkboxes.forEach(el => el.checked = false);
+	updateTotalCnt();
 }
 
 document.querySelector(".removeAll").addEventListener("click", () => {
 	console.log("삭제;;")
-	if ($('.rentalCountItem').length > 0) {
+	const rentalItems = document.querySelectorAll('.rentalCountItem');
+	if (rentalItems.length > 0) {
 		if (window.confirm("전체 삭제하시겠습니까?")) {
 			deleteAll();
 			checkCart();
+			rentalCountContainer.classList.remove('show');
 		}
 	}
 })
@@ -291,7 +294,7 @@ rentalItemsContainer.addEventListener('wheel', function(e) {
 
 // 선택 가능한 최대 개수 표시 텍스트 수정
 const rentalSum = document.querySelector('.rentalSum');
-rentalSum.querySelector('p span:last-child').textContent = '/최대 4곳 선택 가능';
+rentalSum.querySelector('p span:last-child').textContent = '0';
 
 // 탭 관련 기능 추가
 function initTabSystem() {

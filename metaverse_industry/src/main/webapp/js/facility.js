@@ -138,7 +138,7 @@ const changeQuantity = (delta, input) => {
 
 //장바구니 리셋
 const checkCart = () => {
-	let totalCnt = $(".rentalCountItem").length;
+	let totalCnt = document.querySelectorAll(".rentalCountItem").length;
 	if (totalCnt === 0) {
 		rentalCountContainer.classList.remove("active");
 
@@ -168,20 +168,23 @@ backBtn.addEventListener('click', () => {
 const deleteAll = () => {
 	document.querySelectorAll(".rentalCountItem").forEach(el => el.remove());
 	checkboxes.forEach(el => el.checked = false);
+	updateTotalCnt();
 }
 
 document.querySelector(".removeAll").addEventListener("click", () => {
 	console.log("삭제;;")
-	if ($('.rentalCountItem').length > 0) {
+	const rentalItems = document.querySelectorAll('.rentalCountItem');
+	if (rentalItems.length > 0) {
 		if (window.confirm("전체 삭제하시겠습니까?")) {
 			deleteAll();
 			checkCart();
+			rentalCountContainer.classList.remove('show');
 		}
 	}
 })
 
 const updateTotalCnt = () => {
-	let totalCnt = $(".rentalCountItem").length;
+	let totalCnt = document.querySelectorAll(".rentalCountItem").length;
 	$(".selectedCnt").text(totalCnt);
 }
 
@@ -261,7 +264,7 @@ $('.add_bag').click(function () {
 
 // 선택 가능한 최대 개수 표시 텍스트 수정
 const rentalSum = document.querySelector('.rentalSum');
-rentalSum.querySelector('p span:last-child').textContent = '/최대 4곳 선택 가능';
+rentalSum.querySelector('p span:last-child').textContent = '0';
 
 // 마우스 휠 이벤트 처리
 const rentalItemsContainer = document.querySelector('.rentalItemsContainer');
