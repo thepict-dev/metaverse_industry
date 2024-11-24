@@ -792,7 +792,7 @@ document.addEventListener('DOMContentLoaded', function () {
  $("#checkModal button").click(function () {
      $('#checkModal').removeClass('active');
      $('body').removeClass("no-scroll");
-     location.href = "/facility.do";
+     location.href = "/equipment.do";
  })
  
  document.querySelector('label[for="agree"]').addEventListener('click', function(e) {
