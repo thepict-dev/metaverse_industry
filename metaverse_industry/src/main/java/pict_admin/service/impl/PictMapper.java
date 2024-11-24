@@ -63,7 +63,7 @@ public interface PictMapper {
 	// 유저 정보
 	List<Map<String, Object>> get_user_list(PictVO pictVO) throws Exception; 
 	
-	int usrCtn() throws Exception; 
+	int usrCtn(PictVO pictVO) throws Exception; 
 	
 	void delete_user(@Param("idx") Integer idx) throws Exception;
 	

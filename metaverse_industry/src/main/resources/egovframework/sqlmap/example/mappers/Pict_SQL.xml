@@ -92,8 +92,11 @@
 	<select id="usrCtn" resultType="int">
 		select
 			count(*)
-		from
-			user_table
+		from user_table
+		where 1=1
+		<if test="search_text != null and search_text != ''">
+            and name LIKE CONCAT('%', #{search_text}, '%')
+        </if>
 	</select>
 	
 	<delete id="delete_user" parameterType="int">
@@ -933,6 +936,8 @@
 		    , err.id AS id
 		    , err.request_status
 		    , eit.serial_number
+		    , date_format(eit.reg_date, '%Y-%m-%d') as reg_date
+		    , ett.type
 			, ett.name AS name
 		    , ut.name AS user_name
 		    , err.equipment_plan
@@ -944,11 +949,12 @@
 		    equipment_item_table eit
 		JOIN equipment_type_table ett ON eit.equipment_type_id = ett.id
 		LEFT JOIN equipment_rental_request err ON eit.id = err.equipment_id
-		    AND (CURDATE() BETWEEN err.rental_start_date AND err.rental_end_date OR err.rental_start_date >= CURDATE())
+			<!-- 날짜 비교가 왜 들어가 있을까요? 20241124 -->
+		    <!--AND (CURDATE() BETWEEN err.rental_start_date AND err.rental_end_date OR err.rental_start_date >= CURDATE()) -->
 		LEFT JOIN user_table ut ON err.user_id = ut.user_id
 		WHERE
 			1=1
-		    AND err.request_status in ('approved', 'rental')
+		    AND err.request_status in ('approved', 'rental', 'overdue')
 			AND eit.serial_number = #{serial_number}
 	</select>
 	

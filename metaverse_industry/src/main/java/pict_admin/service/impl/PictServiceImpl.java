@@ -123,8 +123,8 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 	}
 	
 	@Override
-	public int usrCtn() throws Exception {
-		return pictMapper.usrCtn();
+	public int usrCtn(PictVO pictVO) throws Exception {
+		return pictMapper.usrCtn(pictVO);
 	}
 	
 	@Override

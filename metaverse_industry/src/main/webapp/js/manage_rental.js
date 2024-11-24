@@ -90,7 +90,7 @@ function bindUserData(data) {
 	$('.user_name').text(data.user_name);
 	$('#rental_start_date').val(data.rental_start_date);
 	$('#rental_end_date').val(data.rental_end_date);
-	
+	$("#reg_date").val(data.reg_date);
 	let request_status = getStatusText(data.request_status);
 	$('.request_status').text(request_status);
 	

@@ -1204,6 +1204,10 @@ public class PictController {
 		
 		int limitNumber = 20;
 		pictVO.setLimit_cnt(limitNumber);
+		// 전체 데이터 수 조회
+		Integer totalCnt = pictService.usrCtn(pictVO);
+		
+		// 현재 페이지 번호 설정
 		Integer pageNum = pictVO.getPageNumber();
 		if (pageNum == 0) {
 			pictVO.setPageNumber(1);
@@ -1211,28 +1215,19 @@ public class PictController {
 		}
 		int startNum = (pageNum - 1) * limitNumber;
 		pictVO.setStartNumber(startNum);
-		Integer totalCnt = pictService.usrCtn();
-		int lastPageValue = (int) (Math.ceil(totalCnt * 1.0 / 10));
+		// 마지막 페이지 계산 수정 (10이 아닌 limitNumber로 나눔)
+		int lastPageValue = (int) Math.ceil((double)totalCnt / limitNumber);
 		pictVO.setLastPage(lastPageValue);
-
-		Integer s_page = pageNum - 4;
-		Integer e_page = pageNum + 5;
-		if (s_page <= 0) {
-			s_page = 1;
-			e_page = 10;
-		}
-		if (e_page > lastPageValue) {
-			e_page = lastPageValue;
-		}
-		pictVO.setStartPage(s_page);
-		pictVO.setEndPage(e_page);
+		int[] pageRange = calculatePageRange(pageNum, limitNumber, totalCnt);
+		pictVO.setStartPage(pageRange[0]);
+		pictVO.setEndPage(pageRange[1]);
 		
 		List<?> userList = pictService.get_user_list(pictVO);
 		model.addAttribute("resultList", userList);
 		model.addAttribute("search_text", pictVO.getSearch_text());
 		model.addAttribute("totalCnt", totalCnt);
 		model.addAttribute("pictVO", pictVO);
-
+		model.addAttribute("size", userList.size());
 		return "pict/user_list/user_list";
 	}
 	
@@ -1279,6 +1274,10 @@ public class PictController {
 
 		int limitNumber = 20;
 		pictVO.setLimit_cnt(limitNumber);
+		// 전체 데이터 수 조회
+		Integer totalCnt = pictService.board_list_total_cnt(pictVO);
+		
+		// 현재 페이지 번호 설정
 		Integer pageNum = pictVO.getPageNumber();
 		if (pageNum == 0) {
 			pictVO.setPageNumber(1);
@@ -1286,27 +1285,14 @@ public class PictController {
 		}
 		int startNum = (pageNum - 1) * limitNumber;
 		pictVO.setStartNumber(startNum);
-		Integer totalCnt = pictService.board_list_total_cnt(pictVO);
-		int lastPageValue = (int) (Math.ceil(totalCnt * 1.0 / 10));
-		System.out.println("startNum @@@@@@@@@@@@@@@@@@ " + startNum);
-		System.out.println("totalCnt @@@@@@@@@@@@@@@@@@ " + totalCnt);
-		System.out.println("lastPageValue @@@@@@@@@@@@@@@@@@ " + lastPageValue);
+		// 마지막 페이지 계산 수정 (10이 아닌 limitNumber로 나눔)
+		int lastPageValue = (int) Math.ceil((double)totalCnt / limitNumber);
 		pictVO.setLastPage(lastPageValue);
-
-		Integer s_page = pageNum - 4;
-		Integer e_page = pageNum + 5;
-		if (s_page <= 0) {
-			s_page = 1;
-			e_page = 10;
-		}
-		if (e_page > lastPageValue) {
-			e_page = lastPageValue;
-		}
-		pictVO.setStartPage(s_page);
-		System.out.println("s_page @@@@@@@@@@@@@@@@@@ " + s_page);
-		pictVO.setEndPage(e_page);
-		System.out.println("e_page @@@@@@@@@@@@@@@@@@ " + e_page);
-
+		int[] pageRange = calculatePageRange(pageNum, limitNumber, totalCnt);
+		pictVO.setStartPage(pageRange[0]);
+		pictVO.setEndPage(pageRange[1]);
+		
+		
 		List<?> board_list = pictService.board_list(pictVO);
 		model.addAttribute("resultList", board_list);
 		model.addAttribute("totalCnt", totalCnt);
@@ -1451,8 +1437,13 @@ public class PictController {
 			return "redirect:/pict_login.do";
 		}
 
+			
 		int limitNumber = 20;
 		pictVO.setLimit_cnt(limitNumber);
+		// 전체 데이터 수 조회
+		Integer totalCnt = pictService.biz_list_total_cnt(pictVO);
+		
+		// 현재 페이지 번호 설정
 		Integer pageNum = pictVO.getPageNumber();
 		if (pageNum == 0) {
 			pictVO.setPageNumber(1);
@@ -1460,26 +1451,12 @@ public class PictController {
 		}
 		int startNum = (pageNum - 1) * limitNumber;
 		pictVO.setStartNumber(startNum);
-		Integer totalCnt = pictService.biz_list_total_cnt(pictVO);
-		int lastPageValue = (int) (Math.ceil(totalCnt * 1.0 / 10));
-		System.out.println("startNum @@@@@@@@@@@@@@@@@@ " + startNum);
-		System.out.println("totalCnt @@@@@@@@@@@@@@@@@@ " + totalCnt);
-		System.out.println("lastPageValue @@@@@@@@@@@@@@@@@@ " + lastPageValue);
+		// 마지막 페이지 계산 수정 (10이 아닌 limitNumber로 나눔)
+		int lastPageValue = (int) Math.ceil((double)totalCnt / limitNumber);
 		pictVO.setLastPage(lastPageValue);
-
-		Integer s_page = pageNum - 4;
-		Integer e_page = pageNum + 5;
-		if (s_page <= 0) {
-			s_page = 1;
-			e_page = 10;
-		}
-		if (e_page > lastPageValue) {
-			e_page = lastPageValue;
-		}
-		pictVO.setStartPage(s_page);
-		System.out.println("s_page @@@@@@@@@@@@@@@@@@ " + s_page);
-		pictVO.setEndPage(e_page);
-		System.out.println("e_page @@@@@@@@@@@@@@@@@@ " + e_page);
+		int[] pageRange = calculatePageRange(pageNum, limitNumber, totalCnt);
+		pictVO.setStartPage(pageRange[0]);
+		pictVO.setEndPage(pageRange[1]);
 
 		List<?> biz_list = pictService.biz_list(pictVO);
 		model.addAttribute("resultList", biz_list);
@@ -1610,6 +1587,9 @@ public class PictController {
 
 		int limitNumber = 20;
 		pictVO.setLimit_cnt(limitNumber);
+		// 전체 데이터 수 조회
+		Integer totalCnt = pictService.equipment_list_total_cnt(pictVO);
+		// 현재 페이지 번호 설정
 		Integer pageNum = pictVO.getPageNumber();
 		if (pageNum == 0) {
 			pictVO.setPageNumber(1);
@@ -1617,30 +1597,15 @@ public class PictController {
 		}
 		int startNum = (pageNum - 1) * limitNumber;
 		pictVO.setStartNumber(startNum);
-		System.out.println("getType @@@@@@@@@@@@@@@@@@ " + pictVO.getType());
-
-		Integer totalCnt = pictService.equipment_list_total_cnt(pictVO);
-		int lastPageValue = (int) (Math.ceil(totalCnt * 1.0 / 10));
-		System.out.println("pageNum @@@@@@@@@@@@@@@@@@ " + pageNum);
-		System.out.println("startNum @@@@@@@@@@@@@@@@@@ " + startNum);
-		System.out.println("totalCnt @@@@@@@@@@@@@@@@@@ " + totalCnt);
-		System.out.println("lastPageValue @@@@@@@@@@@@@@@@@@ " + lastPageValue);
+		// 마지막 페이지 계산 수정 (10이 아닌 limitNumber로 나눔)
+		int lastPageValue = (int) Math.ceil((double)totalCnt / limitNumber);
 		pictVO.setLastPage(lastPageValue);
-
-		Integer s_page = pageNum - 4;
-		Integer e_page = pageNum + 5;
-		if (s_page <= 0) {
-			s_page = 1;
-			e_page = 10;
-		}
-		if (e_page > lastPageValue) {
-			e_page = lastPageValue;
-		}
-		pictVO.setStartPage(s_page);
-		System.out.println("s_page @@@@@@@@@@@@@@@@@@ " + s_page);
-		pictVO.setEndPage(e_page);
-		System.out.println("e_page @@@@@@@@@@@@@@@@@@ " + e_page);
-
+		int[] pageRange = calculatePageRange(pageNum, limitNumber, totalCnt);
+		pictVO.setStartPage(pageRange[0]);
+		pictVO.setEndPage(pageRange[1]);
+		
+		
+		
 		pictVO.setOnlyAvailable(false);
 		List<?> equipment_list = pictService.equipment_list(pictVO);
 		model.addAttribute("resultList", equipment_list);
@@ -1900,31 +1865,22 @@ public class PictController {
 		// 페이지당 표시할 항목 수 설정
 		int limitNumber = 20;
 		pictVO.setLimit_cnt(limitNumber);
-		
+		// 전체 데이터 수 조회
+		Integer totalCnt = pictService.request_total_cnt(pictVO);
 		// 현재 페이지 번호 설정
 		Integer pageNum = pictVO.getPageNumber();
 		if (pageNum == 0) {
 			pictVO.setPageNumber(1);
 			pageNum = 1;
 		}
-		
-		// 시작 인덱스 계산
 		int startNum = (pageNum - 1) * limitNumber;
 		pictVO.setStartNumber(startNum);
-		
-		// 전체 데이터 수 조회
-		Integer totalCnt = pictService.request_total_cnt(pictVO);
-		
 		// 마지막 페이지 계산 수정 (10이 아닌 limitNumber로 나눔)
 		int lastPageValue = (int) Math.ceil((double)totalCnt / limitNumber);
 		pictVO.setLastPage(lastPageValue);
-
-		// 페이지 그룹 계산
-		Integer s_page = ((pageNum - 1) / 10) * 10 + 1;  // 현재 페이지가 속한 그룹의 시작 페이지
-		Integer e_page = Math.min(s_page + 9, lastPageValue);  // 현재 페이지 그룹의 마지막 페이지
-		
-		pictVO.setStartPage(s_page);
-		pictVO.setEndPage(e_page);
+		int[] pageRange = calculatePageRange(pageNum, limitNumber, totalCnt);
+		pictVO.setStartPage(pageRange[0]);
+		pictVO.setEndPage(pageRange[1]);
 
 		// 데이터 조회
 		List<?> history_list = pictService.get_request_list(pictVO);
@@ -1947,45 +1903,40 @@ public class PictController {
 		if (session == null || session == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
-
-		// 페이지네이션 설정
+		
+		
 		int limitNumber = 20;
 		pictVO.setLimit_cnt(limitNumber);
+		// 전체 데이터 수 조회
+		Integer totalCnt = pictService.usrCtn(pictVO);
+		// 현재 페이지 번호 설정
 		Integer pageNum = pictVO.getPageNumber();
 		if (pageNum == 0) {
 			pictVO.setPageNumber(1);
 			pageNum = 1;
 		}
-		
-		// 시작 인덱스 계산
 		int startNum = (pageNum - 1) * limitNumber;
 		pictVO.setStartNumber(startNum);
-		
-		// 전체 데이터 수 조회
-		Integer totalCnt = pictService.usrCtn();
-		
-		// 마지막 페이지 계산
+		// 마지막 페이지 계산 수정 (10이 아닌 limitNumber로 나눔)
 		int lastPageValue = (int) Math.ceil((double)totalCnt / limitNumber);
 		pictVO.setLastPage(lastPageValue);
-
-		// 페이지 그룹 계산
-		Integer s_page = ((pageNum - 1) / 10) * 10 + 1;
-		Integer e_page = Math.min(s_page + 9, lastPageValue);
+		int[] pageRange = calculatePageRange(pageNum, limitNumber, totalCnt);
+		pictVO.setStartPage(pageRange[0]);
+		pictVO.setEndPage(pageRange[1]);
 		
-		pictVO.setStartPage(s_page);
-		pictVO.setEndPage(e_page);
-
 		// 데이터 조회
 		List<?> userList = pictService.get_user_list(pictVO);
-		
+		// 장비 목록 조회
+		if (pictVO.getSearch_text() != null) {
+			pictVO.setSearch_text(null);
+		}
+		List<PictVO> equipmentList = pictService.equipment_list(pictVO);
 		// 모델에 데이터 추가
 		model.addAttribute("resultList", userList);
 		model.addAttribute("search_text", pictVO.getSearch_text());
 		model.addAttribute("totalCnt", totalCnt);
 		model.addAttribute("pictVO", pictVO);
-
-		// 장비 목록 조회
-		List<PictVO> equipmentList = pictService.equipment_list(pictVO);
+		model.addAttribute("size", userList.size());
 		model.addAttribute("equipmentList", equipmentList);
 
 		return "pict/equipment/admin_rental";
@@ -1999,9 +1950,12 @@ public class PictController {
 		if (session == null || session == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
-
+		
 		int limitNumber = 20;
 		pictVO.setLimit_cnt(limitNumber);
+		// 전체 데이터 수 조회
+		Integer totalCnt = pictService.facility_list_total_cnt(pictVO);
+		// 현재 페이지 번호 설정
 		Integer pageNum = pictVO.getPageNumber();
 		if (pageNum == 0) {
 			pictVO.setPageNumber(1);
@@ -2009,27 +1963,13 @@ public class PictController {
 		}
 		int startNum = (pageNum - 1) * limitNumber;
 		pictVO.setStartNumber(startNum);
-		Integer totalCnt = pictService.facility_list_total_cnt(pictVO);
-		int lastPageValue = (int) (Math.ceil(totalCnt * 1.0 / 10));
-		System.out.println("startNum @@@@@@@@@@@@@@@@@@ " + startNum);
-		System.out.println("totalCnt @@@@@@@@@@@@@@@@@@ " + totalCnt);
-		System.out.println("lastPageValue @@@@@@@@@@@@@@@@@@ " + lastPageValue);
+		// 마지막 페이지 계산 수정 (10이 아닌 limitNumber로 나눔)
+		int lastPageValue = (int) Math.ceil((double)totalCnt / limitNumber);
 		pictVO.setLastPage(lastPageValue);
-
-		Integer s_page = pageNum - 4;
-		Integer e_page = pageNum + 5;
-		if (s_page <= 0) {
-			s_page = 1;
-			e_page = 10;
-		}
-		if (e_page > lastPageValue) {
-			e_page = lastPageValue;
-		}
-		pictVO.setStartPage(s_page);
-		System.out.println("s_page @@@@@@@@@@@@@@@@@@ " + s_page);
-		pictVO.setEndPage(e_page);
-		System.out.println("e_page @@@@@@@@@@@@@@@@@@ " + e_page);
-
+		int[] pageRange = calculatePageRange(pageNum, limitNumber, totalCnt);
+		pictVO.setStartPage(pageRange[0]);
+		pictVO.setEndPage(pageRange[1]);
+		
 		pictVO.setOnlyAvailable(false);
 		List<?> facility_list = pictService.facility_list(pictVO);
 		model.addAttribute("resultList", facility_list);
@@ -2168,35 +2108,26 @@ public class PictController {
 			return "redirect:/pict_login.do";
 		}
 		
-		// 페이지당 표시할 항목 수 설정
+		
 		int limitNumber = 20;
 		pictVO.setLimit_cnt(limitNumber);
-		
+		// 전체 데이터 수 조회
+		Integer totalCnt = pictService.get_facility_request_total_cnt(pictVO);
 		// 현재 페이지 번호 설정
 		Integer pageNum = pictVO.getPageNumber();
 		if (pageNum == 0) {
 			pictVO.setPageNumber(1);
 			pageNum = 1;
 		}
-		
-		// 시작 인덱스 계산
 		int startNum = (pageNum - 1) * limitNumber;
 		pictVO.setStartNumber(startNum);
-		
-		// 전체 데이터 수 조회
-		Integer totalCnt = pictService.get_facility_request_total_cnt(pictVO);
-		
 		// 마지막 페이지 계산 수정 (10이 아닌 limitNumber로 나눔)
 		int lastPageValue = (int) Math.ceil((double)totalCnt / limitNumber);
 		pictVO.setLastPage(lastPageValue);
-
-		// 페이지 그룹 계산
-		Integer s_page = ((pageNum - 1) / 10) * 10 + 1;  // 현재 페이지가 속한 그룹의 시작 페이지
-		Integer e_page = Math.min(s_page + 9, lastPageValue);  // 현재 페이지 그룹의 마지막 페이지
+		int[] pageRange = calculatePageRange(pageNum, limitNumber, totalCnt);
+		pictVO.setStartPage(pageRange[0]);
+		pictVO.setEndPage(pageRange[1]);
 		
-		pictVO.setStartPage(s_page);
-		pictVO.setEndPage(e_page);
-
 		// 데이터 조회
 		List<?> history_list = pictService.get_facility_request_list(pictVO);
 		
@@ -2253,33 +2184,26 @@ public class PictController {
 		if (session == null || session == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
-
-		// 페이지네이션 설정
+		
 		int limitNumber = 20;
 		pictVO.setLimit_cnt(limitNumber);
+		// 전체 데이터 수 조회
+		Integer totalCnt = pictService.usrCtn(pictVO);
+		System.out.println("토탈cnt @@@@@@@@@@@@"+ totalCnt + pictVO.getSearch_text());
+		// 현재 페이지 번호 설정
 		Integer pageNum = pictVO.getPageNumber();
 		if (pageNum == 0) {
 			pictVO.setPageNumber(1);
 			pageNum = 1;
 		}
-		
-		// 시작 인덱스 계산
 		int startNum = (pageNum - 1) * limitNumber;
 		pictVO.setStartNumber(startNum);
-		
-		// 전체 데이터 수 조회
-		Integer totalCnt = pictService.usrCtn();
-		
-		// 마지막 페이지 계산
+		// 마지막 페이지 계산 수정 (10이 아닌 limitNumber로 나눔)
 		int lastPageValue = (int) Math.ceil((double)totalCnt / limitNumber);
 		pictVO.setLastPage(lastPageValue);
-
-		// 페이지 그룹 계산
-		Integer s_page = ((pageNum - 1) / 10) * 10 + 1;
-		Integer e_page = Math.min(s_page + 9, lastPageValue);
-		
-		pictVO.setStartPage(s_page);
-		pictVO.setEndPage(e_page);
+		int[] pageRange = calculatePageRange(pageNum, limitNumber, totalCnt);
+		pictVO.setStartPage(pageRange[0]);
+		pictVO.setEndPage(pageRange[1]);
 
 		// 데이터 조회
 		List<?> userList = pictService.get_user_list(pictVO);
@@ -2292,6 +2216,10 @@ public class PictController {
 
 		// 시설 목록 조회 (available한 시설만)
 		pictVO.setOnlyAvailable(true);
+		// 장비 목록 조회
+		if (pictVO.getSearch_text() != null) {
+			pictVO.setSearch_text(null);
+		}
 		List<?> facilityList = pictService.facility_list(pictVO);
 		model.addAttribute("facilityList", facilityList);
 
@@ -2541,8 +2469,13 @@ public class PictController {
 			return "redirect:/pict_login.do";
 		}
 
+		
 		int limitNumber = 20;
 		pictVO.setLimit_cnt(limitNumber);
+		// 전체 데이터 수 조회
+		Integer totalCnt = pictService.facility_list_total_cnt(pictVO);
+		System.out.println("토탈cnt @@@@@@@@@@@@"+ totalCnt + pictVO.getSearch_text());
+		// 현재 페이지 번호 설정
 		Integer pageNum = pictVO.getPageNumber();
 		if (pageNum == 0) {
 			pictVO.setPageNumber(1);
@@ -2550,21 +2483,13 @@ public class PictController {
 		}
 		int startNum = (pageNum - 1) * limitNumber;
 		pictVO.setStartNumber(startNum);
-		Integer totalCnt = pictService.facility_list_total_cnt(pictVO);
-		int lastPageValue = (int) (Math.ceil(totalCnt * 1.0 / 10));
+		// 마지막 페이지 계산 수정 (10이 아닌 limitNumber로 나눔)
+		int lastPageValue = (int) Math.ceil((double)totalCnt / limitNumber);
 		pictVO.setLastPage(lastPageValue);
-
-		Integer s_page = pageNum - 4;
-		Integer e_page = pageNum + 5;
-		if (s_page <= 0) {
-			s_page = 1;
-			e_page = 10;
-		}
-		if (e_page > lastPageValue) {
-			e_page = lastPageValue;
-		}
-		pictVO.setStartPage(s_page);
-		pictVO.setEndPage(e_page);
+		int[] pageRange = calculatePageRange(pageNum, limitNumber, totalCnt);
+		pictVO.setStartPage(pageRange[0]);
+		pictVO.setEndPage(pageRange[1]);
+		
 
 		List<Map<String, Object>> education_list = pictService.get_education_list(pictVO);
 		model.addAttribute("education_list", education_list);
@@ -2643,6 +2568,10 @@ public class PictController {
 
 		int limitNumber = 20;
 		pictVO.setLimit_cnt(limitNumber);
+		// 전체 데이터 수 조회
+		Integer totalCnt = pictService.get_popup_total_cnt(pictVO);
+		
+		// 현재 페이지 번호 설정
 		Integer pageNum = pictVO.getPageNumber();
 		if (pageNum == 0) {
 			pictVO.setPageNumber(1);
@@ -2650,26 +2579,12 @@ public class PictController {
 		}
 		int startNum = (pageNum - 1) * limitNumber;
 		pictVO.setStartNumber(startNum);
-		Integer totalCnt = pictService.get_popup_total_cnt(pictVO);
-		int lastPageValue = (int) (Math.ceil(totalCnt * 1.0 / 10));
-		System.out.println("startNum @@@@@@@@@@@@@@@@@@ " + startNum);
-		System.out.println("totalCnt @@@@@@@@@@@@@@@@@@ " + totalCnt);
-		System.out.println("lastPageValue @@@@@@@@@@@@@@@@@@ " + lastPageValue);
+		// 마지막 페이지 계산 수정 (10이 아닌 limitNumber로 나눔)
+		int lastPageValue = (int) Math.ceil((double)totalCnt / limitNumber);
 		pictVO.setLastPage(lastPageValue);
-
-		Integer s_page = pageNum - 4;
-		Integer e_page = pageNum + 5;
-		if (s_page <= 0) {
-			s_page = 1;
-			e_page = 10;
-		}
-		if (e_page > lastPageValue) {
-			e_page = lastPageValue;
-		}
-		pictVO.setStartPage(s_page);
-		System.out.println("s_page @@@@@@@@@@@@@@@@@@ " + s_page);
-		pictVO.setEndPage(e_page);
-		System.out.println("e_page @@@@@@@@@@@@@@@@@@ " + e_page);
+		int[] pageRange = calculatePageRange(pageNum, limitNumber, totalCnt);
+		pictVO.setStartPage(pageRange[0]);
+		pictVO.setEndPage(pageRange[1]);
 
 		pictVO.setOnlyAvailable(false);
 		List<?> popup_list = pictService.get_popup_list(pictVO);
@@ -3069,5 +2984,46 @@ public class PictController {
 		
 		return response;
 	}
-
+	/**
+	 * 현재 페이지를 기준으로 페이지 범위를 계산하는 메서드
+	 * 
+	 * @param currentPage 현재 페이지 번호
+	 * @param limit 페이지당 항목 수
+	 * @param totalCnt 전체 항목 수
+	 * @return int[] - [0]: 시작 페이지(s_page), [1]: 끝 페이지(e_page)
+	 */
+	public static int[] calculatePageRange(int currentPage, int limit, int totalCnt) {
+	    // 현재 페이지가 0이하인 경우 1로 설정
+	    if (currentPage <= 0) {
+	        currentPage = 1;
+	    }
+	    
+	    // 마지막 페이지 계산
+	    int lastPageValue = (int) Math.ceil(totalCnt * 1.0 / limit);
+	    if (lastPageValue < 1) {
+	        lastPageValue = 1;
+	    }
+	    
+	    // 시작 페이지와 끝 페이지 계산
+	    int s_page = currentPage - 4;
+	    int e_page = currentPage + 5;
+	    
+	    // 시작 페이지가 0 이하인 경우 조정
+	    if (s_page <= 0) {
+	        s_page = 1;
+	        e_page = 10;
+	    }
+	    
+	    // 끝 페이지가 마지막 페이지보다 큰 경우 조정
+	    if (e_page > lastPageValue) {
+	        e_page = lastPageValue;
+	    }
+	    
+	    // 시작 페이지가 끝 페이지보다 큰 경우 조정
+	    if (s_page > e_page) {
+	        s_page = e_page;
+	    }
+	    
+	    return new int[]{s_page, e_page};
+	}
 }
