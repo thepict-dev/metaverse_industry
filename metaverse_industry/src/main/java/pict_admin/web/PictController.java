@@ -53,6 +53,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -79,6 +80,8 @@ import com.security.UserRole;
 import com.utill.FileManagement;
 import com.utill.SessionHandler;
 import com.utill.date.CustomDateTime;
+import com.utill.excel.EduExcel;
+import com.utill.excel.Excel;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -158,9 +161,9 @@ public class PictController {
 		System.out.println("inputPw :::::" + inputPw);
 		UserVO = userService.getUserInfo(UserVO);
 		System.out.println("조회 결과 :::::" + UserVO);
-		System.out.println("조회 결과 ::::: id" + UserVO.getUser_id() != null);
-		System.out.println("조회 결과 ::::: id equals" + UserVO.getUser_id().equals(""));
 		if (UserVO != null && UserVO.getUser_id() != null) {
+			System.out.println("조회 결과 ::::: id" + UserVO.getUser_id() != null);
+			System.out.println("조회 결과 ::::: id equals" + UserVO.getUser_id().equals(""));
 			String user_id = UserVO.getUser_id();
 			String enpassword = encryptPassword(inputPw, inpuId); // 입력비밀번호
 			System.out.println("암호화된 비밀번호 :::::" + enpassword);
@@ -207,22 +210,12 @@ public class PictController {
 	}
 
 	@RequestMapping(value = "/signUp.do", method = RequestMethod.POST)
-	public String signUP(@ModelAttribute("searchVO") UserVO userVO, ModelMap model, MultipartHttpServletRequest request,
-			@RequestParam("attach_file") MultipartFile attach_file) throws Exception {
+	public String signUP(@ModelAttribute("searchVO") UserVO userVO, ModelMap model, MultipartHttpServletRequest request) throws Exception {
 
 		try {
 			// 비밀번호 암호
 			String enpassword = encryptPassword(userVO.getPassword(), userVO.getUser_id()); // 입력비밀번호
 			userVO.setPassword(enpassword);
-			if (attach_file.getSize() != 0) {
-				UUID uuid = UUID.randomUUID();
-				String uploadPath = fileUpload_board(request, attach_file,
-						(String) request.getSession().getAttribute("id"), uuid);
-				// String filepath = "~/Desktop/upload_file/";
-				String filepath = "/user1/upload_file/metaverse_industry/";
-				String filename = uuid + uploadPath.split("#####")[1];
-				userVO.setDocument_url(filename);
-			}
 			userService.signUp(userVO);
 			model.addAttribute("message", "회원가입이 완료되었습니다. 로그인해주세요.");
 			model.addAttribute("retType", ":location");

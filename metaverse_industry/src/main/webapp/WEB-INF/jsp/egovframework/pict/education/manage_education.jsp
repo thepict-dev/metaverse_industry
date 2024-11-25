@@ -44,7 +44,7 @@
 										</div>
 									</form>
 					                <div class="buttons">
-					                    <a href="" class="smButton"><img src="/img/admin/excel.png" alt="">엑셀 다운로드</a>
+					                    <a href="" class="smButton" onclick="history_list_excel()"><img src="/img/admin/excel.png" alt="">엑셀 다운로드</a>
 					                </div>
 									<div class="ListWrpper">
 										<ul class="listHead eduHead">
@@ -138,6 +138,14 @@
 							$("#status").change(function(e){
 								location.href = "/education/manage_education.do?request_status=" + $(this).val();
 							})
+							
+							function history_list_excel(){
+								if(confirm("해당 리스트를 엑셀파일로 다운로드 하시겠습니까?")){
+									$('#flag').val("refuse");
+									$("#search_fm").attr("action", "/education/excel.do");
+									$("#search_fm").submit();
+								}
+							}
 						</script>
 
 						<script src="../../../../../js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

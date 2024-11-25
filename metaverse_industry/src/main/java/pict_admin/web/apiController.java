@@ -1,7 +1,5 @@
 package pict_admin.web;
 import java.security.MessageDigest;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import pict_admin.service.PictService;
@@ -16,9 +14,11 @@ import org.apache.commons.codec.binary.Base64;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.security.UserRole;
+import com.utill.excel.EduExcel;
 import com.utill.excel.Excel;
 
 
@@ -53,6 +53,16 @@ public class apiController {
 		
 		Excel.download(response, flag.equalsIgnoreCase("eq") ? pictService.findEquipmentRequest() : pictService.findFacilityRequest(), flag);
 	}
+
+//	@RequestMapping(name = "/education/excel.do", method = RequestMethod.GET)
+//	public void eduListExcel(HttpServletRequest request, HttpServletResponse response, PictVO pictVO) throws Exception {
+//		System.out.println("test****************************");
+//		Optional.of(request.getSession().getAttribute("id"))
+//				.filter(id -> UserRole.adminValidation(request))
+//				.orElseThrow(() -> new IllegalArgumentException());
+// 
+//		EduExcel.download(response, pictService.get_education_list(pictVO));
+//	}
 	
 	/*
 	 * //qr코드
