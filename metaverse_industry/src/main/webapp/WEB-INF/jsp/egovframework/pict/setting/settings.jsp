@@ -34,6 +34,13 @@
 	                            <input type="text" name="professional_url" id="professional_url" placeholder="전문인력 양성 링크 클릭시 이동한 URL을 입력해주세요." value="${pictVO.professional_url}">
 	                        </div>
 	                    </div>
+	                    
+	                    <div class="inputsContainer">
+	                        <div class="inputBox">
+	                            <p class="inputCaption">인프라 지원 링크</p>
+	                            <input type="text" name="infra_url" id="infra_url" placeholder="인프라 지원 링크 클릭시 이동한 URL을 입력해주세요." value="${pictVO.professional_url}">
+	                        </div>
+	                    </div>
 	                    <div class="inputsContainer">
 	                        <div class="inputBox">
 	                            <p class="inputCaption">홍보영상 링크</p>
@@ -46,6 +53,7 @@
 	                            <input type="text" name="channel_url" id="channel_url" placeholder="채널 바로가기 클릭시 이동할 URL을 입력해주세요." value="${pictVO.channel_url}">
 	                        </div>
 	                    </div>
+	                    <!-- 
 	                    <div class="inputsContainer">
 	                        <div class="inputBox">
 		                    	<p class="inputCaption">썸네일 미리보기*
@@ -69,6 +77,7 @@
 	                                (jpeg, png, gif, bmp, tif)</p>
 	                        </div>
 	                    </div>
+	                     -->
 	                    <div class="btnContainer">
 	                        <a href="#lnk" onclick="button1_click()" class="basicButton blue"><img src="/img/admin/add2.png" alt="완료">적용</a>
 	                    </div>
@@ -79,7 +88,7 @@
 	        </div>
 	    </div>
 	    <script>
-
+			/*
 		    $(document).ready(function() {
 		        // 첨부파일 관련 코드
 		        var fileInputs = ['attach_file'];
@@ -121,7 +130,7 @@
 		    		reader.readAsDataURL(e.target.files[0]);
 		    	}
 		    });
-		    
+		    */
 		    $("#order_val").change(function(){
 		        // 현재 입력된 값
 		        let value = $(this).val();

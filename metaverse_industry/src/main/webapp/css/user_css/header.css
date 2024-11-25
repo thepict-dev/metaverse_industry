@@ -132,9 +132,13 @@ header.subHeader .nav > li:hover > a{
     transition: all .2s;
 }
 .sideButtons a.bag{
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	row-gap: 2px;
     padding: 4px;
     border: none;
-	
+	font-size: 14px;
 }
 header.subHeader .sideButtons a{
     color: #fff;

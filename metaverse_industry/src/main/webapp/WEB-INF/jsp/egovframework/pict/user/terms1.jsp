@@ -67,8 +67,7 @@
 					<p class="termsSubDesc">
 						<제화 또는 서비스 제공>와 관련한 개인정보는 수집.이용에 관한 동의일로부터<준영구>까지 위 이용목적을 위하여 보유.이용됩니다.<br>
 						-보유근거 : 사용자의 서비스이용에 따른 개인정보 처리 및 보유<br>
-						-관련법령 : 대금결제 및 재화 등의 공급에 관한 기록 : 5년<br>
-						-예외사유 :
+						-관련법령 : 대금결제 및 재화 등의 공급에 관한 기록 : 5년
 					</p>
 				</div>
 				<div class="termsContents">
@@ -129,7 +128,7 @@
 						성명 :김남수<br>
 						직책 :디지털콘텐츠팀 업무 총괄<br>
 						직급 :팀장<br>
-						연락처 :033-245-6310, kimnamsoo@gica.o.kr<br>
+						연락처 :033-245-6310, kimnamsoo@gica.or.kr<br>
 						※ 개인정보 보호 담당부서로 연결됩니다.
 					</p>
 					<p class="termsDesc">② 정보주체께서는 &lt;강원 메타버스 지원센터&gt;(&lsquo;http://www.gvar.or.kr/&rsquo;이하 &lsquo;지원센터&rsquo;)의 서비스(또는 사업)을 이용하시면서 발생한 모든 개인정보 보호 관련 문의, 불만처리, 피해구제 등에 관한 사항을 개인정보 보호책임자에게 문의하실 수 있습니다. &lt;강원 메타버스 지원센터&gt;(&lsquo;http://www.gvar.or.kr/&rsquo;이하 &lsquo;지원센터&rsquo;)는 정보주체의 문의에 대해 지체 없이 답변 및 처리해드릴 것입니다.</p>
@@ -165,7 +164,7 @@
 					<p class="termsSubDesc">
 						부서명 : 디지털콘텐츠팀<br>
 						담당자 : 김남수<br>
-						연락처 : 033-245-6310, kimnamsoo@gica.o.kr
+						연락처 : 033-245-6310, kimnamsoo@gica.or.kr
 					</p>
 					<p class="termsDesc">② 정보주체께서는 제1항의 열람청구 접수&middot;처리부서 이외에, 행정안전부의 &lsquo;개인정보보호 종합지원 포털&rsquo; 웹사이트(www.privacy.go.kr)를 통하여서도 개인정보 열람청구를 하실 수 있습니다.</p>
 					<p class="termsDesc">▶ 행정안전부 개인정보보호 종합지원 포털 &rarr; 개인정보 민원 &rarr; 개인정보 열람등 요구 (본인확인을 위하여 아이핀(I-PIN)이 있어야 함)</p>
