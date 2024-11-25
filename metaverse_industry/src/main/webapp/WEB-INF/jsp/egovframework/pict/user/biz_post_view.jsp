@@ -27,21 +27,21 @@
 	            <c:if test="${noticeResult.file_url1 ne null and noticeResult.file_url1 ne ''}">
 	        	    <c:set var="fileName1" value="${fn:substringAfter(noticeResult.file_url1, 'metaverse_industry/')}" />
 		            <a href="${noticeResult.file_url1}" download>
-		                <img src="/img/user_img/file.png" alt="">
+		                <img src="/img/user_img/file.webp" alt="">
 		                ${fileName1}
 		            </a>
 	        	</c:if>
 	        	<c:if test="${noticeResult.file_url2 ne null and noticeResult.file_url2 ne ''}">
 	        	    <c:set var="fileName2" value="${fn:substringAfter(noticeResult.file_url2, 'metaverse_industry/')}" />
 		            <a href="${noticeResult.file_url2}" download>
-		                <img src="/img/user_img/file.png" alt="">
+		                <img src="/img/user_img/file.webp" alt="">
 		                ${fileName2}
 		            </a>
 	        	</c:if>
 	        	<c:if test="${noticeResult.file_url3 ne null and noticeResult.file_url3 ne ''}">
 	        	    <c:set var="fileName3" value="${fn:substringAfter(noticeResult.file_url3, 'metaverse_industry/')}" />
 		            <a href="${noticeResult.file_url3}" download>
-		                <img src="/img/user_img/file.png" alt="">
+		                <img src="/img/user_img/file.webp" alt="">
 		                ${fileName3}
 		            </a>
 	        	</c:if>

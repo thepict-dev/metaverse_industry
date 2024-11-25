@@ -79,7 +79,7 @@
                                                 <div class="titleTooltip">
                                                     <p class="joinTitle">(추가정보) 근무지 정보</p>
                                                     <div class="tooltipBox">
-                                                        <button type="button"><img src="/img/user_img/tooltip.png"
+                                                        <button type="button"><img src="/img/user_img/tooltip.webp"
                                                                 alt=""></button>
                                                         <div class="tooltipDesc">
                                                             <p>근무지 정보를 미리 입력해두시면,<br>장비&시설을 <span>예약할 때 편리하게 이용</span>하실
@@ -121,10 +121,10 @@
                                                             <p class="fileName"></p>
                                                             <label for="file" id="attach_file">파일추가</label>
                                                             <input type="file" id="file" style="display: none;"
-                                                                name="attach_file" accept=".pdf, .jpg, .jpeg, .png, .hwp">
+                                                                name="attach_file" accept=".pdf, .jpg, .jpeg, .webp, .hwp">
                                                             <button type="button" id="deleteButton"
                                                                 style="display: none;"><img
-                                                                    src="/img/user_img/del-file.png" alt=""></button>
+                                                                    src="/img/user_img/del-file.webp" alt=""></button>
                                                         </div>
                                                     </div> 
                                                     -->
@@ -172,13 +172,13 @@
                                         const deleteButton = document.getElementById('deleteButton');
 
                                         fileInput.addEventListener('change', function (e) {
-                                            const allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png', 'hwp'];
+                                            const allowedExtensions = ['pdf', 'jpg', 'jpeg', 'webp', 'hwp'];
                                             const fileName = this.files[0]?.name;
                                             const fileExtension = fileName?.split('.').pop().toLowerCase();
                                             
                                             if (this.files[0]) {
                                                 if (!allowedExtensions.includes(fileExtension)) {
-                                                    alert('PDF, JPG, PNG, HWP 파일만 업로드 가능합니다.');
+                                                    alert('PDF, JPG, webp, HWP 파일만 업로드 가능합니다.');
                                                     this.value = '';
                                                     return;
                                                 }

@@ -15,7 +15,7 @@
         <div class="subColor">
             <h2>이용안내</h2>
             <p>강원메타버스지원센터,<br>모두에게 열린 창의와 혁신의 공간입니다.</p>
-           	<div class="scroll">Scroll Down<img src="/img/user_img/down.png" alt=""></div>
+           	<div class="scroll">Scroll Down<img src="/img/user_img/down.webp" alt=""></div>
         </div>
     </div>
     <div class="subContents etcTab">
@@ -79,7 +79,7 @@
                     </ul>
                 </div>
             </div>
-            <a href="${setting.content_url}">사업 공고 바로가기 <img src="/img/user_img/arrow-right.png" alt=""></a>
+            <a href="${setting.content_url}">사업 공고 바로가기 <img src="/img/user_img/arrow-right.webp" alt=""></a>
         </div>
         <div class="tabInner subContentsInner">
             <h3 class="subTextTitle">전문인력 양성</h3>
@@ -112,7 +112,7 @@
                     </div>
                 </div>
             </div>
-            <a href="${setting.professional_url}">사업 공고 바로가기 <img src="/img/user_img/arrow-right.png" alt=""></a>
+            <a href="${setting.professional_url}">사업 공고 바로가기 <img src="/img/user_img/arrow-right.webp" alt=""></a>
         </div>
         <div class="tabInner subContentsInner">
             <h3 class="subTextTitle">인프라 지원</h3>
@@ -171,8 +171,8 @@
             </div>
             
             <div class="_buttons">
-	            <a href="/equipment.do">장비 예약<img src="/img/user_img/arrow-right.png" alt=""></a>
-	            <a href="/facility.do">시설 예약<img src="/img/user_img/arrow-right.png" alt=""></a>
+	            <a href="/equipment.do">장비 예약<img src="/img/user_img/arrow-right.webp" alt=""></a>
+	            <a href="/facility.do">시설 예약<img src="/img/user_img/arrow-right.webp" alt=""></a>
             </div>
         </div>
     </div>

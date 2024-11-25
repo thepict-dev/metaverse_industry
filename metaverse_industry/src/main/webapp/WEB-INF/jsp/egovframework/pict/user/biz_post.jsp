@@ -15,7 +15,7 @@
         <div class="subColor">
             <h2>사업공고</h2>
             <p>창의적 도전을 위한<br>다양한 사업을 진행합니다</p>
-           	<div class="scroll">Scroll Down<img src="/img/user_img/down.png" alt=""></div>
+           	<div class="scroll">Scroll Down<img src="/img/user_img/down.webp" alt=""></div>
         </div>
     </div>
     <div class="subContents">
@@ -32,7 +32,7 @@
                                   </span>
                                   <span class="ntTitle">${notice.title}</span>
                               </p>
-                              <p class="ntDate">${notice.reg_date}<img src="/img/user_img/list-link.png" alt=""></p>
+                              <p class="ntDate">${notice.reg_date}<img src="/img/user_img/list-link.webp" alt=""></p>
                           </a>
                       </li>
                	</c:forEach>
@@ -40,7 +40,7 @@
         </div> 
         <div class="pagination">
                	<c:if test="${pictVO.pageNumber ne 1}">
-					<li><a href="/biz_post.do?search_text=${param.search_text}&pageNumber=${pictVO.pageNumber - 10 < 1 ? 1 : pictVO.pageNumber - 10}"><img src="/img/admin/prev.png" alt=""></a></li>
+					<li><a href="/biz_post.do?search_text=${param.search_text}&pageNumber=${pictVO.pageNumber - 10 < 1 ? 1 : pictVO.pageNumber - 10}"><img src="/img/admin/prev.webp" alt=""></a></li>
 				</c:if>	
 				
 				<c:forEach var="i" begin="${pictVO.startPage}" end="${pictVO.endPage}">
@@ -53,7 +53,7 @@
 				</c:forEach>	
                   
                  <c:if test="${pictVO.lastPage ne pictVO.pageNumber && pictVO.lastPage != 0}">
-					<li><a href="/biz_post.do?type=${pictVO.type}&pageNumber=${pictVO.pageNumber + 10 > pictVO.lastPage ?  pictVO.lastPage : pictVO.pageNumber + 10}"><img src="/img/admin/next.png" alt=""></a></li>
+					<li><a href="/biz_post.do?type=${pictVO.type}&pageNumber=${pictVO.pageNumber + 10 > pictVO.lastPage ?  pictVO.lastPage : pictVO.pageNumber + 10}"><img src="/img/admin/next.webp" alt=""></a></li>
 				</c:if>
             </div>
     </div>

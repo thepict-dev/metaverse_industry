@@ -41,6 +41,6 @@
 	<meta property="og:type" content="website">
 	<meta property="og:title" content=" " >
 	<meta property="og:description" content=" ">
-	<meta property="og:image" content="/user_img/og-img.png">
+	<meta property="og:image" content="/user_img/og-img.webp">
     
 </head>

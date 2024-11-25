@@ -16,7 +16,7 @@
     </div>
     <div class="loginWrapper">
         <div class="loginContainer">
-            <span><img src="/img/user_img/logo.png" alt=""></span>
+            <span><img src="/img/user_img/logo.webp" alt=""></span>
             <form id="loginForm" action="" method="post">
                 <div class="inputContainer login">
                     <input type="text" name="user_id" id="id" placeholder="아이디를 입력하세요" onkeypress="if(event.keyCode == 13){fn_login();}" autocomplete="off">
@@ -38,7 +38,7 @@
             <div class="modalTop">
                 <p>아이디 찾기</p>
                 <button class="closeModalBasic" type="button"><img
-                        src="/img/user_img/close-modal2.png" alt=""></button>
+                        src="/img/user_img/close-modal2.webp" alt=""></button>
             </div>
             <div class="modalBottom">
                 <div class="joinFormWrapper">
@@ -64,7 +64,7 @@
             <div class="modalTop">
                 <p>아이디 찾기</p>
                 <button class="checkIdButton" type="button"><img
-                        src="/img/user_img/close-modal2.png" alt=""></button>
+                        src="/img/user_img/close-modal2.webp" alt=""></button>
             </div>
             <div class="modalBottom">
                 <div class="joinFormWrapper">
@@ -86,7 +86,7 @@
             <div class="modalTop">
                 <p>비밀번호 찾기</p>
                 <button class="closeModalBasic" type="button"><img
-                        src="/img/user_img/close-modal2.png" alt=""></button>
+                        src="/img/user_img/close-modal2.webp" alt=""></button>
             </div>
             <div class="modalBottom">
                 <div class="joinFormWrapper">
@@ -117,7 +117,7 @@
             <div class="modalTop">
                 <p>새 비밀번호 입력</p>
                 <button class="checkPwButton" type="button"><img
-                        src="/img/user_img/close-modal2.png" alt=""></button>
+                        src="/img/user_img/close-modal2.webp" alt=""></button>
             </div>
             <div class="modalBottom">
                 <div class="joinFormWrapper">

@@ -15,7 +15,7 @@
        <div class="subColor">
            <h2>센터소개</h2>
            <p>온택트시대의 메타버스 콘텐츠,<br>강원 메타버스 지원센터가 그 중심이 되겠습니다.</p>
-           <div class="scroll">Scroll Down<img src="/img/user_img/down.png" alt=""></div>
+           <div class="scroll">Scroll Down<img src="/img/user_img/down.webp" alt=""></div>
        </div>
     </div>
     <div class="subContents intro">
@@ -26,7 +26,7 @@
                 <div class="cardInner">
                     <ul class="cardLists">
                         <li class="active">
-                            <span><img src="/img/user_img/intro1.png" alt=""></span>
+                            <span><img src="/img/user_img/intro1.webp" alt=""></span>
                             <div class="cardContents">
                                 <span class="cardSub">콘텐츠 제작 지원</span>
                                 <p>메타버스 융합콘텐츠<br>제작 지원 사업</p>
@@ -34,7 +34,7 @@
                             </div>
                         </li>
                         <li>
-                            <span><img src="/img/user_img/intro2.png" alt=""></span>
+                            <span><img src="/img/user_img/intro2.webp" alt=""></span>
                             <div class="cardContents">
                                 <span class="cardSub">전문인력 양성</span>
                                 <p>메타버스 전문인력<br>양성 교육 사업</p>
@@ -42,7 +42,7 @@
                             </div>
                         </li>
                         <li>
-                            <span><img src="/img/user_img/intro3.png" alt=""></span>
+                            <span><img src="/img/user_img/intro3.webp" alt=""></span>
                             <div class="cardContents">
                                 <span class="cardSub">인프라 지원</span>
                                 <p>강원 메타버스 지원센터<br>인프라(시설·장비) 지원</p>
@@ -58,11 +58,11 @@
                 <div class="mapInner" id="map"></div>
                 <ul class="locationInfo">
                     <li>
-                        <p><img src="/img/user_img/location.png" alt="">주소</p>
+                        <p><img src="/img/user_img/location.webp" alt="">주소</p>
                         <p>강원특별자치도 춘천시 서면 박사로 854 창작발전소(뒷 건물) 1층</p>
                     </li>
                     <li>
-                        <p><img src="/img/user_img/call.png" alt="">대표전화</p>
+                        <p><img src="/img/user_img/call.webp" alt="">대표전화</p>
                         <p>033-245-6315</p>
                     </li>
                 </ul>

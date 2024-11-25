@@ -42,7 +42,7 @@
 		                        <div class="itemImg">
 		                            <img src="${item.image_url}" alt="">
 		                            <span></span>
-		                            <a href="#lnk" data-id="${item.id}" class="add_bag active"><img src="/img/user_img/bag.png" alt=""></a>
+		                            <a href="#lnk" data-id="${item.id}" class="add_bag active"><img src="/img/user_img/bag.webp" alt=""></a>
 		                        </div>
 		                        <div class="itemTitles">
 		                            <span>${item.category}</span>

@@ -50,7 +50,7 @@ footer{
     display: inline-block;
     width: 24px;
     height: 24px;
-    background-image: url(/img/user_img/arrow-up1.png);
+    background-image: url(/img/user_img/arrow-up1.webp);
 }
 .famLists{
     position: absolute;
@@ -99,7 +99,7 @@ footer{
     color: #FFF;
 }
 .famDrop.active button::after{
-    background-image: url(/img/user_img/arrow-up.png);
+    background-image: url(/img/user_img/arrow-up.webp);
 }
 .famDrop.active .famLists{
     height: fit-content;

@@ -24,8 +24,8 @@
         <div class="gnb">
             <h1>
             	<a href="/">
-            		<img src="/img/user_img/logo-sub.png" alt="">
-            		<img src="/img/user_img/logo.png" alt="" class="subLogo">
+            		<img src="/img/user_img/logo-sub.webp" alt="">
+            		<img src="/img/user_img/logo.webp" alt="" class="subLogo">
             	</a>
            	</h1>
             <ul class="nav">
@@ -59,8 +59,8 @@
         <c:choose>
         	<c:when test="${name ne '' && name ne null && name ne undefined}">
 	            <a href="/mypage_bag.do?type=equipment" class="bag">
-	            	<img src="/img/user_img/bag-icon.png" alt="장바구니 바로가기" class="bkBag">
-	            	<img src="/img/user_img/bag-icon-wt.png" alt="장바구니 바로가기" class="wtBag">
+	            	<img src="/img/user_img/bag-icon.webp" alt="장바구니 바로가기" class="bkBag">
+	            	<img src="/img/user_img/bag-icon-wt.webp" alt="장바구니 바로가기" class="wtBag">
 	            	장바구니
             	</a>
 	            <a href="/mypage_account.do">마이페이지</a>
@@ -84,7 +84,7 @@
         <div class="mobile-menu">
             <div class="mobile-header">
                 <a href="#" class="logo">
-                    <img src="/img/user_img/logo-sub.png" alt="" srcset="">
+                    <img src="/img/user_img/logo-sub.webp" alt="" srcset="">
                 </a>
                 <button class="menu-close">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -135,7 +135,7 @@
 	        	<li>	
 			        <c:choose>
 			        	<c:when test="${name ne '' && name ne null && name ne undefined}">
-				            <a href="/mypage_bag.do?type=equipment" class="bag"><img src="/img/user_img/bag-icon-wt.png" alt="장바구니 바로가기"></a>
+				            <a href="/mypage_bag.do?type=equipment" class="bag"><img src="/img/user_img/bag-icon-wt.webp" alt="장바구니 바로가기"></a>
 				            <a href="/mypage_account.do">마이페이지</a>
 				            <a href="/user_logout.do">로그아웃</a> 
 			            </c:when>

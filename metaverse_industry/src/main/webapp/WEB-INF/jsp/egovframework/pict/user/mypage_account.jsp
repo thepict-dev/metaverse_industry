@@ -88,7 +88,7 @@
                                         <div class="modalTop">
                                             <p>기본 정보 수정하기</p>
                                             <button class="closeModalBasic" type="button"><img
-                                                    src="/img/user_img/close-modal2.png" alt=""></button>
+                                                    src="/img/user_img/close-modal2.webp" alt=""></button>
                                         </div>
                                         <div class="modalBottom">
                                             <div class="joinFormWrapper">
@@ -135,7 +135,7 @@
                                         <div class="modalTop">
                                             <p>추가 정보 수정하기</p>
                                             <button class="closeModalAdd" type="button"><img
-                                                    src="/img/user_img/close-modal2.png" alt=""></button>
+                                                    src="/img/user_img/close-modal2.webp" alt=""></button>
                                         </div>
                                         <div class="modalBottom">
                                             <div class="joinFormWrapper">

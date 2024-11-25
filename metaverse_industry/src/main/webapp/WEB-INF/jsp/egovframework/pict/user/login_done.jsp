@@ -16,10 +16,10 @@
     </div>
     <div class="loginWrapper">
         <div class="loginContainer done">
-            <span><img src="/img/user_img/logo.png" alt=""></span>
+            <span><img src="/img/user_img/logo.webp" alt=""></span>
             <div class="doneContainer">
                 <div class="doneContents">
-                    <span><img src="/img/user_img/check_circle.png" alt=""></span>
+                    <span><img src="/img/user_img/check_circle.webp" alt=""></span>
                     <p>회원가입 완료</p>
                     <span class="pc">회원가입이 성공적으로 완료되었습니다.<br>회원가입 시 입력한 정보는 마이페이지 > 계정관리에서 수정 가능합니다.</span>
                     <span class="mb">회원가입이 성공적으로 완료되었습니다.<br>회원가입 시 입력한 정보는<br>마이페이지 > 계정관리에서 수정 가능합니다.</span>

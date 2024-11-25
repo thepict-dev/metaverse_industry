@@ -80,7 +80,7 @@
                         <body>
                             <%@ include file="./include/header.jsp" %>
                                 <div class="loginTitle book">
-                                    <h2><a href="/equipment.do"><img src="/img/user_img/back-grey.png" alt=""></a>장비 예약
+                                    <h2><a href="/equipment.do"><img src="/img/user_img/back-grey.webp" alt=""></a>장비 예약
                                     </h2>
                                 </div>
                                 <div class="loginWrapper book">
@@ -107,7 +107,7 @@
                                                                                     ${equipment.count}개</span></p>
                                                                         </div>
                                                                     </div>
-                                                                    <a href="#lnk"><img src="/img/user_img/delete2.png"
+                                                                    <a href="#lnk"><img src="/img/user_img/delete2.webp"
                                                                             alt=""></a>
                                                                 </li>
                                                             </c:forEach>
@@ -173,14 +173,14 @@
                                                                 <input type="file" id="file1" style="display: none;">
                                                                 <button type="button" id="deleteButton1"
                                                                     style="display: none;">
-                                                                    <img src="/img/user_img/del-file.png" alt="" />
+                                                                    <img src="/img/user_img/del-file.webp" alt="" />
                                                                 </button>
                                                             </div> -->
                                                             <p class="fileSub">신분증 사본을 제출해주세요.</p>
                                                             <div id="dropZone" class="dropzone_individual">
 														        파일을 여기에 드래그하세요
 														        <br>또는<br>
-														        <input type="file" id="fileInput" class="fileInput_individual" multiple style="margin-top: 10px;" accept=".jpg, .jpeg, .png, .pdf, .hwp">
+														        <input type="file" id="fileInput" class="fileInput_individual" multiple style="margin-top: 10px;" accept=".jpg, .jpeg, .webp, .pdf, .hwp">
 														    </div>
 														    <div class="file-list file_list_individual" id="fileList"></div>
                                                         </div>
@@ -233,14 +233,14 @@
                                                                 <input type="file" id="file2" style="display: none;" />
                                                                 <button type="button" id="deleteButton2"
                                                                     style="display: none;"><img
-                                                                        src="/img/user_img/del-file.png"
+                                                                        src="/img/user_img/del-file.webp"
                                                                         alt="" /></button>
                                                             </div> -->
                                                             <p class="fileSub">사업자 등록증, 재직증명서 등 필요서류를 제출해주세요.</p>
                                                             <div id="dropZone" class="dropzone_company">
 														        파일을 여기에 드래그하세요
 														        <br>또는<br>
-														        <input type="file" id="fileInput" class="fileInput_company" multiple style="margin-top: 10px;" accept=".jpg, .jpeg, .png, .pdf, .hwp">
+														        <input type="file" id="fileInput" class="fileInput_company" multiple style="margin-top: 10px;" accept=".jpg, .jpeg, .webp, .pdf, .hwp">
 														    </div>
 														    <div class="file-list file_list_company" id="fileList"></div>
 														    
@@ -257,7 +257,7 @@
                                 <%@ include file="./include/footer.jsp" %>
                                     <div class="modalContainer" id="confirmModal">
                                         <div class="modalInner">
-                                            <button type="button"><img src="/img/user_img/close-modal.png"
+                                            <button type="button"><img src="/img/user_img/close-modal.webp"
                                                     alt="" /></button>
                                             <div class="modalContents">
                                                 <div class="modalTitles">
@@ -337,7 +337,7 @@
                                     </div>
                                     <div class="modalContainer" id="checkModal">
                                         <div class="modalInner">
-                                            <button type="button"><img src="/img/user_img/close-modal.png"
+                                            <button type="button"><img src="/img/user_img/close-modal.webp"
                                                     alt="" /></button>
                                             <div class="modalContents">
                                                 <div class="modalTitles">
@@ -368,7 +368,7 @@
                                     </div>
                                     <div class="modalContainer" id="agreeModal">
                                         <div class="modalInner">
-                                            <button type="button"><img src="/img/user_img/close-modal.png" alt=""></button>
+                                            <button type="button"><img src="/img/user_img/close-modal.webp" alt=""></button>
                                             <div class="modalContents">
                                                 <div class="modalTitles">
                                                     <p>강원 메타버스 지원센터 인프라(시설·장비) 운영 지침</p>

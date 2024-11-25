@@ -11,13 +11,13 @@
 <%@ include file="./include/head.jsp" %>
 <body>
     <div class="introSection" id="introSection">
-        <img src="/img/user_img/swiper-img1.png" alt="" class="pcBack">
-        <img src="/img/user_img/mb-back.png" alt="" class="mbBack">
+        <img src="/img/user_img/swiper-img1.webp" alt="" class="pcBack">
+        <img src="/img/user_img/mb-back.webp" alt="" class="mbBack">
         <div class="introSecContents">
-            <h2><img src="/img/user_img/logo-sub.png" alt=""></h2>
+            <h2><img src="/img/user_img/logo-sub.webp" alt=""></h2>
             <span>'강원 메타버스 지원센터'는</span>
             <p>강원특별자치도의<br>미래 시대 콘텐츠 산업을<br>선도합니다</p>
-            <div class="scroll">Scroll Down<img src="/img/user_img/down.png" alt=""></div>
+            <div class="scroll">Scroll Down<img src="/img/user_img/down.webp" alt=""></div>
         </div>
     </div>
 	<%@ include file="./include/header.jsp" %>
@@ -25,7 +25,7 @@
 	    <c:if test="${totalCnt > 0}">
 			<div class="mainPopup">
 		        <div class="mainPopupInner">
-		            <button type="button" onclick="closePopup()"><img src="/user_img/close-popup.png" alt=""></button>
+		            <button type="button" onclick="closePopup()"><img src="/user_img/close-popup.webp" alt=""></button>
 		            <div class="swiper popup">
 		                <div class="swiper-wrapper">
 		                    <c:forEach var="item" items="${popupList}" varStatus="status">
@@ -56,7 +56,7 @@
     
         <div class="section1" id="section1">
             <div class="eduSection">
-                <span><img src="/img/user_img/edu-poster.jpeg" alt=""></span>
+                <span><img src="/img/user_img/edu-poster.webp" alt=""></span>
                 <div class="eduPosTexts">
                     <div class="eduPosTitle">
                         <p>메타버스 현장 체험교육</p>
@@ -64,15 +64,15 @@
                     </div>
                     <ul class="eduPosText">
                         <li>
-                            <p><img src="/img/user_img/location.png" alt="">장소안내</p>
+                            <p><img src="/img/user_img/location.webp" alt="">장소안내</p>
                             <span>강원 메타버스 지원센터(강원특별자치도 춘천시 박사로 854 창작발전소 1층)</span>
                         </li>
                         <li>
-                            <p><img src="/img/user_img/user.png" alt="">신청대상</p>
+                            <p><img src="/img/user_img/user.webp" alt="">신청대상</p>
                             <span>강원지역 초·중·고등학생(초등학생 4학년 이상 가능)</span>
                         </li>
                         <li>
-                            <p><img src="/img/user_img/calendar.png" alt="">교육일정</p>
+                            <p><img src="/img/user_img/calendar.webp" alt="">교육일정</p>
                             <span>일주일 전 신청필수</span>
                         </li>
                     </ul>
@@ -83,27 +83,27 @@
                 <div class="swiper">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
-                            <img src="/img/user_img/swiper-img1.png" alt="">
+                            <img src="/img/user_img/swiper-img1.webp" alt="">
                             <div class="swiperTexts first">
                                 <span>강원 메타버스 지원센터는</span>
                                 <p>강원특별자치도의 미래 시대<br>
                                     콘텐츠 산업을 선도합니다</p>
                                 <a href="#lnk">보러가기
-                                	<img src="/img/user_img/linkto.png" alt="">
-                                	<img src="/img/user_img/linkto-hover.png" alt="" class="hover">
+                                	<img src="/img/user_img/linkto.webp" alt="">
+                                	<img src="/img/user_img/linkto-hover.webp" alt="" class="hover">
                                	</a>
                             </div>
                         </div>
                         <div class="swiper-slide"> 
-                            <img src="/img/user_img/swiper-img2.png" alt="">
+                            <img src="/img/user_img/swiper-img2.webp" alt="">
                             <div class="swiperTexts second">
                                 <span>강원 메타버스 지원센터</span>
                                 <p>VR·AR 시설 및<br>
                                     장비 무상 지원</p>
                                 <a href="#lnk">
 	                                보러가기
-	                                <img src="/img/user_img/linkto.png" alt="">
-                                	<img src="/img/user_img/linkto-hover.png" alt="" class="hover">
+	                                <img src="/img/user_img/linkto.webp" alt="">
+                                	<img src="/img/user_img/linkto-hover.webp" alt="" class="hover">
                                 </a>
                             </div>
                         </div>
@@ -167,7 +167,7 @@
 	                                        <span class="ntIndex">${notice.idx}</span>
 	                                        <span class="ntTitle">${notice.title}</span>
 	                                    </p>
-	                                    <p class="ntDate">${notice.reg_date}<img src="/img/user_img/list-link.png" alt=""></p>
+	                                    <p class="ntDate">${notice.reg_date}<img src="/img/user_img/list-link.webp" alt=""></p>
 	                                </a>
 	                            </li>
                         	</c:forEach>
@@ -179,41 +179,41 @@
         <div class="cardSection">
             <ul class="cardLists">
                 <li class="active">
-                    <span><img src="/img/user_img/intro1.png" alt=""></span>
+                    <span><img src="/img/user_img/intro1.webp" alt=""></span>
                     <div class="cardContents">
                         <span class="cardSub">콘텐츠 제작 지원</span>
                         <p>메타버스 융합콘텐츠<br>제작 지원 사업</p>
                         <span class="cardDesc">강원도 내 메타버스 관련 기업을 지원하여 레저·휴양과 의료 분야의 혁신적 콘텐츠 제작을 목표로 하는 사업입니다. 지원 대상은 메타버스 기술 또는 서비스를 보유한 강원특별자치도 소재 기업으로, 자세한 내용은 홈페이지를 참고하세요.</span>
                         <a href="${setting.content_url}" class="linkButton blk">
                         	보러가기
-                       		<img src="/img/user_img/list-link.png" alt="">
-                            <img src="/img/user_img/arr-hover2.png" alt="" class="hover">
+                       		<img src="/img/user_img/list-link.webp" alt="">
+                            <img src="/img/user_img/arr-hover2.webp" alt="" class="hover">
                        	</a>
                     </div>
                 </li>
                 <li>
-                    <span><img src="/img/user_img/intro2.png" alt=""></span>
+                    <span><img src="/img/user_img/intro2.webp" alt=""></span>
                     <div class="cardContents">
                         <span class="cardSub">전문인력 양성</span>
                         <p>메타버스 전문인력<br>양성 교육 사업</p>
                         <span class="cardDesc">강원지역 메타버스 산업의 요구사항을 반영한 실무형 교육을 통해 산업 종사자 및 취업 희망자의 직무 능력을 향상시키고 인재를 발굴하는 사업입니다. 지원 대상은 강원 소재 기업 재직자, 미취업자, 대학생으로, 교육장소는 추후 공지됩니다. 자세한 내용은 사업공고일에 확인하세요.</span>
                         <a href="${setting.professional_url}" class="linkButton blk">
                         	보러가기
-                       		<img src="/img/user_img/list-link.png" alt="">
-                            <img src="/img/user_img/arr-hover2.png" alt="" class="hover">
+                       		<img src="/img/user_img/list-link.webp" alt="">
+                            <img src="/img/user_img/arr-hover2.webp" alt="" class="hover">
                      	</a>
                     </div>
                 </li>
                 <li>
-                    <span><img src="/img/user_img/intro3.png" alt=""></span>
+                    <span><img src="/img/user_img/intro3.webp" alt=""></span>
                     <div class="cardContents">
                         <span class="cardSub">인프라 지원</span>
                         <p>강원 메타버스 지원센터<br>인프라(시설·장비) 지원</p>
                         <span class="cardDesc">메타버스 콘텐츠 제작에 필요한 인프라(시설·장비)를 강원특별자치도 내 메타버스 기업 및 유관기관에 지원합니다. 사용 방법은 홈페이지를 통한 예약신청 후 방문입니다. 지원대상은 강원특별자치도의 메타버스 관련 기업, 유관기관 임직원 및 메타버스 관련 창업·취업 준비자입니다.</span>
                         <a href="${setting.infra_url}" class="linkButton blk">
                         	보러가기
-                        	<img src="/img/user_img/list-link.png" alt="">
-                            <img src="/img/user_img/arr-hover2.png" alt="" class="hover">
+                        	<img src="/img/user_img/list-link.webp" alt="">
+                            <img src="/img/user_img/arr-hover2.webp" alt="" class="hover">
                        	</a>
                     </div>
                 </li>
@@ -223,7 +223,7 @@
 	        <div class="iframeContainer">
 			  <iframe src="${setting.video_url}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen ></iframe>
 			</div>
-          	<a href="${setting.channel_url}" target="blank" title="새창이동">채널 바로가기 <img src="/img/user_img/arrow-right.png" alt=""></a>
+          	<a href="${setting.channel_url}" target="blank" title="새창이동">채널 바로가기 <img src="/img/user_img/arrow-right.webp" alt=""></a>
         </div>
     </main>
 	<%@ include file="./include/footer.jsp" %>
@@ -346,7 +346,7 @@
         }
 
         function updatePlayPauseButton() {
-            pauseButton.style.backgroundImage = isPlaying ? 'url(/img/user_img/pause.png)' : 'url(/img/user_img/play.png)';
+            pauseButton.style.backgroundImage = isPlaying ? 'url(/img/user_img/pause.webp)' : 'url(/img/user_img/play.webp)';
         }
 
         function handleAnimationTrigger() {

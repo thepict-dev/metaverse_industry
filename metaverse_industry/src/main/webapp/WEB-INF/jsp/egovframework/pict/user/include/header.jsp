@@ -23,7 +23,7 @@
 <header>
     <div class="headerInner">
         <div class="gnb">
-            <h1><a href="/"><img src="/img/user_img/logo.png" alt=""></a></h1>
+            <h1><a href="/"><img src="/img/user_img/logo.webp" alt=""></a></h1>
             <ul class="nav">
                 <li <c:if test="${intro ne -1}">class="active"</c:if>>
                     <a href="/intro.do">센터소개</a>
@@ -54,7 +54,7 @@
         <div class="sideButtons">
         <c:choose>
         	<c:when test="${name ne '' && name ne null && name ne undefined}">
-	            <a href="/mypage_bag.do?type=equipment" class="bag"><img src="/img/user_img/bag-icon.png" alt="장바구니 바로가기">장바구니</a>
+	            <a href="/mypage_bag.do?type=equipment" class="bag"><img src="/img/user_img/bag-icon.webp" alt="장바구니 바로가기">장바구니</a>
 	            <a href="/mypage_account.do">마이페이지</a>
 	            <a href="/user_logout.do">로그아웃</a> 
             </c:when>
@@ -64,11 +64,11 @@
         </c:choose>
             
         </div>
-        <button type="button" class="mbMenuBtn"><img src="/img/user_img/menu.png" alt=""></button>
+        <button type="button" class="mbMenuBtn"><img src="/img/user_img/menu.webp" alt=""></button>
         <div class="mobile-menu">
             <div class="mobile-header">
                 <a href="/" class="logo">
-                    <img src="/img/user_img/logo-sub.png" alt="" srcset="">
+                    <img src="/img/user_img/logo-sub.webp" alt="" srcset="">
                 </a>
                 <button class="menu-close">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -119,7 +119,7 @@
 	        	<li class="infoButtons">	
 			        <c:choose>
 			        	<c:when test="${name ne '' && name ne null && name ne undefined}">
-				            <a href="/mypage_bag.do?type=equipment" class="bag"><img src="/img/user_img/bag-icon-wt.png" alt="장바구니 바로가기"></a>
+				            <a href="/mypage_bag.do?type=equipment" class="bag"><img src="/img/user_img/bag-icon-wt.webp" alt="장바구니 바로가기"></a>
 				            <a href="/mypage_account.do">마이페이지</a>
 				            <a href="/user_logout.do">로그아웃</a> 
 			            </c:when>

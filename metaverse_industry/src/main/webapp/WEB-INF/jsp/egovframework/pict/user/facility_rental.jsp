@@ -80,7 +80,7 @@
 					    </style>
 	<%@ include file="./include/header.jsp" %>
     <div class="loginTitle book">
-        <h2><a href="/facility.do"><img src="/img/user_img/back-grey.png" alt=""></a>시설 예약</h2>
+        <h2><a href="/facility.do"><img src="/img/user_img/back-grey.webp" alt=""></a>시설 예약</h2>
     </div>
     <div class="loginWrapper book">
         <form action="">
@@ -103,7 +103,7 @@
                                                <p><span class="facil">${equipment.name}</span></p>
                                            </div>
                                        </div>
-                                       <a href="#lnk"><img src="/img/user_img/delete2.png"
+                                       <a href="#lnk"><img src="/img/user_img/delete2.webp"
                                                alt=""></a>
                                    </li>
                                </c:forEach>
@@ -167,7 +167,7 @@
                                 <div id="dropZone" class="dropzone_individual">
 							        파일을 여기에 드래그하세요
 							        <br>또는<br>
-							        <input type="file" id="fileInput" class="fileInput_individual" multiple style="margin-top: 10px;" accept=".jpg, .jpeg, .png, .pdf, .hwp">
+							        <input type="file" id="fileInput" class="fileInput_individual" multiple style="margin-top: 10px;" accept=".jpg, .jpeg, .webp, .pdf, .hwp">
 							    </div>
 							    <div class="file-list file_list_individual" id="fileList"></div>
                             </div>
@@ -212,7 +212,7 @@
                                 <div id="dropZone" class="dropzone_company">
 							        파일을 여기에 드래그하세요
 							        <br>또는<br>
-							        <input type="file" id="fileInput" class="fileInput_company" multiple style="margin-top: 10px;" accept=".jpg, .jpeg, .png, .pdf, .hwp">
+							        <input type="file" id="fileInput" class="fileInput_company" multiple style="margin-top: 10px;" accept=".jpg, .jpeg, .webp, .pdf, .hwp">
 							    </div>
 							    <div class="file-list file_list_company" id="fileList"></div>
                             </div>
@@ -228,7 +228,7 @@
 	<%@ include file="./include/footer.jsp" %>
     <div class="modalContainer" id="confirmModal">
         <div class="modalInner">
-            <button type="button"><img src="/img/user_img/close-modal.png" alt=""></button>
+            <button type="button"><img src="/img/user_img/close-modal.webp" alt=""></button>
             <div class="modalContents">
                 <div class="modalTitles">
                     <p>예약하시겠습니까?</p>
@@ -307,7 +307,7 @@
     </div>
     <div class="modalContainer" id="checkModal">
         <div class="modalInner">
-            <button type="button"><img src="/img/user_img/close-modal.png" alt=""></button>
+            <button type="button"><img src="/img/user_img/close-modal.webp" alt=""></button>
             <div class="modalContents">
                 <div class="modalTitles">
                     <p>예약이 완료되었습니다.</p>
@@ -339,7 +339,7 @@
 
     <div class="modalContainer" id="agreeModal">
         <div class="modalInner">
-            <button type="button"><img src="/img/user_img/close-modal.png" alt=""></button>
+            <button type="button"><img src="/img/user_img/close-modal.webp" alt=""></button>
             <div class="modalContents">
                 <div class="modalTitles">
                     <p>강원 메타버스 지원센터 인프라(시설·장비) 운영 지침</p>

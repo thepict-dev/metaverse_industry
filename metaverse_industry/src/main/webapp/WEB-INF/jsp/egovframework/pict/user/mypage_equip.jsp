@@ -100,7 +100,7 @@
                                                             <th>대여형태</th>
                                                             <th>장비명</th>
                                                             <th><span>대여상태<button type="button" class="infos"><img
-                                                                            src="/img/user_img/tooltip-wt.png"
+                                                                            src="/img/user_img/tooltip-wt.webp"
                                                                             alt=""></button></span></th>
                                                             <th>정보보기</th>
                                                             <th>예약 취소</th>
@@ -174,7 +174,7 @@
                                                                 </c:if>
                                                                 <td>
                                                                     <a href="#lnk" class="check"><img
-                                                                            src="/img/user_img/contract.png" alt=""></a>
+                                                                            src="/img/user_img/contract.webp" alt=""></a>
                                                                 </td>
                                                                 <c:if
                                                                     test="${item.request_status eq 'pendding' || item.request_status eq 'rejected' || item.request_status eq 'approved' || item.request_status eq 'retry'}">
@@ -197,7 +197,7 @@
                                             <c:if test="${pictVO.pageNumber ne 1}">
                                                 <li><a
                                                         href="/mypage_equip.do?request_status=${pictVO.request_status}&pageNumber=${pictVO.pageNumber - 10 < 1 ? 1 : pictVO.pageNumber - 10}"><img
-                                                            src="/img/admin/prev.png" alt=""></a></li>
+                                                            src="/img/admin/prev.webp" alt=""></a></li>
                                             </c:if>
 
                                             <c:forEach var="i" begin="${pictVO.startPage}" end="${pictVO.endPage}">
@@ -217,14 +217,14 @@
                                                 test="${pictVO.lastPage ne pictVO.pageNumber && pictVO.lastPage != 0}">
                                                 <li><a
                                                         href="/mypage_equip.do?request_status=${pictVO.request_status}&pageNumber=${pictVO.pageNumber + 10 > pictVO.lastPage ?  pictVO.lastPage : pictVO.pageNumber + 10}"><img
-                                                            src="/img/admin/next.png" alt=""></a></li>
+                                                            src="/img/admin/next.webp" alt=""></a></li>
                                             </c:if>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="stateModal">
                                     <div class="stateModalInner">
-                                        <button type="button"><img src="/img/user_img/close-modal.png" alt=""></button>
+                                        <button type="button"><img src="/img/user_img/close-modal.webp" alt=""></button>
                                         <ul class="stateLists">
                                             <li>
                                                 <span>승인대기<br>(신청)</span>
@@ -269,7 +269,7 @@
                                     <div class="myModalInner">
                                         <div class="modalTop">
                                             <p>서류보완요청</p>
-                                            <button type="button"><img src="/img/user_img/close-modal2.png"
+                                            <button type="button"><img src="/img/user_img/close-modal2.webp"
                                                     alt=""></button>
                                         </div>
                                         <form class="modalBottom" method="post" enctype="multipart/form-data" id="retryForm">
@@ -295,7 +295,7 @@
                                     <div class="myModalInner">
                                         <div class="modalTop">
                                             <p>장비 대여 승인거절</p>
-                                            <button type="button"><img src="/img/user_img/close-modal2.png"
+                                            <button type="button"><img src="/img/user_img/close-modal2.webp"
                                                     alt=""></button>
                                         </div>
                                         <div class="modalBottom">
@@ -313,7 +313,7 @@
                                 </div>
                                 <div class="modalContainer" id="bookingInfoModal">
                                     <div class="modalInner">
-                                        <button type="button"><img src="/img/user_img/close-modal.png" alt=""></button>
+                                        <button type="button"><img src="/img/user_img/close-modal.webp" alt=""></button>
                                         <div class="modalContents">
                                             <div class="modalTitles">
                                                 <p>예약 정보</p>

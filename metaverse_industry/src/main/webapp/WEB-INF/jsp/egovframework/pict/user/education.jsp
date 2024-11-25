@@ -15,7 +15,7 @@
         <div class="subColor">
             <h2>현장체험교육</h2>
             <p> 메타버스 산업의 이해를 높이기 위한<br>무료 체험 교육입니다</p>
-           	<div class="scroll">Scroll Down<img src="/img/user_img/down.png" alt=""></div>
+           	<div class="scroll">Scroll Down<img src="/img/user_img/down.webp" alt=""></div>
         </div>
     </div>
     <div class="subContents">
@@ -65,13 +65,13 @@
                 </div>
             </div>
         </div>
-        <a href="#lnk" class="openModalBtn">신청하러가기 <img src="/img/user_img/arrow-right.png" alt=""></a>
+        <a href="#lnk" class="openModalBtn">신청하러가기 <img src="/img/user_img/arrow-right.webp" alt=""></a>
     </div>
     <div class="modalContainer" id="eduModal">
         <div class="myModalInner">
             <div class="modalTop">
                 <p>강원 메타버스 지원센터 현장체험교육 참가신청서</p>
-                <button type="button" class="closeModalBtn"><img src="/img/user_img/close-modal2.png" alt=""></button>
+                <button type="button" class="closeModalBtn"><img src="/img/user_img/close-modal2.webp" alt=""></button>
             </div>
             <div class="modalBottom">
                 <div class="joinFormWrapper">

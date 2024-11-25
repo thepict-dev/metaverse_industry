@@ -55,13 +55,13 @@
 											<div class="subColor">
 												<h2>장비대여</h2>
 												<p>누구나 이용할 수 있는<br>장비 대여 서비스입니다</p>
-           										<div class="scroll">Scroll Down<img src="/img/user_img/down.png" alt=""></div>
+           										<div class="scroll">Scroll Down<img src="/img/user_img/down.webp" alt=""></div>
 											</div>
 										</div>
 										<div class="subContents rental">
 											<div class="rentalCountContainer">
 												<p class="rentalListTitle"><button type="button" class="mb"><img
-															src="/img/user_img/list-back.png" alt=""></button>예약 목록</p>
+															src="/img/user_img/list-back.webp" alt=""></button>예약 목록</p>
 												<div class="rentalSum">
 													<p>
 														<span>총<span class="selectedCnt">4</span>개 기기가 선택되었습니다</span>
@@ -135,7 +135,7 @@
 																	<div class="itemImg">
 																		<img src="${item.image_url}" alt="">
 																		<span></span>
-																		<a href="#lnk" data-id="${item.id}" class="add_bag <c:if test="${item.isLike eq '1'}">active</c:if>"><img src="/img/user_img/bag.png"
+																		<a href="#lnk" data-id="${item.id}" class="add_bag <c:if test="${item.isLike eq '1'}">active</c:if>"><img src="/img/user_img/bag.webp"
 																				alt=""></a>
 																	</div>
 																	<div class="itemTitles">

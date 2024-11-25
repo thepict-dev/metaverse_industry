@@ -9,7 +9,7 @@
         <div class="footerTop">
             <div class="snsFam">
                 <ul class="sns">
-                    <li><a href="https://www.youtube.com/@chuncheon-TV" target="_blank" title="새창이동"><img src="/img/user_img/youtube.png" alt=""></a></li>
+                    <li><a href="https://www.youtube.com/@chuncheon-TV" target="_blank" title="새창이동"><img src="/img/user_img/youtube.webp" alt=""></a></li>
                 </ul>
                 <div class="famDrop">
                     <button type="button">강원디지털인프라</button>
