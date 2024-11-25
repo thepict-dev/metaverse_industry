@@ -955,7 +955,7 @@
 		WHERE
 			1=1
 		    AND err.request_status in ('approved', 'rental', 'overdue')
-			AND eit.serial_number = #{serial_number}
+            AND eit.serial_number LIKE CONCAT('%', #{serial_number}, '%')
 	</select>
 	
 	<!-- 시설물 관리 -->
