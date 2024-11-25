@@ -91,7 +91,7 @@
 								<div class="listWrapper">
 									<div class="listInner set">
 						                <div class="buttons">
-						                    <a href="#lnk" class="smButton"><img src="/img/admin/pdf.png" alt="">PDF 다운로드</a>
+						                    <a href="#lnk" class="smButton" style="padding: 10px 8px 10px 4px;font-size: 16px;"><img src="/img/admin/pdf.png" alt="">PDF 다운로드</a>
 						                </div>
 									</div>
 								</div>
