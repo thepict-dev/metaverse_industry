@@ -86,5 +86,6 @@
     </div>
 	<%@ include file="./include/footer.jsp" %>
 	<script src="/js/sub.js"></script>
+	<script src="/js/notice.js"></script>
 </body>
 </html>
