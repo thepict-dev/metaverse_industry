@@ -58,7 +58,7 @@
         <div class="sideButtons">
         <c:choose>
         	<c:when test="${name ne '' && name ne null && name ne undefined}">
-	            <a href="/mypage_bag.do" class="bag">
+	            <a href="/mypage_bag.do?type=equipment" class="bag">
 	            	<img src="/img/user_img/bag-icon.png" alt="장바구니 바로가기" class="bkBag">
 	            	<img src="/img/user_img/bag-icon-wt.png" alt="장바구니 바로가기" class="wtBag">
             	</a>
@@ -134,7 +134,7 @@
 	        	<li>	
 			        <c:choose>
 			        	<c:when test="${name ne '' && name ne null && name ne undefined}">
-				            <a href="/mypage_bag.do" class="bag"><img src="/img/user_img/bag-icon-wt.png" alt="장바구니 바로가기"></a>
+				            <a href="/mypage_bag.do?type=equipment" class="bag"><img src="/img/user_img/bag-icon-wt.png" alt="장바구니 바로가기"></a>
 				            <a href="/mypage_account.do">마이페이지</a>
 				            <a href="/user_logout.do">로그아웃</a> 
 			            </c:when>

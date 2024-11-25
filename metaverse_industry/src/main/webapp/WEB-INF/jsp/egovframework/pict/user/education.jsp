@@ -57,7 +57,7 @@
                 </ul>
             </div>
             <div class="subTextContents">
-                <h4 class="textTitle">사업내용</h4>
+                <h4 class="textTitle">기타사항</h4>
                 <div class="textsContent">
                     <!-- <p><span>2인 1조(보호자1명 + 아이1명)으로 버츄얼유튜버 혹은 모션캡쳐 체험을 하실 수 있습니다.</span></p> -->
                     <p><span>체험 비용 무료 (회당 최대 12명)</span></p>
