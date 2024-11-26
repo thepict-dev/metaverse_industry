@@ -44,25 +44,6 @@ public class apiController {
 	
 		return new String(Base64.encodeBase64(hashValue));
     }
-
-	@RequestMapping(name = "history_list_excel.do")
-	public void excelDownload(HttpServletRequest request, HttpServletResponse response, @RequestParam("flag") String flag) throws Exception {
-		Optional.of(request.getSession().getAttribute("id"))
-				.filter(id -> UserRole.adminValidation(request))
-				.orElseThrow(() -> new IllegalArgumentException());
-		
-		Excel.download(response, flag.equalsIgnoreCase("eq") ? pictService.findEquipmentRequest() : pictService.findFacilityRequest(), flag);
-	}
-
-	@RequestMapping(name = "/education/excel.do", method = RequestMethod.GET)
-	public void eduListExcel(HttpServletRequest request, HttpServletResponse response, PictVO pictVO) throws Exception {
-		System.out.println("test****************************");
-		Optional.of(request.getSession().getAttribute("id"))
-				.filter(id -> UserRole.adminValidation(request))
-				.orElseThrow(() -> new IllegalArgumentException());
- 
-		EduExcel.download(response, pictService.get_education_list(pictVO));
-	}
 	
 	/*
 	 * //qr코드

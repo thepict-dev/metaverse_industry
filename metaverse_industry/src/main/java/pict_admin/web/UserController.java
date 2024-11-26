@@ -60,6 +60,25 @@ public class UserController {
 		this.pictService = pictService;
 		this.calendarService = calendarService;
 	}
+
+	@GetMapping("/history_list_excel.do")
+	public void excelDownload(HttpServletRequest request, HttpServletResponse response, @RequestParam("flag") String flag) throws Exception {
+		Optional.of(request.getSession().getAttribute("id"))
+				.filter(id -> UserRole.adminValidation(request))
+				.orElseThrow(() -> new IllegalArgumentException());
+		
+		Excel.download(response, flag.equalsIgnoreCase("eq") ? pictService.findEquipmentRequest() : pictService.findFacilityRequest(), flag);
+	}
+
+	@GetMapping("/education/excel.do")
+	public void eduListExsdfsdfdsfcel(HttpServletRequest request, HttpServletResponse response, PictVO pictVO) throws Exception {
+		System.out.println("test****************************");
+		Optional.of(request.getSession().getAttribute("id"))
+				.filter(id -> UserRole.adminValidation(request))
+				.orElseThrow(() -> new IllegalArgumentException());
+ 
+		EduExcel.download(response, pictService.get_education_list(pictVO));
+	}
 	
 	@RequestMapping("/checkUserId.do")
 	@ResponseBody
