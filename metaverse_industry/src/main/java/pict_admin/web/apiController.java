@@ -54,15 +54,15 @@ public class apiController {
 		Excel.download(response, flag.equalsIgnoreCase("eq") ? pictService.findEquipmentRequest() : pictService.findFacilityRequest(), flag);
 	}
 
-//	@RequestMapping(name = "/education/excel.do", method = RequestMethod.GET)
-//	public void eduListExcel(HttpServletRequest request, HttpServletResponse response, PictVO pictVO) throws Exception {
-//		System.out.println("test****************************");
-//		Optional.of(request.getSession().getAttribute("id"))
-//				.filter(id -> UserRole.adminValidation(request))
-//				.orElseThrow(() -> new IllegalArgumentException());
-// 
-//		EduExcel.download(response, pictService.get_education_list(pictVO));
-//	}
+	@RequestMapping(name = "/education/excel.do", method = RequestMethod.GET)
+	public void eduListExcel(HttpServletRequest request, HttpServletResponse response, PictVO pictVO) throws Exception {
+		System.out.println("test****************************");
+		Optional.of(request.getSession().getAttribute("id"))
+				.filter(id -> UserRole.adminValidation(request))
+				.orElseThrow(() -> new IllegalArgumentException());
+ 
+		EduExcel.download(response, pictService.get_education_list(pictVO));
+	}
 	
 	/*
 	 * //qr코드

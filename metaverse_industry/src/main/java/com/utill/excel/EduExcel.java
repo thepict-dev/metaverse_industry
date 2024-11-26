@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.util.StringUtils;
 
 public class EduExcel {
 	public static void download(HttpServletResponse response, List<Map<String, Object>> data) {
@@ -28,11 +29,18 @@ public class EduExcel {
         
         for(Map<String, Object> vo : data) {
             Row bodyRow = sheet.createRow(rowCount++);
-            bodyRow.createCell(0).setCellValue(vo.get("idx").toString());
-            bodyRow.createCell(1).setCellValue(vo.get("school").toString());
-            bodyRow.createCell(2).setCellValue(vo.get("user_name").toString());
-            bodyRow.createCell(3).setCellValue(vo.get("mobile").toString());
-            
+            if(vo.get("idx") != null && StringUtils.hasText(vo.get("idx").toString())) {
+            	bodyRow.createCell(0).setCellValue(vo.get("idx").toString());
+            }
+            if(vo.get("school") != null && StringUtils.hasText(vo.get("school").toString())) {
+            	bodyRow.createCell(1).setCellValue(vo.get("school").toString());
+            }
+            if(vo.get("user_name") != null && StringUtils.hasText(vo.get("user_name").toString())) {
+            	bodyRow.createCell(2).setCellValue(vo.get("user_name").toString());
+            }
+            if(vo.get("mobile") != null && StringUtils.hasText(vo.get("mobile").toString())) {
+            	bodyRow.createCell(3).setCellValue(vo.get("mobile").toString());
+            }
             switch(vo.get("request_status").toString()) {
             case "pendding":
                 bodyRow.createCell(4).setCellValue("승인대기");
