@@ -58,7 +58,7 @@
 										<ul class="listBody eduBody">
 											<c:forEach var="item" items="${education_list}" varStatus="status">
 												<li>
-													<p>1</p>
+													<p>${item.idx}</p>
 													<p class="title"><a href="/education/manage_education_detail.do?id=${item.id}">${item.school}</a></p>
 													<p>${item.user_name}</p>
 													<p>${item.mobile}</p>
@@ -143,7 +143,7 @@
 							function edu_list_excel(){
 								if(confirm("해당 리스트를 엑셀파일로 다운로드 하시겠습니까?")){
 									$('#flag').val("refuse");
-									$("#search_fm").attr("action", "/education/excel.do");
+									$("#search_fm").attr("action", "/api/education/excel.do");
 									$("#search_fm").submit();
 								}
 							}
