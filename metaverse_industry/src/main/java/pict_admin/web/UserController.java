@@ -71,12 +71,17 @@ public class UserController {
 	}
 
 	@GetMapping("/education/excel.do")
-	public void eduListExsdfsdfdsfcel(HttpServletRequest request, HttpServletResponse response, PictVO pictVO) throws Exception {
-		System.out.println("test****************************");
+	public void eduListExcel(HttpServletRequest request, HttpServletResponse response, PictVO pictVO) throws Exception {
+		// 관리자 권한 체크
 		Optional.of(request.getSession().getAttribute("id"))
 				.filter(id -> UserRole.adminValidation(request))
 				.orElseThrow(() -> new IllegalArgumentException());
- 
+
+		// 검색 조건 유지
+		pictVO.setRequest_status(request.getParameter("status"));
+		pictVO.setSearch_text(request.getParameter("search_text"));
+		
+		// 엑셀 다운로드 실행
 		EduExcel.download(response, pictService.get_education_list(pictVO));
 	}
 	
@@ -657,7 +662,7 @@ public class UserController {
 	// 공지사항
 	@RequestMapping(value = "/noticeApi.do")
 	public ResultReturn<?> noticeApi(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model, HttpServletRequest request) throws Exception {
-		// ADMIN 계��이면 세션 삭제
+		// ADMIN 계이면 세션 삭제
 		SessionHandler.deleteAdmin(request);
 
 		int limitNumber = 20;

@@ -21,7 +21,7 @@
 							<div class="listContainer">
 								<div class="listInner">
 									<form action="" class="countList" id="search_fm" name="search_fm" method="get">
-										<input type="hidden" name="flag" value="eq">
+										<input type="hidden" name="flag" id="flag" value="eq">
 										<p>총 <span>${size}</span>개</p>
 										<div class="inputsContainer">
 											<div class="inputBox listSearch">
@@ -142,9 +142,11 @@
 							
 							function edu_list_excel(){
 								if(confirm("해당 리스트를 엑셀파일로 다운로드 하시겠습니까?")){
-									$('#flag').val("refuse");
-									$("#search_fm").attr("action", "/api/education/excel.do");
-									$("#search_fm").submit();
+									event.preventDefault();
+									document.getElementById('flag').value = "edu";
+									var form = document.getElementById('search_fm');
+									form.action = "/api/education/excel.do";
+									form.submit();
 								}
 							}
 						</script>
