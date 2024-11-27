@@ -23,7 +23,7 @@
 	    <div class="subTop rental">
         <div class="subColor">
             <h2>시설대여</h2>
-            <p>누구나 이용할 수 있는<br>시설 대여 서비스입니다</p>
+            <p>시설 대여 서비스입니다</p>
            	<div class="scroll">Scroll Down<img src="/img/user_img/down.webp" alt=""></div>
         </div>
     </div>

@@ -95,6 +95,7 @@
 														<p class="inputCaption">장비명*</p>
 														<span class="bindingText equipment_name"></span>
 													</div>
+													<!-- 
 													<div class="inputBox">
 														<p class="inputCaption">장비상태</p>
 														<div class="switchInput nonTop">
@@ -103,6 +104,7 @@
 															<label for="onoff-switch1"></label>
 														</div>
 													</div>
+													 -->
 												</div>
 												<div class="inputsContainer">
 													<div class="inputBox">

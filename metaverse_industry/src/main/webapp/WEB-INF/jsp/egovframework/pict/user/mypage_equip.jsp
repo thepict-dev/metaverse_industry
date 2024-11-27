@@ -155,8 +155,9 @@
                                                                     </td>
                                                                 </c:if>
                                                                 <c:if test="${item.request_status eq 'refusal'}">
-                                                                    <td class="request_status"><a href="#lnk"
-                                                                            class="clickable reject">승인거절</a>
+                                                                    <td class="request_status">
+                                                                        <a href="#lnk" class="clickable reject">승인거절</a>
+                                                                        <input type="hidden" value="${item.reject_msg}" class="reject_msg" />
                                                                     </td>
                                                                 </c:if>
 

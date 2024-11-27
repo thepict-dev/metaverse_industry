@@ -34,14 +34,12 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="/js/script.js" defer></script>
     
-    <meta name="title" content="강원 메타버스 지원센터" >
-	<meta name="description" content="강원 메타버스 지원센터 강원특별자치도 가상융합산업 선도. 메타버스 인프라(시설, 장비) 무상지원. 033-245-6315. 콘텐츠 제작 지원. 전문인력 양성. 현장체험교육. 춘천시 서면 박사로 854(창작발전소)">
-	<meta name="keywords" content="강원메타버스지원센터, 메타버스지원센터, 창작발전소, 메타버스콘텐츠, 강원vrar, vrar">
+    <meta property="og:title" content="강원 메타버스 지원센터" >
 	<meta name="robots" content="INDEX,FOLLOW">
-	<meta property="og:url" content="">
+	<meta property="og:url" content="https://www.gvar.or.kr/">
 	<meta property="og:type" content="website">
 	<meta property="og:title" content="강원 메타버스 지원센터" >
-	<meta property="og:description" content=" ">
-	<!-- <meta property="og:image" content="/user_img/og-img.webp"> -->
+	<meta property="og:description" content="강원 메타버스 지원센터, 강원특별자치도 가상융합산업 선도, 메타버스 인프라(시설, 장비) 무상지원, 033-245-6315, 콘텐츠 제작 지원, 전문인력 양성, 현장체험교육, 춘천시 서면 박사로 854(창작발전소)">
+	<meta property="og:image" content="/user_img/og-img.webp">
     
 </head>

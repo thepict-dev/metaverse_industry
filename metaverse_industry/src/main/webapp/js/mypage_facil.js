@@ -120,7 +120,8 @@ $('#docAddModal button').click(function () {
 //승인거절 모달 열고, 닫기
 $('.reject').click(function () {
     $('#rejectModal').addClass('active');
-
+    const reject_msg = $(this).parent().find('.reject_msg').val();
+    $('.bindingText').text(reject_msg);
     $('body').addClass("no-scroll");
 })
 $('#rejectModal button, #closeReject').click(function () {

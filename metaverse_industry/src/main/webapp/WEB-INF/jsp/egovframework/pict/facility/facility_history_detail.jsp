@@ -143,11 +143,15 @@
 													</select>
 												</div>
 											</div>
-											<div class="inputsContainer reason" style="display: none;">
+											<div class="inputsContainer reason">
 												<div class="inputBox" style="width:100%">
-													<p class="inputCaption reason_title">서류보완 요청 사유</p>
-													<textarea name="reject_msg" id="reject_msg" cols="50" rows="10"
-														class="txt" style="width:100%;">${history_detail.reject_msg}</textarea>
+													<p class="inputCaption reason_title">
+														<c:choose>
+															<c:when test="${history_detail.request_status eq 'rejected'}">서류보완 요청 사유</c:when>
+															<c:when test="${history_detail.request_status eq 'refusal'}">거절 사유</c:when>
+														</c:choose>
+													</p>
+													<textarea name="reject_msg" id="reject_msg" cols="50" rows="10" class="txt" style="width:100%;">${history_detail.reject_msg}</textarea>
 												</div>
 											</div>
 										</div>
@@ -193,27 +197,53 @@
 										}
 										$(".reason").show();
 									} else {
+										$("#reject_msg").val("");
 										$(".reason").hide();
-	
 									}
 								})
 	
 								$(".update_status").click(function () {
 									if ($("#request_status").val() === "") {
 										alert("대여상태를 선택해주세요.");
-										return;
-									} else {
-										$(".hidden_request_status").val($("#request_status").val());
-										$(".hidden_reject_msg").val($("#reject_msg").val());
-										$(".hidden_rental_end_date").val($("#rental_end_date").val());
-										$(".hidden_form").submit();
+										return false;
+									} 
+									
+									if (($("#request_status").val() === "rejected" || $("#request_status").val() === "refusal") 
+										&& $("#reject_msg").val().trim() === "") {
+										if ($("#request_status").val() === "rejected") {
+											alert("서류보완 요청 사유를 입력해주세요.");
+										} else {
+											alert("거절 사유를 입력해주세요.");
+										}
+										$("#reject_msg").focus();
+										return false;
 									}
+									
+									$(".hidden_request_status").val($("#request_status").val());
+									$(".hidden_reject_msg").val($("#reject_msg").val());
+									$(".hidden_rental_end_date").val($("#rental_end_date").val());
+									$(".hidden_form").submit();
 								})
 								
 								// 페이지 로드 시 초기화
 								document.addEventListener('DOMContentLoaded', () => {
-								    convertFormElements(); // 페이지 로드 시 form 요소들을 텍스트로 변환
+								    convertFormElements(); 
 								    initPDFDownload(equipment_name, user_name, rental_start_date);
+								    
+								    // 초기에는 숨김 처리
+								    $(".reason").hide();
+								    
+								    // rejected나 refusal이고 텍스트가 있을 때만 표시
+								    const currentStatus = $("#request_status").val();
+								    const rejectMsg = $("#reject_msg").val().trim();
+								    if ((currentStatus === "rejected" || currentStatus === "refusal") && rejectMsg) {
+								        if (currentStatus === "rejected") {
+								            $(".reason_title").text("서류보완 요청 사유");
+								        } else {
+								            $(".reason_title").text("거절 사유");
+								        }
+								        $(".reason").show();
+								    }
 								});
 							</script>
 							<script src="../../../../../js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

@@ -451,7 +451,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                      <p class="eqDateTitle">대여일</p>
                                      <p class="eqDateItem">${$.datepicker.formatDate("yy.mm.dd", startDate)}.${getWeekDay(startDate)}</p>
                                  </div>
-                                 <img src="/img/user_img/date-arr.png" alt="">
+                                 <img src="/img/user_img/date-arr.webp" alt="">
                                  <div class="dates">
                                      <p class="eqDateTitle">반납일</p>
                                      <p class="eqDateItem">${$.datepicker.formatDate("yy.mm.dd", endDate)}.${getWeekDay(endDate)}</p>

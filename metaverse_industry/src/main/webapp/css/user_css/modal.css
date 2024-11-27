@@ -65,7 +65,7 @@
     width: 400px;
     max-height: 700px;
     height: 80%;
-    padding-top: 64px;
+    padding-top:24px;
     background-color: #fff;
 }
 .modalInner > button{
@@ -83,7 +83,7 @@
     overflow-y: auto;
 }
 .modalTitles{
-    margin-bottom: 36px;
+    margin-bottom: 10px;
 }
 .modalTitles p{
     padding-bottom: 8px;
@@ -176,7 +176,7 @@
 .modalDesc{
     display: flex;
     flex-direction: column;
-    row-gap: 8px;
+    row-gap: 4px;
     padding: 20px 0;
 }
 .modalDesc li{

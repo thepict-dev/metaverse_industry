@@ -12,8 +12,6 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
     <title>${param.pageTitle}</title>
     <link rel="shortcut icon" type="image/x-icon" href="/images/pict/favicon.webp">
     <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/static/woff2/SUIT.css" rel="stylesheet">
@@ -26,6 +24,7 @@
     <link rel="stylesheet" href="/css/admin/lnb.css">
     <link rel="stylesheet" href="/css/admin/login.css">
     <link rel="stylesheet" href="/css/admin/contents.css">
+    <link rel="icon" href="/img/favicon.ico" />
     <script src="../../../../../js/all.min.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
@@ -35,4 +34,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="/js/jquery.nice-select.js"></script>
     <script src="/js/admin_script.js" defer></script>
+    
+    
+	<meta property="og:url" content="https://www.gvar.or.kr/pict_login.do">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="강원 메타버스 지원센터 관리자 페이지" >
+	<meta property="og:description" content="강원 메타버스 지원센터, 강원특별자치도 가상융합산업 선도, 메타버스 인프라(시설, 장비) 무상지원, 033-245-6315, 콘텐츠 제작 지원, 전문인력 양성, 현장체험교육, 춘천시 서면 박사로 854(창작발전소)">
+	<meta property="og:image" content="/user_img/og-img.webp">
 </head>     

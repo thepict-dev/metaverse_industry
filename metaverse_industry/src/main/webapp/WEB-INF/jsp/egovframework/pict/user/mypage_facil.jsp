@@ -53,8 +53,8 @@
                    	</c:if>
                    </a>
                </li>
-               <li class="<c:if test="${pictVO.request_status eq 'refused'}">active
-                   </c:if>"><a href="/mypage_facil.do?request_status=refused">승인거절
+               <li class="<c:if test="${pictVO.request_status eq 'refusal'}">active
+                   </c:if>"><a href="/mypage_facil.do?request_status=refusal">승인거절
                    	<c:if test="${refusalCnt ne 0 }">
                         	<span>${refusalCnt}</span>
                    	</c:if>
@@ -151,9 +151,10 @@
                                       <td class="request_status"><a href="#lnk">승인완료</a>
                                       </td>
                                   </c:if>
-                                  <c:if test="${item.request_status eq 'refused'}">
-                                      <td class="request_status"><a href="#lnk"
-                                              class="clickable reject">승인거절</a>
+                                  <c:if test="${item.request_status eq 'refusal'}">
+                                      <td class="request_status">
+                                          <a href="#lnk" class="clickable reject">승인거절</a>
+                                          <input type="hidden" value="${item.reject_msg}" class="reject_msg" />
                                       </td>
                                   </c:if>
 
