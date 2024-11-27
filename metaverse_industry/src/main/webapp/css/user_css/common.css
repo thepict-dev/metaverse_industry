@@ -434,7 +434,7 @@ input.checkOnly[type="checkbox"] {
     border-radius: 50%;
     appearance: none;
     cursor: pointer;
-    background-image: url('/img/user_img/uncheck-grey.png');
+    background-image: url('/img/user_img/uncheck-grey.webp');
     background-repeat: no-repeat;
     background-size: 100%;
     background-position: center center;
@@ -444,7 +444,7 @@ input.checkOnly[type="checkbox"]:checked {
     width: 20px;
     height: 20px;
     background-repeat: no-repeat;
-    background-image: url('/img/user_img/checked-grey.png');
+    background-image: url('/img/user_img/checked-grey.webp');
     background-size: 100%;
     background-position: center center;
 }
@@ -512,7 +512,7 @@ input[type="date"]::after{
   content: '';
   width: 24px;
   height: 24px;
-  background: url(/img/user_img/date.png) center center / 100%;
+  background: url(/img/user_img/date.webp) center center / 100%;
   background-repeat: no-repeat;
   transform: translateY(-50%);
   z-index: 0;
