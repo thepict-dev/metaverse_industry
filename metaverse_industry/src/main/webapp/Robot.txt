@@ -1,0 +1,36 @@
+# www.robotstxt.org/
+
+# Allow crawling of all content
+User-Agent: *
+Disallow: /pict_main.do
+Disallow: /equipment/*
+Disallow: /history/*
+Disallow: /manage/*
+Disallow: /facility/*
+Disallow: /education/*
+Disallow: /user_list/*
+Disallow: /schedule/*
+Disallow: /popup/*
+Disallow: /board/*
+Disallow: /biz_post/*
+Disallow: /setting/*
+
+Allow: /
+Allow: /intro.do
+Allow: /support.do
+Allow: /equipment.do
+Allow: /facility.do
+Allow: /education.do
+Allow: /notice.do
+Allow: /biz_post.do
+ 
+Sitemap: https://gvar.co.kr/sitemap.xml
+
+# User-agent: Yeti
+# User-agent: Naverbot
+# User-agent: Googlebot
+# User-agent: bing
+# User-agent: Slurp
+# User-agent: Daum
+# User-agent: Yandex
+# User-agent: Baiduspider
