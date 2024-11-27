@@ -97,7 +97,8 @@ public interface PictService {
 	Integer equipment_list_total_cnt(PictVO pictVO) throws Exception;
 	
     List<Map<String, Object>> equipment_unavailable_date_list(PictVO pictVO) throws Exception;
-
+    
+    List<Map<String, Object>> equipmentItemListByEquipmentId(PictVO pictVO) throws Exception;
     
     List<Map<String, Object>> equipment_item_list(PictVO pictVO) throws Exception;
 	

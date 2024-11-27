@@ -177,6 +177,7 @@ public class PictController {
 				DateFormat format2 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 				String now = format2.format(Calendar.getInstance().getTime());
 
+				request.getSession().setMaxInactiveInterval(3600);
 				// adminVO.setLast_login_ip(ip);
 				// adminVO.setLast_login_date(now);
 				// adminService.insert_login_info(adminVO);
@@ -266,6 +267,8 @@ public class PictController {
 			HttpSession session, RedirectAttributes rttr) throws Exception {
 		// ADMIN 계정이면 세션 삭제
 		SessionHandler.deleteAdmin(request);
+		// 관리자 -> 포탈 장비/시설 예약 페이지 접근 시, 관리자 인지 얼러트
+		if(UserRole.adminValidationOptional(request)) model.addAttribute("role", UserRole.ADMIN);
 		
 		pictVO.setOnlyAvailable(true);
 		if(StringUtils.hasText((String) session.getAttribute("id"))) pictVO.setUser_id((String) session.getAttribute("id"));
@@ -369,6 +372,8 @@ public class PictController {
 			HttpSession session, RedirectAttributes rttr) throws Exception {
 		// ADMIN 계정이면 세션 삭제
 		SessionHandler.deleteAdmin(request);
+		// 관리자 -> 포탈 장비/시설 예약 페이지 접근 시, 관리자 인지 얼러트
+		if(UserRole.adminValidationOptional(request)) model.addAttribute("role", UserRole.ADMIN);
 		
 		pictVO.setOnlyAvailable(true);
 		List<?> facility_list = pictService.facility_list(pictVO);
@@ -1012,7 +1017,7 @@ public class PictController {
 
 				adminVO.setAdminId(user_id);
 				adminVO = adminService.get_user_info(adminVO);
-
+				request.getSession().setMaxInactiveInterval(3600);
 				return "redirect:/pict_main.do";
 			} else {
 				model.addAttribute("message", "입력하신 정보가 일치하지 않습니다.");

@@ -156,6 +156,18 @@
 												<div class="tabInner"></div>
 											</div>
 										</div>
+										<input type="hidden" name="role" value="${role}">
+										<script>
+											$( document ).ready(function() {
+											    if($('input[name=role]').val() == 'ADMIN') {
+												    if (window.confirm("현재 관리자로 로그인 중입니다. 로그아웃 하시겠습니까?")) {
+											        	location.href = "/user_logout.do";
+												    } else {
+												        window.alert('취소 버튼을 클릭했습니다.');
+												    }
+											    }
+											});
+										</script>
 										<%@ include file="./include/footer.jsp" %>
 											<script src="/js/equipment.js"></script>
 											<script src="/js/sub.js"></script>

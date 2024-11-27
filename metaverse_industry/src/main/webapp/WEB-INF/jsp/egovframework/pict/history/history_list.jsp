@@ -212,7 +212,7 @@
 							function history_list_excel(){
 								if(confirm("해당 리스트를 엑셀파일로 다운로드 하시겠습니까?")){
 									$('#flag').val("refuse");
-									$("#search_fm").attr("action", "/history/history_list_excel.do");
+									$("#search_fm").attr("action", "/api/history_list_excel.do");
 									$("#search_fm").submit();
 								}
 							}

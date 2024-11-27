@@ -298,7 +298,7 @@ public class UserController {
 			pictVO.setAll(true);
 			System.out.println("id @@@@" + pictVO.getId());
 			// equipment_item_list 쿼리 수정으로 확인 필요
-			List<Map<String, Object>> item_list = pictService.equipment_item_list(pictVO);
+			List<Map<String, Object>> item_list = pictService.equipmentItemListByEquipmentId(pictVO);
 			System.out.println("available_date_list@@@@@@@@@@@ " + item_list);
 			map.put("msg", "ok");
 			map.put("data", item_list);

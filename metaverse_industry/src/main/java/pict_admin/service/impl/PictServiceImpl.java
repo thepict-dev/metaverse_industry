@@ -242,6 +242,11 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
     }
 	
 	@Override
+	public List<Map<String, Object>> equipmentItemListByEquipmentId(PictVO pictVO) throws Exception {
+		return pictMapper.equipmentItemListByEquipmentId(pictVO);
+	}
+	
+	@Override
 	public List<Map<String, Object>> equipment_item_list(PictVO pictVO) throws Exception {
 		return pictMapper.equipment_item_list(pictVO);
 	}

@@ -330,8 +330,8 @@
 	                COUNT(*) AS cnt
 	            FROM 
 	                equipment_item_table
-	            WHERE 
-	                status = 'available'
+	            WHERE 1=1
+	                -- AND status = 'available'
 	            GROUP BY 
 	                equipment_type_id
 	        ) avail_count ON et.id = avail_count.equipment_type_id
@@ -344,8 +344,8 @@
 	            LEFT JOIN equipment_rental_request err ON ei.id = err.equipment_id 
 	                AND err.request_status = 'rental'
 	                AND CURDATE() BETWEEN err.rental_start_date AND err.rental_end_date
-	            WHERE 
-	                ei.status = 'available'
+	            WHERE 1=1
+	                AND ei.status = 'available'
 	                AND err.id IS NULL
 	            GROUP BY 
 	                ei.equipment_type_id
@@ -377,6 +377,21 @@
 			<if test="type != null and type != ''">
 	            AND type LIKE CONCAT('%', #{type}, '%')
 	        </if>
+	</select>
+	
+	<select id="equipmentItemListByEquipmentId" resultType="map">
+		SELECT DISTINCT 
+		      ei.equipment_type_id
+		    , ei.idx
+		    , ei.id
+		    , ei.serial_number
+		    , ei.status
+		    , date_format(reg_date, '%Y-%m-%d') as reg_date
+		FROM
+			equipment_item_table as ei
+			LEFT JOIN equipment_rental_request er ON ei.id = er.equipment_id
+		WHERE 1=1
+			AND equipment_type_id = #{equipment_id}
 	</select>
 	
 	<select id="equipment_item_list" resultType="map">
