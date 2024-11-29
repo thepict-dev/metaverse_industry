@@ -120,7 +120,7 @@
 	            </otherwise>
 	        </choose>
 	    </where>
-		order by reg_date desc
+		order by reg_date, idx desc
 		<if test="limit_cnt != null and limit_cnt != 0">
 			limit #{limit_cnt} OFFSET #{startNumber}
 		</if>
