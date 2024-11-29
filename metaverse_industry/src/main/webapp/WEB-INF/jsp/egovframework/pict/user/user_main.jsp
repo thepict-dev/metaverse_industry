@@ -134,34 +134,33 @@
                     <div class="noticeContainer">
                         <h2 class="mainSubTitle">Notice</h2>
                         <ul class="notice main">
-                        	<c:forEach var="notice" items="${noticeList}" varStatus="status">
-	                            <li>
-	                                <a href="/notice_view.do?idx=${notice.idx}">
-	                                    <p class="ntInfos">
-	                                        <span class="category">
-		                               	        <c:choose>
-									                <c:when test="${notice.category eq '1'}">
-									                    센터소식
-									                </c:when>
-									                <c:when test="${notice.category eq '2'}">
-									                    행사안내
-									                </c:when>
-									                <c:when test="${notice.category eq '3'}">
-									                    보도자료
-									                </c:when>
-									                <c:when test="${notice.category eq '4'}">
-									                    기타공고
-									                </c:when>
-									            </c:choose>
-	                                        </span>
-	                                        
-	                                        <span class="ntIndex">${notice.idx}</span>
-	                                        <span class="ntTitle">${notice.title}</span>
-	                                    </p>
-	                                    <p class="ntDate">${notice.reg_date}<img src="/img/user_img/list-link.webp" alt=""></p>
-	                                </a>
-	                            </li>
-                        	</c:forEach>
+                            <c:forEach var="notice" items="${noticeList}" varStatus="status">
+                                <li>
+                                    <a href="/notice_view.do?idx=${notice.idx}">
+                                        <p class="ntInfos">
+                                            <span class="category">
+                                                <c:choose>
+                                                    <c:when test="${notice.category eq '1'}">
+                                                        센터소식
+                                                    </c:when>
+                                                    <c:when test="${notice.category eq '2'}">
+                                                        행사안내
+                                                    </c:when>
+                                                    <c:when test="${notice.category eq '3'}">
+                                                        보도자료
+                                                    </c:when>
+                                                    <c:when test="${notice.category eq '4'}">
+                                                        기타공고
+                                                    </c:when>
+                                                </c:choose>
+                                            </span>
+                                            <span class="ntIndex">${status.count}</span>
+                                            <span class="ntTitle">${notice.title}</span>
+                                        </p>
+                                        <p class="ntDate">${notice.reg_date}<img src="/img/user_img/list-link.webp" alt=""></p>
+                                    </a>
+                                </li>
+                            </c:forEach>
                         </ul>
                     </div>
                 </div>
@@ -288,7 +287,7 @@
   	    	    delay: 3000,
   	    	    disableOnInteraction: false
   	    	  },
-  	    	  loop: true,	// 무한 루�� 적용
+  	    	  loop: true,	// 무한 루 적용
   	    	  speed: 2000, 
   	    	  pagination: {
   	    	    el: ".swiper-pagination.popup",
