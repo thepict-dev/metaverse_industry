@@ -72,12 +72,8 @@
 															class="selection" id="selection${resultList.idx}"><label
 															for="selection${resultList.idx}" class="lableOnly"></label>
 													</div>
-													<!-- 기존 내용 -->
-													<p>${resultList.idx}</p>
+													<p>${(pictVO.pageNumber - 1) * 20 + status.count}</p>
 													<p class="equip_type">${resultList.type}</p>
-													<!-- 
-					                <p>${resultList.description}</p>
-					                 -->
 													<div class="listImg"><img src="${resultList.image_url}"
 															alt="장비 이미자"></div>
 													<p class="title">${resultList.name}</p>

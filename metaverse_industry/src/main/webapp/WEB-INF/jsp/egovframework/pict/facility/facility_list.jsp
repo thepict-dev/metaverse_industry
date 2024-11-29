@@ -52,8 +52,8 @@
 															class="selection" id="selection${resultList.idx}"><label
 															for="selection${resultList.idx}" class="lableOnly"></label>
 													</div>
-													<!-- 기존 내용 -->
-													<p>${resultList.idx}</p>
+													<!-- 기존 순서 표시를 페이지 기반 순서로 변경 -->
+													<p>${(pictVO.pageNumber - 1) * 20 + status.count}</p>
 													<p class="equip_type">${resultList.type}</p>
 													<!-- 
 					                <p>${resultList.description}</p>
