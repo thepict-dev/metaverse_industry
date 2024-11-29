@@ -11,14 +11,7 @@
 <%@ include file="./include/head.jsp" %>
 <body>
 	<%@ include file="./include/header_sub.jsp" %>
-    <div class="subTop notice1">
-        <div class="subColor">
-            <h2>공지사항</h2>
-            <p>새로운 소식을 안내드립니다</p>
-           	<div class="scroll">Scroll Down<img src="/img/user_img/down.webp" alt=""></div>
-        </div>
-    </div>
-    <div class="subContents">
+    <div class="subContents" style="padding-top: 150px;">
         <ul class="tabNav">
             <li class="<c:if test="${pictVO.type eq null || pictVO.type eq ''}">active</c:if>"><a href="/notice.do">모두보기</a></li>
             <li class="<c:if test="${pictVO.type eq '1'}">active</c:if>" ><a href="/notice.do?type=1">센터소식</a></li>

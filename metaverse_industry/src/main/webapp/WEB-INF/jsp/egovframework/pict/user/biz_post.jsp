@@ -11,14 +11,7 @@
 <%@ include file="./include/head.jsp" %>
 <body>
 	<%@ include file="./include/header_sub.jsp" %>
-    <div class="subTop biz">
-        <div class="subColor">
-            <h2>사업공고</h2>
-            <p>창의적 도전을 위한<br>다양한 사업을 진행합니다</p>
-           	<div class="scroll">Scroll Down<img src="/img/user_img/down.webp" alt=""></div>
-        </div>
-    </div>
-    <div class="subContents">
+    <div class="subContents" style="padding-top: 150px;">
         <div class="noticeContainer sub biz">
             <ul class="notice">
                 <c:forEach var="notice" items="${noticeList}" varStatus="status">

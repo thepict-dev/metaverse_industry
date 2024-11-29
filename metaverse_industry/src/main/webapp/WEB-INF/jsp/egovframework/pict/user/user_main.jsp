@@ -88,10 +88,6 @@
                                 <span>강원 메타버스 지원센터는</span>
                                 <p>강원특별자치도의 미래 시대<br>
                                     콘텐츠 산업을 선도합니다</p>
-                                <a href="#lnk">보러가기
-                                	<img src="/img/user_img/linkto.webp" alt="">
-                                	<img src="/img/user_img/linkto-hover.webp" alt="" class="hover">
-                               	</a>
                             </div>
                         </div>
                         <div class="swiper-slide"> 
@@ -100,11 +96,6 @@
                                 <span>강원 메타버스 지원센터</span>
                                 <p>VR·AR 시설 및<br>
                                     장비 무상 지원</p>
-                                <a href="#lnk">
-	                                보러가기
-	                                <img src="/img/user_img/linkto.webp" alt="">
-                                	<img src="/img/user_img/linkto-hover.webp" alt="" class="hover">
-                                </a>
                             </div>
                         </div>
                     </div>

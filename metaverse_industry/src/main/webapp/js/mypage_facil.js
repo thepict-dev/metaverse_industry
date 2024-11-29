@@ -30,7 +30,7 @@ $('.docAdd').click(function () {
         <p class="fileName file_name_01">${file_path1? file_path1 : "업로드한 파일이 존재하지 않습니다."}</p>
         <label for="document_file1" id="attach_file">${file_path1 ? "파일변경" : "파일추가"}</label>
         <input type="file" name="document_file1" id="document_file1" style="display: none;">
-        <button type="button" id="deleteButton" class="delete_01" style="display: none;"><img src="/img/user_img/del-file.png" alt=""></button>
+        <button type="button" id="deleteButton" class="delete_01" style="display: none;"><img src="/img/user_img/del-file.webp" alt=""></button>
 	`
 	const fileItem2 = document.createElement("div");
 	fileItem2.classList.add("flexInputs")
@@ -39,7 +39,7 @@ $('.docAdd').click(function () {
         <p class="fileName file_name_02">${file_path2 ? file_path2 : "업로드한 파일이 존재하지 않습니다."}</p>
         <label for="document_file2" id="attach_file">${file_path2 ? "파일변경" : "파일추가"}</label>
         <input type="file" name="document_file2" id="document_file2" style="display: none;">
-        <button type="button" id="deleteButton" class="delete_02" style="display: none;"><img src="/img/user_img/del-file.png" alt=""></button>
+        <button type="button" id="deleteButton" class="delete_02" style="display: none;"><img src="/img/user_img/del-file.webp" alt=""></button>
 		`
 	const fileItem3 = document.createElement("div");
 	fileItem3.classList.add("flexInputs")
@@ -48,7 +48,7 @@ $('.docAdd').click(function () {
         <p class="fileName file_name_03">${file_path3 ? file_path3 : "업로드한 파일이 존재하지 않습니다."}</p>
         <label for="document_file3" id="attach_file">${file_path3 ? "파일변경" : "파일추가"}</label>
         <input type="file" name="document_file3" id="document_file3" style="display: none;">
-        <button type="button" id="deleteButton" class="delete_03" style="display: none;"><img src="/img/user_img/del-file.png" alt=""></button>
+        <button type="button" id="deleteButton" class="delete_03" style="display: none;"><img src="/img/user_img/del-file.webp" alt=""></button>
 	`
 	file_list.appendChild(fileItem1)
 	file_list.appendChild(fileItem2)

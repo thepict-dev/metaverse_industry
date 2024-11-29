@@ -43,7 +43,7 @@ const updateContainerClasses = (e) => {
 	                        <button type="button" class="ne"><span></span></button>
 	                    </div>
 	                </div>
-	                <button class="deleteItem" type="button"><img src="/img/user_img/delete.png" alt=""></button>
+	                <button class="deleteItem" type="button"><img src="/img/user_img/delete.webp" alt=""></button>
            		`
 		// 컨테이너 추가
 		document.querySelector(".rentalItemsContainer").appendChild(newItem);
@@ -349,7 +349,7 @@ function updateEquipmentList(equipmentList) {
                     <img src="${item.image_url}" alt="">
                     <span></span>
                     <a href="#lnk" data-id="${item.id}" class="add_bag ${item.isLike === '1' ? 'active' : ''}">
-                        <img src="/img/user_img/bag.png" alt="">
+                        <img src="/img/user_img/bag.webp" alt="">
                     </a>
                 </div>
                 <div class="itemTitles">

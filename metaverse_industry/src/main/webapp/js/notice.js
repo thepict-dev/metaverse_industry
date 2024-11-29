@@ -63,7 +63,7 @@ function updateNoticeList(noticeList, totalCount) {
                     <span class="ntIndex">${index + 1}</span>
                     <span class="ntTitle">${notice.title}</span>
                 </p>
-                <p class="ntDate">${notice.reg_date}<img src="/img/user_img/list-link.png" alt=""></p>
+                <p class="ntDate">${notice.reg_date}<img src="/img/user_img/list-link.webp" alt=""></p>
             </a>
         </li>
     `).join('');
@@ -89,7 +89,7 @@ function generatePagination(totalCount) {
     
     // 이전 페이지 버튼
     if (currentPage > 1) {
-        html += `<li><a href="/notice.do?type=${type}&pageNumber=${currentPage - 1}"><img src="/img/admin/prev.png" alt=""></a></li>`;
+        html += `<li><a href="/notice.do?type=${type}&pageNumber=${currentPage - 1}"><img src="/img/admin/prev.webp" alt=""></a></li>`;
     }
     
     // 페이지 번호
@@ -103,7 +103,7 @@ function generatePagination(totalCount) {
     
     // 다음 페이지 버튼
     if (currentPage < totalPages) {
-        html += `<li><a href="/notice.do?type=${type}&pageNumber=${currentPage + 1}"><img src="/img/admin/next.png" alt=""></a></li>`;
+        html += `<li><a href="/notice.do?type=${type}&pageNumber=${currentPage + 1}"><img src="/img/admin/next.webp" alt=""></a></li>`;
     }
     
     return html;

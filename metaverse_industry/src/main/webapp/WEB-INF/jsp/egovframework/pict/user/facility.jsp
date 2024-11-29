@@ -19,15 +19,7 @@
 </style>
 <body>
 	<%@ include file="./include/header_sub.jsp" %>
-	
-	    <div class="subTop rental">
-        <div class="subColor">
-            <h2>시설대여</h2>
-            <p>시설 대여 서비스입니다</p>
-           	<div class="scroll">Scroll Down<img src="/img/user_img/down.webp" alt=""></div>
-        </div>
-    </div>
-    <div class="subContents rental facil">
+    <div class="subContents rental facil" style="padding-top: 100px;">
         <div class="rentalCountContainer">
             <p class="rentalListTitle"><button type="button" class="mb"><img src="/img/user_img/list-back.webp" alt=""></button>예약 목록</p>
             <div class="rentalSum">

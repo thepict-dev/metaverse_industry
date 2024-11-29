@@ -41,7 +41,7 @@ const updateContainerClasses = (e) => {
 	                        <button type="button" class="ne"><span></span></button>
 	                    </div>
 	                </div>
-	                <button class="deleteItem" type="button"><img src="/img/user_img/delete.png" alt=""></button>
+	                <button class="deleteItem" type="button"><img src="/img/user_img/delete.webp" alt=""></button>
            		`
 		// 컨테이너 추가
 		document.querySelector(".rentalItemsContainer").appendChild(newItem);
