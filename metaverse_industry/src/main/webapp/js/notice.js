@@ -53,14 +53,22 @@ function initTabSystem() {
 // 공지사항 목록 업데이트 함수
 function updateNoticeList(noticeList, totalCount) {
     const listContainer = document.querySelector('.notice');
+    const currentPage = parseInt(new URLSearchParams(window.location.search).get('pageNumber')) || 1;
+    
+    // totalCount가 undefined나 null일 경우 기본값 설정
+    const total = parseInt(totalCount) || noticeList.length;
+    const itemsPerPage = 20; // 페이지당 항목 수
+    
+    // 공지사항 목록을 역순으로 정렬
+    const sortedNoticeList = [...noticeList].sort((a, b) => b.idx - a.idx);
     
     // 공지사항 목록 HTML 생성
-    const listHtml = noticeList.map((notice, index) => `
+    const listHtml = sortedNoticeList.map((notice, index) => `
         <li>
             <a href="/notice_view.do?idx=${notice.idx}">
                 <p class="ntInfos">
                     <span class="category">${getCategoryText(notice.category)}</span>
-                    <span class="ntIndex">${index + 1}</span>
+                    <span class="ntIndex">${total - ((currentPage - 1) * itemsPerPage + index)}</span>
                     <span class="ntTitle">${notice.title}</span>
                 </p>
                 <p class="ntDate">${notice.reg_date}<img src="/img/user_img/list-link.webp" alt=""></p>
@@ -140,6 +148,22 @@ function addPaginationClickEvents() {
 }
 
 // 페이지 로드 시 초기화
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     initTabSystem();
+    
+    // 페이지 최초 로드 시 현재 선택된 type으로 데이터 불러오기
+    const currentType = new URLSearchParams(window.location.search).get('type') || '';
+    try {
+        const response = await fetch(`/api/noticeApi.do?type=${currentType}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        const result = await response.json();
+        updateNoticeList(result.data, result.totalCount);
+    } catch (error) {
+        console.error('공지사항 목록 로드 실패:', error);
+    }
 });

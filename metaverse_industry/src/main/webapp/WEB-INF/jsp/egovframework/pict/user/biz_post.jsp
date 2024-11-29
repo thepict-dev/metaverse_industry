@@ -20,8 +20,7 @@
                               <p class="ntInfos">
                                   <span class="category">사업공고</span>
                                   <span class="ntIndex">
-                                     ${(pictVO.pageNumber - 1) * 10 + status.count}
-
+                                     ${board_cnt - ((pictVO.pageNumber - 1) * 10 + status.count) + 1}
                                   </span>
                                   <span class="ntTitle">${notice.title}</span>
                               </p>
