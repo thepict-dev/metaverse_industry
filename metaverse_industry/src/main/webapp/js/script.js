@@ -38,23 +38,28 @@ $('.menu-close').click(function () {
 })
 
 $('.cardLists li').click(function() {
-  // 클릭한 li가 이미 active 상태인지 확인
-  if ($(this).hasClass('active')) {
-      // 이미 active 상태라면 아무것도 하지 않음
-      return;
-  }
-  
-  // 모든 li에서 active 클래스 제거
-  $('.cardLists li').removeClass('active');
-  
-  // 클릭한 li에 active 클래스 추가
-  $(this).addClass('active');
-  
-  // 모든 카드 내용 숨기기
-  $('.cardContents').hide();
-  
-  // 선택된 카드의 내용만 표시
-  $(this).find('.cardContents').fadeIn(500);
+    // 모바일에서는 클릭 이벤트 무시
+    if (window.innerWidth <= 1366) {
+        return;
+    }
+    
+    // 클릭한 li가 이미 active 상태인지 확인
+    if ($(this).hasClass('active')) {
+        // 이미 active 상태라면 아무것도 하지 않음
+        return;
+    }
+    
+    // 모든 li에서 active 클래스 제거
+    $('.cardLists li').removeClass('active');
+    
+    // 클릭한 li에 active 클래스 추가
+    $(this).addClass('active');
+    
+    // 모든 카드 내용 숨기기
+    $('.cardContents').hide();
+    
+    // 선택된 카드의 내용만 표시
+    $(this).find('.cardContents').fadeIn(500);
 });
 
 // famDrop 버튼 클릭 시 active 클래스 토글

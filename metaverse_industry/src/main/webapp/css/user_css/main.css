@@ -893,31 +893,30 @@ main{
     }
     .cardLists li{
         width: 100%;
-        height: 272px;
-        overflow: hidden; /* 추가: 내용이 넘치지 않도록 */
-        transition: height 0.3s ease; /* 추가: 부드러운 높이 변화를 위한 트랜지션 */
+        height: auto;
     }
-
+    
     .cardContents{
-        display: none;
+        display: block !important;
+        max-width: unset;
+        margin-top: 20px;
     }
+    
     .cardLists li.active{
         flex-direction: column;
         row-gap: 20px;
         width: 100%;
-        height: auto;
         margin-right: 0;
+    }
+    
+    .cardLists li > span{
+        width: 100%;
+        height: 272px;
     }
     .cardLists li.active > span{
         width: 100%;
-        height: 272px !important; /* 변경: !important 제거 */
-        transition: none; /* 추가: 트랜지션 제거로 즉시 변경 */
-    }
-    .cardLists li.active .cardContents{
-        display: block;
-        max-width: unset;
-    }
-
+        height: 272px;
+   	}
     .cardContents .cardSub{
         font-size: 18px;
         letter-spacing: -0.9px;

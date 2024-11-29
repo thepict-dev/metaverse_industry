@@ -186,7 +186,11 @@
 	    // 모달 열기
 	    openModalBtn.addEventListener('click', () => {
 	    	if (!isLogin) {
-	    		return window.alert("로그인 후 이용가능한 서비스입니다.");
+	    		if(confirm("로그인 후 이용가능한 서비스입니다.")) {
+	    			window.location.href = "/user_login.do";
+	    			return;
+	    		}
+	    		return;
 	    	}
 	        eduModal.classList.add('active');
 	        document.body.classList.add('no-scroll');  // body에 no-scroll 클래스 추가
