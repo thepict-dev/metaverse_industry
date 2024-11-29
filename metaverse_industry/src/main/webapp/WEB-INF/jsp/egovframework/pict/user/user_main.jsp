@@ -262,17 +262,17 @@
             height: () => swiperSection.offsetHeight,
             top: () => swiperSection.getBoundingClientRect().top,
             left: () => swiperSection.getBoundingClientRect().left,
-            duration: 1,
+            duration: 0.3,
             ease: 'power2.inOut'
         })
         .to(introSection.querySelector('.introSecContents'), {
             opacity: 0,
-            duration: 0.3,
+            duration: 0.25,
             ease: 'power2.inOut'
         }, "-=0.3")
         .to(introSection, {
             opacity: 0,
-            duration: 0.3,
+            duration: 0.25,
             ease: 'none',
             onComplete: () => {
             introSection.style.display = 'none';
