@@ -19,7 +19,7 @@
 </style>
 <body>
 	<%@ include file="./include/header_sub.jsp" %>
-    <div class="subContents rental facil" style="padding-top: 100px;">
+    <div class="subContents rental facil">
         <div class="rentalCountContainer">
             <p class="rentalListTitle"><button type="button" class="mb"><img src="/img/user_img/list-back.webp" alt=""></button>예약 목록</p>
             <div class="rentalSum">

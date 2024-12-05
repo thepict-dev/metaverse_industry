@@ -118,7 +118,9 @@ main{
 .section1{
     display: flex;
     width: 100%;
+    border-bottom: 1px solid var(--grey-grey-100, #DBDEE2);
 }
+
 
 .eduSection{
     width: 506px;
@@ -936,8 +938,11 @@ main{
 .videoSection{
     width: 100%;
     max-width: 1800px;
-    padding: 0 20px;
+    padding: 85px 20px 0 20px;
     margin: 40px auto 150px;
+}
+.videoInner{
+    width: 100%;
 }
 .iframeContainer {
   position: relative;
@@ -1062,8 +1067,8 @@ main{
 .mainPopupInner .swiper{
 	width: 100%;
  height: 100%;
- border: 1px solid var(--Foundation-grey-grey-50, #F0F3F1);
  box-shadow: 0px 0px 26px 0px rgba(0, 0, 0, 0.05);
+ border-radius: 20px 20px 0 0;
 }
 .mainPopupInner .swiper-wrapper{
 	width: 100%;
@@ -1097,15 +1102,20 @@ main{
  padding: 12px 0;
  width: 100%;
  background-color: var(--grey-50);
+ 
+ border-radius: 0 0 20px 20px;
 }
 .mainPopupButtons button{
+	display: flex;
+	align-items: center;
+	    column-gap: 8px;
 	padding: 10px 20px;
- color: #3F3F3F;
- font-family: var(--fn-suit);
- font-size: 14px;
- font-weight: 400;
- line-height: 100%; /* 14px */
- letter-spacing: -0.7px;
+ color: #000;
+font-size: 18px;
+font-style: normal;
+font-weight: 500;
+line-height: 100%; /* 18px */
+letter-spacing: -0.9px;
  cursor: pointer;
 }
 .swiper-pagination-bullet{
@@ -1126,6 +1136,19 @@ main{
 @media all and (max-width : 768px){
 	.mainPopupInner .swiper-horizontal>.swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal, .swiper-pagination-custom, .swiper-pagination-fraction {
       transform: unset;
+	}
+	.mainPopupButtons button{
+		display: flex;
+		align-items: center;
+	    column-gap: 8px;
+		padding: 0 20px;
+		 color: #000;
+		font-size: 14px;
+		font-style: normal;
+		font-weight: 500;
+		line-height: 100%; /* 18px */
+		letter-spacing: -0.9px;
+		 cursor: pointer;
 	}
 }
 @media all and (max-width : 768px){

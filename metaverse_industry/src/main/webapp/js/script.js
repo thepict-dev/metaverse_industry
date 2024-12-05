@@ -13,6 +13,14 @@ $(document).ready(function() {
   });
 });
 
+// 스크롤 이벤트 핸들러 추가
+$(window).scroll(function() {
+    if ($(this).scrollTop() > 100) {
+        $('header').addClass('active');
+    } else {
+        $('header').removeClass('active');
+    }
+});
 
 // 서브 메뉴 토글
 $(".mobile-menu ul.depth > li > a, .mobile-menu ul.depth > li > span").click(function(e) {
@@ -129,3 +137,4 @@ $(document).click(function(event) {
 // $('.modalWrapper button').click(function(){
 //   $('.modal').hide();
 // });
+

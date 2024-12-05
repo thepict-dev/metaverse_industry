@@ -156,10 +156,6 @@
 	    formData.append("position", $('#position').val());
 	    formData.append("company_address1", $('#company_address1').val());
 	    formData.append("company_address2", $('#company_address2').val());
-	    if ($("#file")[0].files[0]) {
-			
-	    	formData.append("attach_file", $("#file")[0].files[0]);
-		}
 	    $.ajax({
 	        url: '/api/update_user.do' // Replace with your actual endpoint
 	        , type: "POST"

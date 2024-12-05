@@ -6,7 +6,6 @@
 }
 
 :root {
-    --fn-suit: 'SUIT, sans-serif';
     --fn-ald: "Aldrich", sans-serif;
     --grey-50: #f3f5f6;
     --grey-100: #dbdee2;
@@ -520,4 +519,25 @@ input[type="date"]::after{
 input[type="date"]:focus, input[type="time"]:focus{
 	outline: none;
     border-bottom: 1px solid var(--grey-500);
+}
+
+/* 모든 input placeholder에 SUIT 폰트 적용 */
+::placeholder {
+    font-family: 'SUIT', sans-serif !important;
+}
+
+::-webkit-input-placeholder {
+    font-family: 'SUIT', sans-serif !important;
+}
+
+::-moz-placeholder {
+    font-family: 'SUIT', sans-serif !important;
+}
+
+:-ms-input-placeholder {
+    font-family: 'SUIT', sans-serif !important;
+}
+
+:-moz-placeholder {
+    font-family: 'SUIT', sans-serif !important;
 }

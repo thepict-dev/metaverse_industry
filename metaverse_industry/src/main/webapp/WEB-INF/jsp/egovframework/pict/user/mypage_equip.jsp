@@ -22,206 +22,221 @@
                                     <li><a href="/mypage_bag.do?type=equipment">장바구니</a></li>
                                 </ul>
                                 <div class="tabInner loginWrapper active">
-                                    <div class="equipInfoContainer">
-                                        <ul class="infoTabNav">
-                                            <li class="<c:if test="${pictVO.request_status eq null ||
-                                                pictVO.request_status eq '' || pictVO.request_status eq undefined }">active</c:if>"><a
-                                                    href="/mypage_equip.do">전체보기</a>
-                                            </li>
-                                            <li class="<c:if test="${pictVO.request_status eq 'pendding'}">active
-                                                </c:if>"><a href="/mypage_equip.do?request_status=pendding">승인대기
-                                                    <c:if test="${penddingCnt ne 0 }">
-                                                    	<span>${penddingCnt}</span>
-                                                	</c:if>
-                                                </a></li>
-                                            <li class="<c:if test="${pictVO.request_status eq 'rejected'}">active
-                                                </c:if>"><a href="/mypage_equip.do?request_status=rejected">서류보완요청
-                                                <c:if test="${rejectedCnt ne 0 }">
-                                                    	<span>${rejectedCnt}</span>
-                                               	</c:if>
-                                                </a>
-                                            </li>
-                                            <li class="<c:if test="${pictVO.request_status eq 'retry'}">active
-                                                </c:if>"><a href="/mypage_equip.do?request_status=retry">서류보완신청
-                                                <c:if test="${retryCnt ne 0 }">
-                                                    	<span>${retryCnt}</span>
-                                               	</c:if>
-                                                </a>
-                                            <li class="<c:if test="${pictVO.request_status eq 'approved'}">active
-                                                </c:if>"><a href="/mypage_equip.do?request_status=approved">승인완료
-	                                                <c:if test="${approvedCnt ne 0 }">
-	                                                    	<span>${approvedCnt}</span>
-	                                               	</c:if>
-                                                </a>
-                                            </li>
-                                            <li class="<c:if test="${pictVO.request_status eq 'refusal'}">active
-                                                </c:if>"><a href="/mypage_equip.do?request_status=refusal">승인거절
-                                                	<c:if test="${refusalCnt ne 0 }">
-	                                                    	<span>${refusalCnt}</span>
-	                                               	</c:if>
-                                                </a></li>
-                                            <li class="<c:if test="${pictVO.request_status eq 'overdue'}">active
-                                                </c:if>"><a href="/mypage_equip.do?request_status=overdue">연체
-                                                	<c:if test="${overdueCnt ne 0 }">
-	                                                    	<span>${overdueCnt}</span>
-	                                               	</c:if>
-                                                </a></li>
-                                            <li class="<c:if test="${pictVO.request_status eq 'rental'}">active</c:if>
-                                                "><a href="/mypage_equip.do?request_status=rental">대여중
-                                                	<c:if test="${rentalCnt ne 0 }">
-	                                                    	<span>${rentalCnt}</span>
-	                                               	</c:if>
-                                                </a></li>
-                                            <li class="<c:if test="${pictVO.request_status eq 'returned'}">active
-                                                </c:if>"><a href="/mypage_equip.do?request_status=returned">반납완료</a>
-                                            </li>
-                                            <!-- <li><a href="#lnk">기타</a></li> -->
-                                        </ul>
-                                        <div class="infoTabInner active">
-                                            <div class="infoTable">
-                                                <table>
-                                                    <colgroup>
-                                                        <col width="11.5%" />
-                                                        <col width="11.5%" />
-                                                        <col width="11.5%" />
-                                                        <col width="10%" />
-                                                        <col width="10%" />
-                                                        <col width="15%" />
-                                                        <col width="12%" />
-                                                        <col width="8.5%" />
-                                                        <col width="10%" />
-                                                    </colgroup>
-                                                    <thead>
-                                                        <tr>
-                                                            <th>신청일</th>
-                                                            <th>대여일</th>
-                                                            <th>반납일</th>
-                                                            <th>대여자 성명</th>
-                                                            <th>대여형태</th>
-                                                            <th>장비명</th>
-                                                            <th><span>대여상태<button type="button" class="infos"><img
-                                                                            src="/img/user_img/tooltip-wt.webp"
-                                                                            alt=""></button></span></th>
-                                                            <th>정보보기</th>
-                                                            <th>예약 취소</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <c:forEach var="item" items="${request_list}"
-                                                            varStatus="status">
-                                                            <tr>
-                                                                <td class="request_date">
-                                                                    <p>${item.request_date}</p>
-                                                                </td>
-                                                                <td class="rental_start_date">
-                                                                    <p>${item.rental_start_date}</p>
-                                                                </td>
-                                                                <td class="rental_end_date">
-                                                                    <p>${item.rental_end_date}</p>
-                                                                </td>
-                                                                <td class="user_name">
-                                                                    <p>${item.user_name}</p>
-                                                                </td>
-                                                                <td class="user_type">
-                                                                    <p>${item.type eq '1' ? '개인' : '기업'}</p>
-                                                                    <input type="hidden" value="${item.company_nm}"
-                                                                        class="company_nm" />
-                                                                </td>
-                                                                <td class="equip_name">
-                                                                    <p><span>${item.name}</span></p>
-                                                                </td>
-
-                                                                <c:if test="${item.request_status eq 'pendding'}">
-                                                                    <td class="request_status"><a href="#lnk">승인대기</a>
-                                                                    </td>
-                                                                </c:if>
-                                                                <c:if test="${item.request_status eq 'rejected'}">
-                                                                    <td class="request_status">
-                                                                    	<a href="#lnk" data-id="${item.id}" class="clickable docAdd">서류보완요청</a>
-                                                                    	<input type="hidden" value="${item.reject_msg}"
-                                                                        class="reject_msg" />
-                                                                        <input type="hidden" id="document_url1" value="${item.file_path}" />
-		                                                                <input type="hidden" id="document_url2" value="${item.file_path2}" />
-		                                                                <input type="hidden" id="document_url3" value="${item.file_path3}" />
-                                                                    </td>
-                                                                   
-                                                                </c:if>
-                                                                <c:if test="${item.request_status eq 'retry'}">
-                                                                    <td class="request_status"><a href="#lnk">서류보완신청</a>
-                                                                    </td>
-                                                                </c:if>
-                                                                <c:if test="${item.request_status eq 'approved'}">
-                                                                    <td class="request_status"><a href="#lnk">승인완료</a>
-                                                                    </td>
-                                                                </c:if>
-                                                                <c:if test="${item.request_status eq 'refusal'}">
-                                                                    <td class="request_status">
-                                                                        <a href="#lnk" class="clickable reject">승인거절</a>
-                                                                        <input type="hidden" value="${item.reject_msg}" class="reject_msg" />
-                                                                    </td>
-                                                                </c:if>
-
-                                                                <c:if test="${item.request_status eq 'overdue'}">
-                                                                    <td class="request_status"><a href="#lnk">연체</a>
-                                                                    </td>
-                                                                </c:if>
-                                                                <c:if test="${item.request_status eq 'rental'}">
-                                                                    <td class="request_status"><a href="#lnk">대여중</a>
-                                                                    </td>
-                                                                </c:if>
-                                                                <c:if test="${item.request_status eq 'returned'}">
-                                                                    <td class="request_status"><a href="#lnk">반납완료</a>
-                                                                    </td>
-                                                                </c:if>
-                                                                <td>
-                                                                    <a href="#lnk" class="check"><img
-                                                                            src="/img/user_img/contract.webp" alt=""></a>
-                                                                </td>
-                                                                <c:if
-                                                                    test="${item.request_status eq 'pendding' || item.request_status eq 'rejected' || item.request_status eq 'approved' || item.request_status eq 'retry'}">
-                                                                    <td><a data-id="${item.id}" href="#lnk"
-                                                                            class="clickable cancel_request">예약취소</a>
-                                                                    </td>
-                                                                </c:if>
-                                                                <c:if
-                                                                    test="${item.request_status ne 'pendding' && item.request_status ne 'rejected' && item.request_status ne 'approved' && item.request_status ne 'retry'}">
-                                                                    <td><a href="#lnk">취소불가</a></td>
-                                                                </c:if>
-                                                                
-                                                            </tr>
-                                                        </c:forEach>                                
-                                                    </tbody>
-                                                </table>
+                                    <c:choose>
+                                        <c:when test="${empty request_list}">
+                                            <div class="tabInner loginWrapper active">
+                                                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 36px; margin-top: 40px;">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="183" height="183" viewBox="0 0 183 183" fill="none">
+                                                        <circle cx="91.5" cy="91.5" r="81" stroke="#CACFD4" stroke-width="21"/>
+                                                        <path d="M97.1314 107.759H85.219L83 56H99L97.1314 107.759ZM91.292 116.447C93.3942 116.447 95.1071 116.97 96.4307 118.018C97.7543 119.065 98.4161 120.452 98.4161 122.177C98.4161 123.902 97.7543 125.289 96.4307 126.336C95.1071 127.445 93.3942 128 91.292 128C89.1119 128 87.3212 127.445 85.9197 126.336C84.5961 125.289 83.9343 123.902 83.9343 122.177C83.9343 120.452 84.5961 119.065 85.9197 118.018C87.3212 116.97 89.1119 116.447 91.292 116.447Z" fill="#CACFD4"/>
+                                                    </svg>
+                                                    <p class="emptyMsg"><span>예약정보</span>가 없습니다</p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="pagination my">
-                                            <c:if test="${pictVO.pageNumber ne 1}">
-                                                <li><a
-                                                        href="/mypage_equip.do?request_status=${pictVO.request_status}&pageNumber=${pictVO.pageNumber - 10 < 1 ? 1 : pictVO.pageNumber - 10}"><img
-                                                            src="/img/admin/prev.webp" alt=""></a></li>
-                                            </c:if>
-
-                                            <c:forEach var="i" begin="${pictVO.startPage}" end="${pictVO.endPage}">
-                                                <c:if test="${i eq pictVO.pageNumber}">
-                                                    <li><a class="active"
-                                                            href="/mypage_equip.do?request_status=${pictVO.request_status}&pageNumber=${i}">${i}</a>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <div class="equipInfoContainer">
+                                                <ul class="infoTabNav">
+                                                    <li class="<c:if test="${pictVO.request_status eq null ||
+                                                        pictVO.request_status eq '' || pictVO.request_status eq undefined }">active</c:if>"><a
+                                                            href="/mypage_equip.do">전체보기</a>
                                                     </li>
-                                                </c:if>
-                                                <c:if test="${i ne pictVO.pageNumber}">
-                                                    <li><a
-                                                            href="/mypage_equip.do?request_status=${pictVO.request_status}&pageNumber=${i}">${i}</a>
+                                                    <li class="<c:if test="${pictVO.request_status eq 'pendding'}">active
+                                                        </c:if>"><a href="/mypage_equip.do?request_status=pendding">승인대기
+                                                            <c:if test="${penddingCnt ne 0 }">
+                                                                <span>${penddingCnt}</span>
+                                                            </c:if>
+                                                        </a></li>
+                                                    <li class="<c:if test="${pictVO.request_status eq 'rejected'}">active
+                                                        </c:if>"><a href="/mypage_equip.do?request_status=rejected">서류보완요청
+                                                        <c:if test="${rejectedCnt ne 0 }">
+                                                                <span>${rejectedCnt}</span>
+                                                        </c:if>
+                                                        </a>
                                                     </li>
-                                                </c:if>
-                                            </c:forEach>
+                                                    <li class="<c:if test="${pictVO.request_status eq 'retry'}">active
+                                                        </c:if>"><a href="/mypage_equip.do?request_status=retry">서류보완신청
+                                                        <c:if test="${retryCnt ne 0 }">
+                                                                <span>${retryCnt}</span>
+                                                        </c:if>
+                                                        </a>
+                                                    <li class="<c:if test="${pictVO.request_status eq 'approved'}">active
+                                                        </c:if>"><a href="/mypage_equip.do?request_status=approved">승인완료
+                                                            <c:if test="${approvedCnt ne 0 }">
+                                                                    <span>${approvedCnt}</span>
+                                                            </c:if>
+                                                        </a>
+                                                    </li>
+                                                    <li class="<c:if test="${pictVO.request_status eq 'refusal'}">active
+                                                        </c:if>"><a href="/mypage_equip.do?request_status=refusal">승인거절
+                                                            <c:if test="${refusalCnt ne 0 }">
+                                                                    <span>${refusalCnt}</span>
+                                                            </c:if>
+                                                        </a></li>
+                                                    <li class="<c:if test="${pictVO.request_status eq 'overdue'}">active
+                                                        </c:if>"><a href="/mypage_equip.do?request_status=overdue">연체
+                                                            <c:if test="${overdueCnt ne 0 }">
+                                                                    <span>${overdueCnt}</span>
+                                                            </c:if>
+                                                        </a></li>
+                                                    <li class="<c:if test="${pictVO.request_status eq 'rental'}">active</c:if>
+                                                        "><a href="/mypage_equip.do?request_status=rental">대여중
+                                                            <c:if test="${rentalCnt ne 0 }">
+                                                                    <span>${rentalCnt}</span>
+                                                            </c:if>
+                                                        </a></li>
+                                                    <li class="<c:if test="${pictVO.request_status eq 'returned'}">active
+                                                        </c:if>"><a href="/mypage_equip.do?request_status=returned">반납완료</a>
+                                                    </li>
+                                                    <!-- <li><a href="#lnk">기타</a></li> -->
+                                                </ul>
+                                                <div class="infoTabInner active">
+                                                    <div class="infoTable">
+                                                        <table>
+                                                            <colgroup>
+                                                                <col width="11.5%" />
+                                                                <col width="11.5%" />
+                                                                <col width="11.5%" />
+                                                                <col width="10%" />
+                                                                <col width="10%" />
+                                                                <col width="15%" />
+                                                                <col width="12%" />
+                                                                <col width="8.5%" />
+                                                                <col width="10%" />
+                                                            </colgroup>
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>신청일</th>
+                                                                    <th>대여일</th>
+                                                                    <th>반납일</th>
+                                                                    <th>대여자 성명</th>
+                                                                    <th>대여형태</th>
+                                                                    <th>장비명</th>
+                                                                    <th><span>대여상태<button type="button" class="infos"><img
+                                                                                    src="/img/user_img/tooltip-wt.webp"
+                                                                                    alt=""></button></span></th>
+                                                                    <th>정보보기</th>
+                                                                    <th>예약 취소</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <c:forEach var="item" items="${request_list}"
+                                                                    varStatus="status">
+                                                                    <tr>
+                                                                        <td class="request_date">
+                                                                            <p>${item.request_date}</p>
+                                                                        </td>
+                                                                        <td class="rental_start_date">
+                                                                            <p>${item.rental_start_date}</p>
+                                                                        </td>
+                                                                        <td class="rental_end_date">
+                                                                            <p>${item.rental_end_date}</p>
+                                                                        </td>
+                                                                        <td class="user_name">
+                                                                            <p>${item.user_name}</p>
+                                                                        </td>
+                                                                        <td class="user_type">
+                                                                            <p>${item.type eq '1' ? '개인' : '기업'}</p>
+                                                                            <input type="hidden" value="${item.company_nm}"
+                                                                                class="company_nm" />
+                                                                        </td>
+                                                                        <td class="equip_name">
+                                                                            <p><span>${item.name}</span></p>
+                                                                        </td>
 
-                                            <c:if
-                                                test="${pictVO.lastPage ne pictVO.pageNumber && pictVO.lastPage != 0}">
-                                                <li><a
-                                                        href="/mypage_equip.do?request_status=${pictVO.request_status}&pageNumber=${pictVO.pageNumber + 10 > pictVO.lastPage ?  pictVO.lastPage : pictVO.pageNumber + 10}"><img
-                                                            src="/img/admin/next.webp" alt=""></a></li>
-                                            </c:if>
-                                        </div>
-                                    </div>
+                                                                        <c:if test="${item.request_status eq 'pendding'}">
+                                                                            <td class="request_status"><a href="#lnk">승인대기</a>
+                                                                            </td>
+                                                                        </c:if>
+                                                                        <c:if test="${item.request_status eq 'rejected'}">
+                                                                            <td class="request_status">
+                                                                                <a href="#lnk" data-id="${item.id}" class="clickable docAdd">서류보완요청</a>
+                                                                                <input type="hidden" value="${item.reject_msg}"
+                                                                                class="reject_msg" />
+                                                                                <input type="hidden" id="document_url1" value="${item.file_path}" />
+                                                                                <input type="hidden" id="document_url2" value="${item.file_path2}" />
+                                                                                <input type="hidden" id="document_url3" value="${item.file_path3}" />
+                                                                            </td>
+                                                                        
+                                                                        </c:if>
+                                                                        <c:if test="${item.request_status eq 'retry'}">
+                                                                            <td class="request_status"><a href="#lnk">서류보완신청</a>
+                                                                            </td>
+                                                                        </c:if>
+                                                                        <c:if test="${item.request_status eq 'approved'}">
+                                                                            <td class="request_status"><a href="#lnk">승인완료</a>
+                                                                            </td>
+                                                                        </c:if>
+                                                                        <c:if test="${item.request_status eq 'refusal'}">
+                                                                            <td class="request_status">
+                                                                                <a href="#lnk" class="clickable reject">승인거절</a>
+                                                                                <input type="hidden" value="${item.reject_msg}" class="reject_msg" />
+                                                                            </td>
+                                                                        </c:if>
+
+                                                                        <c:if test="${item.request_status eq 'overdue'}">
+                                                                            <td class="request_status"><a href="#lnk">연체</a>
+                                                                            </td>
+                                                                        </c:if>
+                                                                        <c:if test="${item.request_status eq 'rental'}">
+                                                                            <td class="request_status"><a href="#lnk">대여중</a>
+                                                                            </td>
+                                                                        </c:if>
+                                                                        <c:if test="${item.request_status eq 'returned'}">
+                                                                            <td class="request_status"><a href="#lnk">반납완료</a>
+                                                                            </td>
+                                                                        </c:if>
+                                                                        <td>
+                                                                            <a href="#lnk" class="check"><img
+                                                                                    src="/img/user_img/contract.webp" alt=""></a>
+                                                                        </td>
+                                                                        <c:if
+                                                                            test="${item.request_status eq 'pendding' || item.request_status eq 'rejected' || item.request_status eq 'approved' || item.request_status eq 'retry'}">
+                                                                            <td><a data-id="${item.id}" href="#lnk"
+                                                                                    class="clickable cancel_request">예약취소</a>
+                                                                            </td>
+                                                                        </c:if>
+                                                                        <c:if
+                                                                            test="${item.request_status ne 'pendding' && item.request_status ne 'rejected' && item.request_status ne 'approved' && item.request_status ne 'retry'}">
+                                                                            <td><a href="#lnk">취소불가</a></td>
+                                                                        </c:if>
+                                                                        
+                                                                    </tr>
+                                                                </c:forEach>                                
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="pagination my">
+                                                    <c:if test="${pictVO.pageNumber ne 1}">
+                                                        <li><a
+                                                                href="/mypage_equip.do?request_status=${pictVO.request_status}&pageNumber=${pictVO.pageNumber - 10 < 1 ? 1 : pictVO.pageNumber - 10}"><img
+                                                                    src="/img/admin/prev.webp" alt=""></a></li>
+                                                    </c:if>
+
+                                                    <c:forEach var="i" begin="${pictVO.startPage}" end="${pictVO.endPage}">
+                                                        <c:if test="${i eq pictVO.pageNumber}">
+                                                            <li><a class="active"
+                                                                    href="/mypage_equip.do?request_status=${pictVO.request_status}&pageNumber=${i}">${i}</a>
+                                                            </li>
+                                                        </c:if>
+                                                        <c:if test="${i ne pictVO.pageNumber}">
+                                                            <li><a
+                                                                    href="/mypage_equip.do?request_status=${pictVO.request_status}&pageNumber=${i}">${i}</a>
+                                                            </li>
+                                                        </c:if>
+                                                    </c:forEach>
+
+                                                    <c:if
+                                                        test="${pictVO.lastPage ne pictVO.pageNumber && pictVO.lastPage != 0}">
+                                                        <li><a
+                                                                href="/mypage_equip.do?request_status=${pictVO.request_status}&pageNumber=${pictVO.pageNumber + 10 > pictVO.lastPage ?  pictVO.lastPage : pictVO.pageNumber + 10}"><img
+                                                                    src="/img/admin/next.webp" alt=""></a></li>
+                                                    </c:if>
+                                                </div>
+                                            </div>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </div>
                                 <div class="stateModal">
                                     <div class="stateModalInner">

@@ -172,8 +172,10 @@
 .tabNav.sub li span,
 .tabNav.sub li a {
     display: block;
+    width: 172px;
     padding: 20px 24px;
     color: var(--grey-500);
+    text-align: center;
     font-size: 18px;
     font-weight: 500;
     line-height: 140%;
@@ -189,7 +191,6 @@
 .tabNav li.active span,
 .tabNav li.active a {
     color: #000;
-    border-bottom: 1px solid #000;
 }
 
 .tabInner {
@@ -396,6 +397,7 @@
     display: flex;
     max-width: unset;
     padding: 0;
+    padding-top: 108px;
 }
 .rentalCountContainer {
     /* display: none; */
@@ -2202,4 +2204,15 @@
 
 .fullButtonContainer.bd {
     margin-top: 40px;
+}
+
+.emptyMsg {
+    color: var(--grey-grey-900, #3A3F44);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 100%;
+    letter-spacing: -1.6px;
+}
+.emptyMsg span {
+    color: var(--Navy, #171C61);
 }

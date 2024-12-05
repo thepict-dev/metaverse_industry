@@ -11,7 +11,7 @@
 <%@ include file="./include/head.jsp" %>
 <body>
     <div class="introSection" id="introSection">
-        <img src="/img/user_img/swiper-img1.webp" alt="" class="pcBack">
+        <img src="/img/user_img/intro.png" alt="" class="pcBack">
         <img src="/img/user_img/mb-back.webp" alt="" class="mbBack">
         <div class="introSecContents">
             <h2><img src="/img/user_img/logo-sub.webp" alt=""></h2>
@@ -43,7 +43,17 @@
 		                </div>
 		            </div>
 		            <div class="mainPopupButtons">
-		                <button type="button" onclick="todayClosePopup()">오늘 하루 보지 않기</button>
+		                <button type="button" onclick="todayClosePopup()">
+			                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+								<mask id="mask0_1038_16176" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
+									<rect width="20" height="20" fill="#D9D9D9"/>
+								</mask>
+								<g mask="url(#mask0_1038_16176)">
+									<path d="M4.75678 16.5827C4.38164 16.5827 4.06456 16.4532 3.80553 16.1941C3.54651 15.9351 3.41699 15.618 3.41699 15.2429V4.75581C3.41699 4.38067 3.54651 4.06359 3.80553 3.80456C4.06456 3.54553 4.38164 3.41602 4.75678 3.41602H15.2439C15.619 3.41602 15.9361 3.54553 16.1951 3.80456C16.4541 4.06359 16.5837 4.38067 16.5837 4.75581V15.2429C16.5837 15.618 16.4541 15.9351 16.1951 16.1941C15.9361 16.4532 15.619 16.5827 15.2439 16.5827H4.75678ZM4.75678 15.4993H15.2439C15.308 15.4993 15.3668 15.4726 15.4201 15.4191C15.4736 15.3658 15.5003 15.3071 15.5003 15.2429V4.75581C15.5003 4.69164 15.4736 4.63289 15.4201 4.57956C15.3668 4.52608 15.308 4.49935 15.2439 4.49935H4.75678C4.69262 4.49935 4.63387 4.52608 4.58053 4.57956C4.52706 4.63289 4.50033 4.69164 4.50033 4.75581V15.2429C4.50033 15.3071 4.52706 15.3658 4.58053 15.4191C4.63387 15.4726 4.69262 15.4993 4.75678 15.4993Z" fill="#8B96A2"/>
+								</g>
+							</svg>
+		                	오늘 하루 보지 않기
+		                </button>
 		                <button type="button" onclick="closePopup()">닫기</button>
 		            </div>
 		            <div class="swiper-pagination popup"></div>

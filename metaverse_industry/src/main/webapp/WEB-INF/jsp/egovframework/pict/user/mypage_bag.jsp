@@ -27,36 +27,48 @@
         <li><a href="/mypage_facil.do">시설 예약정보</a></li>
         <li class="active"><a href="/mypage_bag.do?type=equipment">장바구니</a></li>
     </ul>
+	<ul class="tabNav sub">
+		<li class="<c:if test="${pictVO.type eq 'equipment'}">active</c:if>"><a href="/mypage_bag.do?type=equipment">장비</a></li>
+		<li class="<c:if test="${pictVO.type eq 'facility'}">active</c:if>"><a href="/mypage_bag.do?type=facility">시설</a></li>
+	</ul>
     <div class="tabInner loginWrapper active">
         <form class="myBagContainer">
-	    <ul class="tabNav sub">
-	        <li class="<c:if test="${pictVO.type eq 'equipment'}">active</c:if>"><a href="/mypage_bag.do?type=equipment">장비</a></li>
-	        <li class="<c:if test="${pictVO.type eq 'facility'}">active</c:if>"><a href="/mypage_bag.do?type=facility">시설</a></li>
-	    </ul>
-            <ul class="rentalItemList my">
-            		<c:forEach var="item" items="${request_list}" varStatus="status">
-						<li data-id="${item.id}">
-		                    <input type="checkbox" name="equip" class="equipment_checkbox" id="equip_${item.id}">
-		                    <label for="equip_${item.id}"></label>
-		                    <div class="checkItem">
-		                        <div class="itemImg">
-		                            <img src="${item.image_url}" alt="">
-		                            <span></span>
-		                            <a href="#lnk" data-id="${item.id}" class="add_bag active"><img src="/img/user_img/bag.webp" alt=""></a>
-		                        </div>
-		                        <div class="itemTitles">
-		                            <span>${item.category}</span>
-		                            <p>${item.name}</p>
-		                        </div>
-		                        <p>${item.description}</p>
-		                    </div>
-		                </li>			
-					</c:forEach>
-                
-            </ul>
-            <div class="fullButtonContainer bag">
-                <button type="button" class="wt normal go-rental">예약페이지로 이동</button>
-            </div>
+			<c:choose>
+				<c:when test="${empty request_list}">
+					<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 36px; margin-top: 40px;">
+						<svg xmlns="http://www.w3.org/2000/svg" width="183" height="183" viewBox="0 0 183 183" fill="none">
+							<circle cx="91.5" cy="91.5" r="81" stroke="#CACFD4" stroke-width="21"/>
+							<path d="M97.1314 107.759H85.219L83 56H99L97.1314 107.759ZM91.292 116.447C93.3942 116.447 95.1071 116.97 96.4307 118.018C97.7543 119.065 98.4161 120.452 98.4161 122.177C98.4161 123.902 97.7543 125.289 96.4307 126.336C95.1071 127.445 93.3942 128 91.292 128C89.1119 128 87.3212 127.445 85.9197 126.336C84.5961 125.289 83.9343 123.902 83.9343 122.177C83.9343 120.452 84.5961 119.065 85.9197 118.018C87.3212 116.97 89.1119 116.447 91.292 116.447Z" fill="#CACFD4"/>
+						</svg>
+						<p class="emptyMsg"><span>장바구니</span>가 비어있습니다</p>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<ul class="rentalItemList my">
+						<c:forEach var="item" items="${request_list}" varStatus="status">
+							<li data-id="${item.id}">
+								<input type="checkbox" name="equip" class="equipment_checkbox" id="equip_${item.id}">
+								<label for="equip_${item.id}"></label>
+								<div class="checkItem">
+									<div class="itemImg">
+										<img src="${item.image_url}" alt="">
+										<span></span>
+										<a href="#lnk" data-id="${item.id}" class="add_bag active"><img src="/img/user_img/bag.webp" alt=""></a>
+									</div>
+									<div class="itemTitles">
+										<span>${item.category}</span>
+										<p>${item.name}</p>
+									</div>
+									<p>${item.description}</p>
+								</div>
+							</li>			
+						</c:forEach>
+					</ul>
+					<div class="fullButtonContainer bag">
+						<button type="button" class="wt normal go-rental">예약페이지로 이동</button>
+					</div>
+				</c:otherwise>
+			</c:choose>
         </form>
     </div>
 	<%@ include file="./include/footer.jsp" %>
