@@ -41,9 +41,10 @@
         u.position,
         u.document_url
          from user_table as u
+         where 1=1
          <where>
          	<if test="name != null and name != ''">
-         		name = #{name}
+         		and name = #{name}
          	</if>
          	<if test="mobile != null and mobile != ''">
          		and mobile = #{mobile}
