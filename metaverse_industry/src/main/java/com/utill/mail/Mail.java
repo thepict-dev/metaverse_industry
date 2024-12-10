@@ -11,7 +11,7 @@ import javax.mail.MessagingException;
 
 public class Mail {
 	// subejct 메일 제목, body 메일 내용, email 발송 주소
-  	public static void send(String subejct, StringBuffer body) throws Exception{
+  	public static void send(String subejct, StringBuffer body, String email) throws Exception{
   		String host = "smtp.naver.com";
 		String user = "gica_@naver.com";
 		String password = "wlsgmddnjs-24";
@@ -32,7 +32,7 @@ public class Mail {
 		try {
 			MimeMessage message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(user));
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress("VRAR@gica.co.kr"));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
 			message.setSubject(subejct);
 			message.setText(body.toString(), "UTF-8", "html");
 			Transport.send(message);

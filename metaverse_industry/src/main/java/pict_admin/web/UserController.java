@@ -1,5 +1,7 @@
 package pict_admin.web;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -59,6 +61,8 @@ public class UserController {
 	private PictService pictService;
 	private CalendarServiceImpl calendarService;
 
+    String bookingEmail = "prod".equals(System.getProperty("spring.profiles.active")) ? "VRAR@gica.co.kr" : "sense@pict.kr";
+    
 	public UserController(UserService userService, PictService pictService, CalendarServiceImpl calendarService) {
 		super();
 		this.userService = userService;
@@ -501,7 +505,7 @@ public class UserController {
 		Optional.ofNullable(attach_file2).ifPresent(file -> pictVO.setFile_url2(new FileManagement().upload(file, sessions)));
 		Optional.ofNullable(attach_file3).ifPresent(file -> pictVO.setFile_url3(new FileManagement().upload(file, sessions)));
 		
-		Mail.send("장비 예약 안내 메일", new BookingMailHtml().structure(body, mailData));
+		Mail.send("장비 예약 안내 메일", new BookingMailHtml().structure(body, mailData), bookingEmail);
 		
 		map.put("msg", "ok");
 		return map;
@@ -599,7 +603,7 @@ public class UserController {
 			}
 		}
 		
-		Mail.send("시설 예약 안내 메일", new BookingMailHtml().structure(body, mailData));
+		Mail.send("시설 예약 안내 메일", new BookingMailHtml().structure(body, mailData), bookingEmail);
 		return map;
 	}
 
