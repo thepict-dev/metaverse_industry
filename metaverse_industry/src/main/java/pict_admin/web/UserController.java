@@ -11,6 +11,7 @@ import com.utill.ResultReturn;
 import com.utill.SessionHandler;
 import com.utill.excel.EduExcel;
 import com.utill.excel.Excel;
+import com.utill.mail.Mail;
 
 import pict_admin.service.UserService;
 import pict_admin.service.CalendarVo;
@@ -18,6 +19,8 @@ import pict_admin.service.PictService;
 import pict_admin.service.PictVO;
 import pict_admin.service.UserVO;
 import pict_admin.service.impl.CalendarServiceImpl;
+import pict_admin.web.bookingMail.BookingMailDto;
+import pict_admin.web.bookingMail.BookingMailHtml;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,6 +42,8 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.security.MessageDigest;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
@@ -423,6 +428,10 @@ public class UserController {
 			map.put("msg", "fail");
 			return map;
 		}
+		
+		// 예약 메일 관련
+		StringBuffer body = new StringBuffer();
+		ArrayList<BookingMailDto> mailData = new ArrayList<BookingMailDto>();
 
 		switch(pictVO.getRental_type()) {
 			case "individual" :
@@ -432,7 +441,7 @@ public class UserController {
 				pictVO.setType("2");
 				break;
 		}
-
+		
 		// 유저가 직접 신청 시, UserId 값 세팅
 		if(!UserRole.adminValidation(request)) {
 			pictVO.setUser_id(sessions);
@@ -458,6 +467,17 @@ public class UserController {
 					pictVO.setId(items.get(i).get("id").toString());
 					// 렌탈 신청
 					pictService.submit_rental_request(pictVO);
+					
+					// 예약 메일 관련
+					UserVO user = userService.isUserIdAvailable(new UserVO().of(sessions));
+					mailData.add(new BookingMailDto(
+							data.get("name").toString()
+							, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS"))
+							, data.get("rental_start_date") +" - "+ data.get("rental_end_date")
+							, user.getName()
+							, user.getMobile()
+					));
+					
 					// 관리자가 신청 시, 승인처리
 					if(UserRole.adminValidation(request)) {
 						pictVO.setRequest_status("approved");
@@ -481,6 +501,8 @@ public class UserController {
 		Optional.ofNullable(attach_file2).ifPresent(file -> pictVO.setFile_url2(new FileManagement().upload(file, sessions)));
 		Optional.ofNullable(attach_file3).ifPresent(file -> pictVO.setFile_url3(new FileManagement().upload(file, sessions)));
 		
+		Mail.send("장비 예약 안내 메일", new BookingMailHtml().structure(body, mailData));
+		
 		map.put("msg", "ok");
 		return map;
 	}
@@ -500,6 +522,10 @@ public class UserController {
 			return map;
 		}
 
+		// 예약 메일 관련
+		StringBuffer body = new StringBuffer();
+		ArrayList<BookingMailDto> mailData = new ArrayList<BookingMailDto>();
+		
 		Optional.ofNullable(attach_file1).ifPresent(file -> pictVO.setFile_url1(new FileManagement().upload(file, sessions)));
 		Optional.ofNullable(attach_file2).ifPresent(file -> pictVO.setFile_url2(new FileManagement().upload(file, sessions)));
 		Optional.ofNullable(attach_file3).ifPresent(file -> pictVO.setFile_url3(new FileManagement().upload(file, sessions)));
@@ -542,6 +568,16 @@ public class UserController {
 						}
 						// 렌탈 신청
 						pictService.submit_facility_request(pictVO);
+
+						// 예약 메일 관련
+						UserVO user = userService.isUserIdAvailable(new UserVO().of(sessions));
+						mailData.add(new BookingMailDto(
+								facility.get("name").toString()
+								, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSS"))
+								, facility.get("rental_start_date") +" - "+ facility.get("rental_end_date")
+								, user.getName()
+								, user.getMobile()
+						));
 						
 						// 관리자가 신청 시, 승인처리
 						if(UserRole.adminValidation(request)) {
@@ -562,6 +598,8 @@ public class UserController {
 				e.printStackTrace();
 			}
 		}
+		
+		Mail.send("시설 예약 안내 메일", new BookingMailHtml().structure(body, mailData));
 		return map;
 	}
 

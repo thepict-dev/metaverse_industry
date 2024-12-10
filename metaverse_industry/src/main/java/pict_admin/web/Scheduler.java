@@ -83,7 +83,8 @@ public class Scheduler {
 		try {
 			MimeMessage message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(user));
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress("vrar@gica.co.kr"));
+//			message.addRecipient(Message.RecipientType.TO, new InternetAddress("vrar@gica.co.kr"));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress("VRAR@gica.co.kr"));
 			message.setSubject(subejct);
 			message.setText(body, "UTF-8", "html");
 			Transport.send(message);

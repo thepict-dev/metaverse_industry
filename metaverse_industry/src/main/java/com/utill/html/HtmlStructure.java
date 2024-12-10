@@ -1,12 +1,24 @@
 package com.utill.html;
 
 public class HtmlStructure {
+	public static final String divOpen(String style) {
+		return "<div style='" + style + "'>";
+	}
+
 	public static final String divOpen(String className, String idName, String style) {
 		return "<div class='" + className + " id='" + idName + " style='" + style + "'>";
 	}
 
 	public static final String divClose() {
 		return "</div>";
+	}
+
+	public static final String h1(String style, String text) {
+		return "<h1 style='" + style + "'>" + text + "</h1>";
+	}
+
+	public static final String h2(String style, String text) {
+		return "<h2 style='" + style + "'>" + text + "</h1>";
 	}
 
 	public static final String tableOpen(String style) {
