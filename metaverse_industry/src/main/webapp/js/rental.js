@@ -235,31 +235,7 @@ document.addEventListener('DOMContentLoaded', function () {
              // 주말 체크 (0: 일요일, 6: 토요일)
              var isWeekend = date.getDay() === 0 || date.getDay() === 6;
              if (isWeekend) {
-                 return [false, "user-disabled weekend"];  // weekend 클래스 추가
-             }
-
-             // 오늘 이전 날짜는 선택 불가
-             if (compareDate < compareNow) {
-                 return [false, "past-date"];
-             }
-
-             // 오늘과 같은 날짜는 선택 불가
-             if (compareDate.getTime() === compareNow.getTime()) {
-                 return [false, "user-disabled"];
-             }
-
-             // 오늘과 같은 날짜는 선택 불가
-             if (compareDate.getTime() === compareTomorrow.getTime()) {
-                 // 17시 이후면 내일 선택 불가
-                 if (currentHour >= 17) {
-                     return [false, "user-disabled"];
-                 }
-             }
-
-             // 현재 달이 아닌 날짜 체크
-             var currentDate = new Date();
-             if (date.getMonth() < currentDate.getMonth()) {
-                 return [false, "user-disabled"];
+                 return [false, "user-disabled weekend"];
              }
 
              // 한 달 후 날짜 계산
@@ -268,29 +244,37 @@ document.addEventListener('DOMContentLoaded', function () {
              oneMonthLater.setMonth(today.getMonth() + 1);
              oneMonthLater.setHours(0, 0, 0, 0);
 
-             // 한 달 이후 날짜 체크
-             if (date > oneMonthLater) {
-                 return [false, "user-disabled"];
-             }
+             // 날짜 비활성화 조건 체크
+             var shouldDisable = false;
 
-             // 예약 불가능한 날짜
-             if (isDisabled) {
-                 return [false, "user-disabled"];
+             if (compareDate < compareNow) {
+                 shouldDisable = true; // 오늘 이전 날짜는 비활성화
+             } else if (compareDate.getTime() === compareNow.getTime()) {
+                 shouldDisable = true; // 오늘 날짜는 비활성화
+             } else if (compareDate.getTime() === compareTomorrow.getTime() && currentHour >= 17) {
+                 shouldDisable = true; // 17시 이후의 내일 날짜는 비활성화
+             } else if (date > oneMonthLater) {
+                 shouldDisable = true; // 한 달 이후 날짜는 비활성화
+             } else if (isDisabled) {
+                 shouldDisable = true; // API에서 받은 예약 불가능 날짜
              }
 
              // 선택된 날짜 범위 표시 
-             if (startDate && endDate && date > startDate && date < endDate) {
-                 classes.push("selected-range");
-             }
-
-             // 시작일과 종료일 강조 표시
              if (startDate && endDate && date >= startDate && date <= endDate) {
                  if (date.getTime() === startDate.getTime()) {
                      classes.push("dp-highlight-start");
                  } else if (date.getTime() === endDate.getTime()) {
                      classes.push("dp-highlight-end");
+                 } else {
+                     classes.push("selected-range");
                  }
              }
+
+             if (shouldDisable) {
+                 classes.push("user-disabled");
+                 return [false, classes.join(" ")];
+             }
+
              return [true, classes.join(" ")];
          },
          onSelect: function (dateText, inst) {
