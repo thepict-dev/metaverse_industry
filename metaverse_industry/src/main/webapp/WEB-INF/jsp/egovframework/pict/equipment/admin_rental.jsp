@@ -52,7 +52,7 @@
 													<input type="hidden" value="${resultList.position}" class="position" />
 													<input type="hidden" value="${resultList.document_url}" class="document_url" />
 													<!-- 기존 내용 -->
-													<p>${resultList.idx}</p>
+													<p>${totalCnt - status.index}</p>
 													<p class="title">${resultList.name}</p>
 													
 													<p class="mobile">${resultList.mobile}</p>

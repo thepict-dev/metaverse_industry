@@ -51,7 +51,7 @@
 													<input type="hidden" value="${resultList.sa_eob_no}" class="sa_eob_no" />
 													<input type="hidden" value="${resultList.position}" class="position" />
 													<!-- 기존 내용 -->
-													<p>${resultList.idx}</p>
+													<p>${totalCnt - status.index}</p>
 													<p class="title">${resultList.name}</p>
 													
 													<p class="mobile">${resultList.mobile}</p>

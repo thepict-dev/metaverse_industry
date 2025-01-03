@@ -58,7 +58,7 @@
 										<ul class="listBody eduBody">
 											<c:forEach var="item" items="${education_list}" varStatus="status">
 												<li>
-													<p>${item.idx}</p>
+													<p>${status.count}</p>
 													<p class="title"><a href="/education/manage_education_detail.do?id=${item.id}">${item.school}</a></p>
 													<p>${item.user_name}</p>
 													<p>${item.mobile}</p>

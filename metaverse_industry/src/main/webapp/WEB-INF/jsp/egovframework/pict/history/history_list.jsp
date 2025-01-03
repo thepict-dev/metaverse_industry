@@ -93,7 +93,7 @@
 															class="lableOnly"></label>
 													</div> -->
 													<!-- 기존 내용 -->
-													<p>${resultList.idx}</p>
+													<p>${status.index + 1}</p>
 													<p>
 														<!-- 'pendding', 'approved', 'rejected', 'retry', 'cancelled', 'refusal', 'rental', 'returned' -->
 														<c:choose>
