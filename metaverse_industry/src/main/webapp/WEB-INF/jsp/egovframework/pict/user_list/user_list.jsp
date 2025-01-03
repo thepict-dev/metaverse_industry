@@ -57,8 +57,7 @@
 															class="selection" id="selection${resultList.idx}"><label
 															for="selection${resultList.idx}" class="lableOnly"></label>
 													</div>
-													<!-- 기존 내용 -->
-													<p>${resultList.idx}</p>
+													<p>${totalCnt - status.index}</p>
 													<p class="title">${resultList.name}</p>
 													
 													<p class="mobile">${resultList.mobile}</p>
