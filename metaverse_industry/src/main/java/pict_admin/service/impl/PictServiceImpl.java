@@ -237,8 +237,12 @@ public class PictServiceImpl extends EgovAbstractServiceImpl implements PictServ
 	
 	@Override
     public List<Map<String, Object>> equipment_unavailable_date_list(PictVO pictVO) throws Exception {
-        System.out.println("임플리먼트 id 조회 @@@@@@@@@@@@@@" + pictVO.getId());
         return pictMapper.equipment_unavailable_date_list(pictVO);
+    }
+	
+	@Override
+	public List<Map<String, Object>> get_closed_date() throws Exception {
+        return pictMapper.get_closed_date();
     }
 	
 	@Override

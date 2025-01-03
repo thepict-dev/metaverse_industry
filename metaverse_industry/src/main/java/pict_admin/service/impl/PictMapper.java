@@ -108,6 +108,9 @@ public interface PictMapper {
 	
 	List<Map<String, Object>> equipment_unavailable_date_list(PictVO pictVO) throws Exception;
 	
+    List<Map<String, Object>> get_closed_date() throws Exception;
+
+	
 	PictVO equipment_list_one(PictVO pictVO) throws Exception;
 	
 	void equipment_update(PictVO pictVO) throws Exception;

@@ -6,6 +6,8 @@ var dateFormat = "yy-mm-dd";
 
 // 예약 불가 더미
 let disabledDates = [];
+// 휴관일 지정
+let closedDates = [];
 
 // 오늘 날짜를 기준으로 설정 (시간은 00:00:00으로 설정)
 var today = new Date();
@@ -42,7 +44,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // 드래그 앤 드롭 이벤트 처리
     companydropZone.on('dragover', function(e) {
         e.preventDefault();
-       	console.log("파일 드롭")
         $(this).addClass('dragover');
     });
 
@@ -55,12 +56,10 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault();
         $(this).removeClass('dragover');
         const files = e.originalEvent.dataTransfer.files;
-		console.log("파일을 내려놓을 때");
         handleFiles(files);
     });
 
     companyfileInput.on('change', function(e) {
-		console.log(e.target.files);
         const files = e.target.files;
         handleFiles(files);
     });
@@ -124,7 +123,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // 드래그 앤 드롭 이벤트 처리
     individualdropZone.on('dragover', function(e) {
         e.preventDefault();
-       	console.log("파일 드롭")
         $(this).addClass('dragover');
     });
 
@@ -137,12 +135,10 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault();
         $(this).removeClass('dragover');
         const files = e.originalEvent.dataTransfer.files;
-		console.log("파일을 내려놓을 때");
         handleFiles_indidual(files);
     });
 
     individualfileInput.on('change', function(e) {
-		console.log(e.target.files);
         const files = e.target.files;
         handleFiles_indidual(files);
     });
@@ -206,18 +202,28 @@ document.addEventListener('DOMContentLoaded', function () {
      $("#datepicker").datepicker({
          numberOfMonths: getNumberOfMonths(),
          dateFormat: dateFormat,
-         showOtherMonths: true,
+         showOtherMonths: false,
          selectOtherMonths: false,
          dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
          monthNames: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
          monthNamesShort: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
          beforeShowDay: function (date) {
+			 // 달력 날짜
              var stringDate = $.datepicker.formatDate(dateFormat, date);
              var isDisabled = disabledDates.indexOf(stringDate) !== -1;
+             // 휴관일 날짜 지정
+             var isClosed = closedDates.indexOf(stringDate) !== -1;
+
+         
+             
+
+
+
              var startDate = $("#datepicker").data("startDate");
+             
              var endDate = $("#datepicker").data("endDate");
              var classes = [];
-
+				
              // 현재 시간 체크
              var now = new Date();
              var currentHour = now.getHours();
@@ -253,11 +259,26 @@ document.addEventListener('DOMContentLoaded', function () {
                  shouldDisable = true; // 오늘 날짜는 비활성화
              } else if (compareDate.getTime() === compareTomorrow.getTime() && currentHour >= 17) {
                  shouldDisable = true; // 17시 이후의 내일 날짜는 비활성화
-             } else if (date > oneMonthLater) {
-                 shouldDisable = true; // 한 달 이후 날짜는 비활성화
              } else if (isDisabled) {
                  shouldDisable = true; // API에서 받은 예약 불가능 날짜
              }
+             // 시작 날짜만 선택되고 종료날짜가 선택되지 않았을 때
+             if (startDate && !endDate) {
+        	      // 날짜 선택 후 3달 뒤 날짜 계산
+		         var threeMonthLater = new Date();
+		         threeMonthLater.setDate(startDate.getDate());
+		         threeMonthLater.setMonth(startDate.getMonth() + 3);
+		         threeMonthLater.setHours(0, 0, 0, 0);
+		         if (date > threeMonthLater) {
+				 	shouldDisable = true; // 한 달 이후 날짜는 비활성화
+				 }
+			 } else {
+				 if (date > oneMonthLater) {
+                    shouldDisable = true; // 한 달 이후 날짜는 비활성화
+                 }
+			 }
+             
+
 
              // 선택된 날짜 범위 표시 
              if (startDate && endDate && date >= startDate && date <= endDate) {
@@ -274,11 +295,21 @@ document.addEventListener('DOMContentLoaded', function () {
                  classes.push("user-disabled");
                  return [false, classes.join(" ")];
              }
+             
+       		// 휴관일 지정하기
+             if (isClosed) {
+				 
+				 classes.push("closed-date");
+                 return [false, classes.join(" ")];
+			 }
 
              return [true, classes.join(" ")];
          },
          onSelect: function (dateText, inst) {
+			 $("#datepicker").data("startDate", selectedDate);
              var selectedDate = $.datepicker.parseDate(dateFormat, dateText);
+              
+
              var startDate = $("#datepicker").data("startDate");
              var endDate = $("#datepicker").data("endDate");
 
@@ -313,10 +344,10 @@ document.addEventListener('DOMContentLoaded', function () {
                      $(this).datepicker("refresh");
                      return;
                  }
-                 // 15일 이내 체크
+                 // 90일 이내 체크
                  var dayDiff = Math.ceil((selectedDate - startDate) / (1000 * 60 * 60 * 24));
-                 if (dayDiff > 15) {
-                     alert("최대 15일까지만 선택 가능합니다. 장기 대여의 경우 관리자에게 문의하세요.");
+                 if (dayDiff > 90) {
+                     alert("최대 90일까지만 선택 가능합니다. 장기 대여의 경우 관리자에게 문의하세요.");
                      $("#datepicker").data("startDate", null);
                      $("#datepicker").data("endDate", null);
                      $(this).datepicker("refresh");
@@ -491,7 +522,6 @@ document.addEventListener('DOMContentLoaded', function () {
  
  // 새로운 함수 추가
  function showCompanyInfoConfirm() {
-    console.log('Showing company info confirm');
     if (confirm("회원가입시 작성한 정보를 불러오시겠습니까?")) {
         getCorporationInfo();
     } else {
@@ -501,12 +531,10 @@ document.addEventListener('DOMContentLoaded', function () {
  
  // 기업 정보 가져오기 함수
  function getCorporationInfo() {
-    console.log('Fetching corporation info');
     $.ajax({
         url: '/api/corporationInfo.do',
         type: 'GET',
         success: function(response) {
-            console.log('API response:', response);
             if(response) {  // response.rst 체크 제거
                 // 직접 response 객체 사용
                 $('#company_nm').val(response.company_nm || '');
@@ -514,7 +542,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 $('#position').val(response.position || '');
                 $('#company_address1').val(response.company_address1 || '');
                 $('#company_address2').val(response.company_address2 || '');
-                console.log('Company info loaded successfully');
             }
         },
         error: function(e) {
@@ -526,7 +553,6 @@ document.addEventListener('DOMContentLoaded', function () {
  
  // 입력 필드 초기화 함수
  function clearCompanyFields() {
-    console.log('Clearing company fields');
     $('#company_nm').val('');
     $('#sa_eob_no').val('');
     $('#position').val('');
@@ -560,6 +586,24 @@ document.addEventListener('DOMContentLoaded', function () {
     })
  }
  
+ function getDatesInRange(closedDates) {
+   const closed_list = [];
+   
+   closedDates.forEach(period => {
+       const start = new Date(period.start_date);
+       const end = new Date(period.end_date);
+       
+       // start부터 end까지 루프
+       for(let date = start; date <= end; date.setDate(date.getDate() + 1)) {
+           // YYYY-MM-DD 형식으로 변환
+           const dateString = date.toISOString().split('T')[0];
+           closed_list.push(dateString);
+       }
+   });
+
+   return closed_list;
+}
+ 
  const getEquipmentAvailableDate = (id, cnt) => {
     const param = { 
     	id: id,
@@ -573,9 +617,11 @@ document.addEventListener('DOMContentLoaded', function () {
         dataType: "json",
         async: true,
         success: function (response) {
-            if (response.msg === "ok") {
+            if (response) {
                 const date_list = [];
+                
                 response.data.map(obj => date_list.push(obj.unavailable_date));
+                closedDates = getDatesInRange(response.closed);
                 disabledDates = date_list;
                 $("#datepicker").data("startDate", null);
                 $("#datepicker").data("endDate", null);
@@ -817,7 +863,7 @@ document.addEventListener('DOMContentLoaded', function () {
  const callBookingApi = () => {
      const formData = new FormData();
      if (rental_type === "individual") {
-         console.log("개인 예약");
+         
  
          formData.append("rental_type", rental_type);
          formData.append("equipment_list", JSON.stringify(selectedEquipment));
@@ -826,9 +872,6 @@ document.addEventListener('DOMContentLoaded', function () {
          // 각 장비의 수량 정보를 hidden으로 추가하면서 로그 출
          selectedEquipment.forEach(equipment => {
              const countName = `equipment_count_${equipment.id}`;
-             console.log("장비 ID:", equipment.id);
-             console.log("Count name:", countName);
-             console.log("Count value:", equipment.cnt);
              formData.append(countName, equipment.cnt);
          });
 
@@ -841,14 +884,7 @@ document.addEventListener('DOMContentLoaded', function () {
          formData.append(`attach_file${i + 1}`, file);
 		})
 
-         // FormData 내용 확인
-         console.log("=== FormData 내용 확인 ===");
-         for (let pair of formData.entries()) {
-             console.log(pair[0] + ': ' + pair[1]);
-         }
-
      } else if (rental_type === "company") {
-         console.log("법인 예약");
          formData.append("rental_type", rental_type);
          formData.append("equipment_list", JSON.stringify(selectedEquipment));
          formData.append("equipment_plan", document.querySelector(".equipment-plan-company").value);
@@ -868,12 +904,6 @@ document.addEventListener('DOMContentLoaded', function () {
          indexArray.map((file , i) => {
            formData.append(`attach_file${i + 1}`, file);
 		 })
-
-         // FormData 내용 확인
-         console.log("=== FormData 내용 확인 ===");
-         for (let pair of formData.entries()) {
-             console.log(pair[0] + ': ' + pair[1]);
-         }
      }
      $.ajax({
          url: '/api/booking.do'

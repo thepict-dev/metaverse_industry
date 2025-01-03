@@ -279,14 +279,22 @@ public class UserController {
 			pictVO.setId(param.get("id").toString());
 			pictVO.setCount(param.get("count").toString());
 			List<Map<String, Object>> unavailable_date_list = pictService.equipment_unavailable_date_list(pictVO);
-			map.put("msg", "ok");
+			List<Map<String, Object>> closed_date = pictService.get_closed_date();
+			
 			if (unavailable_date_list.isEmpty()) {
 				List<Map<String, Object>> allAvailable = new ArrayList<>();
 				map.put("data", allAvailable);
 			} else {
 				map.put("data", unavailable_date_list);
 			}
-
+			
+			if (closed_date.isEmpty()) {
+				List<Map<String, Object>> _closed_date = new ArrayList<>();
+				map.put("closed", _closed_date);
+			} else {
+				map.put("closed", closed_date);
+			}
+			
 		} else {
 			map.put("msg", "fail");
 		}
@@ -327,12 +335,20 @@ public class UserController {
 		if (param.get("id") != null) {
 			pictVO.setId(param.get("id").toString());
 			List<Map<String, Object>> unavailable_date_list = pictService.facility_unavailable_date_list(pictVO);
-			map.put("msg", "ok");
+			List<Map<String, Object>> closed_date = pictService.get_closed_date();
+
 			if (unavailable_date_list.isEmpty()) {
 				List<Map<String, Object>> allAvailable = new ArrayList<>();
 				map.put("data", allAvailable);
 			} else {
 				map.put("data", unavailable_date_list);
+			}
+			
+			if (closed_date.isEmpty()) {
+				List<Map<String, Object>> _closed_date = new ArrayList<>();
+				map.put("closed", _closed_date);
+			} else {
+				map.put("closed", closed_date);
 			}
 
 		} else {
