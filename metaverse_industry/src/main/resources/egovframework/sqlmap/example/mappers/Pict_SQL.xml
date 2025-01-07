@@ -476,19 +476,13 @@
 	
 	<select id="get_closed_date" resultType="map">
 		SELECT 
-			title, 
-			closed_id, 
-			DATE_FORMAT(start_date, '%Y-%m-%d') as start_date, 
-			DATE_FORMAT(end_date, '%Y-%m-%d') as end_date
+		    title, 
+		    closed_id, 
+		    DATE_FORMAT(start_date, '%Y-%m-%d') as start_date, 
+		    DATE_FORMAT(end_date, '%Y-%m-%d') as end_date
 		FROM closed_date
-		WHERE DATE(start_date) BETWEEN 
-		    DATE_FORMAT(CURDATE(), '%Y-%m-01')  -- 이번 달 1일
-		    AND 
-		    LAST_DAY(DATE_ADD(CURDATE(), INTERVAL 1 MONTH))  -- 다음 달 말일
-		OR DATE(end_date) BETWEEN 
-		    DATE_FORMAT(CURDATE(), '%Y-%m-01')
-		    AND 
-		    LAST_DAY(DATE_ADD(CURDATE(), INTERVAL 1 MONTH))
+		WHERE DATE(start_date) >= DATE_FORMAT(CURDATE(), '%Y-%m-01')  -- 이번 달 1일부터
+		    OR DATE(end_date) >= DATE_FORMAT(CURDATE(), '%Y-%m-01')   -- 이번 달 1일부터
 		ORDER BY start_date;
 	</select>
 	
