@@ -112,8 +112,8 @@
 											</div>
 											<div class="inputBox">
 												<p class="inputCaption">대여일</p>
-												<input type="date" id="reg_date" name="reg_date" class="lgThinInput"
-													disabled value="${history_detail.rental_start_date}">
+												<input type="date" id="rental_start_date" name="rental_start_date" class="lgThinInput"
+													value="${history_detail.rental_start_date}">
 											</div>
 											<div class="inputBox">
 												<p class="inputCaption">반납일</p>
@@ -201,6 +201,7 @@
 									<input type="hidden" name="idx" value="${history_detail.idx}">
 									<input type="hidden" name="request_status" class="hidden_request_status">
 									<input type="hidden" name="reject_msg" class="hidden_reject_msg">
+									<input type="hidden" name="rental_start_date" class="hidden_rental_start_date">
 									<input type="hidden" name="rental_end_date" class="hidden_rental_end_date">
 								</form>
 								<div class="listWrapper">
@@ -219,6 +220,7 @@
 							let equipment_name = '${history_detail.name}';
 							let user_name = '${history_detail.user_name}';
 							let rental_start_date = '${history_detail.rental_start_date}';
+							let rental_end_date = '${history_detail.rental_end_date}';
 							$("#request_status").change(function () {
 								$("#reject_msg").val("");
 								if ($("#request_status").val() === "rejected" || $("#request_status").val() === "refusal") {
@@ -253,6 +255,7 @@
 								
 								$(".hidden_request_status").val($("#request_status").val());
 								$(".hidden_reject_msg").val($("#reject_msg").val());
+								$(".hidden_rental_start_date").val($("#rental_start_date").val());
 								$(".hidden_rental_end_date").val($("#rental_end_date").val());
 								$(".hidden_form").submit();
 							})
@@ -281,5 +284,4 @@
 						<script src="../../../../../js/simple-datatables@latest.js" crossorigin="anonymous"></script>
 						<script src="/js/history_detail.js"></script>
 						</body>
-
 					</html>
