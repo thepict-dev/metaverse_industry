@@ -61,8 +61,8 @@ public class UserController {
 	private PictService pictService;
 	private CalendarServiceImpl calendarService;
 
-    String bookingEmail = "prod".equals(System.getProperty("spring.profiles.active")) ? "VRAR@gica.co.kr" : "sense@pict.kr";
-    
+	String bookingEmail = "prod".equals(System.getProperty("spring.profiles.active")) ? "VRAR@gica.or.kr" : "sense@pict.kr";
+	
 	public UserController(UserService userService, PictService pictService, CalendarServiceImpl calendarService) {
 		super();
 		this.userService = userService;

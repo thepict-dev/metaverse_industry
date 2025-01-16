@@ -246,7 +246,13 @@
 		    <artifactId>javax.mail-api</artifactId>
 		    <version>1.6.2</version>
 		</dependency>
-
+		
+		<!-- 메일 구현체 -->
+		<dependency>
+		    <groupId>com.sun.mail</groupId>
+		    <artifactId>javax.mail</artifactId>
+		    <version>1.6.2</version>
+		</dependency>
 
         <!-- <dependency>
             <groupId>commons-dbcp</groupId>

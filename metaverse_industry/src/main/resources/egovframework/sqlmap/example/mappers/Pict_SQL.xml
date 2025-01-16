@@ -766,6 +766,7 @@
 				and ut.name LIKE CONCAT('%', #{search_text}, '%')
 			</if>
 		</where>
+		ORDER BY err.request_date DESC
 		<if test="limit_cnt != null and limit_cnt != 0">
 			limit #{limit_cnt} OFFSET #{startNumber}
 		</if>
@@ -1294,6 +1295,7 @@
 				and ut.name LIKE CONCAT('%', #{search_text}, '%')
 			</if>
 		</where>
+		ORDER BY err.request_date DESC
 		<if test="limit_cnt != null and limit_cnt != 0">
 			limit #{limit_cnt} OFFSET #{startNumber}
 		</if>
