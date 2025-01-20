@@ -156,18 +156,12 @@ public class PictController {
 			ModelMap model) throws Exception {
 		// 처음 드러와서 세션에 정보있으면 메인으로 보내줘야함
 		String inpuId = UserVO.getUser_id();
-		System.out.println("inpuId :::::" + inpuId);
 		String inputPw = UserVO.getPassword();
 		System.out.println("inputPw :::::" + inputPw);
 		UserVO = userService.getUserInfo(UserVO);
-		System.out.println("조회 결과 :::::" + UserVO);
 		if (UserVO != null && UserVO.getUser_id() != null) {
-			System.out.println("조회 결과 ::::: id" + UserVO.getUser_id() != null);
-			System.out.println("조회 결과 ::::: id equals" + UserVO.getUser_id().equals(""));
 			String user_id = UserVO.getUser_id();
 			String enpassword = encryptPassword(inputPw, inpuId); // 입력비밀번호
-			System.out.println("암호화된 비밀번호 :::::" + enpassword);
-			System.out.println("db 비밀번호 :::::" + UserVO.getPassword());
 			if (enpassword.equals(UserVO.getPassword())) {
 				request.getSession().setAttribute("id", user_id);
 				request.getSession().setAttribute("name", UserVO.getName());
@@ -188,14 +182,12 @@ public class PictController {
 				return "redirect:/";
 				//
 			} else {
-				System.out.println("111111호 :::::");
 				model.addAttribute("message", "입력하신 정보가 일치하지 않습니다.");
 				model.addAttribute("retType", ":location");
 				model.addAttribute("retUrl", "/user_login.do");
 				return "pict/main/message";
 			}
 		} else {
-			System.out.println("22222222호 :::::");
 			model.addAttribute("message", "입력하신 정보가 일치하지 않습니다.");
 			model.addAttribute("retType", ":location");
 			model.addAttribute("retUrl", "/user_login.do");
@@ -273,8 +265,6 @@ public class PictController {
 		pictVO.setOnlyAvailable(true);
 		if(StringUtils.hasText((String) session.getAttribute("id"))) pictVO.setUser_id((String) session.getAttribute("id"));
 		
-		System.out.println("isA@@@" + pictVO.isOnlyAvailable());
-		System.out.println("type @@@" + pictVO.getType());
 		if (pictVO.getType() != null) {
 		    String type = pictVO.getType();
 		    String newType = "";
@@ -285,24 +275,18 @@ public class PictController {
 		    } else if ("ar".equals(type)) {
 		        newType = "AR글래스";
 		        pictVO.setType(newType);
-		        System.out.println("isA@@@" + pictVO.getType());
 		    } else if ("motion".equals(type)) {
 		        newType = "모션캡처";
 		        pictVO.setType(newType);
-		        System.out.println("isA@@@" + pictVO.getType());
 		    } else if ("camera".equals(type)) {
 		        newType = "360카메라";
-		        System.out.println("여기도 안타나??");
 		        pictVO.setType(newType);
-		        System.out.println("isA@@@" + pictVO.getType());
 		    } else if ("scanner".equals(type)) {
 		        newType = "3D스캐너";
 		        pictVO.setType(newType);
-		        System.out.println("isA@@@" + pictVO.getType());
 		    } else if ("else".equals(pictVO.getType())) {
 		        newType = "기타";
 		        pictVO.setType(newType);
-		        System.out.println("isA@@@" + pictVO.getType());
 		    }
 		}
 		List<PictVO> equipment_list = pictService.equipment_list(pictVO);
@@ -338,7 +322,6 @@ public class PictController {
 	    model.addAttribute("user_info", userInfo);  // 모델에 사용자 정보 추가
 	    
 		List<Map<String, Object>> equipmentList = new ArrayList<>();
-		System.out.println("ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ" + equipmentList);
 		for (int i = 0;; i++) {
 			String id = allParams.get("equipment[" + i + "][id]");
 			String count = allParams.get("equipment[" + i + "][count]");
@@ -446,21 +429,6 @@ public class PictController {
 	public HashMap<String, Object> submit_education(@ModelAttribute("searchVO") PictVO pictVO,
 			HttpServletRequest request, @RequestParam(required = false) MultipartFile file) throws Exception {
 		String sessions = (String) request.getSession().getAttribute("id");
-
-		System.out.println("ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ" + sessions);
-		System.out.println("team @@@@@" + pictVO.getTeam());
-		System.out.println("address1 @@@@@" + pictVO.getAddress1());
-		System.out.println("address2 @@@@@" + pictVO.getAddress2());
-		System.out.println("team @@@@@" + pictVO.getTeam());
-		System.out.println("tel @@@@@" + pictVO.getTel());
-		System.out.println("postion @@@@@" + pictVO.getPosition());
-		System.out.println("mobile @@@@@" + pictVO.getMobile());
-		System.out.println("email @@@@@" + pictVO.getEmail());
-		System.out.println("type @@@@@" + pictVO.getType());
-		System.out.println("totalCnt @@@@@" + pictVO.getTotalCnt());
-		System.out.println("visit_date @@@@@" + pictVO.getVisit_date());
-		System.out.println("school @@@@@" + pictVO.getSchool());
-		System.out.println("grade @@@@@" + pictVO.getGrade());
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		pictVO.setUser_id(sessions);
@@ -1238,7 +1206,6 @@ public class PictController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		try {
 			List<Integer> idxList = (List<Integer>) param.get("idx_list");
-			System.out.println("item idxs: " + idxList);
 
 			// 리스트가 비어있지 않은 경우에만 처리
 			if (idxList != null && !idxList.isEmpty()) {
@@ -1253,7 +1220,6 @@ public class PictController {
 				map.put("msg", "fail");
 			}
 		} catch (ClassCastException e) {
-			System.out.println("error: " + e);
 			map.put("msg", "fail");
 		}
 
@@ -1308,7 +1274,6 @@ public class PictController {
 			return "redirect:/pict_login.do";
 		}
 		pictVO.setUser_id(session);
-		System.out.println(pictVO.getUser_id());
 		if (pictVO.getIdx() != 0) {
 			// 수정
 			pictVO = pictService.board_list_one(pictVO);
@@ -1473,7 +1438,6 @@ public class PictController {
 			return "redirect:/pict_login.do";
 		}
 		pictVO.setUser_id(session);
-		System.out.println(pictVO.getUser_id());
 		if (pictVO.getIdx() != 0) {
 			// 수정
 			pictVO = pictService.biz_list_one(pictVO);
@@ -1564,7 +1528,6 @@ public class PictController {
 			return "redirect:/pict_login.do";
 		}
 		String idx = pictVO.getIdx() + "";
-		System.out.println(pictVO.getIdx());
 		pictService.biz_file_delete(pictVO);
 
 		model.addAttribute("message", "정상적으로 삭제되었습니다.");
@@ -1623,7 +1586,6 @@ public class PictController {
 			return "redirect:/pict_login.do";
 		}
 		pictVO.setUser_id(session);
-		System.out.println(pictVO.getUser_id());
 		if (pictVO.getIdx() != 0) {
 			// 수정
 			pictVO = pictService.equipment_list_one(pictVO);
@@ -1664,7 +1626,6 @@ public class PictController {
 		}
 
 		pictVO.setDepart(depart);
-		System.out.println("::::::::::::::::::::::::::::::::::::::::::" + pictVO.getImg_url());
 		if (pictVO.getSaveType() != null && pictVO.getSaveType().equals("update")) {
 			pictService.equipment_update(pictVO);
 			model.addAttribute("message", "정상적으로 수정되었습니다.");
@@ -1689,7 +1650,6 @@ public class PictController {
 			return "redirect:/pict_login.do";
 		}
 		pictVO.setUser_id(session);
-		System.out.println(pictVO.getUser_id());
 		if (pictVO.getIdx() == 0 && pictVO.getId() == null) {
 			return "redirect:/equipment/equipment_list.do";
 		}
@@ -1700,7 +1660,6 @@ public class PictController {
 			PictVO equipmentVO = new PictVO();
 			equipmentVO.setId(pictVO.getEquipment_type_id());
 			PictVO equipment = pictService.equipment_list_one(equipmentVO);
-			System.out.println("equipment" + equipment);
 			model.addAttribute("equipment", equipment);
 			model.addAttribute("pictVO", pictVO);
 			pictVO.setSaveType("update");
@@ -1712,7 +1671,6 @@ public class PictController {
 		}
 
 		if (pictVO.getId() != null && pictVO.getIdx() == 0) {
-			System.out.println("@@@@@@@@여기를 타나요@@@@@@@@@@@@@" + pictVO.getId());
 			PictVO equipment = pictService.equipment_list_one(pictVO);
 			model.addAttribute("equipment", equipment);
 		}
@@ -1740,7 +1698,6 @@ public class PictController {
 				pictVO.setText("");
 			}
 
-			System.out.println("::::::::::::::::::::::::::::::::::::::::::" + pictVO.getStatus());
 			pictService.equipment_cnt_update(pictVO);
 			model.addAttribute("message", "정상적으로 수정되었습니다.");
 			model.addAttribute("retType", ":location");
@@ -1761,13 +1718,12 @@ public class PictController {
 	@ResponseBody
 	public HashMap<String, Object> changeItemStatus(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
 			HttpServletRequest request, @RequestBody Map<String, Object> param) throws Exception {
-		System.out.println("param @@@@" + param);
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		if (param.get("idx") != null) {
 			Integer idx = (Integer) param.get("idx");
 
 			pictVO.setIdx(idx);
-			System.out.println("idx @@@@" + pictVO.getIdx());
 			String status = param.get("status").toString();
 			pictVO.setStatus(status);
 			System.out.println("status @@@@" + pictVO.getStatus());
@@ -1785,11 +1741,9 @@ public class PictController {
 	@ResponseBody
 	public HashMap<String, Object> deleteItems(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
 			HttpServletRequest request, @RequestBody Map<String, Object> param) throws Exception {
-		System.out.println("param @@@@" + param);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		try {
 			List<Integer> idxList = (List<Integer>) param.get("idx_list");
-			System.out.println("item idxs: " + idxList);
 
 			// 리스트가 비어있지 않은 경우에만 처리
 			if (idxList != null && !idxList.isEmpty()) {
@@ -1815,21 +1769,10 @@ public class PictController {
 	@ResponseBody
 	public HashMap<String, Object> deleteEquipment(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
 			HttpServletRequest request, @RequestBody Map<String, Object> param) throws Exception {
-		System.out.println("param @@@@" + param);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		try {
-//			if (param.get("idx") != null) {
-//				Integer idx = Integer.parseInt(param.get("idx").toString());
-//				System.out.println("idx @@@@" + pictVO.getIdx());
-//				pictService.equipment_delete(idx);
-//				map.put("msg", "ok");
-//
-//			} else {
-//				map.put("msg", "fail");
-//			}
 
 			List<Integer> idxList = (List<Integer>) param.get("idx_list");
-			System.out.println("item idxs: " + idxList);
 
 			// 리스트가 비어있지 않은 경우에만 처리
 			if (idxList != null && !idxList.isEmpty()) {
@@ -1988,11 +1931,9 @@ public class PictController {
 			return "redirect:/pict_login.do";
 		}
 		pictVO.setUser_id(session);
-		System.out.println(pictVO.getUser_id());
 		if (pictVO.getIdx() != 0) {
 			// 수정
 			pictVO = pictService.facility_list_one(pictVO);
-			System.out.println("pictVO ::::::::::" + pictVO);
 			pictVO.setSaveType("update");
 
 		} else {
@@ -2027,7 +1968,6 @@ public class PictController {
 			pictVO.setImage_url(filepath + filename);
 		}
 
-		System.out.println("::::::::::::::::::::::::::::::::::::::::::" + pictVO.getImg_url());
 		if (pictVO.getSaveType() != null && pictVO.getSaveType().equals("update")) {
 			pictService.facility_update(pictVO);
 			model.addAttribute("message", "정상적으로 수정되었습니다.");
@@ -2048,16 +1988,13 @@ public class PictController {
 	@ResponseBody
 	public HashMap<String, Object> toggleFacilityStatus(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
 			HttpServletRequest request, @RequestBody Map<String, Object> param) throws Exception {
-		System.out.println("param @@@@" + param);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		if (param.get("id") != null && param.get("id") != "") {
 			String id = param.get("id").toString();
 
 			pictVO.setId(id);
-			System.out.println("id @@@@" + pictVO.getId());
 			String status = param.get("status").toString();
 			pictVO.setStatus(status);
-			System.out.println("status @@@@" + pictVO.getStatus());
 			pictService.facility_cnt_update(pictVO);
 			map.put("msg", "ok");
 
@@ -2072,11 +2009,9 @@ public class PictController {
 	@ResponseBody
 	public HashMap<String, Object> deleteFacilities(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
 			HttpServletRequest request, @RequestBody Map<String, Object> param) throws Exception {
-		System.out.println("param @@@@" + param);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		try {
 			List<Integer> idxList = (List<Integer>) param.get("idx_list");
-			System.out.println("item idxs: " + idxList);
 
 			// 리스트가 비어있지 않은 경우에만 처리
 			if (idxList != null && !idxList.isEmpty()) {
@@ -2151,9 +2086,6 @@ public class PictController {
 		}
 		Integer idx = pictVO.getIdx();
 		Map<String, Object> history_detail = pictService.get_facility_request_detail(idx);
-		System.out.println("history_detail file_path @@@@" + history_detail.get("file_path"));
-		System.out.println("history_detail file_path2 @@@@" + history_detail.get("file_path2"));
-		System.out.println("history_detail file_path3 @@@@" + history_detail.get("file_path3"));
 		// for PDF
 		if("approved".equals(history_detail.get("request_status"))) {
 			Map<String, Integer> approveNum = pictService.facilityApproveNum(idx.intValue());
@@ -2187,7 +2119,6 @@ public class PictController {
 		pictVO.setLimit_cnt(limitNumber);
 		// 전체 데이터 수 조회
 		Integer totalCnt = pictService.usrCtn(pictVO);
-		System.out.println("토탈cnt @@@@@@@@@@@@"+ totalCnt + pictVO.getSearch_text());
 		// 현재 페이지 번호 설정
 		Integer pageNum = pictVO.getPageNumber();
 		if (pageNum == 0) {
@@ -2232,7 +2163,6 @@ public class PictController {
 		if (sessions == null || sessions == "null" || !UserRole.adminValidation(request)) {
 			return "redirect:/pict_login.do";
 		}
-		System.out.println("get Idx @@@@@@" + pictVO.getIdx());
 		model.addAttribute("pictVO", pictVO);
 		model.addAttribute("search_text", pictVO.getSearch_text());
 		return "pict/manage/manage_rental";
@@ -2292,7 +2222,6 @@ public class PictController {
 	@ResponseBody
 	public HashMap<String, Object> update_request(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
 			HttpServletRequest request, @RequestBody Map<String, Object> param) throws Exception {
-		System.out.println("param @@@@" + param);
 		String sessions = (String) request.getSession().getAttribute("id");
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -2381,20 +2310,23 @@ public class PictController {
 			pictVO.setReject_msg("");
 		}
 
-		System.out.println("::::::::::::::::::::::::::::::::::::::::::" + pictVO.getRequest_status());
-		System.out.println("::::::::::::::::::::::::::::::::::::::::::" + pictVO.getIdx());
-		System.out.println("::::::::::::::::::::::::::::::::::::::::::" + pictVO.getReject_msg());
 		pictService.update_request_status(pictVO);
 		Map<String, Object> user = pictService.get_user_by_request(pictVO);
-		System.out.println("user::::::::::::::::::::::::::::::::::::::::::" + user);
 		if (user.get("mobile") != null && user.get("mobile") != "") {
 			String msg = "강원 메타버스 지원센터에서 알려드립니다. 신청하신 장비 대여 서비스가 ";
+			System.out.println(pictVO.getRequest_status());
 			if (pictVO.getRequest_status().equals("rejected")) {
+				
 				msg += "반려처리 되었습니다. 마이페이지에서 반려사유를 확인 후 서류를 보완해주세요.";
+				send_sms(msg ,(String) user.get("mobile"));
 			} else if (pictVO.getRequest_status().equals("approved")) {
+				
 				msg += "승인처리 되었습니다. 대여날짜에 맞춰 방문해주세요.";
+				send_sms(msg ,(String) user.get("mobile"));
 			} else if (pictVO.getRequest_status().equals("refusal")) {
+				
 				msg += "거절처리 되었습니다. 마이페이지에서 거절사유를 확인해주세요.";
+				send_sms(msg ,(String) user.get("mobile"));
 			}
 			
 			send_sms(msg ,(String) user.get("mobile"));
@@ -2433,12 +2365,8 @@ public class PictController {
 			pictVO.setReject_msg("");
 		}
 
-		System.out.println("::::::::::::::::::::::::::::::::::::::::::" + pictVO.getRequest_status());
-		System.out.println("::::::::::::::::::::::::::::::::::::::::::" + pictVO.getIdx());
-		System.out.println("::::::::::::::::::::::::::::::::::::::::::" + pictVO.getReject_msg());
 		pictService.update_facility_request_status(pictVO);
 		Map<String, Object> user = pictService.get_user_by_faility_request(pictVO);
-		System.out.println("user::::::::::::::::::::::::::::::::::::::::::" + user);
 		if (user.get("mobile") != null && user.get("mobile") != "") {
 			String msg = "강원 메타버스 지원센터에서 알려드립니다. 신청하신 시설 대여 서비스가 ";
 			if (pictVO.getRequest_status().equals("rejected")) {
@@ -2472,7 +2400,6 @@ public class PictController {
 		pictVO.setLimit_cnt(limitNumber);
 		// 전체 데이터 수 조회
 		Integer totalCnt = pictService.facility_list_total_cnt(pictVO);
-		System.out.println("토탈cnt @@@@@@@@@@@@"+ totalCnt + pictVO.getSearch_text());
 		// 현재 페이지 번호 설정
 		Integer pageNum = pictVO.getPageNumber();
 		if (pageNum == 0) {
@@ -2543,10 +2470,6 @@ public class PictController {
 		if (pictVO.getReject_msg() == null) {
 			pictVO.setReject_msg("");
 		}
-
-		System.out.println("::::::::::::::::::::::::::::::::::::::::::" + pictVO.getRequest_status());
-
-		System.out.println("::::::::::::::::::::::::::::::::::::::::::" + pictVO.getId());
 
 		pictService.update_education(pictVO);
 		model.addAttribute("message", "정상적으로 처리되었습니다.");
@@ -2619,7 +2542,6 @@ public class PictController {
 			return "redirect:/pict_login.do";
 		}
 		pictVO.setUser_id(session);
-		System.out.println(pictVO.getUser_id());
 		if (pictVO.getIdx() != 0) {
 			// 수정
 			pictVO = pictService.popup_list_one(pictVO);
@@ -2654,7 +2576,6 @@ public class PictController {
 			pictVO.setImage_url(filepath + filename);
 		}
 
-		System.out.println("::::::::::::::::::::::::::::::::::::::::::" + pictVO.getImg_url());
 		if (pictVO.getSaveType() != null && pictVO.getSaveType().equals("update")) {
 			pictService.popup_update(pictVO);
 			model.addAttribute("message", "정상적으로 수정되었습니다.");
@@ -2679,7 +2600,6 @@ public class PictController {
 			return "redirect:/pict_login.do";
 		}
 		pictVO.setUser_id(session);
-		System.out.println(pictVO.getUser_id());
 		Map<String, Object> setting = pictService.get_url_settings(pictVO);
 		if (setting.get("content_url") != null) {
 			pictVO.setContent_url((String)setting.get("content_url"));
@@ -2725,7 +2645,6 @@ public class PictController {
 			pictVO.setVideo_thumb(filepath + filename);
 		}
 
-		System.out.println("::::::::::::::::::::::::::::::::::::::::::" + pictVO.getVideo_thumb());
 		if (pictVO.getSaveType() != null && pictVO.getSaveType().equals("update")) {
 			pictService.update_url_settings(pictVO);
 			model.addAttribute("message", "정상적으로 수정되었습니다.");
@@ -2768,9 +2687,7 @@ public class PictController {
 
 //    		request.getAttribute("text").toString();
     		sms.put("msg", msg);
-    		System.out.println("전달 받은 msg :::: @@@@"+ msg);
     		sms.put("receiver", receiver); // 수신번호
-    		System.out.println("전달 받은 receiver :::: @@@@"+ receiver);
     		//sms.put("sender", "16444845"); // 발신번호
     		sms.put("sender", "0332456315"); // 발신번호
     		String image = "";
@@ -2815,7 +2732,6 @@ public class PictController {
     			}
     			in.close();
     		}
-    		System.out.println(result);
     		
     	}catch(Exception e){
     		System.out.println(e.getMessage());
@@ -2896,28 +2812,6 @@ public class PictController {
 		}
 
 		return path + "#####" + fileName;
-		/*
-		 * try { fileName = uploadFile.getOriginalFilename(); byte[] bytes =
-		 * uploadFile.getBytes();
-		 * 
-		 * // 사용자의 홈 디렉토리 아래에 업로드 폴더 생성 String homeDir =
-		 * System.getProperty("user.home"); uploadPath = Paths.get(homeDir, "Documents",
-		 * "uploads");
-		 * 
-		 * // 디렉토리가 존재하지 않으면 생성 if (!Files.exists(uploadPath)) {
-		 * Files.createDirectories(uploadPath); }
-		 * 
-		 * // UUID를 파일명에 추가하여 중복 방지 String uniqueFileName = uuid.toString() + "_" +
-		 * fileName; Path filePath = uploadPath.resolve(uniqueFileName);
-		 * 
-		 * // 파일 쓰기 Files.write(filePath, bytes);
-		 * 
-		 * System.out.println("File uploaded successfully: " + filePath);
-		 * 
-		 * return filePath.toString() + "#####" + fileName; } catch (IOException e) {
-		 * e.printStackTrace(); return "Error: " + e.getMessage(); }
-		 */
-
 	}
 
 	private String getSaveLocation(MultipartHttpServletRequest request, MultipartFile uploadFile) {
@@ -3012,7 +2906,7 @@ public class PictController {
 	        e_page = 10;
 	    }
 	    
-	    // 끝 페이지가 마지막 페이지보다 큰 경우 조정
+	    // 끝 페이지가 마지막 페이지보다 큰 경우 조정R
 	    if (e_page > lastPageValue) {
 	        e_page = lastPageValue;
 	    }

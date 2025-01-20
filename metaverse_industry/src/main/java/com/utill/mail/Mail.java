@@ -32,12 +32,13 @@ public class Mail {
 		try {
 			MimeMessage message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(user));
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress("VRAR@gica.or.kr"));
 			message.setSubject(subejct);
 			message.setText(body.toString(), "UTF-8", "html");
 			Transport.send(message);
 			System.out.println("Success Message Send");
 		} catch (MessagingException e) {
+			System.out.println("메일 전송 실패 : " + e);
 			e.printStackTrace();
 		}
   	}

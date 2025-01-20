@@ -61,7 +61,7 @@ public class UserController {
 	private PictService pictService;
 	private CalendarServiceImpl calendarService;
 
-	String bookingEmail = "prod".equals(System.getProperty("spring.profiles.active")) ? "VRAR@gica.or.kr" : "sense@pict.kr";
+	String bookingEmail = "VRAR@gica.or.kr";
 	
 	public UserController(UserService userService, PictService pictService, CalendarServiceImpl calendarService) {
 		super();
@@ -98,9 +98,7 @@ public class UserController {
 	@ResponseBody
 	public HashMap<String, Object> isUseableUserId(@ModelAttribute("searchVO") UserVO userVO, ModelMap model,
 			HttpServletRequest request, @RequestBody Map<String, Object> param) throws Exception {
-		System.out.println("들어는 오는가??????????? 새로만든데~~~");
 		String userId = param.get("userId").toString();
-		System.out.println(userId + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		userVO.setUser_id(userId);
@@ -123,20 +121,15 @@ public class UserController {
 	@ResponseBody
 	public HashMap<String, Object> find_id(@ModelAttribute("searchVO") UserVO userVO, ModelMap model,
 			HttpServletRequest request, @RequestBody Map<String, Object> param) throws Exception {
-		System.out.println("param @@@@" + param);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		System.out.println("여기???3333" + param.get("user_name"));
 		if (param.get("user_name") != null && param.get("mobile") != null) {
-			System.out.println("여기???222");
 			String user_name =  param.get("user_name").toString();
 			String mobile =  param.get("mobile").toString();
-			System.out.println("user_name @@@@" + user_name);
 			userVO.setName(user_name);
 			userVO.setMobile(mobile);
 			
 			Map<String, Object> user = userService.find_id_pwd(userVO);
-			System.out.println("user @@@@" + user);
 			if (user.isEmpty()) {
 				map.put("msg", "fail");
 			} else {
@@ -145,7 +138,6 @@ public class UserController {
 				map.put("user_id", user_id);
 			}
 		} else {
-			System.out.println("여기???1111");
 			map.put("msg", "fail");
 		}
 		return map;
@@ -157,29 +149,23 @@ public class UserController {
 	@ResponseBody
 	public HashMap<String, Object> find_pwd(@ModelAttribute("searchVO") UserVO userVO, ModelMap model,
 			HttpServletRequest request, @RequestBody Map<String, Object> param) throws Exception {
-		System.out.println("param @@@@" + param);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		System.out.println("여기???3333" + param.get("user_name"));
 		if (param.get("user_name") != null && param.get("mobile") != null && param.get("user_id") != null) {
-			System.out.println("여기???222");
 			String user_name =  param.get("user_name").toString();
 			String user_id =  param.get("user_id").toString();
 			String mobile =  param.get("mobile").toString();
-			System.out.println("user_name @@@@" + user_name);
 			userVO.setName(user_name);
 			userVO.setMobile(mobile);
 			userVO.setUser_id(user_id);
 			
 			Map<String, Object> user = userService.find_id_pwd(userVO);
-			System.out.println("user @@@@" + user);
 			if (user.isEmpty()) {
 				map.put("msg", "fail");
 			} else {
 				map.put("msg", "ok");
 			}
 		} else {
-			System.out.println("여기???1111");
 			map.put("msg", "fail");
 		}
 		return map;
@@ -190,15 +176,12 @@ public class UserController {
 	@ResponseBody
 	public HashMap<String, Object> set_new_password(@ModelAttribute("searchVO") UserVO userVO, ModelMap model,
 			HttpServletRequest request, @RequestBody Map<String, Object> param) throws Exception {
-		System.out.println("param @@@@" + param);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		System.out.println("여기???3333" + param.get("user_name"));
 		if (param.get("password") != null && param.get("user_id") != null) {
 			String user_id =  param.get("user_id").toString();
 			String password =  param.get("password").toString();
 			String enpassword = encryptPassword(password, user_id); // 입력비밀번호
-			System.out.println("여기???222");
 			userVO.setUser_id(user_id);
 			userVO.setPassword(enpassword);
 			try {
@@ -208,7 +191,6 @@ public class UserController {
 				map.put("msg", "fail");
 			}
 		} else {
-			System.out.println("여기???1111");
 			map.put("msg", "fail");
 		}
 		return map;
@@ -305,18 +287,13 @@ public class UserController {
 	@ResponseBody
 	public HashMap<String, Object> getEquipmentItems(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
 			HttpServletRequest request, @RequestBody Map<String, Object> param) throws Exception {
-		System.out.println("param @@@@" + param);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		if (param.get("id") != null) {
-			String equipmentId = param.get("id").toString();
-			System.out.println(equipmentId + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-			
+			String equipmentId = param.get("id").toString();			
 			pictVO.setEquipment_id(equipmentId);
 			pictVO.setAll(true);
-			System.out.println("id @@@@" + pictVO.getId());
 			// equipment_item_list 쿼리 수정으로 확인 필요
 			List<Map<String, Object>> item_list = pictService.equipmentItemListByEquipmentId(pictVO);
-			System.out.println("available_date_list@@@@@@@@@@@ " + item_list);
 			map.put("msg", "ok");
 			map.put("data", item_list);
 		} else {
@@ -363,7 +340,6 @@ public class UserController {
 	@ResponseBody
 	public HashMap<String, Object> update_request(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
 			HttpServletRequest request, @RequestBody Map<String, Object> param) throws Exception {
-		System.out.println("param @@@@" + param);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		String sessions = (String)request.getSession().getAttribute("id");
 		if(sessions == null || sessions == "null") {
@@ -373,7 +349,6 @@ public class UserController {
 		pictVO.setUser_id(sessions);
 		if (param.get("id") != null) {
 			String request_id = param.get("id").toString();
-			System.out.println("request_id @@@@@@@@@@@@@@@@@@ " + request_id);
 
 			pictVO.setId(request_id);
 		} else {
@@ -383,7 +358,6 @@ public class UserController {
 		
 		if (param.get("request_status") != null) {
 			String request_status = param.get("request_status").toString();
-			System.out.println("request_status @@@@@@@@@@@@@@@@@@ " + request_status);
 			pictVO.setRequest_status(request_status);
 		} else {
 			map.put("rst", false);
@@ -400,7 +374,6 @@ public class UserController {
 	@ResponseBody
 	public HashMap<String, Object> update_facility_request(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
 			HttpServletRequest request, @RequestBody Map<String, Object> param) throws Exception {
-		System.out.println("param @@@@" + param);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		String sessions = (String)request.getSession().getAttribute("id");
 		if(sessions == null || sessions == "null") {
@@ -410,7 +383,6 @@ public class UserController {
 		pictVO.setUser_id(sessions);
 		if (param.get("id") != null) {
 			String request_id = param.get("id").toString();
-			System.out.println("request_id @@@@@@@@@@@@@@@@@@ " + request_id);
 
 			pictVO.setId(request_id);
 		} else {
@@ -420,7 +392,6 @@ public class UserController {
 		
 		if (param.get("request_status") != null) {
 			String request_status = param.get("request_status").toString();
-			System.out.println("request_status @@@@@@@@@@@@@@@@@@ " + request_status);
 			pictVO.setRequest_status(request_status);
 		} else {
 			map.put("rst", false);
@@ -516,12 +487,12 @@ public class UserController {
 				break;
 			}
 		}
-		
+		Mail.send("장비 예약 안내 메일", new BookingMailHtml().structure(body, mailData), bookingEmail);
 		Optional.ofNullable(attach_file1).ifPresent(file -> pictVO.setFile_url1(new FileManagement().upload(file, sessions)));
 		Optional.ofNullable(attach_file2).ifPresent(file -> pictVO.setFile_url2(new FileManagement().upload(file, sessions)));
 		Optional.ofNullable(attach_file3).ifPresent(file -> pictVO.setFile_url3(new FileManagement().upload(file, sessions)));
 		
-		Mail.send("장비 예약 안내 메일", new BookingMailHtml().structure(body, mailData), bookingEmail);
+		
 		
 		map.put("msg", "ok");
 		return map;
@@ -627,7 +598,6 @@ public class UserController {
 	@ResponseBody
 	public HashMap<String, Object> add_bag(@ModelAttribute("searchVO") PictVO pictVO, ModelMap model,
 			HttpServletRequest request, @RequestBody Map<String, Object> param) throws Exception {
-		System.out.println("param @@@@" + param);
 		String sessions = (String) request.getSession().getAttribute("id");
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -646,10 +616,7 @@ public class UserController {
 		}
 		if (param.get("key_id") != null) {
 			String key_id = param.get("key_id").toString();
-			System.out.println(key_id + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-
 			pictVO.setKey_id(key_id);
-			System.out.println("key_id @@@@" + pictVO.getKey_id());
 			try {
 				Integer isBag = pictService.isBag(pictVO);
 				if (isBag == 0) {					
