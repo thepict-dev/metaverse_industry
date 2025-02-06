@@ -66,7 +66,7 @@
     
         <div class="section1" id="section1">
             <div class="eduSection">
-                <span><img src="/img/user_img/edu-poster.webp" alt=""></span>
+                <span><img src="/img/user_img/edu-poster.jpeg" alt=""></span>
                 <div class="eduPosTexts">
                     <div class="eduPosTitle">
                         <p>메타버스 현장 체험교육</p>
