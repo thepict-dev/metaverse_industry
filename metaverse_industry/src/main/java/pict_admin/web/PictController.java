@@ -359,6 +359,9 @@ public class PictController {
 		if(UserRole.adminValidationOptional(request)) model.addAttribute("role", UserRole.ADMIN);
 		
 		pictVO.setOnlyAvailable(true);
+		
+		pictVO.setUser_id((String) request.getSession().getAttribute("id"));
+		
 		List<?> facility_list = pictService.facility_list(pictVO);
 		model.addAttribute("resultList", facility_list);
 		model.addAttribute("size", facility_list.size());

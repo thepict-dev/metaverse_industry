@@ -975,6 +975,7 @@
 	<select id="facility_list" resultType="pictVO">
 	    SELECT * FROM (
 	        SELECT 
+	        	DISTINCT
 	            et.idx,
 	            et.id,
 	            et.type,
@@ -986,10 +987,7 @@
 	            et.use_ny,
 	            COALESCE(avail_count.cnt, 0) AS avaliable_facility_cnt,
 	            COALESCE(fit.status, 'available') as status,
-	            CASE 
-	                WHEN (bt.key_id IS NOT NULL AND bt.user_id = #{user_id}) THEN '1'
-	                ELSE '0'
-	            END AS isLike
+	            IF(bt.key_id IS NOT NULL AND #{user_id} is not null, 1, 0) AS isLike
 	        FROM 
 	            facility_type_table et
 	        LEFT JOIN (
