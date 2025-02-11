@@ -51,8 +51,8 @@
 	  UPDATE popup_table
 	  SET 
 	    title = #{title}
-	    <if test="file_url1 != null and file_url1 != ''">
-	      , file_url1 = #{file_url1}
+	    <if test="image_url != null and image_url != ''">
+	      , image_url = #{image_url}
 	    </if>
 	    <if test="link_url != null and link_url != ''">
 	      , link_url = #{link_url}

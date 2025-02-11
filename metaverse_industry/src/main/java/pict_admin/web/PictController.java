@@ -359,9 +359,6 @@ public class PictController {
 		if(UserRole.adminValidationOptional(request)) model.addAttribute("role", UserRole.ADMIN);
 		
 		pictVO.setOnlyAvailable(true);
-		
-		pictVO.setUser_id((String) request.getSession().getAttribute("id"));
-		
 		List<?> facility_list = pictService.facility_list(pictVO);
 		model.addAttribute("resultList", facility_list);
 		model.addAttribute("size", facility_list.size());
@@ -2572,9 +2569,9 @@ public class PictController {
 			UUID uuid = UUID.randomUUID();
 			String uploadPath = fileUpload_board(request, attach_file, (String) request.getSession().getAttribute("id"),
 					uuid);
-			String filepath = "/user1/upload_file/metaverse_industry/";
+			String filepath = "/user1/upload_file/metaverse_industry/" + uuid + "/";
 			// String filepath = "D:\\user1\\upload_file\\billconcert\\";
-			String filename = uuid + uploadPath.split("#####")[1];
+			String filename = uploadPath.split("#####")[1];
 
 			pictVO.setImage_url(filepath + filename);
 		}
@@ -2801,10 +2798,13 @@ public class PictController {
 
 			path = getSaveLocation(request, uploadFile);
 
-			File file = new File(path);
+			File file = new File(path + uuid);
 			if (fileName != null && !fileName.equals("")) {
 				if (file.exists()) {
 					file = new File(path + uuid + fileName);
+				} else {
+					boolean directoryCreated = file.mkdir();
+					file = new File(path + uuid + "/" + fileName);
 				}
 			}
 			out = new FileOutputStream(file);
@@ -2820,6 +2820,7 @@ public class PictController {
 	private String getSaveLocation(MultipartHttpServletRequest request, MultipartFile uploadFile) {
 		// 서버
 		String uploadPath = "/user1/upload_file/metaverse_industry/";
+//		String uploadPath = "C:\\Users\\82105\\Desktop\\";
 
 		// 로컬
 		//String uploadPath = "~/Desktop/upload_file/";
