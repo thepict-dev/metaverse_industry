@@ -40,21 +40,24 @@
                       (noticeResult.file_url3 ne null and noticeResult.file_url3 ne '')}">
             <div class="addFile">
                 <c:if test="${noticeResult.file_url1 ne null and noticeResult.file_url1 ne ''}">
-                    <c:set var="fileName1" value="${fn:substringAfter(noticeResult.file_url1, 'metaverse_industry/')}" />
+                    <c:set var="fullFileName1" value="${fn:substringAfter(noticeResult.file_url1, 'metaverse_industry/')}" />
+                    <c:set var="fileName1" value="${fn:substring(fullFileName1, 37, fn:length(fullFileName1))}" />
                     <a href="${noticeResult.file_url1}" download>
                         <img src="/img/user_img/file.webp" alt="">
                         ${fileName1}
                     </a>
                 </c:if>
                 <c:if test="${noticeResult.file_url2 ne null and noticeResult.file_url2 ne ''}">
-                    <c:set var="fileName2" value="${fn:substringAfter(noticeResult.file_url2, 'metaverse_industry/')}" />
+                    <c:set var="fullFileName2" value="${fn:substringAfter(noticeResult.file_url2, 'metaverse_industry/')}" />
+                    <c:set var="fileName2" value="${fn:substring(fullFileName2, 37, fn:length(fullFileName2))}" />
                     <a href="${noticeResult.file_url2}" download>
                         <img src="/img/user_img/file.webp" alt="">
                         ${fileName2}
                     </a>
                 </c:if>
                 <c:if test="${noticeResult.file_url3 ne null and noticeResult.file_url3 ne ''}">
-                    <c:set var="fileName3" value="${fn:substringAfter(noticeResult.file_url3, 'metaverse_industry/')}" />
+                    <c:set var="fullFileName3" value="${fn:substringAfter(noticeResult.file_url3, 'metaverse_industry/')}" />
+                    <c:set var="fileName3" value="${fn:substring(fullFileName3, 37, fn:length(fullFileName3))}" />
                     <a href="${noticeResult.file_url3}" download>
                         <img src="/img/user_img/file.webp" alt="">
                         ${fileName3}
