@@ -1134,8 +1134,13 @@ letter-spacing: -0.9px;
 }
 
 @media all and (max-width : 768px){
-	.mainPopupInner .swiper-horizontal>.swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal, .swiper-pagination-custom, .swiper-pagination-fraction {
-      transform: unset;
+	.mainPopupInner .swiper-horizontal>.swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal, .swiper-pagination-custom, .swiper-pagination-fraction{
+	
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-top: 10px;
+		transform: translateX(0);
 	}
 	.mainPopupButtons button{
 		display: flex;
@@ -1157,6 +1162,6 @@ letter-spacing: -0.9px;
  height: fit-content;
  }
  .mainPopupInner .swiper-wrapper .swiper-slide {
-   	height: auto;
+   	height: 350px;
  }
 }

@@ -294,7 +294,7 @@
         function initSwiper() {
         	const popupSwiper = new Swiper('.swiper.popup', {
   	    	  autoplay: {
-  	    	    delay: 3000,
+  	    	    delay: 2000,
   	    	    disableOnInteraction: false
   	    	  },
   	    	  loop: true,	// 무한 루 적용

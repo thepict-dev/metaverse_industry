@@ -54,7 +54,7 @@
 													<option <c:if test="${pictVO.request_status eq 'refusal'}">selected</c:if> value="refusal">거절</option>
 													<option <c:if test="${pictVO.request_status eq 'cancelled'}">selected</c:if> value="cancelled">취소</option>
 													<option <c:if test="${pictVO.request_status eq 'rental'}">selected</c:if> value="rental">대여중</option>
-													<option <c:if test="${pictVO.request_status eq 'returened'}">selected</c:if> value="returened">반납완료</option>
+													<option <c:if test="${pictVO.request_status eq 'returned'}">selected</c:if> value="returned">반납완료</option>
 													<option <c:if test="${pictVO.request_status eq 'overdue'}">selected</c:if> value="overdue">연체중</option>
 												</select>
 												
