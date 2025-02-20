@@ -57,7 +57,6 @@
 													<option <c:if test="${pictVO.request_status eq 'returned'}">selected</c:if> value="returned">반납완료</option>
 													<option <c:if test="${pictVO.request_status eq 'overdue'}">selected</c:if> value="overdue">연체중</option>
 												</select>
-												
 											</div>
 											<div class="inputBox listSearch">
 												<input type="text" name="search_text" id="search_text"
