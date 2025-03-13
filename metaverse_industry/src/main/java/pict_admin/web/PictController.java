@@ -2364,7 +2364,19 @@ public class PictController {
 		if (pictVO.getReject_msg() == null) {
 			pictVO.setReject_msg("");
 		}
+		// 시작 날짜에서 쉼표가 있으면 제거
+		if (pictVO.getRental_start_date() != null && pictVO.getRental_start_date().startsWith(",")) {
+		    String cleanStartDate = pictVO.getRental_start_date().substring(1);
+		    pictVO.setRental_start_date(cleanStartDate);
+		    System.out.println("정제된 시작 날짜: " + pictVO.getRental_start_date());
+		}
 
+		// 종료 날짜에서 쉼표가 있으면 제거
+		if (pictVO.getRental_end_date() != null && pictVO.getRental_end_date().startsWith(",")) {
+		    String cleanEndDate = pictVO.getRental_end_date().substring(1);
+		    pictVO.setRental_end_date(cleanEndDate);
+		    System.out.println("정제된 종료 날짜: " + pictVO.getRental_end_date());
+		}
 		pictService.update_facility_request_status(pictVO);
 		Map<String, Object> user = pictService.get_user_by_faility_request(pictVO);
 		if (user.get("mobile") != null && user.get("mobile") != "") {

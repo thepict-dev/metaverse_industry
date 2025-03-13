@@ -834,7 +834,12 @@
 		    ut.birthday,
 		    ut.email,
 		    ut.address1 AS address1,
-		    ut.address2 AS address2
+		    ut.address2 AS address2,
+   		    ut.company_nm,
+	    	ut.company_address1,
+		    ut.company_address2,
+		    ut.sa_eob_no,
+		    ut.position
 		FROM 
 		    equipment_rental_request err
 		JOIN 
@@ -1366,7 +1371,12 @@
 		    ut.birthday,
 		    ut.email,
 		    ut.address1 AS address1,
-		    ut.address2 AS address2
+		    ut.address2 AS address2,
+		    ut.company_nm,
+		    ut.company_address1,
+		    ut.company_address2,
+		    ut.sa_eob_no,
+		    ut.position
 		FROM 
 		    facility_rental_request err
 		JOIN 
@@ -1390,6 +1400,9 @@
 			reject_msg = #{reject_msg}
 			<if test="rental_end_date != null and rental_end_date != ''">
 			, rental_end_date = #{rental_end_date}
+			</if>
+			<if test="rental_start_date != null and rental_start_date != ''">
+			, rental_start_date = #{rental_start_date}
 			</if>
 		WHERE idx = #{idx} 
 	</update>

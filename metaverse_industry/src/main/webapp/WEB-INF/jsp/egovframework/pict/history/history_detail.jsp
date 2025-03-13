@@ -52,6 +52,20 @@
 													history_detail.address2 ? history_detail.address2 : ''}</span>
 											</div>
 										</div>
+										<div class="inputsContainer">
+											<div class="inputBox">
+												<p class="inputCaption">회사명</p>
+												<span class="bindingText">${history_detail.company_nm}</span>
+											</div>
+											<div class="inputBox">
+												<p class="inputCaption">사업자 번호</p>
+												<span class="bindingText">${history_detail.sa_eob_no}</span>
+											</div>
+											<div class="inputBox">
+												<p class="inputCaption">회사명 주소</p>
+												<span class="bindingText lg">${history_detail.company_address1} ${not empty history_detail.company_address2 ? history_detail.company_address2 : ''}</span>
+											</div>
+										</div>
 									</div>
 								</div>
 								<div class="listWrapper">

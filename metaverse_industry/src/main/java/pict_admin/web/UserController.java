@@ -61,7 +61,7 @@ public class UserController {
 	private PictService pictService;
 	private CalendarServiceImpl calendarService;
 
-	String bookingEmail = "VRAR@gica.or.kr";
+	String bookingEmail = "vrar@gica.or.kr";
 	
 	public UserController(UserService userService, PictService pictService, CalendarServiceImpl calendarService) {
 		super();

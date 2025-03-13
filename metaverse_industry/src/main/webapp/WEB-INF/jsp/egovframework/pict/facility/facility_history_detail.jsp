@@ -50,6 +50,20 @@
 												<span class="bindingText lg">${history_detail.address1} ${not empty history_detail.address2 ? history_detail.address2 : ''}</span>
 											</div>
 										</div>
+										<div class="inputsContainer">
+											<div class="inputBox">
+												<p class="inputCaption">회사명</p>
+												<span class="bindingText">${history_detail.company_nm}</span>
+											</div>
+											<div class="inputBox">
+												<p class="inputCaption">사업자 번호</p>
+												<span class="bindingText">${history_detail.sa_eob_no}</span>
+											</div>
+											<div class="inputBox">
+												<p class="inputCaption">회사명 주소</p>
+												<span class="bindingText lg">${history_detail.company_address1} ${not empty history_detail.company_address2 ? history_detail.company_address2 : ''}</span>
+											</div>
+										</div>
 									</div>
 								</div>
 								<div class="listWrapper">
@@ -80,8 +94,8 @@
 												</div>
 												<div class="inputBox">
 													<p class="inputCaption">대여일</p>
-													<input type="date" id="reg_date" name="reg_date" class="lgThinInput"
-														disabled value="${history_detail.rental_start_date}">
+													<input type="date" id="rental_start_date" name="rental_start_date" class="lgThinInput"
+														value="${history_detail.rental_start_date}">
 												</div>
 												<div class="inputBox">
 													<p class="inputCaption">반납일</p>
@@ -169,6 +183,7 @@
 										<input type="hidden" name="idx" value="${history_detail.idx}">
 										<input type="hidden" name="request_status" class="hidden_request_status">
 										<input type="hidden" name="reject_msg" class="hidden_reject_msg">
+										<input type="hidden" name="rental_start_date" class="hidden_rental_start_date">
 										<input type="hidden" name="rental_end_date" class="hidden_rental_end_date">
 									</form>
 									<div class="listWrapper">
@@ -187,6 +202,7 @@
 								let equipment_name = '${history_detail.name}';
 								let user_name = '${history_detail.user_name}';
 								let rental_start_date = '${history_detail.rental_start_date}';
+								let rental_end_date = '${history_detail.rental_end_date}';
 								$("#request_status").change(function () {
 									$("#reject_msg").val("");
 									if ($("#request_status").val() === "rejected" || $("#request_status").val() === "refusal") {
@@ -221,7 +237,17 @@
 									
 									$(".hidden_request_status").val($("#request_status").val());
 									$(".hidden_reject_msg").val($("#reject_msg").val());
-									$(".hidden_rental_end_date").val($("#rental_end_date").val());
+									let startDate = $("#rental_start_date").val();
+									let endDate = $("#rental_end_date").val();
+									// 쉼표가 있으면 제거
+									if (endDate && endDate.startsWith(',')) {
+									    endDate = endDate.substring(1);
+									}
+									if (startDate && startDate.startsWith(',')) {
+										startDate = startDate.substring(1);
+									}
+									$(".hidden_rental_end_date").val(endDate);
+									$(".hidden_rental_start_date").val(startDate);
 									$(".hidden_form").submit();
 								})
 								

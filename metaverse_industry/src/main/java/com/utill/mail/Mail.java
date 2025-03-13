@@ -32,7 +32,7 @@ public class Mail {
 		try {
 			MimeMessage message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(user));
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress("VRAR@gica.or.kr"));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress("vrar@gica.or.kr"));
 			message.setSubject(subejct);
 			message.setText(body.toString(), "UTF-8", "html");
 			Transport.send(message);
