@@ -2312,24 +2312,19 @@ public class PictController {
 
 		pictService.update_request_status(pictVO);
 		Map<String, Object> user = pictService.get_user_by_request(pictVO);
+		System.out.println("user 핸드폰 번호" + user.get("mobile") + "이름" + user.get("name"));
 		if (user.get("mobile") != null && user.get("mobile") != "") {
 			String msg = "강원 메타버스 지원센터에서 알려드립니다. 신청하신 장비 대여 서비스가 ";
 			System.out.println(pictVO.getRequest_status());
 			if (pictVO.getRequest_status().equals("rejected")) {
-				
 				msg += "반려처리 되었습니다. 마이페이지에서 반려사유를 확인 후 서류를 보완해주세요.";
-				send_sms(msg ,(String) user.get("mobile"));
 			} else if (pictVO.getRequest_status().equals("approved")) {
-				
 				msg += "승인처리 되었습니다. 대여날짜에 맞춰 방문해주세요.";
-				send_sms(msg ,(String) user.get("mobile"));
 			} else if (pictVO.getRequest_status().equals("refusal")) {
-				
 				msg += "거절처리 되었습니다. 마이페이지에서 거절사유를 확인해주세요.";
-				send_sms(msg ,(String) user.get("mobile"));
 			}
 			
-			send_sms(msg ,(String) user.get("mobile"));
+			// send_sms(msg ,(String) user.get("mobile"));
 			
 		}
 		model.addAttribute("message", "정상적으로 수정되었습니다.");
@@ -2379,6 +2374,7 @@ public class PictController {
 		}
 		pictService.update_facility_request_status(pictVO);
 		Map<String, Object> user = pictService.get_user_by_faility_request(pictVO);
+		System.out.println("user 핸드폰 번호" + user.get("mobile") + "이름" + user.get("name"));
 		if (user.get("mobile") != null && user.get("mobile") != "") {
 			String msg = "강원 메타버스 지원센터에서 알려드립니다. 신청하신 시설 대여 서비스가 ";
 			if (pictVO.getRequest_status().equals("rejected")) {
@@ -2389,7 +2385,7 @@ public class PictController {
 				msg += "거절처리 되었습니다. 마이페이지에서 거절사유를 확인해주세요.";
 			}
 			
-			send_sms(msg ,(String) user.get("mobile"));
+			// send_sms(msg ,(String) user.get("mobile"));
 			
 		}
 		model.addAttribute("message", "정상적으로 수정되었습니다.");

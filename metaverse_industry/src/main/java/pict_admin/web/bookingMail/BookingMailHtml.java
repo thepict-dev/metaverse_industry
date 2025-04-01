@@ -38,7 +38,7 @@ public class BookingMailHtml {
 		sb.append(HtmlStructure.tableClose());
 		sb.append(HtmlStructure.divClose());
 
-		sb.append(HtmlStructure.h1("font-size: 16px;", "고객센터 : 담당자 이승준 (033-245-6313)"));
+		sb.append(HtmlStructure.h1("font-size: 16px;", "고객센터 : 담당자 이인섭 (033-245-6315)"));
 		sb.append(HtmlStructure.divClose());
 		return sb;
 	}
