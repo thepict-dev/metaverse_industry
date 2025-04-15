@@ -2809,7 +2809,7 @@ public class PictController {
 			File file = new File(path + uuid);
 			if (fileName != null && !fileName.equals("")) {
 				if (file.exists()) {
-					file = new File(path + uuid + fileName);
+					file = new File(path + uuid + "/" + fileName);
 				} else {
 					boolean directoryCreated = file.mkdir();
 					file = new File(path + uuid + "/" + fileName);
