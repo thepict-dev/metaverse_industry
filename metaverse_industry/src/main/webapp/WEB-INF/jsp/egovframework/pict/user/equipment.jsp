@@ -79,7 +79,7 @@
 												<div class="rentalDesc">
 													<p><span>•</span>기본 하루 대여</p>
 													<p><span>•</span>승인완료 후 이용 가능</p>
-													<p><span>•</span>이용시간은 09:00~18:00</p>
+													<p><span>•</span>이용시간은 10:00~17:00</p>
 													<p><span>•</span>점심시간 12:00~13:00 이용불가</p>
 												</div>
 												<div class="fullButtonContainer rental">
@@ -143,6 +143,7 @@
 																	<div class="itemTitles">
 																		<span>${item.type}</span>
 																		<p>${item.name}</p>
+																		<p class="totals">보유 수량 :${item.avaliable_equipment_cnt}</p>
 																	</div>
 																	<p>${item.description}</p>
 																</div>

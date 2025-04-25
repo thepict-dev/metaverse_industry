@@ -12,11 +12,9 @@ const input = document.querySelector('.numInput input');
 
 // 체크박스 선택 active
 const updateContainerClasses = (e) => {
-	console.log(e.target.parentElement);
 	const liContainer = e.target.parentElement;
 	const id = liContainer.dataset.id;
 	const cnt = liContainer.dataset.cnt;
-	console.log(e.target.checked);
 	const checked = e.target.checked;
 	if (checked) {
 		const currentSelected = document.querySelectorAll('.rentalCountItem').length;
@@ -174,7 +172,6 @@ const deleteAll = () => {
 }
 
 document.querySelector(".removeAll").addEventListener("click", () => {
-	console.log("삭제;;")
 	const rentalItems = document.querySelectorAll('.rentalCountItem');
 	if (rentalItems.length > 0) {
 		if (window.confirm("전체 삭제하시겠습니까?")) {
@@ -245,7 +242,6 @@ $('.add_bag').click(function () {
 	console.log("장바구니 추가");
 	const id = $(this).data('id');
 	const tag = $(this)
-	console.log(id);
 	let param = {
 		key_id: id,
 		type: "equipment"
@@ -338,28 +334,42 @@ function initTabSystem() {
 
 // 장비 목록 업데이트 함수
 function updateEquipmentList(equipmentList) {
+
     const listContainer = document.querySelector('.rentalItemList');
-    
-    const html = equipmentList.map(item => `
-        <li data-id="${item.id}" data-cnt="${item.avaliable_equipment_cnt}">
-            <input type="checkbox" name="equip" id="equip_${item.idx}">
-            <label for="equip_${item.idx}"></label>
-            <div class="checkItem">
-                <div class="itemImg">
-                    <img src="${item.image_url}" alt="">
-                    <span></span>
-                    <a href="#lnk" data-id="${item.id}" class="add_bag ${item.isLike === '1' ? 'active' : ''}">
-                        <img src="/img/user_img/bag.webp" alt="">
-                    </a>
-                </div>
-                <div class="itemTitles">
-                    <span>${item.type}</span>
-                    <p>${item.name}</p>
-                </div>
-                <p>${item.description}</p>
-            </div>
-        </li>
-    `).join('');
+   
+    const html = equipmentList.map(item => {
+		let isChecked = false;
+		rentalCountContainer.querySelectorAll("li").forEach(li => {
+		    if (li.dataset.id === item.id) {
+				isChecked = true
+			}
+		})
+		return  `
+	        <li data-id="${item.id}" data-cnt="${item.avaliable_equipment_cnt}">
+	            ${
+					isChecked ? 
+					`<input type="checkbox" name="equip" id="equip_${item.idx}" checked>`
+					: `<input type="checkbox" name="equip" id="equip_${item.idx}">`
+				}
+	            <label for="equip_${item.idx}"></label>
+	            <div class="checkItem">
+	                <div class="itemImg">
+	                    <img src="${item.image_url}" alt="">
+	                    <span></span>
+	                    <a href="#lnk" data-id="${item.id}" class="add_bag ${item.isLike === '1' ? 'active' : ''}">
+	                        <img src="/img/user_img/bag.webp" alt="">
+	                    </a>
+	                </div>
+	                <div class="itemTitles">
+	                    <span>${item.type}</span>
+	                    <p>${item.name}</p>
+	                    <p class="totals">보유 수량 :${item.avaliable_equipment_cnt}</p>
+	                </div>
+	                <p>${item.description}</p>
+	            </div>
+	        </li>
+	    `
+	}).join('');
     
     listContainer.innerHTML = html;
     
@@ -371,17 +381,39 @@ function updateEquipmentList(equipmentList) {
 function reinitializeEventListeners() {
     // 체크박스 이벤트 리스너 재설정
     const checkboxes = document.querySelectorAll('.rentalItemList input[type="checkbox"]');
+    console.log(checkboxes);
     checkboxes.forEach(checkbox => {
         checkbox.addEventListener('change', updateContainerClasses);
     });
     
     // 장바구니 버튼 이벤트 리스너 재설정
-    $('.add_bag').click(function() {
-        console.log("장바구니 추가");
-        const id = $(this).data('id');
-        const tag = $(this);
-        // ... 기존 장바구니 추가 로직 ...
-    });
+	$('.add_bag').click(function () {
+		console.log("장바구니 추가");
+		const id = $(this).data('id');
+		const tag = $(this)
+		let param = {
+			key_id: id,
+			type: "equipment"
+		};
+	
+		$.ajax({
+			url: "/api/toggle_bag.do",
+			method: "POST",
+			data: JSON.stringify(param),
+			contentType: "application/json",
+			dataType: "json",
+			success: function (res) {
+				console.log(res);
+				if (res.msg === "added") {
+					tag.addClass('active');
+					window.alert("장바구니에 추가되었습니다.");
+				} else if (res.msg === "deleted") {
+					tag.removeClass('active');
+					window.alert("장바구니에서 삭제되었습니다.");
+				}
+			}
+		})
+	})
 }
 
 // 페이지 로드 시 초기화
