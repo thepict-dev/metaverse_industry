@@ -2,8 +2,6 @@
 const rentalCountContainer = document.querySelector('.rentalCountContainer');
 // 예약 리스트 컨테이너
 const rentalListContainer = document.querySelector('.rentalListContainer');
-// 체크박스
-const checkboxes = document.querySelectorAll('.rentalItemList input[type="checkbox"]');
 // 수량 버튼
 const decreaseBtn = document.querySelector('.numInput .pr');
 const increaseBtn = document.querySelector('.numInput .ne');
@@ -57,9 +55,18 @@ const updateContainerClasses = (e) => {
 		const deleteBtn = newItem.querySelector(".deleteItem");
 		deleteBtn.addEventListener("click", function () {
 			newItem.remove();
-			document.querySelector(`.rentalItemList li[data-id='${id}'] input`).checked = false;
+			const checkboxToUncheck = document.querySelector(`.rentalItemList li[data-id='${id}'] input`);
+			if (checkboxToUncheck) {
+				checkboxToUncheck.checked = false;
+			}
 			checkCart();
 			updateTotalCnt();
+			// 모든 체크박스가 해제되었는지 확인
+			const allCheckboxes = document.querySelectorAll('.rentalItemList input[type="checkbox"]');
+			const isAnyChecked = Array.from(allCheckboxes).some(checkbox => checkbox.checked);
+			if (!isAnyChecked) {
+				rentalListContainer.classList.remove('active');
+			}
 		});
 		if (input.max === "1") {
 			increaseBtn.disabled = true;
@@ -104,7 +111,8 @@ const updateContainerClasses = (e) => {
 
 		// 선택된 총 갯수 수
 		updateTotalCnt();
-		const isAnyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+		const allCheckboxes = document.querySelectorAll('.rentalItemList input[type="checkbox"]');
+		const isAnyChecked = Array.from(allCheckboxes).some(checkbox => checkbox.checked);
 		[rentalCountContainer, rentalListContainer].forEach(container => {
 			container.classList.toggle('active', isAnyChecked);
 		});
@@ -112,10 +120,18 @@ const updateContainerClasses = (e) => {
 	} else {
 		// 장바구니 삭제
 		const deleteItem = document.querySelector(`.rentalCountItem[data-id="${id}"]`)
-		deleteItem.remove();
+		if (deleteItem) {
+			deleteItem.remove();
+		}
 		checkCart();
 		updateTotalCnt();
-
+		
+		// 모든 체크박스가 해제되었는지 확인
+		const allCheckboxes = document.querySelectorAll('.rentalItemList input[type="checkbox"]');
+		const isAnyChecked = Array.from(allCheckboxes).some(checkbox => checkbox.checked);
+		if (!isAnyChecked) {
+			rentalListContainer.classList.remove('active');
+		}
 	}
 
 };
@@ -141,13 +157,18 @@ const checkCart = () => {
 	let totalCnt = $(".rentalCountItem").length;
 	if (totalCnt === 0) {
 		rentalCountContainer.classList.remove("active");
-
+		rentalListContainer.classList.remove("active");
 	}
+	
+	// UI 상태 업데이트
+	updateUIState();
 }
 
 // 이벤트 리스너
-checkboxes.forEach(checkbox => checkbox.addEventListener('change', updateContainerClasses));
-
+document.addEventListener('DOMContentLoaded', function() {
+    const initialCheckboxes = document.querySelectorAll('.rentalItemList input[type="checkbox"]');
+    initialCheckboxes.forEach(checkbox => checkbox.addEventListener('change', updateContainerClasses));
+});
 
 // 초기화
 // updateContainerClasses();
@@ -166,9 +187,20 @@ backBtn.addEventListener('click', () => {
 });
 
 const deleteAll = () => {
+	// 예약 목록의 모든 아이템 삭제
 	document.querySelectorAll(".rentalCountItem").forEach(el => el.remove());
-	checkboxes.forEach(el => el.checked = false);
+	
+	// 모든 체크박스 찾아서 초기화
+	document.querySelectorAll('.rentalItemList input[type="checkbox"]').forEach(checkbox => {
+		checkbox.checked = false;
+	});
+	
+	// 카운트 업데이트
 	updateTotalCnt();
+	
+	// UI 상태 초기화
+	rentalListContainer.classList.remove('active');
+	rentalCountContainer.classList.remove('active');
 }
 
 document.querySelector(".removeAll").addEventListener("click", () => {
@@ -180,7 +212,7 @@ document.querySelector(".removeAll").addEventListener("click", () => {
 			rentalCountContainer.classList.remove('show');
 		}
 	}
-})
+});
 
 const updateTotalCnt = () => {
 	let totalCnt = $(".rentalCountItem").length;
@@ -334,7 +366,6 @@ function initTabSystem() {
 
 // 장비 목록 업데이트 함수
 function updateEquipmentList(equipmentList) {
-
     const listContainer = document.querySelector('.rentalItemList');
    
     const html = equipmentList.map(item => {
@@ -375,14 +406,38 @@ function updateEquipmentList(equipmentList) {
     
     // 이벤트 리스너 재설정
     reinitializeEventListeners();
+    
+    // UI 상태 업데이트
+    updateUIState();
+}
+
+// UI 상태 업데이트 함수
+function updateUIState() {
+    // 예약 목록에 아이템이 있는지 확인
+    const hasItems = document.querySelectorAll('.rentalCountItem').length > 0;
+    
+    // 체크된 체크박스가 있는지 확인
+    const hasCheckedBoxes = Array.from(document.querySelectorAll('.rentalItemList input[type="checkbox"]')).some(checkbox => checkbox.checked);
+    
+    // UI 상태 업데이트
+    if (hasItems || hasCheckedBoxes) {
+        rentalCountContainer.classList.add('active');
+        rentalListContainer.classList.add('active');
+    } else {
+        rentalCountContainer.classList.remove('active');
+        rentalListContainer.classList.remove('active');
+    }
+    
+    // 총 개수 업데이트
+    updateTotalCnt();
 }
 
 // 이벤트 리스너 재설정 함수
 function reinitializeEventListeners() {
     // 체크박스 이벤트 리스너 재설정
-    const checkboxes = document.querySelectorAll('.rentalItemList input[type="checkbox"]');
-    console.log(checkboxes);
-    checkboxes.forEach(checkbox => {
+    const rentalItems = document.querySelectorAll('.rentalItemList input[type="checkbox"]');
+    console.log(rentalItems);
+    rentalItems.forEach(checkbox => {
         checkbox.addEventListener('change', updateContainerClasses);
     });
     

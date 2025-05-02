@@ -163,9 +163,10 @@
                             <p class="mb">예약 승인(관리자)</p>
                         </li>
                         <li>
-                            <p class="pc">최종평가<br>(결과보고 및 정산)</p>
-                            <p class="mb">최종평가(결과보고 및 정산)</p>
+                            <p class="pc">시설장비 이용<br>및 대여</p>
+                            <p class="mb">시설장비 이용 및 대여</p>
                         </li>
+                        <li>퇴실 및 반납확인</li>
                     </ul>
                 </div>
             </div>
